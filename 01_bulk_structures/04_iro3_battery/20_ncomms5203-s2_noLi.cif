@@ -1,0 +1,53 @@
+#======================================================================
+
+# CRYSTAL DATA
+
+#----------------------------------------------------------------------
+
+data_VESTA_phase_1
+
+
+_pd_phase_name                         ''
+_cell_length_a                         5.9119(3)
+_cell_length_b                         8.4461(5)
+_cell_length_c                         17.836(1)
+_cell_angle_alpha                      90
+_cell_angle_beta                       90
+_cell_angle_gamma                      90
+_symmetry_space_group_name_H-M         'C c c m'
+_symmetry_Int_Tables_number            66
+
+loop_
+_symmetry_equiv_pos_as_xyz
+   'x, y, z'
+   '-x, -y, -z'
+   '-x, -y, z'
+   'x, y, -z'
+   '-x, y, -z+1/2'
+   'x, -y, z+1/2'
+   'x, -y, -z+1/2'
+   '-x, y, z+1/2'
+   'x+1/2, y+1/2, z'
+   '-x+1/2, -y+1/2, -z'
+   '-x+1/2, -y+1/2, z'
+   'x+1/2, y+1/2, -z'
+   '-x+1/2, y+1/2, -z+1/2'
+   'x+1/2, -y+1/2, z+1/2'
+   'x+1/2, -y+1/2, -z+1/2'
+   '-x+1/2, y+1/2, z+1/2'
+
+loop_
+   _atom_site_label
+   _atom_site_occupancy
+   _atom_site_fract_x
+   _atom_site_fract_y
+   _atom_site_fract_z
+   _atom_site_adp_type
+   _atom_site_U_iso_or_equiv
+   _atom_site_type_symbol
+   Ir01       1.0     0.250000      0.250000      0.08353(7)   Uiso  0.006900 Ir
+   Ir02       1.0     0.500000      0.500000      0.16659(8)   Uiso  0.010300 Ir
+   O008       1.0     0.716(4)      0.518(2)      0.0850(10)   Uiso  0.016000 O
+   O009       1.0     0.719(9)      0.500000      0.250000     Uiso  0.047000 O
+   O011       1.0     0.018(7)      0.271(5)      0.000000     Uiso  0.033000 O
+   O012       1.0     0.470(4)      0.258(3)      0.162(2)     Uiso  0.030000 O

@@ -1,3 +1,15 @@
+# Mine
+
+__old__
+__temp__
+.ipynb_checkpoints
+outdata
+out_data
+out_plot
+out_plots
+__bkp__
+*conflicted copy *
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

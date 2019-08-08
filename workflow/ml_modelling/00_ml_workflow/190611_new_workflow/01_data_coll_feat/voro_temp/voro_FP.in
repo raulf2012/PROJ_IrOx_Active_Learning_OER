@@ -1,0 +1,8 @@
+data = new data.materials.CrystalStructureDataset
+data attributes properties directory /mnt/f/Dropbox/01_norskov/00_git_repos/CatLearn/catlearn/api/magpie/lookup-data
+data attributes properties add set general
+data import ./voro_temp/cif/
+data target id
+data attributes generate
+save data voro_temp/voro_FP csv
+exit

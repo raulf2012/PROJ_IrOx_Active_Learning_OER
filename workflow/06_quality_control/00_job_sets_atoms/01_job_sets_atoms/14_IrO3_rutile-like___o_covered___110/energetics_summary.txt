@@ -1,0 +1,42 @@
+-411.2140917 -421.31304192 -416.09063227
+ooh_up
+-425.81092825
+ooh_down
+-426.34403714
+
+OOH up
+Argument List: ['/mnt/c/Users/raul_desktop/Dropbox/01_norskov/00_projects/04_irox_surfaces_oer_tmp/scripts/02_calc_overpot/get_overpot_MB_MG_vasp_TS_vers2.py', '-raw', '-411.2140917', '-421.31304192', '-416.09063227', '-425.81092825']
+---------------------------------------------
+-0.014499999999999916 0.30225 0.3447500000000001
+    dG corrections to Es in standard OER mechanism
+    dG1-dE1   dG2-dE2   dG3-dE3   dG4-dE4
+    0.302     -0.317    0.359     -0.345
+##################################
+---------------------------------------------
+    DEoh      DEo       DEooh     DEooh-DEoh
+    0.746     2.583     3.708     2.962     
+    DGoh      DGo       DGooh     DGooh-DGoh
+    1.048     2.568     4.053     3.004     
+    DG1       DG2       DG3       DG4:
+    1.048     1.520     1.484     0.867
+---------------------------------------------
+    The Overpotential (step 2): 0.290 V 
+---------------------------------------------
+OOH down
+Argument List: ['/mnt/c/Users/raul_desktop/Dropbox/01_norskov/00_projects/04_irox_surfaces_oer_tmp/scripts/02_calc_overpot/get_overpot_MB_MG_vasp_TS_vers2.py', '-raw', '-411.2140917', '-421.31304192', '-416.09063227', '-426.34403714']
+---------------------------------------------
+-0.014499999999999916 0.30225 0.3447500000000001
+    dG corrections to Es in standard OER mechanism
+    dG1-dE1   dG2-dE2   dG3-dE3   dG4-dE4
+    0.302     -0.317    0.359     -0.345
+##################################
+---------------------------------------------
+    DEoh      DEo       DEooh     DEooh-DEoh
+    0.746     2.583     3.175     2.428     
+    DGoh      DGo       DGooh     DGooh-DGoh
+    1.048     2.568     3.519     2.471     
+    DG1       DG2       DG3       DG4:
+    1.048     1.520     0.951     1.401
+---------------------------------------------
+    The Overpotential (step 2): 0.290 V 
+---------------------------------------------

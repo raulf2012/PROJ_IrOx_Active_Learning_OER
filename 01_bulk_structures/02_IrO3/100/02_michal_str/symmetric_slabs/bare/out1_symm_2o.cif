@@ -1,0 +1,45 @@
+data_image0
+_cell_length_a       5.1456
+_cell_length_b       5.1456
+_cell_length_c       21.2873
+_cell_angle_alpha    90
+_cell_angle_beta     90
+_cell_angle_gamma    56.652
+
+_symmetry_space_group_name_H-M    "P 1"
+_symmetry_int_tables_number       1
+
+loop_
+  _symmetry_equiv_pos_as_xyz
+  'x, y, z'
+
+loop_
+  _atom_site_label
+  _atom_site_occupancy
+  _atom_site_fract_x
+  _atom_site_fract_y
+  _atom_site_fract_z
+  _atom_site_thermal_displace_type
+  _atom_site_B_iso_or_equiv
+  _atom_site_type_symbol
+  Ir1      1.0000 0.77547  0.71771  0.40561  Biso   1.000  Ir
+  Ir2      1.0000 0.13019  0.07243  0.59440  Biso   1.000  Ir
+  Ir3      1.0000 0.09811  0.04035  0.31121  Biso   1.000  Ir
+  Ir4      1.0000 0.45283  0.39507  0.50000  Biso   1.000  Ir
+  Ir5      1.0000 0.80755  0.74979  0.68879  Biso   1.000  Ir
+  O1       1.0000 0.21372  0.50165  0.42367  Biso   1.000  O
+  O2       1.0000 0.56845  0.85638  0.61246  Biso   1.000  O
+  O3       1.0000 0.88206  0.47859  0.32928  Biso   1.000  O
+  O4       1.0000 0.23678  0.83331  0.51807  Biso   1.000  O
+  O5       1.0000 0.59150  0.18803  0.70686  Biso   1.000  O
+  O6       1.0000 0.31416  0.60209  0.29315  Biso   1.000  O
+  O7       1.0000 0.66889  0.95682  0.48194  Biso   1.000  O
+  O8       1.0000 0.02361  0.31154  0.67073  Biso   1.000  O
+  O9       1.0000 0.33723  0.93376  0.38754  Biso   1.000  O
+  O10      1.0000 0.69195  0.28848  0.57633  Biso   1.000  O
+  O11      1.0000 0.78248  0.03334  0.35841  Biso   1.000  O
+  O12      1.0000 0.13720  0.38806  0.54720  Biso   1.000  O
+  O13      1.0000 0.49192  0.74278  0.73599  Biso   1.000  O
+  O14      1.0000 0.41372  0.04738  0.26401  Biso   1.000  O
+  O15      1.0000 0.76844  0.40210  0.45280  Biso   1.000  O
+  O16      1.0000 0.12316  0.75682  0.64159  Biso   1.000  O

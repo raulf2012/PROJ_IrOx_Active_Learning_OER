@@ -1,0 +1,495 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Machine Learning IrOx OER Paper
+%%
+%% Github Repo:
+%% https://github.com/raulf2012/irox_ml_oer
+%%
+%% Workflowy Link (notes, to-do lists, and additional materials):
+%% https://workflowy.com/s/ml-irox-oer-publicat/kA13CTQkFbAzFkBd
+%%
+%% This is an example of an edit that a writer does on Overleaf's website.
+%% This is another example I just made
+%% So how is the workflow going to look to get these changes into the
+%% king_branch on the Git Repo site?
+%%
+%% This is me editing the document on my local computer, lets see if I can get
+%% these changes into the Overleaf version
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% | - __latex_setup__
+\documentclass[journal=jacsat,manuscript=article]{achemso}
+
+\usepackage[version=3]{mhchem} % Formula subscripts using \ce{}
+\usepackage{subfig}
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{hhline}
+
+% 181208 | RF | Added to include svg files
+\usepackage{svg}
+% __|
+
+% | - Author List *************************************************************
+
+% | - @Raul Flores
+\author{Raul A. Flores}
+
+\affiliation[SUNCAT]
+{
+  SUNCAT Center for Interface Science and Catalysis,
+  Department of Chemical Engineering,
+  Stanford University,
+  Stanford 94305,
+  California,
+  USA
+  }
+\email{flores12@stanford.edu}
+% __|
+
+% | - @Christopher Paolucci
+\author{Christopher Paolucci}
+
+\affiliation[UVA]
+{
+  Department of Chemical Engineering,
+  University of Virginia,
+  Charlottesville,
+  Virginia 22903,
+  United States
+  }
+\email{cp9wx@virginia.edu}
+% __|
+
+% | - Ankit Jain
+\author{Ankit Jain}
+
+\affiliation[DTU]
+{
+  Department of Physics,
+  Technical University of Denmark,
+  Lyngby,
+  Denmark
+  }
+\email{temp_temp_ankits_email_address_temp_temp@dtu.dk}
+% __|
+
+% | - Ziyun Wang
+% \author{Zhyun}
+%
+% \affiliation[SUNCAT]
+% {
+% SUNCAT Center for Interface Science and Catalysis,
+% Department of Chemical Engineering,
+% Stanford University,
+% Stanford,
+% California,
+% United States
+% }
+% \email{temp_temp_ankits_email_address_temp_temp@dtu.dk}s
+% __|
+
+% | - Muratahan Aykol
+\author{Muratahan Aykol}
+
+\affiliation[TRI]
+{
+  Toyota Research Institute,
+  Los Altos,
+  CA 94022,
+  USA
+  }
+\email{muratahan.aykol@tri.global}
+% __|
+
+% | - Jens Norskov
+\author{Jens K. N{\o}rskov}
+
+\affiliation[DTU]
+{
+  Department of Physics,
+  Technical University of Denmark,
+  Lyngby,
+  Denmark
+  }
+\email{jkno@dtu.dk}
+% __|
+
+% | - @Michal Bajdich
+\author{Michal Bajdich}
+
+\affiliation[SLAC]
+{
+  SUNCAT Center for Interface Science and Catalysis,
+  SLAC National Accelerator Laboratory,
+  Menlo Park,
+  CA 94025,
+  USA
+  }
+\email{bajdich@slac.stanford.edu}
+% __|
+
+% | - Thomas Bligaard
+\author{Thomas Bligaard}
+
+\affiliation[SLAC]
+{
+  SUNCAT Center for Interface Science and Catalysis,
+  SLAC National Accelerator Laboratory,
+  Menlo Park,
+  CA 94025,
+  USA
+  }
+\email{bligaard@stanford.edu}
+% __|
+
+% __| *************************************************************************
+
+% Article Title
+\title[ML discovered IrOx phases ]{Machine-Learning Discovery of Highly oxidized \ce{IrO_x} Phases}
+
+\begin{document}
+% #############################################################################
+% | - MAIN DOCUMENT ***********************************************************
+
+% | - TOC Figure
+\begin{tocentry}
+
+\begin{center}
+\includegraphics[height=3.5cm]{00_figures/Surrogate_model}
+\end{center}
+
+\end{tocentry}
+% __|
+
+% | - Abstract
+\begin{abstract}
+
+% ################################# Paragraph #################################
+Recent advacnemnets in statistial methods, colloquially termed as machine learning,
+have revolutionized a tremendous number of fields due to the ease by which we can train models that are flexible enough to regress to data of interest while mainting predictive power.
+Nowhere has this this impact been felt as much as in the field of materials science,
+which had previously been bottlenecked by reltively computaitnally expensive methods.
+
+Herein, we will fill in the abstract and it will be fairly concise but descriptive as well.
+Talk about ML, materials screening, OER, and Ir systems.
+
+\end{abstract}
+% __|
+
+% | - Introduction
+\section{Introduction}
+
+% ################################# Paragraph #################################
+Iterative Active Machine Learning and unique prototype identification to discover stable new materials and catalysts.
+Motivation for \ce{IrO_x}, low representation, longstanding controversy over oxidation states and topology, and demonstrates promise for OER and Li ion batteries.
+
+Reported +6 oxidation state phases are achievable leading to high degree of structural variability, which is the highest for transition metals.
+High oxidation states (low pH high anodic voltage, harsh oxidizing conditions) unexplored, need very specific structures with precise oxygen connectivity (aka high pressure \ce{SrIrO_3}) that can exist.
+Machine learning is the efficient way to explore this “exploring antarctica for life” sparse space.
+What we show here...
+
+
+% ################################# Paragraph #################################
+Crystallographic Discovery and Machine Learning.
+Current state of databases (OQMD, MP, CatHub, alfowlib).
+What parts of the database are missing (e.g. \ce{IrO_3}).
+Ankit - Condensed version of Ankit paper
+Prototyping databases to identify knowledge gaps.
+% @Ankit
+Deriving features from structures to describe heats of formation.
+What has been done (simple models) more recently using DFT+Machine Learning.
+
+
+% ################################# Paragraph #################################
+Oxides for batteries/fuel cells, Iridium Oxide, OER, Lithiated \ce{IrO_3}.
+Highly oxidized phases of oxides for fuel cell and energy storage applications.
+% __|
+
+% | - Results and Discussion
+\section{Results and discussion}
+
+  % | - I | IrO2
+  \subsection{I. \ce{IrO_2}}
+
+For Structure Rendering Use:
+@Michal To Send example vesta files, font Avenir
+
+
+Figures: Summary figure of found structures,
+% ################################# Paragraph #################################
+% AB2 Structures Ankit
+- There are XYZ unique AB2 structures (or multiples, e.g. A2B4)
+- Of those we found 697 unique AB2 prototypes (unique SG/Wyckoff combination) in OQMD/MP
+- To generate our test set we substituted Ir for A and O for B, then isotropically expanded cell volume to constrain a minimum Ir-O distance of XYZ
+- Next translated each of the 697 structures to be described by 271 features (invariant to isotropic expansion/compression), then reduced to 30 using PCA, described in methods XYZ
+- To generate initial training data use existing DFT. Not enough on \ce{IrO_2}, so used OQMD to generate initial training data from nearest structures in phase space, described in Methods XYZ. Training set of 30 structures in SI XYZ.
+
+% ################################# Paragraph #################################
+% Iterative Training of Gaussian Process
+- Trained Gaussian Process, rational quadratic kernel, variable lengthscales.
+CV error of XYZ ev/atom, initial predictions in figure XYZ.
+- Selected 10 structures with lowest prediction-uncertainty for DFT.
+Structures were volume optimized, then fully relaxed, described in methods XYZ.
+- Model retrained with the 10 DFT computed structures ONLY, 271 features->110 features applicable to \ce{IrO_2}->20 principle components for 99.9 percent variance.
+CV error…
+- Repeat until XYZ, final predictions shown in Fig XYZ
+
+% COMBAK FIGURE HERE
+% Figure 2:  IrO2 initial and final predictions and uncertainties
+
+% ################################# Paragraph #################################
+% IrO2 Structure Analysis
+- Describe relevent features
+  - Physical intution?
+- Describe convex hull plot (energy vs. Ir-O distance), computed amorphous phase to define synthesizability
+- While only 2 \ce{IrO_2} in MP/OQMD, we can compare our structures to other computed \ce{IrO_2} not in open databases.
+
+% TEMP COMBAK Remove dummy citation after real ones start coming in
+This is a citation example \cite{dummy9999}.
+Without it I think stuff breaks.
+
+  % | - Figure | IrO2 Convergence Plot
+\begin{figure}
+\centering
+\makebox[\textwidth][c]{\includegraphics
+  {00_figures/ml_convergence_plots/iro2_ml_conv.png}
+}
+\caption{\label{fig:convergence_plot_iro2_0}
+  TMP.
+  }
+\end{figure}
+  % __|
+
+  % __|
+
+  % | - II | IrO3
+  \subsection{II. \ce{IrO_3}}
+
+% ################################# Paragraph #################################
+% AB3 Structures and Training
+- XYZ unique AB3 Structures, 259 unique prototypes.  Substitute Ir and O, expand to minimum Ir-O distance > XYZ
+- followed same procedure as in 3.1, Training Set of 35 structures, 8 of which are \ce{IrO_3}
+- Describe initial training and training after first 10 DFT structures
+
+% ################################# Paragraph #################################
+% P2 Analysis of \ce{IrO_3} Structures
+% COMBAK Change "alpha" to actual greek symbol
+- Describe convex hull, classes of structures (\ce{alpha-AlF3} like, rutile like, and layered, should be segregated in hull plot)
+- briefly describe structures within each class, cite in literature where appropriate
+
+  % | - Figure | IrO3 Convergence Plot
+\begin{figure}
+\centering
+\makebox[\textwidth][c]{\includegraphics
+  {00_figures/ml_convergence_plots/iro3_ml_conv.png}}
+\caption{\label{fig:convergence_plot_iro3_0}
+  TMP.
+  }
+\end{figure}
+  % __|
+
+  % __|
+
+  % | - III | Electrochemical OER Application
+  \subsection{III. Electrochemical OER Application}
+
+% ################################# Paragraph #################################
+% Short introduction into the cataylsis section
+In the following section we will demonstrate the merit of our bulk crystal searching method by investigating the 4 most stable structures for the oxygen evolution reaction, an important electrochemical reaction with application in energy storage technologies.
+
+
+    % | - Bulk Pourbaix
+    \subsubsection{Bulk Pourbaix}
+
+% ################################# Paragraph #################################
+% COMBAK
+The electochemical stability phase diagram (E vs. pH) was constructed from all bulk crystals of Ir, \ce{IrO_2}, \ce{IrO_3}, and aqeous dissolved \ce{IrO[4-]}.
+Only the most stable structure for each stoicheometry is visible on the Pourbaix diagram which correspond to TEMP and are shown in Fig. \ref{fig:bulk_pourbaix}
+% COMBAK Reference 4 most stable structres from elsewhere
+% Also explain the Ir and IrO[4-] ion
+
+% ################################# Paragraph #################################
+Under acidic condition (< pH 7) and in the bias region of of interest for the OER, there exists a region of stability for the novel alpha-AlF3 IrO3 structure found herein.
+
+% ################################# Paragraph #################################
+% COMBAK Insert bound of stability here
+At a pH=0 the bound of stability for alpha-AlF3 IrO3 spans TEMP
+
+    % | - Figure | Bulk Pourbaix Diagram
+\begin{figure}
+\centering
+\makebox[\textwidth][c]{\includegraphics
+  {00_figures/oer_activity_stability/bulk_pourbaix_0.pdf}}
+\caption{\label{fig:bulk_pourbaix}
+  Electrochemical bulk phase stability diagram (Pourbaix) of the Ir-O-H chemical space.
+  }
+\end{figure}
+    % __|
+
+    % __|
+
+    % | - OER Activities and Surfaces
+    \subsubsection{b. OER Activities and Surfaces}
+
+% ################################# Paragraph #################################
+% Surface Energy Pourbaix Analysis
+
+The OER activity (expressed in overpotential) for surfaces cut from the IrO2, and the 3 most stable polymorphs of IrO3 are shown in Fig. \ref{fig:oer_volcano}.
+% TODO #reference | Reference for VESTA x-ray diff. pattern method
+The specific facets were chosen from the highest intensity x-ray diffraction peaks from powder-diffraction spectra simulated in VESTA.
+
+
+    % | - Figure | OER Volcano/Surface Pourbaix
+\begin{figure}
+\centering
+\makebox[\textwidth][c]{\includegraphics
+  {00_figures/oer_activity_stability/00_master_plot__oer-volc_surf-pourb_struct__main_v3__outplot.pdf}}
+\caption{\label{fig:oer_volcano}
+  Summary of OER relevent results
+  (a) Surface energy Pourbaix diagrams
+  OER activity volcano for most relevant facets of \ce{IrO2} (yellow), \ce{IrO3} (blue), and \ce{IrO3}-rutile-like (purple).
+  Circles designate oxygen covered surfaces while triangles designate hydroxyl (*OH) terminated surfaces (relevant surface terminations were found via surface Pourbaix analyses.
+  Surface energies at standard conditions (pH and V = 0) are reflected in the border color for each data point, where black indicates a low energy surface termination and white indicates more unstable surfaces.
+  The color range goes from x to y.
+  Surface energy of different facets of \ce{IrO2}, \ce{IrO3-rutile}, and \ce{aAlF3-IrO3}.
+  }
+\end{figure}
+    % __|
+
+% ################################# Paragraph #################################
+% Surface Energy Pourbaix Analysis
+To determine the most likely experimentally abundant surface facets and surface coverages, a surface energy Pourbaix diagram was constructuted (TEMP).  % COMBAK Insert correct reference
+See (SI for surface energy/Pourbaix part) for the method used to calculate surface energies.
+% COMBAK
+    % __|
+
+    % | - OER Intermediate Scaling
+    \subsubsection{c. OER Intermediate Scaling}
+
+% ################################# Paragraph #################################
+Write stuff
+
+    % | - Figure | OER Scaling Relations
+\begin{figure}
+\centering
+\makebox[\textwidth][c]{\includegraphics
+{00_figures/oer_activity_stability/pl_scaling_relations_tmp.pdf}}
+\caption{\label{fig:scaling_relations}
+  Scaling relationship between DG of adsorption of the intermediate species of the OER using dG*OH as a descriptor.
+  DG*OOH, DG*O, and DG*OH are plotted on the y-axis.
+  }
+\end{figure}
+    % __|
+
+    % __|
+
+  % __|
+
+% __|
+
+% | - Conclusion
+\section{Conclusion}
+
+% ################################# Paragraph #################################
+And in conclusion we presented work here...
+% __|
+
+% __|**************************************************************************
+% #############################################################################
+
+% | - Acknowledgement *********************************************************
+\begin{acknowledgement}
+
+% COMBAK | Add to, and finalize this
+Organizations to acknowledge
+TRI
+SUNCAT
+Stanford
+NERSC
+etc.
+
+% NOTE | Copied and pasted from some sample text @Michal sent me
+JAGT and MB acknowledge the support by the U.S. Department of Energy, Office
+of Science, Office of Basic Energy Science, via Grant DE-SC0008685 to the
+SUNCAT Center of Interface Science and Catalysis.
+
+The authors would like to acknowledge the use of the computer time allocation
+for the “Transition metal-oxide and metal surfaces: applications and
+reactivity trends in catalysis” at the National Energy Research Scientific
+Computing Center, a DOE Office of Science User Facility supported by the
+Office of Science of the U.S. Department of Energy under Contract No.
+DE-AC02-05CH11231.
+
+\end{acknowledgement}
+% __| *************************************************************************
+
+% | - Supplementary Information ***********************************************
+
+  % | - __latex_setup__
+  \clearpage
+  \appendix
+  \renewcommand{\thefigure}{S\arabic{figure}}
+  \setcounter{figure}{0}
+  \renewcommand{\thetable}{S\arabic{table}}
+  \setcounter{table}{0}
+  % __|
+
+  \begin{suppinfo}
+  % ###########################################################################
+
+  % | - Machine Learning Algorithm Methods
+  \subsection{Machine Learning Algorithm Methods}
+
+Relevant details about the ML Gaussian process here % @Chris
+  % __|
+
+  % | - Electrochemical OER Computational Methods
+  \subsection{Electrochemical OER Computational Methods}
+
+  % | - Density Functional Theory Methods
+  \subsubsection{Density Functional Theory Methods}
+% Get VASP #reference in the ex. word doc. that @Michal shared with me
+All OER calculations were performed using density functional theory (DFT) implemented via the Vienna ab-initio simulation package (VASP) and utilizing the PBE exchange-correlation functiional.
+Dipole corrections were imposed on all non-symmetric slabs.
+A 4x4x3 k-point mesh with gamma-point cenntered Monkshort-packing was used for all slabs.
+The plane-wave energy cutoff was 500 eV.
+
+% COMBAK Figure out how much spacing was used for all slabs
+% FIXME Change the A -> Angstrom symbol
+
+% COMBAK What kind of optimization routine was used? (Newtonian, BFGS?)
+All slab calculations maintained a vacuum spacing of <15 A.
+% COMBAK change A -> Angstrom
+All structures were relaxed utilizing a TEMP algorithm with a stop criteria being that all atoms satify a maximum force threshold of 0.02 eV/A.
+  % __|
+
+  % | - OER Thermodynamic Methodology
+  \subsubsection{OER Thermodynamic Methodology}
+  % __|
+
+  % | - Surface Energy Pourbaix Methodology
+  \subsubsection{Surface Energy Pourbaix Methodology}
+  % __|
+
+Procedure:
+  - For the top/most stable bulk structures the following procedure was carried out
+
+  * Stable stoicheometric terminations were cut from the bulk
+      Stable termination planes were guesstimated via intution, and the x-ray diffraction pattern tool from Vesta
+
+  * Electrochemical surface coverage was elucidated via a surface Pourbiax analysis
+      Need to know the coverage of surface under operating conditions (>1.23 VRHE)
+
+  * Thermodynamic/limiting potential analysis of the OER mechanistic pathway
+      Volcano plot, limiting potentials, etc.
+
+% TODO Gibbs corrections, OER mechanism
+  % __|
+
+  \end{suppinfo}
+% __| *************************************************************************
+
+% Bibliography
+\bibliography{01_references/dummy_refs.bib}
+
+\end{document}
