@@ -10,6 +10,10 @@ import os
 #__|
 
 #| - VASP Gas-phase References
+# Exp. heat of formation of H2O
+DG_f_H2O = -2.4583  # eV | -4.9166 eV for 2 H2O molecules
+
+
 h2_ref = -6.759300
 
 # My Calculations
@@ -50,14 +54,9 @@ h2_corr = zpe_h2 + cv_h2 - ts_h2
 #__|
 
 #| - Adsorbate Free Energy Corrections
-
-#| - NEW | Attempt to automate the calculation of the adsorbate FE corr dict
 # Adsorbate Vibrational Analysis --> Free Energy Contributions
 # Obtained from DFT jobs in the following dir:
 # /global/cscratch1/sd/flores12/IrOx_Project/04_ads_vib/IrO3/110/01_O_covered
-
-# 0.42611961567987805
-
 ads_fe_dict = {
     "oh": {
         "zpe": 0.354,
@@ -78,53 +77,57 @@ ads_fe_dict = {
         },
     }
 
-def calc_ads_corr_i(
-    ads_spec,
-    ads_fe_dict,
-    h2o_corr,
-    h2_corr,
-    ):
-    """
-    """
-    #| - calc_ads_corr_i
-    if ads_spec == "oh":
-        num_H = 1
-        num_O = 1
-    elif ads_spec == "o":
-        num_H = 0
-        num_O = 1
-    elif ads_spec == "ooh":
-        num_H = 1
-        num_O = 2
+#| - NEW | Attempt to automate the calculation of the adsorbate FE corr dict
+# 0.42611961567987805
 
-    corr_i = (0. +
 
-        + ( 0. +
-            + ads_fe_dict[ads_spec]["zpe"] +
-            + ads_fe_dict[ads_spec]["cv"] +
-            - ads_fe_dict[ads_spec]["ts"]
-            ) +
-
-        - (0. +
-            + h2o_corr +
-            + ((num_H - num_O * 2.) / 2.) * h2_corr
-            )
-
-        )
-
-    return(corr_i)
-    #__|
-
-corr_oh = calc_ads_corr_i("oh", ads_fe_dict, h2o_corr, h2_corr)
-corr_o = calc_ads_corr_i("o", ads_fe_dict, h2o_corr, h2_corr)
-corr_ooh = calc_ads_corr_i("ooh", ads_fe_dict, h2o_corr, h2_corr)
-
-corrections_dict_tmp = {
-    "ooh": corr_ooh,
-    "o": corr_o,  # I had this as negative before | RF - 181105
-    "oh": corr_oh,
-    "bare": 0.,
-    }
+# def calc_ads_corr_i(
+#     ads_spec,
+#     ads_fe_dict,
+#     h2o_corr,
+#     h2_corr,
+#     ):
+#     """
+#     """
+#     #| - calc_ads_corr_i
+#     if ads_spec == "oh":
+#         num_H = 1
+#         num_O = 1
+#     elif ads_spec == "o":
+#         num_H = 0
+#         num_O = 1
+#     elif ads_spec == "ooh":
+#         num_H = 1
+#         num_O = 2
+#
+#     corr_i = (0. +
+#
+#         + ( 0. +
+#             + ads_fe_dict[ads_spec]["zpe"] +
+#             + ads_fe_dict[ads_spec]["cv"] +
+#             - ads_fe_dict[ads_spec]["ts"]
+#             ) +
+#
+#         - (0. +
+#             + (num_O) * h2o_corr +
+#             + ((num_H - num_O * 2.) / 2.) * h2_corr
+#             )
+#
+#         )
+#
+#     return(corr_i)
+#     #__|
+#
+# corr_oh = calc_ads_corr_i("oh", ads_fe_dict, h2o_corr, h2_corr)
+# corr_o = calc_ads_corr_i("o", ads_fe_dict, h2o_corr, h2_corr)
+# corr_ooh = calc_ads_corr_i("ooh", ads_fe_dict, h2o_corr, h2_corr)
+#
+# corrections_dict_tmp = {
+#     "ooh": corr_ooh,
+#     "o": corr_o,
+#     "oh": corr_oh,
+#     "bare": 0.,
+#     }
 #__|
 
 # My data
@@ -504,6 +507,24 @@ scaling_dict_ideal = {
         },
 
     }
+
+
+scaling_dict_fitted = {
+
+    "ooh": {
+        "m": 0.976,
+        "b": 3.09,
+        },
+    "o": {
+        "m": 1.30,
+        "b": 1.19,
+        },
+    "oh": {
+        "m": 1.,
+        "b": 0.,
+        },
+    }
+
 #__|
 
 #| - Experimental IrOx Data From Nature Paper
@@ -532,8 +553,8 @@ exp_irox_lim_pot = {
 #| - Figure Settings
 
 #| - Fonts styling
-axis_label_font_size = 10 * (4/3)
-axis_tick_labels_font_size = 9 * (4/3)
+axis_label_font_size = 10 * (4 / 3)
+axis_tick_labels_font_size = 9 * (4 / 3)
 
 font_family = "Arial"
 base_font_color = "black"
