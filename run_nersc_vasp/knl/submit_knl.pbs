@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH -q premium 
+#SBATCH -t 00:180:00
+#SBATCH -N 5  # 24 cpus per node on edison, 32 per node on cori haswell, 50? on knl
+#SBATCH -e job.err
+#SBATCH -o job.out
+#SBATCH -C knl #new cori 
+#SBATCH --tasks-per-node=66
+
+module load vasp-tpc/5.4.4-knl
+
+export OMP_NUM_THREADS=1
+export OMP_PLACES=threads
+export OMP_PROC_BIND=spread
+
+echo "import os" > run_vasp.py
+echo "exitcode = os.system('srun -n 330 -c 4 --cpu_bind=cores vasp_std')" >> run_vasp.py #on cori
+
+python ./model.py
