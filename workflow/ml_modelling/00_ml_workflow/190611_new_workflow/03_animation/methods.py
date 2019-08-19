@@ -4,8 +4,11 @@ import os
 import pickle
 import pandas as pd
 
-import plotly.plotly as py
-import plotly.graph_objs as go
+import chart_studio.plotly as py
+import plotly.graph_objects as go
+
+# import plotly.plotly as py
+# import plotly.graph_objs as go
 #__|
 
 #| - Script Inputs
