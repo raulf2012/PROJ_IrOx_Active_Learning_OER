@@ -1,0 +1,4 @@
+python/2.7-anaconda-4.4(58):ERROR:105: Unable to locate a modulefile for 'numpy'
+python/2.7-anaconda-4.4(58):ERROR:105: Unable to locate a modulefile for 'scipy'
+cp: cannot stat 'OUTCAR': No such file or directory
+cp: cannot stat 'moments.traj': No such file or directory
