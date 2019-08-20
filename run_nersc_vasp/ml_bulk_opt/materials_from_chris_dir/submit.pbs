@@ -1,0 +1,35 @@
+#!/bin/csh 
+#SBATCH -p regular
+##SBATCH -p debug
+#SBATCH -N 10 # 24 cpus per node on edison, 32 per node on cori haswell, 50? on knl
+#SBATCH -A  m2997
+#SBATCH -e error.txt
+#SBATCH -o output.txt
+#SBATCH -t 02:30:00
+##SBATCH --qos=scavenger
+##SBATCH --qos=premium
+##SBATCH -C haswell #this is for cori haswell (old)
+##SBATCH -C knl #new cori 
+## 24 cores (edison) 32 cpus (cori)
+
+module load python numpy scipy #matplotlib
+setenv HOME2 /project/projectdirs/m2416
+setenv PYTHONPATH $HOME/.local/cori/2.7-anaconda-4.4/lib/python2.7/site-packages
+
+module load vasp-tpc/5.4.1
+
+cd $SLURM_SUBMIT_DIR
+setenv TMPDIR $SLURM_SUBMIT_DIR
+
+setenv VASP_SCRIPT ./run_vasp.py
+setenv VASP_PP_PATH $HOME2/vasp/pseudo52
+
+echo "import os" > run_vasp.py
+#echo "exitcode = os.system('srun -n 128 vasp_std')" >> run_vasp.py #on edison
+echo "exitcode = os.system('srun -n 240 vasp_std')" >> run_vasp.py #on edison
+#echo "exitcode = os.system('srun -n 24 vasp_std')" >> run_vasp.py #on edison
+#python ./setup.py
+python ../run_bulk.py
+#python ../run_surface.py
+
+
