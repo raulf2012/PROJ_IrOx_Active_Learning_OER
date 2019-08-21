@@ -63,11 +63,17 @@ figure_file_paths.append(subplot_c)
 
 # # Converting pdf to svg 
 
-out_dir = "converted_svgs"
+# +
+directory = "out_data/converted_svgs"
+if not os.path.exists(directory):
+    os.makedirs(directory)
+
+out_dir = directory
 pdf_figure_file_paths = []
 for figure_path_i in figure_file_paths:
     pdf_figure_path_i = convert_pdf_to_svg(figure_path_i, out_dir)
     pdf_figure_file_paths.append(pdf_figure_path_i)
+# -
 
 # # Creating Figure Object
 
@@ -86,7 +92,7 @@ fig = Figure(
         ).move(310 - 2.948999882 + 0.09991455078, 270 + 2.344163895),
     )
 
-fig.save("fig_final_compose.svg")
-display(iSVG("fig_final_compose.svg"))
+fig.save("out_data/fig_final_compose.svg")
+# display(iSVG("fig_final_compose.svg"))
 
-os.system("google-chrome fig_final_compose.svg")
+os.system("google-chrome out_data/fig_final_compose.svg")
