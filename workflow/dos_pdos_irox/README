@@ -1,0 +1,26 @@
+
+-----------------------------------------------
+rapiDOS v.0.6.1
+-- Aug. - 20 - 2019 --
+Jose A. Garrido Torres & Michal Bajdich.
+jagt@stanford.edu  &  bajdich@slac.stanford.edu
+-----------------------------------------------
+
+# (1) Requirements:
+
+python -m pip install jupyter --user
+python -m pip install pandas --user 
+python -m pip install ase --user
+python -m pip install seaborn --user
+
+# (2) Then you will have to copy the source files to your working directory
+(The working directory must contain the output files from the VASP run):
+
+cp rapiDOS.py rapiDOS_analysis.ipynb ../calculation_dir
+cd ../calculation_dir
+
+# (3) Execute the code:
+python rapiDOS.py
+
+# (4) The code will create the dataframes and will automatically open 
+the jupyter notebook in your default browser.
