@@ -2,21 +2,17 @@
 
 """Run VASP job on slab.
 
-Author(s): Michal Badich, Raul A. Flores
+Author(s): Michal Badich, Chris Paolucci, Raul A. Flores
 """
 
 #| - Import Modules
 import os
-import subprocess
 import ase.calculators.vasp as vasp_calculator
+import subprocess
 from ase import io
+import numpy as np
 
-# My Modules
 from ase_modules.ase_methods import clean_up_dft
-#__|
-
-#| - Script Inputs
-dipole_corr = False
 #__|
 
 #| - Read Atoms Object
@@ -26,56 +22,68 @@ elif os.path.isfile("init.traj"):
     atoms = io.read('init.traj')
 #__|
 
-# atoms.center(vacuum=7.5, axis=2)
-
-#| - Copy Previous OUTCAR and moments.traj
 subprocess.call('cp -rf OUTCAR OUTCAR_$(date +%s)', shell=True)
 subprocess.call('cp -rf moments.traj moments.traj_$(date +%s)', shell=True)
+
+#| - k-points
+unitcell = atoms.get_cell()
+print(unitcell)
+
+kpoints = []
+for i in [0, 1, 2]:
+    l_var = np.sqrt(unitcell[i][0]**2 + unitcell[i][1]**2 + unitcell[i][2]**2)
+    k = int(4 * 5 / l_var)
+    if(k > 0):
+        kpoints.append(k)
+    else:
+        kpoints.append(1)
+
+kpar = 10
+if kpoints[0] * kpoints[1] * kpoints[2] < 10:
+    if(kpoints[0] * kpoints[1] * kpoints[2] % 2 == 0):
+        kpar = 2
+    else:
+        kpar = 1
+
+print(kpoints)
 #__|
 
 #| - Calculator
 calc = vasp_calculator.Vasp(
-    encut=500,
+    potim=0.03,
+    encut=600,
     xc='PBE',
     #setups={'O': '_s', 'C': '_s'},
     gga='PE',
     #kpts  = (2,2,1),
-    # kpts=(6, 6, 1),
-    # For typical 2x2 cell IrO2 110 with 2 cusp sites and 2 bridge sites
-    kpts=(4, 4, 4),
-    kpar=10,
-    npar=4,
+    kpts=(kpoints[0], kpoints[1], kpoints[2]),
+    kpar=5,
+    npar=6,
     gamma=True,  # Gamma-centered (defaults to Monkhorst-Pack)
     ismear=0,
     inimix=0,
-
-    # amix=0.2,
-    # bmix=0.0001,
-    # amix_mag=0.1,
-    # bmix_mag=0.0001,
-
-    # Conservative Mixing Paramters
-    amix=0.05,
-    bmix=0.00001,
-    amix_mag=0.05,
-    bmix_mag=0.00001,
-
-
-    #nupdown= 0,
-    nelm=250,
+    amix=0.2,
+    bmix=0.0001,
+    amix_mag=0.1,
+    bmix_mag=0.0001,
+    #nupdown=0,
+    nelm=220,
     sigma=0.05,
-    algo='normal',
+    #algo = 'normal',
+    algo='fast',
     ibrion=2,
-    isif=2,
-    ediffg=-0.02,  # forces
-    ediff=1e-5,  # energy conv.
+    isif=3,
+    #isif=2,
+    ediffg=-0.001,  # forces
+    ediff=1e-6,  # energy conv.
     #nedos=2001,
-    prec='Normal',
-    nsw=150,  # don't use the VASP internal relaxation, only use ASE
+    prec='Accurate',
+    nsw=150,  # Don't use the VASP internal relaxation, only use ASE
     lvtot=False,
     ispin=2,
     ldau=False,
     ldautype=2,
+    #lreal  = 'False',#more accuratre volume
     lreal='auto',
     lasph=True,
     ldau_luj={
@@ -95,25 +103,16 @@ calc = vasp_calculator.Vasp(
         'H': {'L': -1, 'U': 0.0, 'J': 0.0},
         },
     ldauprint=2,
-
-    # lmaxmix=4,
+    #lmaxmix=4,
     lmaxmix=6,
-
     lorbit=11,
-
-    idipol=3,
-    dipol=(0, 0, 0.5),
-    ldipol=dipole_corr,
-
-    # ldipol=True,
-
-    # addgrid=True,
-    # isym=0,
+    #idipol=3,
+    #dipol=(0, 0, 0.5),
+    #ldipol=True
     )
-
-atoms.set_calculator(calc)
 #__|
 
+atoms.set_calculator(calc)
 atoms.get_potential_energy()
 
 io.write('out.cif', atoms)
