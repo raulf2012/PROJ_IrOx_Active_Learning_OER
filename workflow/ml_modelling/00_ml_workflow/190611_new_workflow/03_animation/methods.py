@@ -35,9 +35,15 @@ def get_data(stoich_i=None):
     # stoich_i = "iro2"
 
     path_i = os.path.join(
-        "..",
-        "data",
-        "models_list_" + stoich_i + ".pickle")
+        os.environ["PROJ_irox"],
+        "workflow/ml_modelling/00_ml_workflow/190611_new_workflow",
+        "02_gaus_proc/out_data",
+        "models_list_" + stoich_i + ".pickle",
+
+        # "..",
+        # "data",
+        # "models_list_" + stoich_i + ".pickle",
+        )
     with open(path_i, "rb") as fle:
         models_list = pickle.load(fle)
 
