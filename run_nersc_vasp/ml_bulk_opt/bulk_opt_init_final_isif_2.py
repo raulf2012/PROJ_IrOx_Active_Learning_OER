@@ -49,7 +49,8 @@ print(kpoints)
 #__|
 
 #| - Calculator
-calc = vasp_calculator.Vasp(
+
+calc_params = dict(
     potim=0.03,
     encut=600,
     xc='PBE',
@@ -72,9 +73,9 @@ calc = vasp_calculator.Vasp(
     #algo = 'normal',
     algo='fast',
     ibrion=2,
-    isif=7,
+    isif=2,
     #isif=2,
-    ediffg=5e-3,  # forces
+    ediffg=1e-3,  # forces
     ediff=1e-6,  # energy conv.
     #nedos=2001,
     prec='High',
@@ -110,10 +111,20 @@ calc = vasp_calculator.Vasp(
     #dipol=(0, 0, 0.5),
     #ldipol=True
     )
+
+# Reading VASP parameters from file and merging with params in script
+from ase_modules.dft_params import VASP_Params
+VP = VASP_Params(load_defaults=False)
+VP.load_params()
+calc_params.update(VP.params)
+
+calc = vasp_calculator.Vasp(**calc_params)
 #__|
 
 atoms.set_calculator(calc)
 atoms.get_potential_energy()
 
-io.write('out.cif', atoms)
+io.write('out.traj', atoms)
+io.write('out.traj', atoms)
+
 clean_up_dft()
