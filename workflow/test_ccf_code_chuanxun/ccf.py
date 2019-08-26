@@ -5,10 +5,12 @@ from math import sqrt, pi, exp
 
 
 def struc2ccf(struc, r_cut_off, r_vector):
+    #| - struc2ccf
     return d2ccf(cal_inter_atomic_d(struc, r_cut_off), r_cut_off, r_vector)
-
+    #__|
 
 def cal_ccf_d(ccf1, ccf2):
+    #| - cal_ccf_d
     ccf_wf1 = {}
     lenth = len(ccf1)
     for key in ccf1.keys():
@@ -36,10 +38,11 @@ def cal_ccf_d(ccf1, ccf2):
     for key in ccf1.keys():
         struc_d += ccf_wf1[key] * pearson_cc(ccf1[key], ccf2[key])
     return 1 - struc_d
-
+    #__|
 
 # @jit(nopython=True)
 def cal_inter_atomic_d(struc, r_cut_off):
+    #| - cal_inter_atomic_d
     distances = {}
     # square_rcut=r_cut_off*r_cut_off
     i_range = cell_range(struc.cell, r_cut_off)
@@ -107,10 +110,11 @@ def cal_inter_atomic_d(struc, r_cut_off):
             if n_pair != 0:
                 final_d[key1][r_cut_off - (l_d_empty - i - 1) * d_delta] = float(n_pair) / natoms
     return final_d
-
+    #__|
 
 # @jit()
 def d2ccf(distances, r_cut_off, r_vector):
+    #| - d2ccf
     ccf = {}
     for key1 in distances.keys():
         for key2 in distances[key1].keys():
@@ -120,18 +124,20 @@ def d2ccf(distances, r_cut_off, r_vector):
                 ccf[key1] = gaussian_f(distances[key1][key2] * weight_f(key2, r_cut_off), key2, r_vector)
     pass
     return ccf
-
+    #__|
 
 def weight_f(r, r_cut_off):
+    #| - weight_f
     tail_r = 0.5
     if r < r_cut_off - tail_r:
         return 1.0
     else:
         return exp(-3.0 * (r - r_cut_off + tail_r) / tail_r)
-
+    #__|
 
 # @jit(nopython=True)
 def pearson_cc(x, y):
+    #| - pearson_cc
     # average1=np.mean(ccf1)
     # average2=np.mean(ccf2)
     # Send in mean(x) might be more efficient. Because we calculated sum(x) before.
@@ -145,16 +151,18 @@ def pearson_cc(x, y):
     elif (sum2 == 0.0) or (sum3 == 0.0):
         return 0.0
     return np.sum(np.multiply(local1, local2)) / sqrt(sum2 * sum3)
-
+    #__|
 
 # @jit
 def gaussian_f(weight_f, b, x):
+    #| - gaussian_f
     a = 60.0
     # return weight_f * sqrt(a / pi) * np.exp(-a * (x - b)**2)
     return weight_f * sqrt(a / pi) * np.exp(-a * np.square(x - b))
-
+    #__|
 
 def element_tag(numbers):
+    #| - element_tag
     ele_n = {}
     ele_tag = {}
     for i in numbers:
@@ -165,14 +173,16 @@ def element_tag(numbers):
     for i, x in enumerate(sorted(ele_n.items(), key=lambda x: x[1])):
         ele_tag[x[0]] = i + 1
     return ele_tag
-
+    #__|
 
 def cell_range(cell, rcut):
+    #| - cell_range
     recipc_no2pi = Atoms(cell=cell, pbc=True).get_reciprocal_cell()
     return [int(rcut * ((np.sum(recipc_no2pi[i] ** 2)) ** 0.5)) + 1 for i in range(3)]
-
+    #__|
 
 def count_atoms_dict(numbers):
+    #| - count_atoms_dict
     ctype = {}
     for i in numbers:
         if i in ctype:
@@ -180,3 +190,4 @@ def count_atoms_dict(numbers):
         else:
             ctype[i] = 1
     return ctype
+    #__|
