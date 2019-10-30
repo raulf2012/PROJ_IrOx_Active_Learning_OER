@@ -1,0 +1,37 @@
+11c11
+< #     display_name: Python [conda env:research-new] *
+---
+> #     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+13c13
+< #     name: conda-env-research-new-py
+---
+> #     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+60,61c60,61
+< stoich_i = "AB2"
+< # stoich_i = "AB3"
+---
+> # stoich_i = "AB2"
+> stoich_i = "AB3"
+453c453
+<     al_data_dict[key]["model_processed"] = model_i
+---
+> 
+501c501
+< ignore_ids_tmp[0] in model_i.index
+---
+> # ignore_ids_tmp[0] in model_i.index
+561,572c561
+< al_output_data_path = os.path.join(
+<     os.environ["PROJ_irox"],
+<     "workflow/ml_modelling", "00_ml_workflow/190611_new_workflow",
+<     "02_gaus_proc/out_data")
+< filename_i = "data_dict_" + stoich_i + "_" + custom_name + "_processed.pickle"
+< # Pickling data ###############################################################
+< import os; import pickle
+< directory = "out_data"
+< if not os.path.exists(directory): os.makedirs(directory)
+< with open(os.path.join(al_output_data_path, filename_i), "wb") as fle:
+<     pickle.dump(al_data_dict, fle)
+< # #############################################################################
+---
+> 
