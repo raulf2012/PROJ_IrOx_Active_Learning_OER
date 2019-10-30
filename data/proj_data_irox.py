@@ -210,8 +210,33 @@ bulk_e_per_atom_dict = {
     "IrO3_rutile-like": IrO3_rutile_like_ave_regressed_bulk_e,
     "IrO3_battery": IrO3_battery_bulk_e_dft,
     }
-
 #__|
+
+#| - Computing dH and dG for IrO2 and IrO3
+def calc_dH(
+    e_per_atom,
+    stoich=None
+    ):
+    """
+    """
+    #| - calc_dH
+    o_ref = -4.657947279999998
+    ir_metal_fit = -9.316164736367316
+
+    # iro2: -21.147186
+    # o_ref2: -4.657947279999998
+    # ir_metal_fit: -9.316164736367316
+    # IrO2 (exp) -2.515126703632689
+
+    if stoich == "AB2":
+        dH = (2 + 1) * e_per_atom - 2 * o_ref - ir_metal_fit
+    elif stoich == "AB3":
+        dH = (3 + 1) * e_per_atom - 3 * o_ref - ir_metal_fit
+
+    return(dH)
+    # __|
+
+# __|
 
 #| - Bulk Pourbaix Transitions
 # From my bulk Pourbaix plot | RF | 190104
@@ -226,6 +251,7 @@ bulk_pourb_trans_dict = {
     "IrO3_rutile-like_high": 2.196,
     }
 #__|
+
 
 #| - Color Palettes
 irox_bulk_color_map = {
@@ -565,11 +591,14 @@ base_font_color = "black"
 #| - __misc__
 proj_dir_name = "04_IrOx_surfaces_OER"
 
+data_dir_name = "04_IrOx_surfaces_OER"
+
 main_systems = ["IrO2", "IrO3", "IrO3_battery", "IrO3_rutile-like"]
 
 data_dir = os.path.join(
     os.environ["PROJ_DATA"],
-    "04_IrOx_surfaces_OER",
+    data_dir_name,
+    # "04_IrOx_surfaces_OER",
     # "190315_new_job_df",
     "190321_new_job_df",
     )
@@ -591,9 +620,153 @@ groupby_props = [
 #__|
 
 
+#| - Location of important data files
+# import os; import sys
+# sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
+# from proj_data_irox import (
+#     bulk_dft_data_path,
+#     unique_ids_path,
+#     prototypes_data_path,
+#     static_irox_structures_path,
+#     oqmd_irox_data_path,
+#     )
 
 
 
+# Processed bulk data (No OQMD data here)
+bulk_dft_data_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling",
+    "processing_bulk_dft/out_data",
+    "df_bulk_dft.pickle")
+
+unique_ids_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "data/ml_irox_data",
+    "unique_ids.csv")
+
+prototypes_data_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling",
+    "static_prototypes_structures/out_data",
+    "data_prototypes.pickle",
+
+    # "chris_prototypes_structures",
+    # "out_data",
+    # "data_prototypes.pickle",
+
+    )
+
+
+# $dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER/workflow/ml_modelling/static_prototypes_structures
+# workflow/ml_modelling/static_prototypes_structures
+static_irox_structures_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling",
+    "static_prototypes_structures/out_data",
+    "data_structures.pickle",
+    )
+static_irox_structures_kirsten_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling",
+    "static_prototypes_structures/out_data",
+    "data_structures_kirsten.pickle",
+    )
+oqmd_irox_data_path = os.path.join(
+    os.environ["PROJ_irox"],
+    # "workflow/ml_modelling/create_oqmd_data_df/out_data",
+    "workflow/ml_modelling/processing_bulk_dft",
+    "parse_oqmd_data/out_data",
+    "df_oqmd_data.pickle")
+
+
+# Fingerprints ################################################################
+fp_base_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling/00_ml_workflow",
+    "190611_new_workflow/01_data_coll_feat/out_data")
+
+df_features_pre_opt_path = os.path.join(
+    fp_base_path, "df_features_pre_opt.pickle")
+df_features_pre_opt_kirsten_path = os.path.join(
+    fp_base_path, "df_features_pre_opt_kirsten.pickle")
+
+df_features_post_opt_path = os.path.join(
+    fp_base_path, "df_features_post_opt.pickle")
+
+
+
+
+# These may not be needed as much
+# df_features_path = os.path.join(
+#     fp_base_path, "df_features.pickle")
+#
+# df_features_cleaned_path = os.path.join(
+#     fp_base_path, "df_features_cleaned.pickle")
+#
+# df_features_cleaned_pca_path = os.path.join(
+#     fp_base_path, "df_features_cleaned_pca.pickle")
+
+oer_bulk_structures_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling/processing_bulk_dft",
+    "parse_my_oer_bulk_dft/out_data",
+    "bulk_systems.pickle")
+
+
+# #############################################################################
+# CCF Analysis ################################################################
+df_ccf_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling/ccf_similarity_analysis",
+    "compute_ccf_and_dij_matrix/out_data",
+    "df_ccf.pickle")
+
+df_dij_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling/ccf_similarity_analysis",
+    "compute_ccf_and_dij_matrix/out_data",
+    "df_d_ij_all.pickle")
+
+# /mnt/c/Users/raulf2012/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER
+
+ids_to_discard__too_many_atoms_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling/static_prototypes_structures/out_data",
+    "ids_to_discard__too_many_atoms.pickle"
+    )
+
+
+#| - __old__
+# voronoi_features_data_path = os.path.join(
+#     os.environ["PROJ_irox"],
+#     "workflow/ml_modelling/00_ml_workflow",
+#     "190611_new_workflow/01_data_coll_feat/out_data",
+#     "df_features_pca.pickle",
+#     )
+#
+# voronoi_features_all_data_path = os.path.join(
+#     os.environ["PROJ_irox"],
+#     "workflow/ml_modelling/00_ml_workflow",
+#     "190611_new_workflow/01_data_coll_feat/out_data",
+#     "df_features.pickle",
+#     )
+#__|
+
+#__|
+
+#| - METHODS
+def get_relative_path_to_proj(path):
+    relative_path_to_proj = path.replace(
+        os.environ["PROJ_irox"], "")
+
+    relative_path_to_proj
+    if relative_path_to_proj[0] == "/":
+        relative_path_to_proj = relative_path_to_proj[1:]
+
+    return(relative_path_to_proj)
+
+#__|
 
 
 
