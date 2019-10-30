@@ -6,11 +6,11 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.4'
-#       jupytext_version: 1.2.1
+#       jupytext_version: 1.1.7
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python 3
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: python3
 # ---
 
 # # Import Modules
@@ -19,7 +19,12 @@
 #| - Import Modules
 import os
 import pickle
+
 import pandas as pd
+pd.set_option('display.max_rows', None)
+
+from ase import io
+
 import shutil
 
 from methods import parse_job_err
@@ -28,6 +33,8 @@ from methods import parse_job_state
 from methods import is_job_submitted
 from methods import get_isif_from_incar
 from methods import read_write_CONTCAR
+from methods import get_number_of_ionic_steps
+
 
 from methods import set_up__submit__new_job
 #__|
@@ -35,59 +42,127 @@ from methods import set_up__submit__new_job
 
 # # Script Inputs
 
+try:
+    from inputs import input_dict
+#     root_dir = input_dict["root_dir"]
+    root_dir = input_dict.get("root_dir", ".")
+    ignore_ids = input_dict.get("ignore_ids", [])
+except:
+    print("Couldn't import inputs script")
+    input_dict = {}
+    root_dir = "."
+    ignore_ids = []
+
 # +
 cwd = os.getcwd()
 
 # Set to True when you're actually ready
 change_file_sys = False
 
-root_dir = "__test__/job_folders"
+# root_dir = "__test__/job_folders_2"
+# root_dir = "."
+# root_dir = "__test__/iro2_calcs_test"
+
+# + {"active": ""}
+# # Job rules
+#
+# ## If the job is running or pending or configuring, ignore for now
+# ## If the job timed_out or has a filed job_state, then resubmit
+# ## If the job has succeeded job_state, then check if isif is 7 or 3,
+#   ## if 7 resubmit with 3, if 3 then resubmit 1 more time with 3, then finally submit one more time with isif 2
 # -
 
-# # Coping over job folders to easily recover state
+# # Parsing dir to find job folder
 
 # +
-shutil.rmtree("./__test__/job_folders")
+done_pre_paths = []
+if False:
+    path_i = "out_data/df_dict.pickle"
+    with open(path_i, "rb") as fle:
+        data = pickle.load(fle)
+        df_tmp = data["df"]
+        done_pre_paths = df_tmp["pre_path"].tolist()
 
-shutil.copytree(
-    "./__test__/job_folders.orig",
-    "./__test__/job_folders",
-    )
+# except:
+#     print("THIS FAILED!!")
+#     done_pre_paths = []
+# -
 
-# + {"jupyter": {"source_hidden": true}}
+print("done_pre_paths:", done_pre_paths)
+
+# +
 data_list = []
-
 job_dirs = []
-
-
 for subdir, dirs, files in os.walk(root_dir):
+    print("TEMP: ", subdir)
+
+    if subdir in done_pre_paths:
+        print("skipping this dir, already done")
+        continue
+
     last_dir = subdir.split("/")[-1]
     cond_0 = last_dir[0] == "_"
     cond_1 = last_dir[1:].isdigit()
     if cond_0 and cond_1:
+        print("Parsing dirs:", subdir)
+
         revision_i = int(last_dir[1:])
 
         job_pre_path_i = "/".join(subdir.split("/")[:-1])
+        id_i = job_pre_path_i.split("/")[-1]
+
+        try:
+            atoms_path_i = os.path.join(subdir, "OUTCAR")
+            atoms_i = io.read(atoms_path_i)
+        except:
+            atoms_i = None
 
         out_dict = dict(
             path=subdir,
             pre_path=job_pre_path_i,
+            id=id_i,
             revision=revision_i,
-            )
+            atoms=atoms_i)
         data_list.append(out_dict)
 
         job_dirs.append(subdir)
 
 df = pd.DataFrame(data_list)
+# -
 
+# # Reducing jobs to parse
 
+# +
+# # path_i = "/home/raulf2012/Dropbox/01_norskov/PROJECT_DATA/04_IrOx_surfaces_OER/ml_bulk_irox_dft/iro3/df_dict.pickle"
+
+# try:
+#     path_i = "out_data/df_dict.pickle"
+#     with open(path_i, "rb") as fle:
+#         data = pickle.load(fle)
+
+#     df_new_jobs = data["df_new_jobs"]
+# #     df_tmp = data["df"]
+
+#     done_str = "ALL DONE! | ISIF 2"
+#     completed_jobs_pre_path_list = df_new_jobs[
+#         df_new_jobs["action"] == done_str]["pre_path"].tolist()
+
+#     df = df[~df["pre_path"].isin(completed_jobs_pre_path_list)]
+# except:
+#     print("Couldn't reduce `pre_path` to save time")
 # -
 
 # # Parsing dirs to get job state info
 
-# + {"jupyter": {"source_hidden": true}}
+# +
 #| - Parsing dirs to get job state info
 # #############################################################################
+print("Parsing dirs to get job state info")
+print(80 * "&")
+print(80 * "&")
+print(80 * "&")
+print(80 * "&")
+
 def method(row_i):
     status_dict = parse_job_err(row_i["path"])
     for key, value in status_dict.items():
@@ -126,37 +201,35 @@ def method(row_i):
         row_i[key] = value
     return(row_i)
 df = df.apply(method, axis=1)
-#__|
-# -
 
-# # Save dataframe to file and rclone to Dropbox
+# #############################################################################
+def method(row_i):
+    status_dict = get_number_of_ionic_steps(row_i["path"])
+    for key, value in status_dict.items():
+        row_i[key] = value
+    return(row_i)
+df = df.apply(method, axis=1)
+
+#__|
 
 # +
-# directory = "out_data"
-# if not os.path.exists(directory):
-#     os.makedirs(directory)
+import os
+import pickle
 
-# with open("out_data/df.pickle", "wb") as fle:
-#     pickle.dump(df, fle)
+directory = "out_data"
+if not os.path.exists(directory):
+    os.makedirs(directory)
 
-
-# if os.environ["USER"] == "flores12":
-#     print("On NERSC probably")
-
-#     db_path = os.path.join(
-#         "01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER",
-#         "run_nersc_vasp/ml_bulk_opt/run_all_bulks/out_data/")
-
-#     os.system("rclone copy out_data/df.pickle raul_dropbox:" + db_path)
+with open(os.path.join(directory, "df.pickle"), "wb") as fle:
+    pickle.dump(df, fle)
 # -
-
-
-df
 
 # # TEST ---------------
 
 # +
-unique_pre_paths = df["pre_path"].unique()
+print(80 * "*"); print(80 * "*")
+
+# unique_pre_paths = df["pre_path"].unique()
 
 data_list = []
 grouped = df.groupby(["pre_path"])
@@ -176,7 +249,10 @@ for name, group in grouped:
     data_dict_i["num_completed_isif_3"] = num_completed_isif_3
 
     latest_rev = group.iloc[0]
-#     print(latest_rev["path"])
+
+    data_dict_i["num_revisions"] = latest_rev["revision"]
+
+    print("Main", latest_rev["path"])
 
 
 
@@ -195,144 +271,156 @@ for name, group in grouped:
     isif = latest_rev["isif"]
     completed = latest_rev["completed"]
     pre_path = latest_rev["pre_path"]
+    id_i = latest_rev["id"]
 
+    failed = latest_rev["error"]
+    error_type = latest_rev["error_type"]
 
     data_dict_i["pre_path"] = pre_path
+    data_dict_i["id"] = id_i
 
-
-    failed = False
     skip_job = False
 
     new_job_file_dict = dict()
 
-    cond_0 = job_state == "RUNNING"
-    cond_1 = job_state == "PENDING"
-    cond_2 = job_state == "CONFIGURING"
-    if cond_0 or cond_1 or cond_2:
-        #| - If job is either running, pending or being configured
-        # (whatever that means), just move on for now
-        mess_i = "Job is busy, will skip"
-        data_dict_i["action"] = mess_i
-
+    # Ignoring manually selected jobs
+    if id_i in ignore_ids:
+        data_dict_i["action"] = "Ignoring this id"
         skip_job = True
-        pass
-        #__|
 
-    elif job_state == "SUCCEEDED" or completed:
-        #| - SUCCEEDED
-        # Picking the model.py script to use
-        mess_i = "Job succeeded"
-        data_dict_i["action"] = mess_i
+    else:
 
-        read_write_CONTCAR(path, new_job_file_dict)
+        cond_0 = job_state == "RUNNING"
+        cond_1 = job_state == "PENDING"
+        cond_2 = job_state == "CONFIGURING"
+        if cond_0 or cond_1 or cond_2:
+            #| - If job is either running, pending or being configured
+            # (whatever that means), just move on for now
+            mess_i = "Job is busy, will skip"
+            data_dict_i["action"] = mess_i
 
-        if isif == 7:
-            model_file_path = os.path.join(
-                os.environ["PROJ_irox"],
-                "run_nersc_vasp/ml_bulk_opt",
-                "bulk_opt_last.py")
-            new_job_file_dict[model_file_path] = "model.py"
+            skip_job = True
+            pass
+            #__|
 
-            data_dict_i["action"] += " | ISIF 7 calc finished, moving to ISIF 3"
+        elif job_state == "SUCCEEDED" or completed:
+            #| - SUCCEEDED
+            # Picking the model.py script to use
+            mess_i = "Job done"
+            data_dict_i["action"] = mess_i
 
-        elif isif == 3:
-            data_dict_i["action"] += " | ISIF 3 calc finished, moving to "
+            read_write_CONTCAR(path, new_job_file_dict)
 
-            if num_completed_isif_3 < 3:
+            if isif == 7:
                 model_file_path = os.path.join(
                     os.environ["PROJ_irox"],
                     "run_nersc_vasp/ml_bulk_opt",
                     "bulk_opt_last.py")
                 new_job_file_dict[model_file_path] = "model.py"
-                data_dict_i["action"] += " | Running isif 3 again"
+
+                data_dict_i["action"] += " | ISIF 7 done, --> ISIF 3"
+
+            elif isif == 3:
+                data_dict_i["action"] += " | ISIF 3 done"
+
+                if num_completed_isif_3 < 3:
+                    model_file_path = os.path.join(
+                        os.environ["PROJ_irox"],
+                        "run_nersc_vasp/ml_bulk_opt",
+                        "bulk_opt_last.py")
+                    new_job_file_dict[model_file_path] = "model.py"
+                    data_dict_i["action"] += " | Rerunning isif 3"
+                else:
+                    model_file_path = os.path.join(
+                        os.environ["PROJ_irox"],
+                        "run_nersc_vasp/ml_bulk_opt",
+                        "bulk_opt_init_final_isif_2.py")
+                    new_job_file_dict[model_file_path] = "model.py"
+                    data_dict_i["action"] += " | --> isif 2"
+
+
+            elif isif == 2:
+                skip_job = True
+                data_dict_i["action"] = "ALL DONE! | ISIF 2"
+
+                pass
+            #__|
+
+        elif timed_out or failed:
+            #| - Timed out of failed
+            print("timed out or failed")
+
+            if error_type == "Error in SGRCON (symm error)":
+                data_dict_i["action"] = "Error, need manual attention"
+                skip_job = True
             else:
-                model_file_path = os.path.join(
-                    os.environ["PROJ_irox"],
-                    "run_nersc_vasp/ml_bulk_opt",
-                    "bulk_opt_init_final_isif_2.py")
-                new_job_file_dict[model_file_path] = "model.py"
-                data_dict_i["action"] += " | Moving to isif 2"
+                data_dict_i["action"] = "Time out or failed"
+
+                read_write_CONTCAR(path, new_job_file_dict)
 
 
-        elif isif == 2:
-            data_dict_i["action"] = "Final ISIF 2 finished!"
+                # Picking the model.py script to use
+                if isif == 7:
+                    model_file_path = os.path.join(
+                        os.environ["PROJ_irox"],
+                        "run_nersc_vasp/ml_bulk_opt",
+                        "bulk_opt_init.py")
+                    new_job_file_dict[model_file_path] = "model.py"
+                    data_dict_i["action"] += " | Restarting isif 7 calc"
 
-            pass
-        #__|
+                elif isif == 3:
+                    model_file_path = os.path.join(
+                        os.environ["PROJ_irox"],
+                        "run_nersc_vasp/ml_bulk_opt",
+                        "bulk_opt_last.py")
+                    new_job_file_dict[model_file_path] = "model.py"
+                    data_dict_i["action"] += " | Restarting isif 3 calc"
 
-    elif timed_out or failed:
-        #| - Timed out of failed
-        print("timed out or failed")
+                elif isif == 2:
+                    model_file_path = os.path.join(
+                        os.environ["PROJ_irox"],
+                        "run_nersc_vasp/ml_bulk_opt",
+                        "bulk_opt_init_final_isif_2.py")
+                    new_job_file_dict[model_file_path] = "model.py"
+                    data_dict_i["action"] += " | Restarting isif 2 calc"
+            #__|
 
-        data_dict_i["action"] = "Time our or failed"
+        else:
+            skip_job = True
 
-        read_write_CONTCAR(path, new_job_file_dict)
-
-
-        # Picking the model.py script to use
-        if isif == 7:
-            model_file_path = os.path.join(
-                os.environ["PROJ_irox"],
-                "run_nersc_vasp/ml_bulk_opt",
-                "bulk_opt_init.py")
-            new_job_file_dict[model_file_path] = "model.py"
-            data_dict_i["action"] += " | Restarting isif 7 calc"
-
-        elif isif == 3:
-            model_file_path = os.path.join(
-                os.environ["PROJ_irox"],
-                "run_nersc_vasp/ml_bulk_opt",
-                "bulk_opt_last.py")
-            new_job_file_dict[model_file_path] = "model.py"
-            data_dict_i["action"] += " | Restarting isif 3 calc"
-
-        elif isif == 2:
-            model_file_path = os.path.join(
-                os.environ["PROJ_irox"],
-                "run_nersc_vasp/ml_bulk_opt",
-                "bulk_opt_init_final_isif_2.py")
-            new_job_file_dict[model_file_path] = "model.py"
-            data_dict_i["action"] += " | Restarting isif 2 calc"
-        #__|
-
-    else:
-        skip_job = True
-
-        mess_i = "Couldn't figure out what to do"
-        data_dict_i["action"] = mess_i
-        print(mess_i)
+            mess_i = "Couldn't figure out what to do"
+            data_dict_i["action"] = mess_i
+            print(mess_i)
 
 
     if not skip_job and change_file_sys:
-        set_up__submit__new_job(latest_rev, new_job_file_dict, )
+        set_up__submit__new_job(
+            latest_rev,
+            new_job_file_dict,
+            run_calc=True)
 
     data_list.append(data_dict_i)
 
-
-
-
 df_new_jobs = pd.DataFrame(data_list)
-df_new_jobs
+
+# +
+df_not_done = df_new_jobs[df_new_jobs["action"] != "ALL DONE! | ISIF 2"]
+
+df_timed_out = df_new_jobs[df_new_jobs["action"] == "Time out or failed | Restarting isif 3 calc"]
+
+df_not_sure = df_new_jobs[df_new_jobs["action"] == "Couldn't figure out what to do"]
 # -
 
-data_list
+print("")
+print(80 * "#")
+print("df_not_sure | df_timed_out | df_not_done | df_new_jobs")
+print(80 * "#")
 
-# + {"active": ""}
-# # Job rules
-#
-# ## If the job is running or pending or configuring, ignore for now
-# ## If the job timed_out or has a filed job_state, then resubmit
-# ## If the job has succeeded job_state, then check if isif is 7 or 3,
-#   ## if 7 resubmit with 3, if 3 then resubmit 1 more time with 3, then finally submit one more time with isif 2
-#
+# # Saving data and uploading to Dropbox
 
-# + {"active": ""}
-#
-#
-#
-#
-#
-# + {}
+# +
+print("")
+
 directory = "out_data"
 if not os.path.exists(directory):
     os.makedirs(directory)
@@ -342,28 +430,69 @@ df_dict = {
     "df_new_jobs": df_new_jobs,
     }
 
-with open("out_data/df_dict.pickle", "wb") as fle:
-    pickle.dump(df, fle)
+import datetime
+datetime_i = datetime.datetime.now().strftime("%y%m%d__%H_%M")
+
+filename_i = "out_data/" + "df_dict.pickle"
+with open(filename_i, "wb") as fle:
+    pickle.dump(df_dict, fle)
+
+filename_i = "out_data/" + datetime_i + "_df_dict.pickle"
+with open(filename_i, "wb") as fle:
+    pickle.dump(df_dict, fle)
+
 
 
 if os.environ["USER"] == "flores12":
-    print("On NERSC probably")
 
-    db_path = os.path.join(
+    db_path_bkp = os.path.join(
         "01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER",
         "run_nersc_vasp/ml_bulk_opt/run_all_bulks/out_data/")
 
-    os.system("rclone copy out_data/df_dict.pickle raul_dropbox:" + db_path)
+    db_path = input_dict.get(
+        "proj_data_save_dir",
+        db_path_bkp)
+
+    out_file_name = input_dict.get(
+        "out_file_name",
+        "df_dict.pickle")
+
+    db_path = os.path.join(db_path, out_file_name)
+
+    
+    # bash_comm = "rclone copy out_data/df_dict.pickle raul_dropbox:" + db_path
+    bash_comm = "rclone copyto " + filename_i + " raul_dropbox:" + db_path
+    print(bash_comm)
+    os.system(bash_comm)
 # -
+# Deleting temp files
+os.system("rm init.cif run_vasp.py")
 
-
-df
+# + {"active": ""}
+#
+#
+#
 
 # + {"jupyter": {"source_hidden": true}}
-# path
+# Coping over job folders to easily recover state
+
+# shutil.rmtree("./__test__/job_folders")
+
+# shutil.copytree(
+#     "./__test__/job_folders.orig",
+#     "./__test__/job_folders",
+#     )
+
+# df_new_jobs
+
+# # %load_ext autoreload
+# # %autoreload 2
+# from methods import parse_job_err
+
+# row_i = df.iloc[0]
+# path_i = row_i["path"]
+# path_i
 
 
-# contcar_file_path = os.path.join(path, "CONTCAR")
-# my_file = Path(contcar)
-# if my_file.is_file():
-#     atoms_for_next_job = io.read(contcar_file_path)
+
+# parse_job_err(path_i)

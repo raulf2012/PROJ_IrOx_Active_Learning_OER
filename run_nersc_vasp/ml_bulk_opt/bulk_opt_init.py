@@ -51,7 +51,8 @@ print(kpoints)
 #| - Calculator
 
 calc_params = dict(
-    potim=0.03,
+    # potim=0.03,
+    potim=0.01,
     encut=600,
     xc='PBE',
     #setups={'O': '_s', 'C': '_s'},
@@ -79,7 +80,7 @@ calc_params = dict(
     ediff=1e-6,  # energy conv.
     #nedos=2001,
     prec='High',
-    nsw=150,  # Don't use the VASP internal relaxation, only use ASE
+    nsw=350,  # Don't use the VASP internal relaxation, only use ASE
     lvtot=False,
     ispin=2,
     ldau=False,

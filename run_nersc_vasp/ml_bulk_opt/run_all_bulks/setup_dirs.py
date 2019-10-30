@@ -6,49 +6,62 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.4'
-#       jupytext_version: 1.2.1
+#       jupytext_version: 1.1.7
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
 # ---
 
-# +
+# # Import Modules
+
+# + {"jupyter": {"source_hidden": true}}
 import os
 import sys
 
 import json
+import pickle
 from shutil import copyfile
+
+from pathlib import Path
 
 # #############################################################################
 import pandas as pd
+
 from ase import io
 from ase.visualize import view
 
 # #############################################################################
 from dft_job_automat.compute_env import ComputerCluster
 
-# +
-# model_file = "./model_0.py"
+from methods import calc_wall_time
 
+
+sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
+from proj_data_irox import proj_dir_name
+
+# +
 model_file = os.path.join(
     os.environ["PROJ_irox"],
     "run_nersc_vasp/ml_bulk_opt",
     "bulk_opt_init.py",
     )
-# -
 
 rootdir = os.getcwd()
 
 # +
 structure_files_dir = os.path.join(
-    os.environ["PROJ_irox"],
-    "chris_prototypes_structures/fixed_prototypes_iro2")
+    os.environ["PROJ_DATA"],
+    "04_IrOx_surfaces_OER/ml_bulk_static_preopt_structures",
+    "fixed_prototypes_iro2",
+    )
 
 data_list = []
 for subdir, dirs, files in os.walk(structure_files_dir):
     for file in files:
         file_path_i = os.path.join(subdir, file)
+
+        path_short = file_path_i.replace(os.environ["PROJ_irox"] + "/", "")
 
         atoms_i = io.read(file_path_i)
 
@@ -56,6 +69,7 @@ for subdir, dirs, files in os.walk(structure_files_dir):
 
         data_list.append({
             "path": file_path_i,
+            "path_short": path_short,
             "file_name": file,
             "init_atoms": atoms_i,
             "number_of_atoms": num_atoms_i,
@@ -67,18 +81,49 @@ df = df.sort_values("id")
 
 # Filtering large structures (more than 100 atoms in cell)
 df = df[df["number_of_atoms"] < 100]
-
-# +
-# TEMP
-# df = df[0:3]
 # -
 
-# ## Methods
+# # Filtering with id list
 
-from methods import calc_wall_time
+from ids_to_run import ids_to_run
+df = df[df["id"].isin(ids_to_run)]
 
-# +
-# row_i = df.iloc[0]
+directory = rootdir
+if not os.path.exists(directory):
+    os.makedirs(directory)
+
+
+def submit_job(
+    wall_time_i=None,
+    nodes_i=None,
+    job_0_dir_i=None,
+    ):
+    CC = ComputerCluster()
+
+    if os.environ["COMPENV"] == "sherlock":
+        def_params = {
+            "wall_time": wall_time_i,
+            "nodes": nodes_i,
+            "path_i": job_0_dir_i}
+
+    elif os.environ["COMPENV"] == "slac":
+        def_params = {
+            "wall_time": wall_time_i,
+            "cpus": 12,
+            "queue": "suncat2",
+            "path_i": job_0_dir_i}
+
+    else:
+        def_params = {
+            "wall_time": wall_time_i,
+            # "queue": "premium",
+            "queue": "regular",
+            "architecture": "knl",
+            "nodes": nodes_i,
+            "path_i": job_0_dir_i}
+
+    CC.submit_job(**def_params)
+
 
 for i_cnt, row_i in df.iterrows():
     folder_name = str(row_i["id"]).zfill(3)
@@ -90,144 +135,104 @@ for i_cnt, row_i in df.iterrows():
 
     job_0_dir_i = os.path.join(job_root_dir_i, "_1")
 
-    try:
-        os.makedirs(job_0_dir_i)
-    except:
-        pass
 
-    
-    dft_params_dict = {
-        "encut": 600,
-#         "kpar": 5,
-        "ediffg": 5e-3,
-        "ediff": 1e-6
-        }
+    # Checkif job dir is already present
+    job_folder = Path(job_root_dir_i)
+    if job_folder.is_dir():
+        print("Job dir already exists, skipping")
 
-    # Write atoms object
-    atoms_i = row_i["init_atoms"]
-    io.write(os.path.join(job_0_dir_i, "init.cif"), row_i["init_atoms"])
-
-    num_atoms = atoms_i.get_number_of_atoms()
-    wall_time_i = calc_wall_time(num_atoms, factor=1.4)
-    wall_time_i = int(wall_time_i)
-
-    if num_atoms > 100:
-        nodes_i = 10
-        dft_params_dict["kpar"] = 10
     else:
-        nodes_i = 5
-        dft_params_dict["kpar"] = 5
+        try:
+            os.makedirs(job_0_dir_i)
+        except:
+            pass
+
+        # Write atoms object
+        atoms_i = row_i["init_atoms"]
+        io.write(os.path.join(job_0_dir_i, "init.cif"), row_i["init_atoms"])
 
 
-    # Write dft paramters json file to job dir
-    with open(os.path.join(job_0_dir_i, "dft-params.json"), "w+") as fle:
-        json.dump(
-            dft_params_dict, fle,
-            indent=2, skipkeys=True)
-
-    # Copy model job script
-    copyfile(model_file, os.path.join(job_0_dir_i, "model.py"))
-    
-
-    # Submit job ##############################################################
-    CC = ComputerCluster()
-
-    def_params = {
-        "wall_time": wall_time_i,
-        "queue": "premium",
-        "architecture": "knl",
-        "nodes": nodes_i,
-        "path_i": job_0_dir_i}
-
-#     CC.submit_job(**def_params)
-
-# +
-# assert False
-
-# +
-# os.system("rm -r job_folders")
-
-# + {"jupyter": {"source_hidden": true}}
-# def calc_wall_time(num_atoms, factor=1.0):
-#     """
-#     """
-#     term_2 = 0.0091 * (num_atoms ** 2)
-#     term_1 = 2.2415 * (num_atoms ** 1)
-#     term_0 = 29.760 * (num_atoms ** 0)
-#     wall_time = factor * (term_2 + term_1 + term_0)
-    
-#     return(wall_time)
+        dft_params_dict = {
+            # "encut": 600,
+            # "kpar": 5,
+            # "ediffg": 5e-3,
+            # "ediff": 1e-6
+            }
 
 
-# wall_time = calc_wall_time(num_atoms, factor=1.4)
 
-# row_i = df.iloc[0]
+        num_atoms = atoms_i.get_number_of_atoms()
+        wall_time_i = calc_wall_time(num_atoms, factor=1.4)
+        wall_time_i = int(wall_time_i)
 
-# atoms_i = row_i["init_atoms"]
-# num_atoms = atoms_i.get_number_of_atoms()
+        if num_atoms > 100:
+            nodes_i = 10
+            dft_params_dict["kpar"] = 10
+        else:
+            nodes_i = 5
+            dft_params_dict["kpar"] = 5
 
-# atoms_i
+        if os.environ["COMPENV"] == "sherlock":
+            print("SDIJFIDSJIFJDISJFIJSDIFJIDSJF")
+            dft_params_dict["npar"] = 4
 
-# with open(os.path.join(job_0_dir_i, "dft-params.json"), "w+") as fle:
-#     json.dump(
-#         dft_params_dict, fle,
-#         indent=2, skipkeys=True)
+        if os.environ["COMPENV"] == "slac":
+            dft_params_dict["kpar"] = 3
+            dft_params_dict["npar"] = 4
 
-# +
-# df_tmp = df.sort_values("number_of_atoms", ascending=False)
+        if os.environ["COMPENV"] != "slac":
+            if wall_time_i > 600:
+                wall_time_i = 600
+        else:
+            wall_time_i = 8. * wall_time_i
 
-# view(df_tmp.iloc[2]["init_atoms"])
+            if wall_time_i > 2760:
+                wall_time_i = 2760
 
-# +
-import chart_studio.plotly as py
-import plotly.graph_objs as go
-import os
+        
+        # Write dft paramters json file to job dir
+        with open(os.path.join(job_0_dir_i, "dft-params.json"), "w+") as fle:
+            json.dump(dft_params_dict, fle, indent=2, skipkeys=True)
 
-trace = go.Scatter(
-#     x=x_array,
-    y=df["number_of_atoms"],
-    mode="markers",
-    )
+        # Copy model job script
+        copyfile(model_file, os.path.join(job_0_dir_i, "model.py"))
 
-data = [trace]
 
-fig = go.Figure(data=data)
-fig.show()
+        # Submit job ##############################################################
+        submit_job(
+            wall_time_i=int(wall_time_i),
+            nodes_i=nodes_i,
+            job_0_dir_i=job_0_dir_i)
 
 # + {"active": ""}
 #
 #
 #
+# -
+
+# # OLD
 
 # + {"jupyter": {"source_hidden": true}}
-# num_atoms_list = []
-# for i_cnt, row_i in df.iterrows():
-#     atoms_i = row_i["init_atoms"]
-    
-#     num_atoms_i = atoms_i.get_number_of_atoms()
-    
-#     num_atoms_list.append(num_atoms_i)
+#         CC = ComputerCluster()
 
-# def method(row_i):
-#     """
-#     """
-#     atoms_i = row_i["init_atoms"]
-#     num_atoms_i = atoms_i.get_number_of_atoms()
+#         if os.environ["COMPENV"] == "sherlock":
+#             def_params = {
+#                 "wall_time": wall_time_i,
+#                 "nodes": nodes_i,
+#                 "path_i": job_0_dir_i}
+#         elif os.environ["COMPENV"] == "slac":
+#             def_params = {
+#                 "wall_time": wall_time_i,
+#                 "cpus": 30,
+#                 "path_i": job_0_dir_i}
 
-#     return(num_atoms_i)
+#         else:
+#             def_params = {
+#                 "wall_time": wall_time_i,
+#                 # "queue": "premium",
+#                 "queue": "regular",
+#                 "architecture": "knl",
+#                 "nodes": nodes_i,
+#                 "path_i": job_0_dir_i}
 
-# df["number_of_atoms"] = df.apply(
-#     method,
-#     axis=1,
-#     )
-
-# + {"jupyter": {"source_hidden": true}}
-# def calc_wall_time(num_atoms, factor=1.0):
-#     """
-#     """
-#     term_2 = 0.0091 * (num_atoms ** 2)
-#     term_1 = 2.2415 * (num_atoms ** 1)
-#     term_0 = 29.760 * (num_atoms ** 0)
-#     wall_time = factor * (term_2 + term_1 + term_0)
-    
-#     return(wall_time)
+#         CC.submit_job(**def_params)
