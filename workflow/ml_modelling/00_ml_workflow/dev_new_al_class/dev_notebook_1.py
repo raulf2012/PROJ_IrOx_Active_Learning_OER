@@ -16,15 +16,16 @@
 # # Import Modules
 
 # + {"jupyter": {"source_hidden": true}}
+# %%capture
+
 import os
 import sys
 
+import copy
+
+import time
 import pickle
 
-import numpy as np
-import pandas as pd
-
-# + {"jupyter": {"source_hidden": true}}
 import numpy as np
 import pandas as pd
 
@@ -32,7 +33,7 @@ import gpflow
 
 from sklearn.decomposition import PCA
 
-
+# #############################################################################
 from catlearn.regression.gaussian_process import GaussianProcess
 from catlearn.preprocess.clean_data import (
     clean_infinite,
@@ -40,19 +41,38 @@ from catlearn.preprocess.clean_data import (
     clean_skewness)
 from catlearn.preprocess.scaling import standardize
 
-# + {"jupyter": {"source_hidden": true}}
-sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
-from proj_data_irox import (ids_to_discard__too_many_atoms_path)
+# #############################################################################
+sys.path.insert(0, os.path.join(
+    os.environ["PROJ_irox"],
+    "python_classes/active_learning"))
+from active_learning import (
+    ALBulkOpt,
+    ALGeneration,
+    RegressionModel,
+    FingerPrints,
+    CandidateSpace,
+    )
+
+from al_analysis import ALAnalysis, ALAnimation
+
+# #############################################################################
+from IPython.display import display
 # -
 
 # # Script Inputs
 
 # +
-verbose = False
-
 stoich_i = "AB2"
+verbose = False
+num_gen_stop = 5
+# num_gen_stop = 10
 
-num_gen_stop = 4
+gp_settings = {
+    "noise": 0.02542,
+    "sigma_l": 1.0049,
+    "sigma_f": 5.19,
+    "alpha": 0.018,
+    }
 # -
 
 # # Read Data
@@ -63,55 +83,148 @@ sys.path.insert(0, os.path.join(
     "workflow/ml_modelling"))
 from ml_methods import get_data_for_al
 
-out_dict = get_data_for_al(stoich="AB2", verbose=False)
+out_dict = get_data_for_al(
+    stoich="AB2", verbose=False,
+    drop_too_many_atoms=True,
+#     drop_too_many_atoms=False,
+    )
 
 df_bulk_dft = out_dict["df_bulk_dft"]
 df_bulk_dft = df_bulk_dft[df_bulk_dft["source"] == "raul"]
-df_bulk_dft = df_bulk_dft[["atoms", "energy_pa"]]
+
+# +
+# df_bulk_dft = df_bulk_dft[["atoms", "energy_pa"]]
+df_bulk_dft = df_bulk_dft[["atoms", "dH"]]
 df_bulk_dft.columns.values[1] = "y_real"
 
 df_features_pre = out_dict["df_features_pre"]
 df_features_post = out_dict["df_features_post"]
 
+df_ids = out_dict["df_ids"]
+
+
+df_static_irox = out_dict["df_static_irox"]
+df_dij = out_dict["df_dij"]
+
 # +
-# #############################################################################
-with open(ids_to_discard__too_many_atoms_path, "rb") as fle:
-    ids_to_drop__too_many_atoms = pickle.load(fle)
-    ids_to_drop__too_many_atoms = \
-        [i for i in ids_to_drop__too_many_atoms if i in df_features_pre.index]
+ids_w_dft = df_bulk_dft.index
 
-# #############################################################################
-df_features_pre = df_features_pre.drop(
-    labels=ids_to_drop__too_many_atoms,
-    axis=0)
+# TEMP | Reduce size of candidate space
+np.random.seed(8)
+# ids_w_dft = np.sort(np.random.choice(np.sort(ids_w_dft), size=200))
+ids_w_dft = list(set(ids_w_dft))
 
-# #############################################################################
-df_features_post = df_features_post.loc[
-    [i for i in df_features_post.index if i in df_features_pre.index]]
+df_bulk_dft = df_bulk_dft.loc[ids_w_dft]
 
-# #############################################################################
-df_bulk_dft = df_bulk_dft.loc[
-    [i for i in df_bulk_dft.index if i in df_features_pre.index]]
-# -
-
-sys.path.insert(0, os.path.join(
-    os.environ["PROJ_irox"],
-    "python_classes/active_learning"))
-from active_learning import (
-    ALBulkOpt,
-    ALGeneration,
-    RegressionModel,
-    FingerPrints,
-    CandidateSpace)
+df_features_pre = df_features_pre.loc[ids_w_dft]
+df_features_post = df_features_post.loc[ids_w_dft]
 
 # + {"jupyter": {"source_hidden": true}}
-gp_settings = {
-    "noise": 0.02542,
-    "sigma_l": 1.0049,
-    "sigma_f": 5.19,
-    "alpha": 0.018,
-    }
+color_list = [
+    "rgb(202,88,66)",
+    "rgb(71,189,198)",
+    "rgb(210,70,147)",
+    "rgb(120,181,66)",
+    "rgb(157,99,201)",
+    "rgb(81,163,108)",
+    "rgb(189,104,138)",
+    "rgb(131,128,57)",
+    "rgb(101,130,203)",
+    "rgb(209,154,68)",
+    ]
 
+ids_top_ten = [
+    '64cg6j9any',
+    'n36axdbw65',
+    'clc2b1mavs',
+    'ck638t75z3',
+    'mkbj6e6e9p',
+    'b49kx4c19q',
+    '85z4msnl6o',
+    'bpc2nk6qz1',
+    '926dnunrxf',
+    'mwmg9p7s6o',
+
+    # "6r716sxr9t",
+    # "n36axdbw65",
+    # "clc2b1mavs",
+    # "ck638t75z3",
+    # "mkbj6e6e9p",
+    # "vp7fvs6q81",
+    # "85z4msnl6o",
+    # "bpc2nk6qz1",
+    # "926dnunrxf",
+    # "mwmg9p7s6o",
+    ]
+
+id_color_dict = dict(zip(
+    ids_top_ten,
+    # df_bulk_dft.sort_values("y_real").iloc[0:10].index,
+    color_list,
+    ))
+
+
+ids_top_system_duplicates = [
+"6r716sxr9t",
+# "6avov5cy64",
+# "cfcivdxrc2",
+# "m29j648g6i",
+# "vunhmsbrml",
+"9yz2mt8hbh",
+# "nazu9q9l9h",
+# "64cg6j9any",
+# "b46enqnq8e",
+]
+
+# "6r716sxr9t",
+# "9yz2mt8hbh",
+# "64cg6j9any"
+
+color_list = [
+"green",
+"blue",
+# "rgb(202,88,66)",
+# "rgb(71,189,198)",
+# "rgb(210,70,147)",
+# "rgb(120,181,66)",
+# "rgb(157,99,201)",
+# "rgb(81,163,108)",
+# "rgb(189,104,138)",
+# "rgb(131,128,57)",
+# "rgb(101,130,203)",
+]
+
+id_color_dict = dict(zip(
+    ids_top_system_duplicates,
+    color_list,
+    ))
+
+print(id_color_dict)
+
+# + {"active": ""}
+#
+#
+#
+#
+#
+#
+#
+# -
+
+# # CCF Class
+
+# + {"jupyter": {"source_hidden": true}}
+sys.path.insert(0, os.path.join(
+    os.environ["PROJ_irox"],
+    "python_classes"))
+from ccf_similarity.ccf import CCF
+
+d_thresh = 0.02
+CCF = CCF(
+    df_dij=df_dij,
+    d_thresh=d_thresh)
+
+# +
 RM = RegressionModel(
     opt_hyperparameters=True,
     gp_settings_dict=gp_settings,
@@ -133,132 +246,139 @@ CS = CandidateSpace(
     FingerPrints=FP,
     )
 
-
+# +
 name_i = "AL_" + stoich_i + "_" + str(num_gen_stop).zfill(2)
-
+print("name:", name_i, "\n")
 AL = ALBulkOpt(
     CandidateSpace=CS,
     RegressionModel=RM,
+    DuplicateFinder=CCF,  # Optional
     num_seed_calcs=11,
-    acquisition_bin=40,
+    acquisition_bin=50,
     stop_mode="num_generations",
+#     stop_mode=None,
     stop_num_generations=num_gen_stop,
-    name=name_i,
+    name="TEST__acq_10",
     verbose=verbose,
     )
 
-# +
-AL.run_AL()
+run_al = True
+if run_al:
+    AL.run_AL()
 
-AL.__save_state__()
-# -
-
-# Pickling data ###############################################################
-import os; import pickle
-directory = "out_data"
-if not os.path.exists(directory): os.makedirs(directory)
-with open(os.path.join(directory, "temp_" + name_i), "wb") as fle:
-    pickle.dump(AL, fle)
-# #############################################################################
-
-temp_data = AL.al_gen_dict[0]
-with open(os.path.join(directory, "temp_single_gen.pickle"), "wb") as fle:
-    pickle.dump(temp_data, fle)
-
-# +
-with open(os.path.join(directory, "df_bulk_dft.pickle"), "wb") as fle:
-    pickle.dump(df_bulk_dft, fle)
-
-with open(os.path.join(directory, "df_features_post.pickle"), "wb") as fle:
-    pickle.dump(df_features_post, fle)
-
-with open(os.path.join(directory, "df_features_pre.pickle"), "wb") as fle:
-    pickle.dump(df_features_pre, fle)
+    AL.__save_state__()
 
 # + {"active": ""}
 #
 #
 #
-# -
 
-assert False
+# +
+# #############################################################################
+import pickle; import os
+path_i = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling/00_ml_workflow",
+    "dev_new_al_class/out_data",
+    "TEST__acq_10.pickle")
+    # "TEST.pickle")
+    # "TEST_small.pickle")
 
-# # TESTING | TEMP
+with open(path_i, "rb") as fle:
+    AL = pickle.load(fle)
 
-# ## Testing ALBulkOpt
+ALAnim = ALAnimation(ALBulkOpt=AL, verbose=True)
 
-# + {"jupyter": {"source_hidden": true}}
+if True:
+    ALAnim.create_animation(
+        # duration_long=1000 * 0.5,
+        # duration_short=800 * 0.5,
+        duration_long=1000 * 3,
+        duration_short=800 * 3,
+        serial_parallel="parallel",  # 'serial' or 'parallel'
+        marker_color_dict=id_color_dict,
+        )
+
+# +
+# assert False
+
+# +
+# #############################################################################
 self = AL
 
-# #############################################################################
-CandidateSpace = self.CandidateSpace
-acquisition_bin = self.acquisition_bin
-al_gen = self.al_gen
-al_gen_dict = self.al_gen_dict
-completed_ids = self.completed_ids
-get_seed_ids = self.get_seed_ids
-mode = self.mode
-num_seed_calcs = self.num_seed_calcs
-run_AL = self.run_AL
-seed_ids = self.seed_ids
-verbose = self.verbose
-# #############################################################################
-# -
+duplicate_ids = AL.duplicate_ids
 
-# ## Testing ALGeneration
+duplicate_swap_dict = AL.duplicate_swap_dict
+# #############################################################################
 
-# + {"jupyter": {"source_hidden": true}}
-AL_i = AL.al_gen_dict[3]
+# +
+"64cg6j9any" in list(set(AL.duplicate_ids))
+
+# AL.duplicate_ids
+
+# +
+# #############################################################################
+gen_i = 1
+
+AL_i = AL.al_gen_dict[gen_i]
 self = AL_i
 
+model = self.model
 # #############################################################################
-completed_ids = self.completed_ids
-CandidateSpace = self.CandidateSpace
-verbose = self.verbose
-df_train = self.df_train
-df_test = self.df_test
-verbose = self.verbose
-acquisition_bin = self.acquisition_bin
-RegressionModel = self.RegressionModel
-# #############################################################################
+
+# AL_i.duplicate_swap_dict
+
+model.loc[
+    ["64cg6j9any", "9yz2mt8hbh", "6r716sxr9t"]]
+
+# model
+
+"6r716sxr9t" in AL.duplicate_ids
 # -
 
-# ## Testing CandidateSpace
+
+
+# +
+# indices_that_are_duplicates
+# indices_that_are_duplicates
+# .extend(
+
+# indices_that_are_duplicates_i
 
 # + {"active": ""}
 #
 #
 #
+#
 
-# + {"jupyter": {"source_hidden": true}}
-# acquisition_method="gp_ucb"  # 'gp_ucb' or 'random'
-# # #####################################################################
-# acquisition_bin = self.acquisition_bin
-# model = self.model
-# # #####################################################################
-# if acquisition_method == "gp_ucb":
-#     acquisition_ids_ordered = self.acquisition_gp_ucb(model, kappa=1.)
-# elif acquisition_method == "random":
-#     acquisition_ids_ordered = self.acquisition_random(model)
+# + {"active": ""}
+#               y_real         y       err  acquired  gen_acquired
+# id_unique                                                       
+# 6avov5cy64 -7.045677 -7.045334  0.000591      True           1.0
+# cfcivdxrc2 -7.045449 -7.046304  0.000632      True           1.0
+# m29j648g6i -7.045449 -7.046259  0.000622      True           1.0
+# vunhmsbrml -7.045582 -7.045695  0.000579      True           1.0
+# nazu9q9l9h -7.045528 -7.045367  0.000581      True           1.0
+# b46enqnq8e -7.047508 -7.046924  0.000705      True           4.0
+#
+# 64cg6j9any -7.047516 -7.046930  0.000701      True           4.0
+# 6r716sxr9t -7.040906 -7.041141  0.001500      True           0.0
+# 9yz2mt8hbh -7.047426 -7.046936  0.000704      True           1.0
+#
+# y_real             -7.04752
+# y                  -7.04693
+# err             0.000701333
+# acquired               True
+# gen_acquired              4
+# Name: 64cg6j9any, dtype: object
+#
+# 64cg6j9any
+# b46enqnq8e
 
+# + {"active": ""}
+#
+#
+#
+# -
 
-# # Model ordered based on acquisition function
-# model_tmp = model.loc[acquisition_ids_ordered]
-
-# # Remove rows for which DFT data is not available
-# model_data_avail = model_tmp[~model_tmp["y_real"].isna()]
-
-# # Remove rows which have already been acquired
-# # Only acquire what hasn't already been acquired
-# model_data_avail = model_data_avail[model_data_avail["acquired"] == False]
-
-# new_acquis_ids = model_data_avail.index[0:acquisition_bin].tolist()
-
-# +
-# # Pickling data ###############################################################
-# import os; import pickle
-# directory = "out_data"
-# if not os.path.exists(directory): os.makedirs(directory)
-# with open(os.path.join(directory, "AL_ab2.pickle"), "wb") as fle:
-#     pickle.dump(AL, fle)
-# # #############################################################################
+[i for i in df_bulk_dft.index.tolist() if "64cg" in i]
