@@ -199,29 +199,10 @@ class ALBulkOpt:
             self.completed_ids.extend(ALGen_i.new_acquisition)
             self.duplicate_ids.extend(ALGen_i.indices_that_are_duplicates)
 
-            # TEMP
-            print("'6r716sxr9t' in self.duplicate_ids | 2",
-                "6r716sxr9t" in self.duplicate_ids)
-
-
-            # ████████ ███████ ███    ███ ██████
-            #    ██    ██      ████  ████ ██   ██
-            #    ██    █████   ██ ████ ██ ██████
-            #    ██    ██      ██  ██  ██ ██
-            #    ██    ███████ ██      ██ ██
-
-
             self.duplicate_ids = list(set(self.duplicate_ids))
-
-            # TEMP
-            print("'6r716sxr9t' in self.duplicate_ids | 2",
-                "6r716sxr9t" in self.duplicate_ids)
-
-
 
             self.duplicate_swap_dict[self.al_gen] = \
                 ALGen_i.duplicate_swap_lists
-
 
             # #################################################################
             # Updating the 'index_acq_gen_dict' attribute
@@ -678,11 +659,6 @@ class ALGeneration:
             prev_duplicate_ids = []
 
 
-        # TEMP
-        print("'6r716sxr9t' in prev_duplicate_ids",
-            "6r716sxr9t" in prev_duplicate_ids)
-
-
         simil_dict_master = dict()
         for index_i in filter_ids:
             simil_dict = DuplicateFinder.i_all_similar(
@@ -738,46 +714,18 @@ class ALGeneration:
                 df_tmp = df_tmp.sort_values("gen_acquired")
                 TEMP_df_tmp_dict[key] = df_tmp
 
-                # TEMP
-                print("key:", key)
-                print(40 * "-")
-                # print("987gsdfg")
-                # display(df_tmp)
-                # self.TEMP__df_tmp = df_tmp
-
                 #| - MISC checks
                 assert df_tmp.shape[0] > 1, "Only one row in df_tmp"
 
                 # __|
 
 
-
                 # #############################################################
                 # #############################################################
                 # #############################################################
                 # #############################################################
                 # #############################################################
 
-                TEMP_PRINT = False
-                if "64cg6j9any" in df_tmp.index.tolist():
-                    if "9yz2mt8hbh" in df_tmp.index.tolist():
-                        # if al_gen ==
-                        TEMP_PRINT = True
-                        print(30 * "H")
-                        display(df_tmp)
-                        print("al_gen:", al_gen)
-                        print(2 * "\n")
-
-                if al_gen == 1 and "9yz2mt8hbh" in df_tmp.index.tolist():
-                    TEMP_PRINT = True
-                    print(30 * "H")
-                    display(df_tmp)
-                    print("al_gen:", al_gen)
-                    # print("prev_duplicate_ids:", prev_duplicate_ids)
-                    print(2 * "\n")
-
-                if "6r716sxr9t" in df_tmp.index.tolist() and al_gen > 1:
-                    display(df_tmp)
 
 
                 # #############################################################
@@ -792,12 +740,6 @@ class ALGeneration:
                 earlist_gen = earliest_acq_row["gen_acquired"]
 
                 generations_acquired = df_tmp["gen_acquired"].tolist()
-
-                if TEMP_PRINT:
-                    print(len(list(set(generations_acquired))))
-
-
-
 
 
                 #| - Figuring out what kind of df_tmp we have
@@ -871,34 +813,6 @@ class ALGeneration:
                     tmp = 42
                 # __|
 
-
-
-                #| - __old__
-                if len(list(set(generations_acquired))) == 1:
-                    tmp = 42
-                    # display(df_tmp)
-                    # print("All duplicates acquired at the same gen | OK")
-                else:
-                    mess = "There shouldn't be more than one duplicate from previous generations"
-                    num_early_gens = generations_acquired.count(
-                        earliest_acq_row["gen_acquired"])
-                    if num_early_gens > 1:
-                        print(key, mess, key)
-
-                    # assert num_early_gens == 1, mess
-
-                # # Are there multiple early gen rows to choose from?
-                # # Should only happen if multiple are acquired at once
-                # multiple_early_gens_present = False
-                # if len(list(set(generations_acquired))) == 1:
-                #     print("multiple_early_gens_present")
-                #     # display(df_tmp)
-                #     # print("TEMP")
-                #     multiple_early_gens_present = True
-                #     # break
-                # __|
-
-
                 # IMPORTANT <--------------------------------------------------
                 #| - Select desired systems from duplicates ###################
                 # Select entry from array of duplicates that will be kept
@@ -913,18 +827,10 @@ class ALGeneration:
                 # __|
 
 
-
                 indices_that_are_duplicates_i = df_tmp.index.tolist()
                 indices_that_are_duplicates_i.remove(selected_row.name)
 
                 indices_that_are_duplicates.extend(indices_that_are_duplicates_i)
-
-
-            # TEMP
-            print("'6r716sxr9t' in indices_that_are_duplicates",
-                "6r716sxr9t" in indices_that_are_duplicates)
-
-
 
 
             # TEMP
@@ -935,28 +841,6 @@ class ALGeneration:
 
             self.indices_that_are_duplicates = \
                 indices_that_are_duplicates + prev_duplicate_ids
-
-
-            # [i for i in all_ids_from_duplicate_analysis if i not in indices_that_are_duplicates]
-
-                # | - OLD | Trying to replace value for lowest energy duplicate
-                # lowest_y_row = df_tmp.sort_values("y_real").iloc[0]
-                # TEMP
-                # lowest_y_row = df_tmp.sort_values("y_real").iloc[1]
-                # if earliest_acq_row.name != lowest_y_row.name:
-                #     print(earliest_acq_row.name, lowest_y_row.name)
-                # #     model.loc[lowest_y_row.name]
-                # #     model.rename(
-                # #         index={
-                # #             lowest_y_row.name: earliest_acq_row.name + "_TEMP",
-                # #             earliest_acq_row.name: lowest_y_row.name,
-                # #             }, inplace=True)
-                # #     model.rename(
-                # #         index={
-                # #             earliest_acq_row.name + "_TEMP": earliest_acq_row.name,
-                # #             }, inplace=True)
-                # __|
-
         # __|
 
     def acquisition(self,
