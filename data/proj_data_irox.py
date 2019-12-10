@@ -3,6 +3,13 @@
 """Misc storage location for data.
 
 Author: Raul A. Flores
+
+
+Setting up paths to read from this file:
+
+sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
+from proj_data_irox import calc_dH
+
 """
 
 #| - Import Modules
@@ -13,7 +20,6 @@ import os
 # Exp. heat of formation of H2O
 DG_f_H2O = -2.4583  # eV | -4.9166 eV for 2 H2O molecules
 
-
 h2_ref = -6.759300
 
 # My Calculations
@@ -23,6 +29,24 @@ h2o_ref = -14.21890762
 # Recent gas-phase references from Michal
 h2_ref = -6.77149190
 h2o_ref = -14.23091949
+
+
+# 500 eV, Normal
+gas_dft_references_dict = {
+    500: dict(
+        h2o=-14.23091949,  # PBE, 500 eV
+        h2=-6.77149190,  # PBE, 500 eV
+        o2=-9.88557216,  # PBE, 500 eV
+        ),
+
+    600: dict(
+        h2o=-14.23835553,  # PBE, 600 eV
+        h2=-6.77402325,  # PBE, 600 eV
+        o2=-9.89149843,  # PBE, 600 eV
+        )
+    }
+
+
 
 #| - Free Energy Corrections
 #Contributions to Gibbs Energies for gas molecules
@@ -202,6 +226,22 @@ IrO3_battery_bulk_e_dft = -6.38668709984375
 #
 # Atoms.get_chemical_formula:
 # Ir16O48
+
+# Same DFT settings as other systems
+
+# Potential Energy:
+# -410.62404231 eV
+# -6.41600066109375 eV/atom
+
+
+# -410.61718419 eV
+# -6.41589350296875 eV/atom
+
+# -410.61653865 eV
+# -6.41588341640625 eV/atom
+
+# -410.50375054 eV
+# -6.4141211021875 eV/atom
 # __|
 
 bulk_e_per_atom_dict = {
@@ -220,9 +260,11 @@ def calc_dH(
     """
     """
     #| - calc_dH
-    o_ref = -4.657947279999998
-    ir_metal_fit = -9.316164736367316
+    o_ref = -4.64915959
+    ir_metal_fit = -9.32910211636731
 
+    # o_ref = -4.657947279999998
+    # ir_metal_fit = -9.316164736367316
     # iro2: -21.147186
     # o_ref2: -4.657947279999998
     # ir_metal_fit: -9.316164736367316
@@ -230,10 +272,12 @@ def calc_dH(
 
     if stoich == "AB2":
         dH = (2 + 1) * e_per_atom - 2 * o_ref - ir_metal_fit
+        dH_per_atom = dH / 3.
     elif stoich == "AB3":
         dH = (3 + 1) * e_per_atom - 3 * o_ref - ir_metal_fit
+        dH_per_atom = dH / 4.
 
-    return(dH)
+    return(dH_per_atom)
     # __|
 
 # __|
@@ -482,8 +526,7 @@ smart_format_dict_FED = [
 
     [
         {"bulk_system": "IrO3"},
-        {"color": "red"},
-        ],
+        {"color": "red"}, ],
 
     [
         {"bulk_system": "IrO2"},
@@ -553,26 +596,22 @@ scaling_dict_fitted = {
 
 #__|
 
-#| - Experimental IrOx Data From Nature Paper
+#| - Experimental IrOx Data From Nature Paper (R14)
+exp_irox_lim_pot_10mA = {
+    "SrIrO3": 1.51,
+    "IrO2(110)": 1.94}
+
+exp_irox_lim_pot_1mA = {
+    "SrIrO3": 1.45,
+    "IrO2(110)": 1.8}
+
+
 exp_irox_lim_pot = {
-
-    "iro3": {
-        "lim_pot": 1.45,
-        "line_color": irox_bulk_color_map["IrO3"],
-        },
-
-    "iro2": {
-        "lim_pot": 1.8,
-        "line_color": irox_bulk_color_map["IrO2"],
-        },
-
-    "irox": {
-        "lim_pot": 1.57,
-        # "line_color": irox_bulk_color_map["IrO3_rutile-like"],
-        "line_color": "grey",
-        },
+    "10_mA/cm2": exp_irox_lim_pot_10mA,
+    "1_mA/cm2": exp_irox_lim_pot_1mA,
+    "IrOx": 1.57,
+    # "RuOx": ,
     }
-
 #__|
 
 
@@ -598,8 +637,7 @@ main_systems = ["IrO2", "IrO3", "IrO3_battery", "IrO3_rutile-like"]
 data_dir = os.path.join(
     os.environ["PROJ_DATA"],
     data_dir_name,
-    # "04_IrOx_surfaces_OER",
-    # "190315_new_job_df",
+    "oer_slabs_results",
     "190321_new_job_df",
     )
 
@@ -645,10 +683,17 @@ unique_ids_path = os.path.join(
     "data/ml_irox_data",
     "unique_ids.csv")
 
+# /home/raulf2012/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER
+
 prototypes_data_path = os.path.join(
     os.environ["PROJ_irox"],
-    "workflow/ml_modelling",
+
+    "workflow/ml_modelling/processing_bulk_dft",
     "static_prototypes_structures/out_data",
+
+    # "workflow/ml_modelling",
+    # "static_prototypes_structures/out_data",
+
     "data_prototypes.pickle",
 
     # "chris_prototypes_structures",
@@ -662,14 +707,22 @@ prototypes_data_path = os.path.join(
 # workflow/ml_modelling/static_prototypes_structures
 static_irox_structures_path = os.path.join(
     os.environ["PROJ_irox"],
-    "workflow/ml_modelling",
+    "workflow/ml_modelling/processing_bulk_dft",
     "static_prototypes_structures/out_data",
     "data_structures.pickle",
+
+    # "workflow/ml_modelling",
+    # "workflow/ml_modelling/processing_bulk_dft/static_prototypes_structures/out_data",
+    # "static_prototypes_structures/out_data",
     )
+
 static_irox_structures_kirsten_path = os.path.join(
     os.environ["PROJ_irox"],
-    "workflow/ml_modelling",
+    "workflow/ml_modelling/processing_bulk_dft",
     "static_prototypes_structures/out_data",
+
+    # "workflow/ml_modelling",
+    # "static_prototypes_structures/out_data",
     "data_structures_kirsten.pickle",
     )
 oqmd_irox_data_path = os.path.join(
@@ -732,7 +785,8 @@ df_dij_path = os.path.join(
 
 ids_to_discard__too_many_atoms_path = os.path.join(
     os.environ["PROJ_irox"],
-    "workflow/ml_modelling/static_prototypes_structures/out_data",
+    "workflow/ml_modelling/processing_bulk_dft/static_prototypes_structures/out_data",
+    # "workflow/ml_modelling/static_prototypes_structures/out_data",
     "ids_to_discard__too_many_atoms.pickle"
     )
 
