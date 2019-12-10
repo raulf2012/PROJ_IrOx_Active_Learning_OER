@@ -68,7 +68,7 @@ class CCF:
         out_dict = row_i[row_i < d_thresh].to_dict()
 
         return(out_dict)
-        # __|
+        #__|
 
     def i_j_similar(self, index_i, index_j):
         """Test whether systems i and j are similar to one another.
@@ -93,6 +93,6 @@ class CCF:
             assert False, "AHHHHHHHH!!!"
 
         return(similar)
-        # __|
+        #__|
 
     #__| **********************************************************************

@@ -8,7 +8,7 @@ import pandas as pd
 import plotly.graph_objs as go
 
 from plotting.my_plotly import my_plotly_plot
-# __|
+#__|
 
 def get_trace_j(
     model,

@@ -78,7 +78,7 @@ def get_ml_dataframes(
         "ids_to_discard__too_many_atoms_path":
             ids_to_discard__too_many_atoms_path,
         }
-    # __|
+    #__|
 
     temp = data_paths
     data_dict = dict()
@@ -120,7 +120,7 @@ def get_ml_dataframes(
 
     temp = data_dict
     return(temp)
-    # __|
+    #__|
 
 
 def get_data_for_al(
@@ -197,7 +197,7 @@ def get_data_for_al(
         print("\n", "df_i.shape: ", df_i.shape, sep="")
 
     df_bulk_dft = df_i
-    # __|
+    #__|
 
     #| - Featurs pre-DFT
     df_i = df_features_pre
@@ -316,7 +316,7 @@ def get_data_for_al(
 
     print("TEMP TEMP TEMP", "6fcdbh9fz2" in df_dij.index)
 
-    # __|
+    #__|
 
     out_dict = dict()
 
@@ -331,7 +331,7 @@ def get_data_for_al(
 
 
     return(out_dict)
-    # __|
+    #__|
 
 
 def create_mixed_df(

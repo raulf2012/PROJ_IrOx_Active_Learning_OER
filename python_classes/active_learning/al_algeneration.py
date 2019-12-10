@@ -133,7 +133,7 @@ class ALGeneration:
             [True if i in duplicates else False for i in indices]
 
         self.model = model
-        # __|
+        #__|
 
     def get_df_train_test(self):
         """
@@ -176,7 +176,7 @@ class ALGeneration:
         df_test = FP.df_test
 
         return(df_train, df_test)
-        # __|
+        #__|
 
     def __run_duplicate_analysis__(self,
         # duplicate_ids_prev=None,
@@ -210,7 +210,7 @@ class ALGeneration:
         model["gen_acquired"] = model.apply(
             method, axis=1,
             args=(index_acq_gen_dict, ))
-        # __|
+        #__|
 
         # #####################################################################
         #| - Preparing 'simil_dict_master'
@@ -238,7 +238,7 @@ class ALGeneration:
 
         for key in keys_to_delete:
             del simil_dict_master[key]
-        # __|
+        #__|
 
 
         if len(simil_dict_master.keys()) == 0:
@@ -299,7 +299,7 @@ class ALGeneration:
                 #| - MISC checks
                 assert df_tmp.shape[0] > 1, "Only one row in df_tmp"
 
-                # __|
+                #__|
 
 
 
@@ -378,7 +378,7 @@ class ALGeneration:
                     #     duplicate_swap_lists.append(tmp_list)
 
                     tmp = 42
-                # __|
+                #__|
 
                 # IMPORTANT <--------------------------------------------------
                 #| - Select desired systems from duplicates ###################
@@ -391,7 +391,7 @@ class ALGeneration:
                     df_tmp[df_tmp["gen_acquired"] == earlist_gen].sort_values("y_real").iloc[0]
 
                 selected_row = df_tmp.sort_values("y_real").iloc[0]
-                # __|
+                #__|
 
 
                 # Adding the ids of all systems in df_tmp (other than the
@@ -426,7 +426,7 @@ class ALGeneration:
 
             self.indices_that_are_duplicates = \
                 indices_that_are_duplicates + prev_duplicate_ids
-        # __|
+        #__|
 
     def acquisition(self,
         acquisition_method="gp_ucb",  # 'gp_ucb' or 'random'
@@ -459,7 +459,7 @@ class ALGeneration:
         new_acquis_ids = model_data_avail.index[0:acquisition_bin].tolist()
 
         return(new_acquis_ids)
-        # __|
+        #__|
 
     def acquisition_gp_ucb(self,
         model_i,

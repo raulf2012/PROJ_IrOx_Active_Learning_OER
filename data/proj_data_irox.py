@@ -187,7 +187,7 @@ IrO2_ave_regressed_bulk_e = -7.044138074749999
 #
 # Atoms.get_chemical_formula:
 # Ir2O4
-# __|
+#__|
 
 # | - IrO3 (aAlF3)
 # DFT bulk energy
@@ -201,7 +201,7 @@ IrO3_ave_regressed_bulk_e = -6.463877450346546
 #
 # Atoms.get_chemical_formula:
 # Ir2O6
-# __|
+#__|
 
 # | - IrO3 (rutile)
 # DFT bulk energy
@@ -215,7 +215,7 @@ IrO3_rutile_like_ave_regressed_bulk_e = -6.42967135329762
 #
 # Atoms.get_chemical_formula:
 # Ir4O12
-# __|
+#__|
 
 # | - IrO3 (battery)
 # DFT bulk energy
@@ -242,7 +242,7 @@ IrO3_battery_bulk_e_dft = -6.38668709984375
 
 # -410.50375054 eV
 # -6.4141211021875 eV/atom
-# __|
+#__|
 
 bulk_e_per_atom_dict = {
     "IrO2": IrO2_ave_regressed_bulk_e,
@@ -278,9 +278,9 @@ def calc_dH(
         dH_per_atom = dH / 4.
 
     return(dH_per_atom)
-    # __|
+    #__|
 
-# __|
+#__|
 
 #| - Bulk Pourbaix Transitions
 # From my bulk Pourbaix plot | RF | 190104

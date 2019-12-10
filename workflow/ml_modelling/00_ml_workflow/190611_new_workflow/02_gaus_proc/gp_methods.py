@@ -250,7 +250,7 @@ def gp_model_catlearn(
     #     optimize_hyperparameters=True,
     #     scale_data=True,  # True is breaking code sometimes
     #     )
-    # __|
+    #__|
 
     #__|
 
@@ -506,7 +506,7 @@ def gp_workflow(
 
     df_test = df_pca
     out_dict["pca"] = pca
-    # __|
+    #__|
 
 
     #| - GP Model
@@ -860,7 +860,7 @@ def test_al_conv(model_i):
 #     #     df_features.index,
 #     #     drop=True, append=False,
 #     #     inplace=False, verify_integrity=False)
-#     # __|
+#     #__|
 #
 #     #__|
 

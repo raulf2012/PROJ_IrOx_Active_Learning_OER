@@ -87,21 +87,21 @@ class RegressionModel:
         """
         #| - set_df_train
         self.df_train = df_train
-        # __|
+        #__|
 
     def set_train_targets(self, train_targets):
         """
         """
         #| - set_train_targets
         self.train_targets = train_targets
-        # __|
+        #__|
 
     def set_df_test(self, df_test):
         """
         """
         #| - set_df_test
         self.df_test = df_test
-        # __|
+        #__|
 
 
     def run_regression(self):
@@ -166,7 +166,7 @@ class RegressionModel:
             sort=False)
 
         model_i = model_i.fillna(value={'acquired': False})
-        # __|
+        #__|
 
         #  ####################################################################
         # Unstandardizing the output ##########################################
@@ -177,7 +177,7 @@ class RegressionModel:
         model_i["err"] = (model_i["err"] * y_std)
 
         self.model = model_i
-        # __|
+        #__|
 
     def gp_model_catlearn(self,
         train_features,
@@ -487,7 +487,7 @@ class FingerPrints:
             }
 
         return(out_dict)
-        # __|
+        #__|
 
     def clean_skewness(self, df_train, df_test, labels):
         """
@@ -554,7 +554,7 @@ class FingerPrints:
             }
 
         return(out_dict)
-        # __|
+        #__|
 
     def clean_standardize(self, df_train, df_test):
         """
@@ -643,7 +643,7 @@ class FingerPrints:
             print(df_pca.shape)
 
         df_train = df_pca
-        # __|
+        #__|
 
         #| - Transforming the test data set
         df = df_test
@@ -658,14 +658,14 @@ class FingerPrints:
             index=df.index)
 
         df_test = df_pca
-        # __|
+        #__|
 
         # out_dict["pca"] = pca
 
 
         self.df_test = df_test
         self.df_train = df_train
-        # __|
+        #__|
 
     #__| **********************************************************************
 
@@ -732,7 +732,7 @@ class CandidateSpace:
 
         if restrict_to_validated_space:
             tmp = 42
-        # __|
+        #__|
 
     def create_mixed_candidate_space(self,
         computed_ids,
@@ -775,6 +775,6 @@ class CandidateSpace:
         if len(Y_data.index) != len(Y_data.index.unique()):
             print("Y_data has duplicate rows!!!")
 
-        # __|
+        #__|
 
     #__| **********************************************************************

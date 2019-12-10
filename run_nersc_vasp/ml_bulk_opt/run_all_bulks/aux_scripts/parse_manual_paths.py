@@ -15,13 +15,13 @@ from methods import (
     get_isif_from_incar,
     get_number_of_ionic_steps,
     )
-# __|
+#__|
 
 #| - Script Inputs
 paths_to_parse_list = [
     "/scratch/users/flores12/PROJ_irox_ml_oer/beta_iro3_phase_calc/01_attempt",
     ]
-# __|
+#__|
 
 
 #| - Parsing files
@@ -68,7 +68,7 @@ for path_i in paths_to_parse_list:
             job_dirs.append(subdir)
 
     df = pd.DataFrame(data_list)
-# __|
+#__|
 
 #| - Apply job parse methods
 def method(row_i):
@@ -117,7 +117,7 @@ def method(row_i):
         row_i[key] = value
     return(row_i)
 df = df.apply(method, axis=1)
-# __|
+#__|
 
 
 
@@ -158,4 +158,4 @@ bash_comm = "rclone copy out_data/df_manual.pickle raul_dropbox:" + db_path
 # bash_comm = "rclone copyto " + filename_i + " raul_dropbox:" + db_path
 print(bash_comm)
 os.system(bash_comm)
-# __|
+#__|

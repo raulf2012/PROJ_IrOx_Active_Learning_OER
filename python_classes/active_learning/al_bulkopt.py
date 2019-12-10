@@ -148,7 +148,7 @@ class ALBulkOpt:
         stop_num_generations = self.stop_num_generations
         acquisition_method = self.acquisition_method
         index_acq_gen_dict = self.index_acq_gen_dict
-        # __| #################################################################
+        #__| #################################################################
 
         while not self.al_converged:
             print(str(self.al_gen).zfill(3), " | init  | ", 64 * "*")
@@ -185,7 +185,7 @@ class ALBulkOpt:
 
                     if stop_num_generations == 0:
                         continue
-            # __|
+            #__|
 
             #| - ALGeneration #################################################
             ALGen_i = ALGeneration(
@@ -226,7 +226,7 @@ class ALBulkOpt:
             mess = "Seems like an id was acquired in more than 1 generation?"
             assert len(index_list) == len(set(index_list)), mess
             # #################################################################
-            # __|
+            #__|
 
             # Check various performance metrics for AL loop
             self.__evaluate_performance__()
@@ -238,7 +238,7 @@ class ALBulkOpt:
 
             print(str(self.al_gen).zfill(3), " | final | ", 64 * "*"); print()
             self.al_gen += 1
-        # __|
+        #__|
 
     def add_main_Y_to_model(self,
         model,
@@ -294,7 +294,7 @@ class ALBulkOpt:
             model["Y_uncer"] = model[uncertainty_key]
 
         return(model)
-        # __|
+        #__|
 
     def __evaluate_performance__(self,
         types=["static_winners"],
@@ -317,7 +317,7 @@ class ALBulkOpt:
         if "static_winners" in types:
             meth_static_winners()
 
-        # __|
+        #__|
 
     def _evaluate_performance__static_winners(self):
         """Evaluate whether the identity and ordering of the highest
@@ -342,7 +342,7 @@ class ALBulkOpt:
         stop_num_generations = self.stop_num_generations
 
         index_acq_gen_dict = self.index_acq_gen_dict
-        # __| #################################################################
+        #__| #################################################################
 
         # #####################################################################
         mode = "lowest_N"  # 'lowest_N' or 'lowest_perc'
@@ -394,7 +394,7 @@ class ALBulkOpt:
                     ids_are_static = all(ids_static_list)
 
             self.performance__static_winners[last_gen_key] = ids_are_static
-        # __|
+        #__|
 
     def __check_inputs__(self):
         """Check inputs to class."""
@@ -408,7 +408,7 @@ class ALBulkOpt:
             mess_i = "stop_mode='num_generations', \
                 Must pass int to 'stop_num_generations'"
             assert type(stop_num_generations) == type(1), mess_i
-        # __|
+        #__|
 
     def get_seed_ids(self):
         """Retrieve the ids for the initial seed calculations."""
@@ -460,7 +460,7 @@ class ALBulkOpt:
         if not os.path.exists(directory): os.makedirs(directory)
         with open(os.path.join(directory, name + ".pickle"), "wb") as fle:
             pickle.dump(AL, fle)
-        # __|
+        #__|
 
 
 
@@ -477,7 +477,7 @@ class ALBulkOpt:
         self.__create_swap_histories__()
 
         self.__color_dict_progression__()
-        # __|
+        #__|
 
 
     def __create_swap_histories__(self):
@@ -571,7 +571,7 @@ class ALBulkOpt:
 
 
         self.swap_histories = swap_histories
-        # __|
+        #__|
 
 
     def __color_dict_progression__(self):
@@ -637,7 +637,7 @@ class ALBulkOpt:
                 color_dict_progression[id_color_i] = gen_id_dict
 
         self.color_dict_progression = color_dict_progression
-        # __|
+        #__|
 
 
     #__| **********************************************************************

@@ -112,7 +112,7 @@ class ALAnimation:
         get_sliders_init_dict = self.get_sliders_init_dict
         get_slider_step_i = self.get_slider_step_i
         __save_figure_to_file__ = self.__save_figure_to_file__
-        # __| #################################################################
+        #__| #################################################################
 
         if verbose:
             print("\n", "Creating animation...")
@@ -134,7 +134,7 @@ class ALAnimation:
 
         if verbose:
             print("DONE!")
-        # __|
+        #__|
 
     def __create_traces__(self,
         # marker_color_dict=None,
@@ -155,7 +155,7 @@ class ALAnimation:
         get_slider_step_i = self.get_slider_step_i
         __save_figure_to_file__ = self.__save_figure_to_file__
 
-        # __| #################################################################
+        #__| #################################################################
 
 
         traces_read_succ = False
@@ -235,7 +235,7 @@ class ALAnimation:
                     except:
                         print(i_cnt)
                         pass
-                # __|
+                #__|
 
             elif serial_parallel == "serial":
                 #| - Serial execution
@@ -268,7 +268,7 @@ class ALAnimation:
 
                 self._create_traces__run_time = run_time
                 self._create_traces__run_time_per = run_time_per
-                # __|
+                #__|
 
 
             # Pickling data #######################################################
@@ -280,9 +280,9 @@ class ALAnimation:
                 pickle.dump(self.traces, fle)
             # #####################################################################
 
-            # __|
+            #__|
 
-        # __|
+        #__|
 
     def __create_figure__(self,
         duration_long=None,
@@ -339,7 +339,7 @@ class ALAnimation:
             #         ],
             #
             #     )
-            # __|
+            #__|
 
             # #################################################################
             if i_cnt == 0: data.extend(traces_i)
@@ -363,7 +363,7 @@ class ALAnimation:
         fig['layout']['sliders'] = [sliders_dict]
 
         self.fig = fig
-        # __|
+        #__|
 
     def __save_figure_to_file__(self, filename=None):
         """Save figure to file."""
@@ -394,7 +394,7 @@ class ALAnimation:
         pyio.write_html(
             fig,
             file_path_i)
-        # __|
+        #__|
 
     def get_trace_j(self,
         AL_i,
@@ -482,7 +482,7 @@ class ALAnimation:
 
         model_i = model_i.reindex(labels=model_index)
         model = model_i
-        # __|
+        #__|
 
 
         data = []
@@ -628,7 +628,7 @@ class ALAnimation:
         #    ██    ██      ██  ██  ██ ██
         #    ██    ███████ ██      ██ ██
 
-        # __|
+        #__|
 
 
         if internally_order_df:
@@ -771,7 +771,7 @@ class ALAnimation:
             **shared_scatter_props,
             )
         data.append(trace)
-        # __|
+        #__|
 
 
         trace_i = go.Scatter(
@@ -881,7 +881,7 @@ class ALAnimation:
                     #     row_i["marker_opacity"] = 1.
                     #     row_i["marker_symbol"] = "star"
                     #     row_i["marker_color"] = "green"
-                    # __|
+                    #__|
 
                 # Validation data not available (HIDE)
                 elif actually_computed == False:
@@ -939,7 +939,7 @@ class ALAnimation:
             if verbose:
                 tf = time.time()
                 print("    ", "Validation DFT Trace | create trace:", tf - ti); ti = tf
-        # __|
+        #__|
 
 
         # #####################################################################
@@ -980,7 +980,7 @@ class ALAnimation:
                     )
                 )
             data.append(trace_i)
-        # __|
+        #__|
 
 
         return(data)
@@ -1170,7 +1170,7 @@ class ALAnimation:
         self.__create_swap_histories__()
 
         self.__color_dict_progression__()
-        # __|
+        #__|
 
     def __get_color_dict__(self,
         # id_color_dict=None,
@@ -1307,7 +1307,7 @@ class ALPerformance:
 
         top_ids_static = copy.deepcopy(top_ids)
         top_ids_working = copy.deepcopy(top_ids)
-        # __|
+        #__|
 
         # print("len(top_ids_working):", len(top_ids_working))
 
@@ -1384,6 +1384,6 @@ class ALPerformance:
         df = pd.DataFrame(data_list_master)
 
         self.num_sys_discovered_df = df
-        # __|
+        #__|
 
     #__| **********************************************************************

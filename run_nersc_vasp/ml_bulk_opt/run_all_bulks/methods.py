@@ -60,7 +60,7 @@ def parse_job_err(path):
                     print("job killed after reaching LSF run time limit")
                     status_dict["timed_out"] = True
                     break
-    # __|
+    #__|
 
     #| - Parsing error file
     job_err_file_path = os.path.join(path, "job.err")
@@ -84,7 +84,7 @@ def parse_job_err(path):
         #             print("job killed after reaching LSF run time limit")
         #             status_dict["timed_out"] = True
 
-    # __|
+    #__|
 
 
     #| - Parsing out file
@@ -100,7 +100,7 @@ def parse_job_err(path):
                 if err_i in line:
                     status_dict["error_type"] = "Error in SGRCON (symm error)"
                     break
-    # __|
+    #__|
 
     print(2 * "")
 
