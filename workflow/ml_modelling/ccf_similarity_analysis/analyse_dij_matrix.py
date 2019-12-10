@@ -91,9 +91,9 @@ create_plot = True
 # # Read Data
 
 # +
-df_dij_path_tmp = df_dij_path[0:-18] + "df_d_ij_all_temp.pickle"
-# with open(df_dij_path, "rb") as fle:
-with open(df_dij_path_tmp, "rb") as fle:
+# df_dij_path_tmp = df_dij_path[0:-18] + "df_d_ij_all_temp.pickle"
+with open(df_dij_path, "rb") as fle:
+# with open(df_dij_path_tmp, "rb") as fle:
     df_dij_dft = pickle.load(fle)
     print("df_dij_dft.shape:", df_dij_dft.shape)
 
@@ -114,6 +114,21 @@ with open(path_i, "rb") as fle:
 ids_to_drop_prev = ids_to_drop_prev["AB2"] + ids_to_drop_prev["AB3"]
 
 # sys.path.insert(0, "../04_final_ml_plots")
+
+# +
+# df_dij_dft.loc["8p8evt9pcg", "9lmkmh8s8r"]
+
+
+df_dij_dft.loc[
+
+    "64cg6j9any",
+    "b46enqnq8e",
+    "9yz2mt8hbh",
+
+#     "6avov5cy64"
+    
+#     "clc2b1mavs",
+    ]
 # -
 
 # # Dropping Static Structure from D_ij
@@ -195,7 +210,7 @@ if create_plot:
     fig = my_plotly_plot(
         figure=fig,
         plot_name='irox_dij_heatmap',
-        write_pdf_svg=True,
+        # write_pdf_svg=True,
         write_html=True,
         write_png=True,
         write_pdf=False,

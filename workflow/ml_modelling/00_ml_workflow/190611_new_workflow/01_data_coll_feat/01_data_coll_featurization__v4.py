@@ -47,20 +47,12 @@ os.getcwd()
 
 # #############################################################################
 sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
-# from proj_data_irox import (
-# #     df_features_path,
-# #     df_features_cleaned_path,
-# #     df_features_cleaned_pca_path,
-#     )
-
 from proj_data_irox import (
     bulk_dft_data_path,
     unique_ids_path,
     prototypes_data_path,
     static_irox_structures_path,
     static_irox_structures_kirsten_path,
-#     oqmd_irox_data_path,
-    
     df_features_pre_opt_path,
     df_features_pre_opt_kirsten_path,
     df_features_post_opt_path,

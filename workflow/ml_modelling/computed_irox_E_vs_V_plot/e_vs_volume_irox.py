@@ -6,11 +6,11 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.4'
-#       jupytext_version: 1.2.1
+#       jupytext_version: 1.1.7
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:research-new]
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-research-new-py
 # ---
 
 # # Energy vs Volume for all computed IrOx bulk polymorphs
@@ -77,10 +77,14 @@ df_tmp = pd.concat([
 df_m = df_tmp
 # -
 
-df_coord
-
-
 # # Calculating volume per atom
+
+# +
+# df_m.loc["atoms"].isna
+
+df_m = df_m[~df_m["atoms"].isna()]
+
+
 
 # +
 def method(row_i):
@@ -381,6 +385,9 @@ df_tmp = df_m.sort_values("O_coord", ascending=False).iloc[0:10]
 atoms_list = df_tmp["atoms"].tolist()
 names= df_tmp.index.tolist()
 # view_in_vesta(atoms_list, name_list=names, ase_gui=False)
+# -
+
+df_m.loc["9hc58scr8f"]
 
 # + {"active": ""}
 #

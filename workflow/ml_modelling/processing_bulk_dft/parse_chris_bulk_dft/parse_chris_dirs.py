@@ -6,11 +6,11 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.4'
-#       jupytext_version: 1.2.1
+#       jupytext_version: 1.1.7
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:research-new]
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-research-new-py
 # ---
 
 # # Parsing Chris's DFT Data on NERSC

@@ -252,44 +252,70 @@ def get_data_for_al(
         df_features_pre.index.tolist() + \
         df_features_post.index.tolist() ))
 
+
+    ids_to_drop = []
+
+    # #########################################################################
+    path_i = os.path.join(
+        os.environ["PROJ_irox"],
+        "workflow/ml_modelling/processing_bulk_dft/static_prototypes_structures/out_data",
+        "ids_to_discard__proto_dupl.pickle")
+    with open(path_i, "rb") as fle:
+        ids_to_discard__proto_dupl = pickle.load(fle)
+        ids_to_drop.extend(ids_to_discard__proto_dupl)
+    # #########################################################################
+
     if drop_too_many_atoms:
         # #####################################################################
         with open(ids_to_discard__too_many_atoms_path, "rb") as fle:
             ids_to_drop__too_many_atoms = pickle.load(fle)
-            ids_to_drop = ids_to_drop__too_many_atoms
-            ids_to_drop = [i for i in ids_to_drop if i in all_ids]
+            ids_to_drop.extend(ids_to_drop__too_many_atoms)
 
+            # ids_to_drop = ids_to_drop__too_many_atoms
+            # ids_to_drop = [i for i in ids_to_drop if i in all_ids]
         # #####################################################################
-        df_features_pre = df_features_pre.drop(
-            labels=ids_to_drop, axis=0)
-
-        df_i = df_features_post
-        df_features_post = df_i.loc[
-            df_i.index.intersection(
-                df_features_pre.index.unique()
-                ).unique()
-            ]
 
 
-        df_bulk_dft = df_bulk_dft.loc[
-            df_bulk_dft.index.intersection(
-                df_features_pre.index
-                ).unique()
-            ]
+    ids_to_drop = [i for i in ids_to_drop if i in all_ids]
+
+    print("in ids to drop", "6fcdbh9fz2" in ids_to_drop)
+
+    df_features_pre = df_features_pre.drop(
+        labels=ids_to_drop, axis=0)
+
+    df_i = df_features_post
+    df_features_post = df_i.loc[
+        df_i.index.intersection(
+            df_features_pre.index.unique()
+            ).unique()
+        ]
 
 
-        df_static_irox = df_static_irox.loc[
-            df_static_irox.index.intersection(
-                df_features_pre.index
-                ).unique()
-            ]
+    df_bulk_dft = df_bulk_dft.loc[
+        df_bulk_dft.index.intersection(
+            df_features_pre.index
+            ).unique()
+        ]
 
-        ids_static = df_dij.index.intersection(df_static_irox["static_id"])
-        ids_completed_post_dft = \
-            df_dij.index.intersection(df_features_pre.index)
 
-        ids_dij = ids_static.tolist() + ids_completed_post_dft.tolist()
-        df_dij = df_dij.loc[ids_dij, ids_dij]
+    df_static_irox = df_static_irox.loc[
+        df_static_irox.index.intersection(
+            df_features_pre.index
+            ).unique()
+        ]
+
+    ids_static = df_dij.index.intersection(df_static_irox["static_id"])
+    ids_completed_post_dft = \
+        df_dij.index.intersection(df_features_pre.index)
+
+
+    print("TEMP TEMP TEMP", "6fcdbh9fz2" in df_dij.index)
+
+    ids_dij = ids_static.tolist() + ids_completed_post_dft.tolist()
+    df_dij = df_dij.loc[ids_dij, ids_dij]
+
+    print("TEMP TEMP TEMP", "6fcdbh9fz2" in df_dij.index)
+
     # __|
 
     out_dict = dict()
@@ -306,19 +332,6 @@ def get_data_for_al(
 
     return(out_dict)
     # __|
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def create_mixed_df(

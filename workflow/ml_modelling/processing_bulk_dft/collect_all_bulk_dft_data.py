@@ -241,90 +241,26 @@ if not os.path.exists(directory):
 with open(os.path.join(directory, "df_bulk_dft.pickle"), "wb") as fle:
     pickle.dump(df_m, fle)
 # -
-3 * -7.049 - (2 * -4.657947279999998 + -9.304929736367313)
+os.path.join(directory, "df_bulk_dft.pickle")
 
--7.04
+df_m.loc["cubqbpzd7k"]
 
 # +
+# 3 * -7.049 - (2 * -4.657947279999998 + -9.304929736367313)
+
+# -7.04
+# -
+
 df_m[
     (df_m["stoich"] == "AB2") & \
 #     (df_m["stoich"] == "AB2")
     (df_m["source"] == "raul")
-    ].sort_values("energy_pa").loc[
-    
-    [
-        
-"cubqbpzd7k",
-"6r716sxr9t",        
-    ]
-]
-
-# +
-print(-7.049062 - -7.040906)
-
-print(-2.515127 - -2.490658)
+    ].sort_values("energy_pa")
 
 # + {"active": ""}
 #
 #
 #
 #
+#
 
-
-# + {"jupyter": {"source_hidden": true}}
-# df_m[
-#     (df_m["source"] == "raul") & \
-#     (df_m["stoich"] == "AB2")
-#     ]["source"]
-
-# # df_m.head()
-
-# + {"jupyter": {"source_hidden": true}}
-# df_m[df_m["source"] == "raul_oer"].index.tolist()
-
-# + {"jupyter": {"source_hidden": true}}
-# def method(row_i):
-#     atoms_i = row_i["atoms"]
-#     num_atoms_i = atoms_i.get_number_of_atoms()
-#     return(num_atoms_i)
-
-
-# df_i = df_m
-# df_i["num_atoms"] = df_i.apply(
-#     method,
-#     axis=1)
-# df_m = df_i
-
-# + {"jupyter": {"source_hidden": true}}
-# df_m.sort_values("num_atoms").iloc[0]["path"]
-
-# df_m.loc["9qzl9t7l84"]
-
-# + {"jupyter": {"source_hidden": true}}
-# df_m = df_m[df_m["stoich"] == "AB3"]
-# df_m = df_m[df_m["source"] == "chris"]
-
-# # if row_i["energy_pa"]
-
-# # row_i = df_m.loc["v4zonyzw7d"]
-# row_i = df_oqmd_data.iloc[0]
-
-# energy_pa = row_i["energy_pa"]
-# if not np.isnan(energy_pa) and row_i["source"] == "oqmd":
-#     energy_norm_i = energy_pa
-
-# # row_i
-
-# def method(row_i):
-#     """
-#     """
-#     atoms_i = row_i["atoms"]    
-#     num_atoms_i = atoms_i.get_number_of_atoms()
-#     return(num_atoms_i)
-
-# df_i = df_m
-# df_i["num_atoms"] = df_i.apply(
-#     method,
-#     axis=1,
-#     )
-# df_m = df_i
