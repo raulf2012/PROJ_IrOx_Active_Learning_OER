@@ -29,8 +29,7 @@ import numpy as np
 #__|
 
 # TEMP
-from al_algeneration import ALGeneration
-# from active_learning import ALGeneration
+from active_learning.al_algeneration import ALGeneration
 
 
 #  █████  ██      ██████  ██    ██ ██      ██   ██  ██████  ██████  ████████
@@ -51,15 +50,17 @@ class ALBulkOpt:
         CandidateSpace=None,
         RegressionModel=None,
         DuplicateFinder=None,  # Optional
+        duplicate_analysis=True,
         num_seed_calcs=11,
         acquisition_bin=10,
         mode="ATF",  # 'ATF' (after the fact)
-
         stop_mode=None,  # None, 'num_generations'
         stop_num_generations=None,
-
         verbose=True,
-        name="AL_temp"
+        name="AL_temp",
+        save_dir_extra=None,
+        acquisition_method="gp_ucb",  # 'gp_ucb' or 'random'
+        seed=None,
         ):
         """Initialize ALBulkOpt class instance.
 
@@ -92,6 +93,7 @@ class ALBulkOpt:
         self.CandidateSpace = CandidateSpace
         self.RegressionModel = RegressionModel
         self.DuplicateFinder = DuplicateFinder
+        self.duplicate_analysis = duplicate_analysis
         self.num_seed_calcs = num_seed_calcs
         self.acquisition_bin = acquisition_bin
         self.mode = mode
@@ -99,6 +101,9 @@ class ALBulkOpt:
         self.stop_num_generations = stop_num_generations
         self.verbose = verbose
         self.name = name
+        self.save_dir_extra = save_dir_extra
+        self.acquisition_method = acquisition_method
+        self.seed = seed
         #__|
 
         #| - Initializing Internal Instance Attributes
@@ -120,7 +125,6 @@ class ALBulkOpt:
         self.__check_inputs__()
         #__|
 
-
     def run_AL(self):
         """
         """
@@ -135,19 +139,19 @@ class ALBulkOpt:
         CandidateSpace = self.CandidateSpace
         RegressionModel = self.RegressionModel
         DuplicateFinder = self.DuplicateFinder
+        duplicate_analysis = self.duplicate_analysis
         al_gen_dict = self.al_gen_dict
         duplicate_ids = self.duplicate_ids
         duplicate_swap_dict = self.duplicate_swap_dict
 
         stop_mode = self.stop_mode
         stop_num_generations = self.stop_num_generations
-
+        acquisition_method = self.acquisition_method
         index_acq_gen_dict = self.index_acq_gen_dict
         # __| #################################################################
 
         while not self.al_converged:
             print(str(self.al_gen).zfill(3), " | init  | ", 64 * "*")
-
 
             if self.al_gen == 0:
                 index_acq_gen_dict_i = dict()
@@ -190,10 +194,12 @@ class ALBulkOpt:
                 CandidateSpace=CandidateSpace,
                 RegressionModel=RegressionModel,
                 DuplicateFinder=DuplicateFinder,
+                duplicate_analysis=duplicate_analysis,
                 index_acq_gen_dict=index_acq_gen_dict,
                 prev_acquisition=prev_acquisition,
                 prev_duplicate_ids=self.duplicate_ids,
                 duplicate_swap_dict=duplicate_swap_dict,
+                acquisition_method=acquisition_method,
                 al_gen=self.al_gen,
                 verbose=verbose)
 
@@ -221,7 +227,6 @@ class ALBulkOpt:
             assert len(index_list) == len(set(index_list)), mess
             # #################################################################
             # __|
-
 
             # Check various performance metrics for AL loop
             self.__evaluate_performance__()
@@ -290,8 +295,6 @@ class ALBulkOpt:
 
         return(model)
         # __|
-
-
 
     def __evaluate_performance__(self,
         types=["static_winners"],
@@ -414,8 +417,12 @@ class ALBulkOpt:
         mode = self.mode
         num_seed_calcs = self.num_seed_calcs
         CandidateSpace = self.CandidateSpace
-        # TEMP
-        seed = 20191025
+        seed = self.seed
+        # #####################################################################
+
+        if seed is None:
+            seed = np.random.randint(0, high=1000)
+
         # #####################################################################
 
         ids_candidate_space = CandidateSpace.FingerPrints.df_pre.index.tolist()
@@ -444,11 +451,193 @@ class ALBulkOpt:
         #| - __save_state__
         AL = self
         name = self.name
+        save_dir_extra = self.save_dir_extra
 
         directory = "out_data"
+        if save_dir_extra:
+            directory = os.path.join(directory, save_dir_extra)
+
         if not os.path.exists(directory): os.makedirs(directory)
         with open(os.path.join(directory, name + ".pickle"), "wb") as fle:
             pickle.dump(AL, fle)
         # __|
+
+
+
+
+
+
+
+
+
+    def duplicate_system_history_analysis(self):
+        """
+        """
+        #| - duplicate_system_history_analysis
+        self.__create_swap_histories__()
+
+        self.__color_dict_progression__()
+        # __|
+
+
+    def __create_swap_histories__(self):
+        """
+        self.swap_histories
+        """
+        #| - __create_swap_histories__
+
+        # #####################################################################
+        # ALBulkOpt = self.ALBulkOpt
+        # verbose = self.verbose
+        # marker_color_dict = self.marker_color_dict
+        # traces_dict = self.traces
+        # get_trace_j = self.get_trace_j
+        # get_layout = self.get_layout
+        # get_sliders_init_dict = self.get_sliders_init_dict
+        # get_slider_step_i = self.get_slider_step_i
+        # __save_figure_to_file__ = self.__save_figure_to_file__
+        # #####################################################################
+
+
+        # #####################################################################
+        # self = AL
+        # al_gen_dict = ALBulkOpt.al_gen_dict
+        # duplicate_ids = ALBulkOpt.duplicate_ids
+
+        duplicate_swap_dict = self.duplicate_swap_dict
+        al_gen_dict = self.al_gen_dict
+
+        # #####################################################################
+
+
+        final_gen = list(al_gen_dict.keys())[-1]
+        gen_final = al_gen_dict[final_gen]
+        model = gen_final.model
+
+        model_filtered = model[
+            (model["acquired"] == True) & \
+            (model["duplicate"] == False)]
+
+        ids_final = model_filtered.index.tolist()
+
+
+        swap_histories = dict()
+        for id_i in ids_final:
+            id_tmp = id_i
+            swap_history = dict()
+            while True:
+                found_next_swap_id = False
+                for gen, swap_lists_i in duplicate_swap_dict.items():
+                    for swap_list in swap_lists_i:
+                        if swap_list[1] == id_tmp:
+                            relev_swap_list = swap_list
+                            # swap_history.append({gen: relev_swap_list})
+                            swap_history[gen] = relev_swap_list
+
+                            id_tmp = relev_swap_list[0]
+                            found_next_swap_id = True
+
+                if not found_next_swap_id:
+                    # print("breaking")
+                    break
+
+            # #################################################################
+            continous_swap_list = []
+            swap_gen_list = list(swap_history.keys())
+            num_swaps = len(swap_gen_list)
+            for i_cnt, swap_gen in enumerate(swap_gen_list):
+                if i_cnt + 1 >= num_swaps:
+                    continue
+
+                swap_list_ip1 = swap_history[
+                    list(swap_history.keys())[i_cnt + 1]
+                    ]
+
+                swap_list_i =swap_history[swap_gen]
+                # print("", swap_list_i, "\n", swap_list_ip1)
+
+                continous_swap = swap_list_i[0] == swap_list_ip1[-1]
+                continous_swap_list.append(continous_swap)
+
+            swap_history_is_continous = all(continous_swap_list)
+            assert swap_history_is_continous, "Not continious!!!!!!!!!!!!!!!!! dsifgsa"
+
+            # print("swap_history_is_continous:", swap_history_is_continous)
+            # print(swap_history)
+
+            if swap_history:
+                swap_histories[id_i] = swap_history
+
+
+
+        self.swap_histories = swap_histories
+        # __|
+
+
+    def __color_dict_progression__(self):
+        """ Sets the following attribute.
+
+        self.color_dict_progression
+        """
+        #| - __color_dict_progression__
+
+        # #####################################################################
+        # ALBulkOpt = self.ALBulkOpt
+        # verbose = self.verbose
+        # marker_color_dict = self.marker_color_dict
+        # traces_dict = self.traces
+        # get_trace_j = self.get_trace_j
+        # get_layout = self.get_layout
+        # get_sliders_init_dict = self.get_sliders_init_dict
+        # get_slider_step_i = self.get_slider_step_i
+
+        swap_histories = self.swap_histories
+
+        # __save_figure_to_file__ = self.__save_figure_to_file__
+        # #####################################################################
+
+        CandidateSpace = self.CandidateSpace
+        FingerPrints = CandidateSpace.FingerPrints
+        df_pre = FingerPrints.df_pre
+        all_indices = df_pre.index.tolist()
+
+
+
+        # al_gen_dict = ALBulkOpt.al_gen_dict
+        al_gen_dict = self.al_gen_dict
+
+
+        final_gen = list(al_gen_dict.keys())[-1]
+        gen_final = al_gen_dict[final_gen]
+
+
+        # id_color_dict = marker_color_dict
+
+        color_dict_progression = dict()
+        # for id_color_i, color_i in id_color_dict.items():
+        for id_color_i in all_indices:
+
+            swap_history = swap_histories.get(id_color_i, None)
+            if swap_history:
+                swap_gen_list = list(swap_history.keys())
+
+                gen_id_dict = dict()
+                for i in range(final_gen + 1):
+                    swap_gens_greater_than_i = [j for j in swap_gen_list if j > i]
+
+                    if len(swap_gens_greater_than_i) > 0:
+                        gen_tmp = min(swap_gens_greater_than_i)
+                        color_i = swap_history[gen_tmp][0]
+                    else:
+                        color_i =swap_history[max(swap_gen_list)][-1]
+
+                    # print(color_i)
+                    gen_id_dict[i] = color_i
+
+                color_dict_progression[id_color_i] = gen_id_dict
+
+        self.color_dict_progression = color_dict_progression
+        # __|
+
 
     #__| **********************************************************************

@@ -8,24 +8,9 @@ Author: Raul A. Flores
 #| - IMPORT MODULES
 import os
 import copy
-#
-# import pickle
-#
+
 import numpy as np
 import pandas as pd
-#
-# # SciKitLearn
-# from sklearn.decomposition import PCA
-#
-# # Catlearn
-# from catlearn.regression.gaussian_process import GaussianProcess
-# from catlearn.preprocess.clean_data import (
-#     clean_infinite,
-#     clean_variance,
-#     clean_skewness)
-# from catlearn.preprocess.scaling import standardize
-#
-# from IPython.display import display
 #__|
 
 
@@ -49,11 +34,13 @@ class ALGeneration:
         CandidateSpace=None,
         RegressionModel=None,
         DuplicateFinder=None,
+        duplicate_analysis=True,
         index_acq_gen_dict=None,
         prev_acquisition=None,
         prev_duplicate_ids=None,
         duplicate_swap_dict=None,
         al_gen=None,
+        acquisition_method="gp_ucb",
         verbose=True,
         ):
         """
@@ -70,11 +57,13 @@ class ALGeneration:
         self.CandidateSpace = CandidateSpace
         self.RegressionModel = RegressionModel
         self.DuplicateFinder = DuplicateFinder
+        self.duplicate_analysis = duplicate_analysis
         self.index_acq_gen_dict = index_acq_gen_dict
         self.prev_acquisition = prev_acquisition
         self.prev_duplicate_ids = prev_duplicate_ids
         self.duplicate_swap_dict = duplicate_swap_dict
         self.al_gen = al_gen
+        self.acquisition_method = acquisition_method
         self.verbose = verbose
         #__|
 
@@ -83,13 +72,17 @@ class ALGeneration:
         self.df_test = None
         self.new_acquisition = None
         self.duplicate_swap_lists = []
+        self.indices_that_are_duplicates = []
         # self.duplicate_swap_dict = dict()
         #__|
 
         # #####################################################################
-
         self.run_regression_model()
-        self.new_acquisition = self.acquisition(acquisition_method="gp_ucb")
+
+        # Acquisition #########################################################
+        acquisition_method = self.acquisition_method
+        self.new_acquisition = \
+            self.acquisition(acquisition_method=acquisition_method)
         #__|
 
     def run_regression_model(self):
@@ -103,7 +96,7 @@ class ALGeneration:
         DuplicateFinder = self.DuplicateFinder
         get_df_train_test = self.get_df_train_test
         prev_duplicate_ids = self.prev_duplicate_ids
-
+        duplicate_analysis = self.duplicate_analysis
         __run_duplicate_analysis__ = self.__run_duplicate_analysis__
         # #####################################################################
 
@@ -128,18 +121,18 @@ class ALGeneration:
 
         self.model = model
 
-        if DuplicateFinder is not None:
-            __run_duplicate_analysis__(
-                prev_duplicate_ids=prev_duplicate_ids,
-                )
+        if DuplicateFinder is not None and duplicate_analysis:
+            __run_duplicate_analysis__(prev_duplicate_ids=prev_duplicate_ids)
+        else:
+            tmp = 42
 
-            duplicates = self.indices_that_are_duplicates
+        duplicates = self.indices_that_are_duplicates
 
-            indices = model.index.tolist()
-            model["duplicate"] = \
-                [True if i in duplicates else False for i in indices]
+        indices = model.index.tolist()
+        model["duplicate"] = \
+            [True if i in duplicates else False for i in indices]
 
-            self.model = model
+        self.model = model
         # __|
 
     def get_df_train_test(self):
@@ -162,8 +155,8 @@ class ALGeneration:
         import os; import pickle
         # directory = "out_data"
         # if not os.path.exists(directory): os.makedirs(directory)
-        with open(os.path.join(os.environ["HOME"], "__temp__", "TEMP.pickle"), "wb") as fle:
-            pickle.dump((Y_data_series_completed, df_mixed, completed_ids), fle)
+        # with open(os.path.join(os.environ["HOME"], "__temp__", "TEMP.pickle"), "wb") as fle:
+        #     pickle.dump((Y_data_series_completed, df_mixed, completed_ids), fle)
         # #####################################################################
 
 
@@ -184,7 +177,6 @@ class ALGeneration:
 
         return(df_train, df_test)
         # __|
-
 
     def __run_duplicate_analysis__(self,
         # duplicate_ids_prev=None,
@@ -250,7 +242,8 @@ class ALGeneration:
 
 
         if len(simil_dict_master.keys()) == 0:
-            self.indices_that_are_duplicates = []
+            self.indices_that_are_duplicates = prev_duplicate_ids
+
         else:
             keys = list(simil_dict_master.keys())
 
@@ -267,10 +260,12 @@ class ALGeneration:
 
             # self.TEMP__df_tmp = df_tmp
 
+            # TEMP
             TEMP_df_tmp_dict = dict()
             indices_that_are_duplicates = []
             duplicate_swap_lists = []
             for key, val in simil_dict_master.items():
+
                 if key in indices_that_are_duplicates:
                     continue
 
@@ -283,6 +278,20 @@ class ALGeneration:
                     continue
 
 
+                # ████████ ███████ ███    ███ ██████
+                #    ██    ██      ████  ████ ██   ██
+                #    ██    █████   ██ ████ ██ ██████
+                #    ██    ██      ██  ██  ██ ██
+                #    ██    ███████ ██      ██ ██
+                # TEMP
+                bool_0 = "momkzj9r84" in ids_of_duplicates
+                bool_1 = "9yz2mt8hbh" in ids_of_duplicates
+                TEMP_PRINT = False
+                if bool_0 and bool_1:
+                    TEMP_PRINT = True
+
+
+
                 df_tmp = model.loc[ids_of_duplicates]
                 df_tmp = df_tmp.sort_values("gen_acquired")
                 TEMP_df_tmp_dict[key] = df_tmp
@@ -291,21 +300,6 @@ class ALGeneration:
                 assert df_tmp.shape[0] > 1, "Only one row in df_tmp"
 
                 # __|
-
-
-                # #############################################################
-                # #############################################################
-                # #############################################################
-                # #############################################################
-                # #############################################################
-
-
-
-                # #############################################################
-                # #############################################################
-                # #############################################################
-                # #############################################################
-                # #############################################################
 
 
 
@@ -400,10 +394,28 @@ class ALGeneration:
                 # __|
 
 
-                indices_that_are_duplicates_i = df_tmp.index.tolist()
-                indices_that_are_duplicates_i.remove(selected_row.name)
+                # Adding the ids of all systems in df_tmp (other than the
+                # 'selected' one), to the list of duplicate systems
 
-                indices_that_are_duplicates.extend(indices_that_are_duplicates_i)
+                duplicate_indices_i = df_tmp.index.tolist()
+                duplicate_indices_i.remove(selected_row.name)
+                indices_that_are_duplicates.extend(duplicate_indices_i)
+
+
+
+
+
+
+
+                # TEMP
+                if TEMP_PRINT:
+                    TEMP_DATA_DICT = {
+                        "df_tmp": df_tmp,
+                        "selected_row_early_gen": selected_row_early_gen,
+                        "selected_row": selected_row,
+                        }
+                    self.TEMP_DATA_DICT = TEMP_DATA_DICT
+                    print("TEMP_DATA_DICT being set")
 
 
             # TEMP
@@ -449,7 +461,6 @@ class ALGeneration:
         return(new_acquis_ids)
         # __|
 
-
     def acquisition_gp_ucb(self,
         model_i,
         kappa=1.,
@@ -468,103 +479,22 @@ class ALGeneration:
 
         model_acq = model_acq.sort_values("acquisition", ascending=True)
 
-        self.TEMP = model_acq
-
         acquisition_index_ordered = model_acq.index
 
         return(acquisition_index_ordered)
-
-
-        # | - __old__
-        # df_i = df_i[df_i["computed"] == False]
-
-        # if df_bulk_dft_all is not None:
-        #     # Doing the aquistition
-        #     def method(row_i):
-        #         actually_computed = False
-        #         if pd.isnull(row_i[y_train_key]): actually_computed = False
-        #         else: actually_computed = True
-        #         return(actually_computed)
-        #
-        #     df_i = model_i
-        #     df_i["actually_computed"] = df_i.apply(
-        #         method,
-        #         axis=1)
-        #     model_i = df_i
-
-
-        # df_tmp = df_i[0:aqs_bin_size]
-        # df_not_comp_but_needed = df_tmp[df_tmp["actually_computed"] == False]
-
-        # df_tmp = df_i[df_i["actually_computed"] == True][0:aqs_bin_size]
-        # new_ids_to_compute = df_tmp.index.tolist()
-
-        # out_dict = {
-        #     "new_ids_to_compute": new_ids_to_compute,
-        #     "ids_needed_but_not_avail": df_not_comp_but_needed["id"].tolist(),
-        #     }
-
-        # return(out_dict)
-        # __|
-
         #__|
 
-
-    def acquisition_random(
-        model_i,
-        aqs_bin_size=5,
-        df_bulk_dft_all=None,
-        y_train_key="energy_pa",
-        ):
+    def acquisition_random(self, model_i):
         """
         """
         #| - job_aquisition
-        if df_bulk_dft_all is not None:
-            # Doing the aquistition
-            def method(row_i):
-                actually_computed = False
-                if pd.isnull(row_i[y_train_key]): actually_computed = False
-                else: actually_computed = True
-                return(actually_computed)
+        model_acq = copy.deepcopy(model_i)
+        index_list = model_acq.index.tolist()
 
-            df_i = model_i
-            df_i["actually_computed"] = df_i.apply(
-                method,
-                axis=1)
-            model_i = df_i
+        np.random.shuffle(index_list)
+        acquisition_index_out = index_list
 
-
-        # pred = model_i["prediction_unstandardized"]
-        # uncert = model_i["uncertainty_unstandardized"]
-        # model_i["tmp"] = pred - uncert
-
-        df_i = model_i
-        df_i = df_i[df_i["computed"] == False]
-
-        # df_i = df_i[df_i["actually_computed"] == True]
-        df_i = df_i.sample(frac=1.)
-
-        # new_ids_to_compute = df_i.index.tolist()
-        # new_ids_to_compute = df_i.iloc[0:aqs_bin_size]
-
-        df_tmp = df_i.iloc[0:aqs_bin_size]
-        df_not_comp_but_needed = df_tmp[df_tmp["actually_computed"] == False]
-
-        df_2 = df_i[df_i["actually_computed"] == True][0:aqs_bin_size]
-        new_ids_to_compute = df_2.index.tolist()
-
-        # df_tmp = df_i[0:aqs_bin_size]
-        # df_not_comp_but_needed = df_tmp[df_tmp["actually_computed"] == False]
-        # df_tmp = df_i[df_i["actually_computed"] == True][0:aqs_bin_size]
-        # new_ids_to_compute = df_tmp.index.tolist()
-
-        out_dict = {
-            "new_ids_to_compute": new_ids_to_compute,
-            "ids_needed_but_not_avail": df_not_comp_but_needed["id"].tolist(),
-            }
-
-        return(out_dict)
+        return(acquisition_index_out)
         #__|
-
 
     #__| **********************************************************************
