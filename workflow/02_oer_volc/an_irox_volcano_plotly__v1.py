@@ -6,12 +6,12 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.2.1
+#       format_version: '1.5'
+#       jupytext_version: 1.3.0
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
 #     language: python
-#     name: python3
+#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
 # ---
 
 # # OER Volcano for IrOx systems
@@ -20,12 +20,19 @@
 
 # # Import Modules
 
-# + {"jupyter": {"source_hidden": true}}
 # %%capture
 # %load_ext autoreload
 # %autoreload 2
 
-# + {"jupyter": {"source_hidden": true}}
+# +
+import os
+
+# os.environ["TEMP0"]
+os.environ["PROJ_irox"]
+
+# +
+# %%capture
+
 import sys
 import os
 
@@ -43,6 +50,9 @@ from an_data_processing import load_df
 
 # #############################################################################
 # Python Modules
+
+import pickle
+
 import numpy as np
 
 import plotly.graph_objs as go
@@ -63,7 +73,7 @@ from proj_data_irox import (
     exp_irox_lim_pot,
     data_dir,
     groupby_props,
-    )
+    irox_bulk_color_map)
 
 # #############################################################################
 # Local Imports
@@ -82,14 +92,14 @@ plot_range = {
     "x": [1., 2.],
     }
 
-# + {"toc-hr-collapsed": true, "cell_type": "markdown"}
+# + [markdown] toc-hr-collapsed=true
 # # Read and Process Data Frame
 # -
 
 # ## Read dataframe from file
 
 # +
-# %%capture
+# # %%capture
 
 df_pourbaix, df_ads, df_surf = load_df(
     from_file=True,
@@ -97,6 +107,13 @@ df_pourbaix, df_ads, df_surf = load_df(
     data_dir=data_dir,
     file_name="df_master.pickle",
     process_df=False)
+
+# df_pourbaix, df_ads, df_surf = load_df(
+#     from_file=False,
+#     root_dir=data_dir,
+#     data_dir=data_dir,
+#     file_name="df_master.pickle",
+#     process_df=True)
 
 df_m = df_ads
 # -
@@ -136,7 +153,7 @@ for i_ind, (name, group) in enumerate(grouped):
             add_overpot=False,
             )
 
-# + {"toc-hr-collapsed": true, "cell_type": "markdown"}
+# + [markdown] toc-hr-collapsed=true
 # # Experimental IrOx Activity Traces
 # -
 
@@ -145,11 +162,11 @@ for i_ind, (name, group) in enumerate(grouped):
 # +
 trace_iro3 = go.Scatter(
     x=plot_range["x"],
-    y=2 * [exp_irox_lim_pot["iro3"]["lim_pot"]],
+    y=2 * [exp_irox_lim_pot["10_mA/cm2"]["SrIrO3"]],    
     mode="lines",
     name="lines",
     line={
-        "color": exp_irox_lim_pot["iro3"]["line_color"],
+        "color": irox_bulk_color_map["IrO3"],
         "width": 1,
         "dash": "dash",
         },
@@ -157,27 +174,15 @@ trace_iro3 = go.Scatter(
 
 trace_iro2 = go.Scatter(
     x=plot_range["x"],
-    y=2 * [exp_irox_lim_pot["iro2"]["lim_pot"]],
+    y=2 * [exp_irox_lim_pot["10_mA/cm2"]["IrO2(110)"]],
     mode="lines",
     name="lines",
     line={
-        "color": exp_irox_lim_pot["iro2"]["line_color"],
+        "color": irox_bulk_color_map["IrO2"],
         "width": 1,
         "dash": "dash",
         },
     )
-
-# trace_irox = go.Scatter(
-#     x=plot_range["x"],
-#     y=2*[exp_irox_lim_pot["irox"]["lim_pot"]],
-#     mode="lines",
-#     name="lines",
-#     line={
-#         "color": exp_irox_lim_pot["irox"]["line_color"],
-#         "width": 1,
-#         "dash": "dash",
-#         },
-#     )
 # -
 
 # # Volcano Plot
@@ -220,7 +225,6 @@ data = volcano_legs_data + volcano_legs_data_tmp + VP.data_points
 if plot_exp_traces:
     data.insert(0, trace_iro3)
     data.insert(0, trace_iro2)
-#     data.insert(0, trace_irox)
 
 # +
 if save_plot:
@@ -229,297 +233,93 @@ else:
     save_dir = "__temp__"
 
 fig = go.Figure(data=data, layout=layout)
+# -
+
+os.environ.get("USER", "")
 
 # +
 layout_override = {
     "width": 35 * 37.795275591,
     "height": 19 * 37.795275591,
     "showlegend": True}
+fig.layout.update(layout_override)
 
 fig = my_plotly_plot(
     figure=fig,
-    layout_override=layout_override,
-    plot_name="out_plot_02_large",
-    upload_plot=False,
-    save_dir=os.path.join(save_dir, "oer_volcano"))
+    plot_name="out_plot_02_large")
 
 # +
 layout_override = {
     "width": 1.45 * 7.964 * 37.795275591,
     "height": 1.5 * 5.6002 * 37.795275591,
     "showlegend": False}
+fig.layout.update(layout_override)
 
 my_plotly_plot(
     figure=fig,
-    layout_override=layout_override,
-    plot_name="pl_irox_volcano_plotly_default_ooh",
-    save_dir=os.path.join(save_dir, "oer_volcano"),
-    write_pdf_svg=True,
-    upload_plot=True)
+    plot_name="pl_irox_volcano_plotly_default_ooh")
+# -
 
-# + {"active": ""}
-#
-#
-#
-#
-#
-#
-#
-#
-#
+# # Adding Kinetic Volcano Traces
 
 # +
-fig_attributes = dir(fig)
+# #############################################################################
+path_i = os.path.join(
+    "out_data",
+    "kinetic_volcano_trace.pickle")
+with open(path_i, "rb") as fle:
+    data_kin_volc = pickle.load(fle)
+# #############################################################################
 
-# fig.update?
+# #############################################################################
+path_i = os.path.join(
+    "out_data",
+    "df_10mA.pickle")
+with open(path_i, "rb") as fle:
+    df_10mA = pickle.load(fle)
+# #############################################################################
+# -
 
-fig_attributes
+df = df_10mA
+trace_kin_10mA = go.Scatter(
+    x=df["descriptor"],
+    y=df["U_lim"],
+    mode="lines",
+    line=dict(
+        color="blue",
+        width=2,
+        dash="dash",
+        ),
+    )
 
-# + {"jupyter": {"source_hidden": true}}
-# row_i = df_m[
-#     (df_m["bulk_system"] == "IrO3") &
-#     (df_m["coverage_type"] == "o_covered") &
-#     (df_m["facet"] == "100") &
-#     (df_m["adsorbate"] == "o") &
-#     [True for i in range(len(df_m))]
-#     ].iloc[0]
+# + jupyter={"outputs_hidden": false}
+for trace_i in data_kin_volc:
+    data_dict = trace_i.to_plotly_json()
+    fig.add_scatter(**data_dict)
 
-# atoms_i = row_i["atoms_object"][-1]
+fig.add_scatter(**trace_kin_10mA.to_plotly_json())
 
-# io.write("iro3_o-covered_100_o.traj", atoms_i)
+tmp = my_plotly_plot(
+    figure=fig,
+    plot_name="pl_irox_volcano_plotly_default_ooh__w_kinetic_volc",
+    write_html=True)
 
-# row_i = df_m[
-#     (df_m["bulk_system"] == "IrO3") &
-#     (df_m["coverage_type"] == "o_covered") &
-#     (df_m["facet"] == "110") &
-#     (df_m["adsorbate"] == "o") &
-#     [True for i in range(len(df_m))]
-#     ].iloc[0]
+fig.update_layout(
+    width=900,
+    height=500,
+    legend=None,
+    showlegend=True)
+# -
 
-# atoms_i = row_i["atoms_object"][-1]
+fig
 
-# io.write("iro3_o-covered_110_o.traj", atoms_i)
-
-# row_i = df_m[
-#     (df_m["bulk_system"] == "IrO3_rutile-like") &
-#     (df_m["coverage_type"] == "o_covered") &
-#     (df_m["facet"] == "110") &
-#     (df_m["adsorbate"] == "o") &
-#     [True for i in range(len(df_m))]
-#     ].iloc[0]
-
-# atoms_i = row_i["atoms_object"][-1]
-
-# io.write("iro3_rutile-like_o-covered_110_o.traj", atoms_i)
-
-# row_i = df_m[
-#     (df_m["bulk_system"] == "IrO3_battery") &
-#     (df_m["coverage_type"] == "o_covered") &
-#     (df_m["facet"] == "010") &
-#     (df_m["adsorbate"] == "o") &
-#     [True for i in range(len(df_m))]
-#     ].iloc[0]
-
-# atoms_i = row_i["atoms_object"][-1]
-# atoms_i
-# io.write("iro3_rutile-like_o-covered_110_o.traj", atoms_i)
-
-# df_i = df_m[
-#     (df_m["bulk_system"] == "IrO3_battery") &
-#     (df_m["coverage_type"] == "o_covered") &
-#     (df_m["facet"] == "010") &
-#     (df_m["adsorbate"] == "o") &
-#     (df_m["surface_type"] == "a") &
-#     [True for i in range(len(df_m))]
-#     ]
-
-# row_i = df_i.iloc[0]
-
-# atoms_i = row_i["atoms_object"][-1]
-
-# io.write("iro3-battery_o-covered_010_o_surface-type-a.traj", atoms_i)
-
-# row_i = df_m[
-#     (df_m["bulk_system"] == "IrO3") &
-#     (df_m["coverage_type"] == "o_covered") &
-#     (df_m["facet"] == "211") &
-#     (df_m["adsorbate"] == "o") &
-#     [True for i in range(len(df_m))]
-#     ].iloc[0]
-
-# atoms_i = row_i["atoms_object"][-1]
-# atoms_i
-# io.write("iro3_o-covered_211_o.traj", atoms_i)
-
-# row_i = df_m[
-#     (df_m["bulk_system"] == "IrO2") &
-#     (df_m["coverage_type"] == "o_covered") &
-#     (df_m["facet"] == "100") &
-#     (df_m["adsorbate"] == "o") &
-#     [True for i in range(len(df_m))]
-#     ].iloc[0]
-
-# atoms_i = row_i["atoms_object"][-1]
-# atoms_i
-# io.write("iro2_o-covered_100_o.traj", atoms_i)
-
-# # df_dict = {}
-# #     df_dict["_".join(list(name))] = df_i
-# #     # Choosing the most stable *OOH species
-# #     # ###################################################
-# #     species_j = "ooh"
-# #     df_wo_species = df_i[df_i["adsorbate"] != species_j]
-# #     df_ij = df_i[df_i["adsorbate"] == species_j]
-# #     df_final = df_wo_species.append(
-# #         df_ij.loc[df_ij["ads_e"].idxmin()]
-# #         )
-# #     df_final
-# #     df_i = df_final
-# #     # ###################################################
-# #     sys_i = df_i.iloc[0]["bulk_system"] + "_" + df_i.iloc[0]["facet"]
-# #     color_i = system_color_map[sys_i]
-# #             color=color_i,
-# #             opt_name=df_i["name_i"].tolist()[0],
-
-# # df_m.loc[df_m["coverage_type"] == "O-4_OH-0", "coverage_type"] = "o_covered"
-# # df_m.loc[df_m["coverage_type"] == "O-2_OH-0", "coverage_type"] = "o_covered_2"
-# # df_m.loc[df_m["coverage_type"] == "O-2_OH-2", "coverage_type"] = "h_covered"
-
-# # df_m = df_m[df_m["ooh_direction"] != "deprotonated"]
-
-# list(df_m)
-
-# df_m["ads_e"]
-
-# df_m[
-#     (df_m["bulk_system"] == "IrO3_rutile-like") &
-#     (df_m["adsorbate"] == "ooh") &
-# #     (df_m[""] == "") &
-#     [True for i in range(len(df_m))]
-#     ]
-
-# scaling_dict_fitted = {
-
-#     "ooh": {
-#         "m": 1.,
-#         "b": 3.1,
-#         },
-#     "o": {
-#         "m": 2.,
-#         "b": 0,
-#         },
-#     "oh": {
-#         "m": 1.,
-#         "b": 0.,
-#         },
-#     }
-
-# scaling_dict_fitted = {
-
-#     "ooh": {
-#         "m": 0.976,
-#         "b": 3.09,
-#         },
-#     "o": {
-#         "m": 1.30,
-#         "b": 1.19,
-#         },
-#     "oh": {
-#         "m": 1.,
-#         "b": 0.,
-#         },
-#     }
-
-# + {"jupyter": {"source_hidden": true}}
-# annotations.append(
-
-#     dict(
-#         x=1.3 - 0.08,
-#         y=1.93,
-#         xref="x",
-#         yref="y",
-# #         text="G<sub>OOH</sub>=G<sub>OH</sub>+3.2 <br> G<sub>O</sub> = 2 G<sub>OH</sub>",
-#         text="G<sub>OOH</sub>=G<sub>OH</sub>+3.2",
-#         showarrow=False,
-#         textangle=-45,
-#         font=dict(
-#             color="black",
-#             size=8,
-#             ),
-
-#         ),
-
-#     )
-
-# annotations.append(
-#     dict(
-#         x=1.2 - 0.08,
-#         y=1.93,
-#         xref="x",
-#         yref="y",
-# #         text="G<sub>OOH</sub>=G<sub>OH</sub>+3.2 <br> G<sub>O</sub> = 2 G<sub>OH</sub>",
-#         text="G<sub>OOH</sub>=G<sub>OH</sub>+3.0",
-#         showarrow=False,
-#         textangle=-45,
-#         font=dict(
-#             color="gray",
-#             size=8,
-#             ),
-
-#         ),
-#     )
-
-# annotations.append(
-#     go.layout.Annotation(
-#         x=0.5,
-#         y=-0.15,
-#         showarrow=False,
-#         text="'ΔG<sub>O</sub> - ΔG<sub>OH</sub> (eV)'",
-
-#         font=dict(
-#             family="sans serif",
-#             size=18,
-#             color="crimson"
-#             ),
-
-#         xref="paper",
-#         yref="paper"
-#         )
-#     )
-
-# + {"jupyter": {"source_hidden": true}}
-# annotations = [
-#     dict(
-#         x=1,
-#         y=exp_irox_lim_pot["iro3"]["lim_pot"],
-#         xref='x',
-#         yref='y',
-#         text='IrO<sub>3</sub> (@1mA/cm<sup>2</sup>)',
-#         showarrow=False,
-#         xanchor="left",
-#         yshift=9,
-#         ),
-
-#     dict(
-#         x=1,
-#         y=exp_irox_lim_pot["iro2"]["lim_pot"],
-#         xref='x',
-#         yref='y',
-#         text='IrO<sub>2</sub> (@1mA/cm<sup>2</sup>)',
-#         showarrow=False,
-#         xanchor="left",
-#         yshift=9,
-#         ),
-
-#     # dict(
-#     #     x=1,
-#     #     y=exp_irox_lim_pot["irox"]["lim_pot"],
-#     #     xref='x',
-#     #     yref='y',
-#     #     text='IrO<sub>x</sub>',
-#     #     showarrow=False,
-#     #     xanchor="left",
-#     #     yshift=7,
-#     #     ),
-
-#     ]
+# + active=""
+#
+#
+#
+#
+#
+#
+#
+#
+#

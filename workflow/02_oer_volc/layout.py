@@ -105,7 +105,8 @@ layout = go.Layout({
         'tickwidth': 1,
         'title': {
             'font': {'size': 12.0},
-            'text': 'Theoretical Limiting Potential (V)'},
+            # 'text': 'Theoretical Limiting Potential (V)'},
+            'text': 'U<sub>RHE</sub> (V)'},
         'zeroline': False,
         },
 
@@ -116,27 +117,27 @@ annotations = []
 
 
 annotations = [
-    dict(
-        x=1,
-        y=exp_irox_lim_pot["iro3"]["lim_pot"],
-        xref='x',
-        yref='y',
-        text='IrO<sub>3</sub> (@1mA/cm<sup>2</sup>)',
-        showarrow=False,
-        xanchor="left",
-        yshift=9,
-        ),
+#     dict(
+#         x=1,
+#         y=exp_irox_lim_pot["iro3"]["lim_pot"],
+#         xref='x',
+#         yref='y',
+#         text='IrO<sub>3</sub> (@1mA/cm<sup>2</sup>)',
+#         showarrow=False,
+#         xanchor="left",
+#         yshift=9,
+#         ),
 
-    dict(
-        x=1,
-        y=exp_irox_lim_pot["iro2"]["lim_pot"],
-        xref='x',
-        yref='y',
-        text='IrO<sub>2</sub> (@1mA/cm<sup>2</sup>)',
-        showarrow=False,
-        xanchor="left",
-        yshift=9,
-        ),
+#     dict(
+#         x=1,
+#         y=exp_irox_lim_pot["iro2"]["lim_pot"],
+#         xref='x',
+#         yref='y',
+#         text='IrO<sub>2</sub> (@1mA/cm<sup>2</sup>)',
+#         showarrow=False,
+#         xanchor="left",
+#         yshift=9,
+#         ),
 
     # dict(
     #     x=1,
