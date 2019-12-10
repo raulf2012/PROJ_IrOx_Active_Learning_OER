@@ -133,8 +133,6 @@ for key, value in ion_dict_solids_expt.items():
                 },
             )
         )
-#__|
-
 
     # AP pbx_entry_ion.name = key
     pbx_entry_ion.conc = 1
@@ -143,6 +141,9 @@ for key, value in ion_dict_solids_expt.items():
 for a in pbx_solid_entries:
     print(a, a.conc)
     print('hkjo')
+
+#__|
+
 
 #| - Ion Entries
 # Calculate DFT reference energy for ions (See Persson et al, PRB (2012))
@@ -163,8 +164,17 @@ all_entries = pbx_solid_entries + pbx_ion_entries
 #__|
 
 #| - Save all_entries
-with open("all_entries.pickle", "wb") as fle:
+
+# Pickling data ######################################################
+import os; import pickle
+directory = "out_data"
+if not os.path.exists(directory): os.makedirs(directory)
+with open(os.path.join(directory, "all_entries.pickle"), "wb") as fle:
     pickle.dump(all_entries, fle)
+# #####################################################################
+
+# with open("all_entries.pickle", "wb") as fle:
+#     pickle.dump(all_entries, fle)
 #__|
 
 # print("")

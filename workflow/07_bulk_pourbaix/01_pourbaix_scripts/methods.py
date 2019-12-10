@@ -91,15 +91,19 @@ def process_sys(entry, vertices):
         for char in b:
             name_i = name_i.replace(char, "")
 
-    # print(name_i)
+
+    random_color = list(np.random.choice(range(256), size=3))
+    random_color = [str(i) for i in random_color]
+    random_color_str = \
+        "rgb(" + random_color[0] + "," + \
+        random_color[1] + "," + random_color[2] + ")"
+
 
     color_i = irox_bulk_color_map.get(
         pymatgen_to_my_naming_convention.get(name_i, name_i),
-        "black",
+        random_color_str,
+        # "black",
         )
-
-    # print(name_i)
-    # print(color_i)
     #__|
 
     #| - Scatter Instances
@@ -122,7 +126,9 @@ def process_sys(entry, vertices):
         y=[center[1]],
         hoverinfo="name",
         name=name_i,
-        mode='lines+text',
+        showlegend=False,
+        # mode='lines+text',
+        mode='lines',
         text=[name_i],
         textposition='bottom center',
         textfont={
@@ -144,8 +150,10 @@ def pourbaix_plot_layout(
     #| - pourbaix_plot_layout
 
     plot_title = None
-    tick_lab_size = 8 * (4. / 3.)
-    axes_lab_size = 9 * (4. / 3.)
+    tick_lab_size = 12 * (4. / 3.)
+    axes_lab_size = 14 * (4. / 3.)
+    # tick_lab_size = 8 * (4. / 3.)
+    # axes_lab_size = 9 * (4. / 3.)
     # legend_size = 18
 
     # font_family="Computer Modern"  # "Courier New, monospace"
