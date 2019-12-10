@@ -39,7 +39,7 @@ if stoich_i == "AB2":
 gens_to_plot = [gen_0, gen_1, gen_2, gen_3, gen_4]
 
 main_gen = gen_2
-# __|
+#__|
 
 
 

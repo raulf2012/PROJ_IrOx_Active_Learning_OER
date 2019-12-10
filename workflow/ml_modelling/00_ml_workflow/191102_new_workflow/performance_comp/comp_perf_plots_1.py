@@ -5,17 +5,18 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.1.7
+#       format_version: '1.5'
+#       jupytext_version: 1.3.0
 #   kernelspec:
-#     display_name: Python [conda env:research-new]
+#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
 #     language: python
-#     name: conda-env-research-new-py
+#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
 # ---
 
+# + [markdown] Collapsed="false"
 # # Import Modules
 
-# +
+# + jupyter={"outputs_hidden": false} Collapsed="false"
 import os
 import sys
 
@@ -33,11 +34,11 @@ from active_learning.al_analysis import ALPerformance
 from plotting.my_plotly import my_plotly_plot
 
 from layout import layout
-# -
 
+# + [markdown] Collapsed="false"
 # # Script Inputs
 
-# +
+# + jupyter={"outputs_hidden": false} Collapsed="false"
 stoich_i = "AB3"
 
 perc_of_structs = 2.5
@@ -77,8 +78,8 @@ data_path_root = os.path.join(
 
 
 from inputs import top_ids_to_track_ab2, top_ids_to_track_ab3
-# -
 
+# + jupyter={"outputs_hidden": false} Collapsed="false"
 if stoich_i == "AB2":
     top_ids_to_track = top_ids_to_track_ab2
 elif stoich_i == "AB3":
@@ -87,6 +88,7 @@ else:
     print("ISDJIFSDJI")
 
 
+# + jupyter={"outputs_hidden": false} Collapsed="false"
 def process_data(
     subdir=None,
     shared_scatter_props=None,
@@ -233,18 +235,19 @@ def process_data(
     return(out_data_dict)
     #__|
 
+# + jupyter={"outputs_hidden": false} Collapsed="false"
 data = []
 
-# + {"active": ""}
+# + Collapsed="false" active=""
 #
 #
 #
 #
-# -
 
+# + [markdown] Collapsed="false"
 # # Random | w/ Duplicates
 
-# +
+# + jupyter={"outputs_hidden": false} Collapsed="false"
 #############################################################################
 color_i = "rgb(100,100,100,0.5)"
 out_data_dict_i = process_data(
@@ -266,11 +269,11 @@ data.extend(trace_i)
 
 df_perf = out_data_dict_i["df_perf"]
 # df_perf
-# -
 
+# + [markdown] Collapsed="false"
 # # Random | w/o Duplicates
 
-# +
+# + jupyter={"outputs_hidden": false} Collapsed="false"
 # # #############################################################################
 # # color_i = "grey"
 # color_i = "rgb(60,120,100,0.5)"
@@ -293,11 +296,11 @@ df_perf = out_data_dict_i["df_perf"]
 
 # df_perf = out_data_dict_i["df_perf"]
 # # df_perf
-# -
 
+# + [markdown] Collapsed="false"
 # # GP-UCB | w/ Duplicates
 
-# +
+# + jupyter={"outputs_hidden": false} Collapsed="false"
 # #############################################################################
 # color_i = "red"
 color_i = "rgba(255,0,0,0.5)"
@@ -324,16 +327,16 @@ data.extend(trace_i)
 df_perf = out_data_dict_i["df_perf"]
 # df_perf
 
-# +
+# + jupyter={"outputs_hidden": false} Collapsed="false"
 # df_perf
 # pifehohu
 # geheneva
 # nisoponi
-# -
 
+# + [markdown] Collapsed="false"
 # # GP-UCB | w/o Duplicates
 
-# +
+# + jupyter={"outputs_hidden": false} Collapsed="false"
 # # #############################################################################
 # color_i = "orange"
 # out_data_dict_i = process_data(
@@ -355,11 +358,11 @@ df_perf = out_data_dict_i["df_perf"]
 
 # df_perf = out_data_dict_i["df_perf"]
 # # df_perf
-# -
 
+# + [markdown] Collapsed="false"
 # # Plotting
 
-# +
+# + jupyter={"outputs_hidden": false} Collapsed="false"
 shared_shape_dict = dict(
     xref="x", yref="y",
     type="line",
@@ -400,7 +403,7 @@ shapes = tuple([
 
     ])
 
-# +
+# + jupyter={"outputs_hidden": false} Collapsed="false"
 layout["height"] = 37.795275591 * 7.12
 layout["width"] = 37.795275591 * 6.3
 
@@ -428,8 +431,8 @@ fig = my_plotly_plot(
 
 fig.layout.update(paper_bgcolor="white")
 fig.show()
-# -
 
+# + jupyter={"outputs_hidden": false} Collapsed="false"
 # Pickling data ######################################################
 import os; import pickle
 directory = "out_data"
@@ -438,19 +441,19 @@ with open(os.path.join(directory, stoich_i + "_" + "fig_al_perf.pickle"), "wb") 
     pickle.dump(fig, fle)
 # #####################################################################
 
-# +
-# go.Layout?
-# go.layout.Scene?
-# go.layout.Shape?
+# + jupyter={"outputs_hidden": false} Collapsed="false"
+# # go.Layout?
+# # go.layout.Scene?
+# # go.layout.Shape?
 
-# + {"active": ""}
+# + Collapsed="false" active=""
 #
 #
 #
 #
 #
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={"source_hidden": true, "outputs_hidden": false} Collapsed="false"
 # shapes = tuple([
 
 #     go.layout.Shape(
@@ -487,7 +490,7 @@ with open(os.path.join(directory, stoich_i + "_" + "fig_al_perf.pickle"), "wb") 
 
 # fig
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={"source_hidden": true, "outputs_hidden": false} Collapsed="false"
 # # AL_i = 
 # keys = list(out_data_dict_i["AL_dict"].keys())
 
@@ -523,7 +526,7 @@ with open(os.path.join(directory, stoich_i + "_" + "fig_al_perf.pickle"), "wb") 
 # # # AL_i.indices_that_are_duplicates
 # # model_i.sort_values("y_real").iloc[0:50].index.tolist()
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={"source_hidden": true, "outputs_hidden": false} Collapsed="false"
 # layout["height"] = 37.795275591 * 7.05
 # layout["height"] = 37.795275591 * 7.07
 # layout["height"] = 37.795275591 * 7.055
@@ -568,7 +571,7 @@ with open(os.path.join(directory, stoich_i + "_" + "fig_al_perf.pickle"), "wb") 
 # layout["width"] = 37.795275591 * 6
 # layout["width"] = 37.795275591 * 6.5
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={"source_hidden": true, "outputs_hidden": false} Collapsed="false"
 # layout["height"] *= 2
 # layout["width"] *= 4
 
@@ -580,7 +583,7 @@ with open(os.path.join(directory, stoich_i + "_" + "fig_al_perf.pickle"), "wb") 
 # fig.update_layout(layout)
 # fig.show()
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={"source_hidden": true, "outputs_hidden": false} Collapsed="false"
 # AL_i = out_data_dict_i["AL_dict"][0].al_gen_dict[25]
 # # out_data_dict_i["AL_dict"][0].al_gen_dict[25]
 # model = AL_i.model
@@ -591,7 +594,7 @@ with open(os.path.join(directory, stoich_i + "_" + "fig_al_perf.pickle"), "wb") 
 # # AL_i.indices_that_are_duplicates
 # model_i.sort_values("y_real").iloc[0:10].index.tolist()
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={"source_hidden": true, "outputs_hidden": false} Collapsed="false"
 # # #############################################################################
 # out_data_dict_i = process_data(
 #     subdir="gp_ucb_True",
@@ -609,7 +612,7 @@ with open(os.path.join(directory, stoich_i + "_" + "fig_al_perf.pickle"), "wb") 
 
 # df_perf = out_data_dict_i["df_perf"]
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={"source_hidden": true, "outputs_hidden": false} Collapsed="false"
 # df_perf
 
 # df_m = df_perf

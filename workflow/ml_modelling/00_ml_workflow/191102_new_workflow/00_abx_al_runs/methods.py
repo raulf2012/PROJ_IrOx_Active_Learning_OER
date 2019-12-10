@@ -42,7 +42,7 @@ from IPython.display import display
 #     gp_settings,
 #     name_i,
 #     )
-# __|
+#__|
 
 def run_al_i(
     stoich_i=None,
@@ -172,4 +172,4 @@ def run_al_i(
         AL.duplicate_system_history_analysis()
         AL.__save_state__()
 
-    # __|
+    #__|

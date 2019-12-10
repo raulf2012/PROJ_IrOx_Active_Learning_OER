@@ -15,5 +15,11 @@ REM setx PYTHONPATH "%PYTHONPATH%;F:\Dropbox\01_norskov\00_PythonModules"
 REM setx PYTHONPATH "%PYTHONPATH%;F:\Dropbox\01_norskov\00_git_repos\CatLearn"
 REM setx PYTHONPATH "%PYTHONPATH%;F:\Dropbox\01_norskov\00_git_repos\PROJ_IrOx_Active_Learning_OER\python_classes"
 
-setx PYTHONPATH %DROPBOX_DIR%"F:\Dropbox\01_norskov\00_PythonModules;F:\Dropbox\01_norskov\00_git_repos\CatLearn;F:\Dropbox\01_norskov\00_git_repos\PROJ_IrOx_Active_Learning_OER\python_classes"
+set TEMP0=%DROPBOX_DIR%\01_norskov\00_PythonModules
+set TEMP1=%DROPBOX_DIR%\01_norskov\00_git_repos\CatLearn
+set TEMP2=%DROPBOX_DIR%\01_norskov\00_git_repos\PROJ_IrOx_Active_Learning_OER\python_classes
+
+setx PYTHONPATH %TEMP0%;%TEMP1%;%TEMP2%
+
+REM setx PYTHONPATH %DROPBOX_DIR%"\01_norskov\00_PythonModules;F:\Dropbox\01_norskov\00_git_repos\CatLearn;F:\Dropbox\01_norskov\00_git_repos\PROJ_IrOx_Active_Learning_OER\python_classes"
 
