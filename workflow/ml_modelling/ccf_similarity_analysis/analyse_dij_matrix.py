@@ -5,12 +5,12 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.1.7
+#       format_version: '1.5'
+#       jupytext_version: 1.3.0
 #   kernelspec:
-#     display_name: Python [conda env:research-new]
+#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
 #     language: python
-#     name: conda-env-research-new-py
+#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
 # ---
 
 # # Analysing Similarity Matrix for IrOx Systems Post-DFT
@@ -116,19 +116,19 @@ ids_to_drop_prev = ids_to_drop_prev["AB2"] + ids_to_drop_prev["AB3"]
 # sys.path.insert(0, "../04_final_ml_plots")
 
 # +
-# df_dij_dft.loc["8p8evt9pcg", "9lmkmh8s8r"]
+# # df_dij_dft.loc["8p8evt9pcg", "9lmkmh8s8r"]
 
 
-df_dij_dft.loc[
+# df_dij_dft.loc[
 
-    "64cg6j9any",
-    "b46enqnq8e",
-    "9yz2mt8hbh",
+#     "64cg6j9any",
+#     "b46enqnq8e",
+#     "9yz2mt8hbh",
 
-#     "6avov5cy64"
+# #     "6avov5cy64"
     
-#     "clc2b1mavs",
-    ]
+# #     "clc2b1mavs",
+#     ]
 # -
 
 # # Dropping Static Structure from D_ij
@@ -196,6 +196,8 @@ df_dij_dft = df_dij_dft[new_index_order]
 # df_dij_dft = df_dij_dft.drop(labels=ids_to_drop_prev, axis=1)
 # -
 
+df_dij_dft.loc["IrO3_rutile-like"][df_dij_dft.loc["IrO3_rutile-like"] < 0.01]
+
 # # Create D_ij Matrix Plot
 
 if create_plot:
@@ -217,7 +219,9 @@ if create_plot:
         write_svg=False,
         )
 
-fig
+# +
+# fig
+# -
 
 # # Analyzing systems that are duplicates
 
@@ -253,7 +257,7 @@ all_ids_to_elim = {
 print("len(ids_to_elim_ab2):", len(ids_to_elim_ab2))
 print("len(ids_to_elim_ab3):", len(ids_to_elim_ab3))
 
-# + {"active": ""}
+# + active=""
 # len(ids_to_elim_ab2): 43
 # len(ids_to_elim_ab3): 69
 #
@@ -278,7 +282,13 @@ with open(os.path.join(directory, "all_ids_to_elim.pickle"), "wb") as fle:
 # #####################################################################
 # -
 
-df_dij_ab3.loc["8p8evt9pcg", "zimixdvdxd"]
+df_bulk_dft[df_bulk_dft.stoich == "AB2"].sort_values("dH")
+
+# +
+# df_dij_ab3.loc["8p8evt9pcg", "zimixdvdxd"]
+
+df_dij_ab3.loc["xw9y6rbkxr", "zimixdvdxd"]
+# -
 
 assert False
 
@@ -355,7 +365,7 @@ df_test = pd.DataFrame(ids_dict_master,
 
 df_test
 
-# + {"active": ""}
+# + active=""
 #
 #
 #

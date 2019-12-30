@@ -7,9 +7,10 @@ Author: Raul A. Flores
 
 Setting up paths to read from this file:
 
+import os
+import sys
 sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
 from proj_data_irox import calc_dH
-
 """
 
 #| - Import Modules
@@ -189,7 +190,7 @@ IrO2_ave_regressed_bulk_e = -7.044138074749999
 # Ir2O4
 #__|
 
-# | - IrO3 (aAlF3)
+#| - IrO3 (aAlF3)
 # DFT bulk energy
 IrO3_bulk_e_dft = -6.46018589875
 
@@ -203,7 +204,7 @@ IrO3_ave_regressed_bulk_e = -6.463877450346546
 # Ir2O6
 #__|
 
-# | - IrO3 (rutile)
+#| - IrO3 (rutile)
 # DFT bulk energy
 IrO3_rutile_like_bulk_e_dft = -6.457128223125
 
@@ -217,7 +218,7 @@ IrO3_rutile_like_ave_regressed_bulk_e = -6.42967135329762
 # Ir4O12
 #__|
 
-# | - IrO3 (battery)
+#| - IrO3 (battery)
 # DFT bulk energy
 IrO3_battery_bulk_e_dft = -6.38668709984375
 
@@ -296,6 +297,18 @@ bulk_pourb_trans_dict = {
     }
 #__|
 
+#| - Metastability limits of IrO2 and IrO3
+metastability_limits_raw_dft = dict(
+    AB2=-6.542,
+    AB3=-6.163,
+    )
+
+# Computed in
+# PROJ_IrOx_Active_Learning_OER/workflow/metastability_limit_murat
+# AB2: -0.33285956787756277
+# AB3: -0.3438547784081729
+#__|
+
 
 #| - Color Palettes
 irox_bulk_color_map = {
@@ -307,9 +320,13 @@ irox_bulk_color_map = {
     # "IrO3_battery": "#FFFF99",
     "IrO3_battery": "#ff9dcd",
     # "HIrO3": "red",
+
     # "IrO4-": "pink",
     # "IrO4-": "#FFC3CB",
-    "IrO4-": "#7c7c7c",
+    # "IrO4-": "#7c7c7c",
+    # "IrO4-": "#9c9c9c",
+    "IrO4-": "#3a3a3a",
+
     }
 
 pymatgen_to_my_naming_convention = {
@@ -619,11 +636,15 @@ exp_irox_lim_pot = {
 
 #| - Fonts styling
 axis_label_font_size = 10 * (4 / 3)
-axis_tick_labels_font_size = 9 * (4 / 3)
+# axis_tick_labels_font_size = 9 * (4 / 3)
+axis_tick_labels_font_size = 8 * (4 / 3)
 
 font_family = "Arial"
 base_font_color = "black"
 #__|
+
+# How we'll write out the voltage axis labels
+voltage_name = "U<sub>RHE</sub> (V)"
 
 #__|
 
@@ -632,7 +653,8 @@ proj_dir_name = "04_IrOx_surfaces_OER"
 
 data_dir_name = "04_IrOx_surfaces_OER"
 
-main_systems = ["IrO2", "IrO3", "IrO3_battery", "IrO3_rutile-like"]
+# main_systems = ["IrO2", "IrO3", "IrO3_battery", "IrO3_rutile-like"]
+main_systems = ["IrO2", "IrO3", "IrO3_rutile-like", "IrO3_battery"]
 
 data_dir = os.path.join(
     os.environ["PROJ_DATA"],
@@ -734,10 +756,16 @@ oqmd_irox_data_path = os.path.join(
 
 
 # Fingerprints ################################################################
+# TODO COMBAK
+# /home/raulf2012/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER
+
 fp_base_path = os.path.join(
     os.environ["PROJ_irox"],
-    "workflow/ml_modelling/00_ml_workflow",
-    "190611_new_workflow/01_data_coll_feat/out_data")
+    "workflow/ml_modelling/voronoi_featurize/out_data",
+
+    # "workflow/ml_modelling/00_ml_workflow",
+    # "190611_new_workflow/01_data_coll_feat/out_data",
+    )
 
 df_features_pre_opt_path = os.path.join(
     fp_base_path, "df_features_pre_opt.pickle")
@@ -748,23 +776,13 @@ df_features_post_opt_path = os.path.join(
     fp_base_path, "df_features_post_opt.pickle")
 
 
-
-
-# These may not be needed as much
-# df_features_path = os.path.join(
-#     fp_base_path, "df_features.pickle")
-#
-# df_features_cleaned_path = os.path.join(
-#     fp_base_path, "df_features_cleaned.pickle")
-#
-# df_features_cleaned_pca_path = os.path.join(
-#     fp_base_path, "df_features_cleaned_pca.pickle")
-
+# Small dataframe of OER bulk structures
 oer_bulk_structures_path = os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling/processing_bulk_dft",
     "parse_my_oer_bulk_dft/out_data",
-    "bulk_systems.pickle")
+    "df_oer_bulk.pickle",
+    )
 
 
 # #############################################################################

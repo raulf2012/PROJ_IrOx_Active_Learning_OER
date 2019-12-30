@@ -5,12 +5,12 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.1.7
+#       format_version: '1.5'
+#       jupytext_version: 1.3.0
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
 #     language: python
-#     name: python3
+#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
 # ---
 
 # # Import Modules
@@ -223,44 +223,72 @@ def method(row_i):
     num_atoms_i = atoms_i.get_number_of_atoms()
     return(num_atoms_i)
 
-
-df_i = df_m
-df_i["num_atoms"] = df_i.apply(
+df_m["num_atoms"] = df_m.apply(
     method,
     axis=1)
-df_m = df_i
 # -
 
 # # Save data
 
 # +
-directory = "out_data"
-if not os.path.exists(directory):
-    os.makedirs(directory)
+# directory = "out_data"
+# if not os.path.exists(directory):
+#     os.makedirs(directory)
 
-with open(os.path.join(directory, "df_bulk_dft.pickle"), "wb") as fle:
-    pickle.dump(df_m, fle)
-# -
-os.path.join(directory, "df_bulk_dft.pickle")
-
-df_m.loc["cubqbpzd7k"]
-
+# with open(os.path.join(directory, "df_bulk_dft.pickle"), "wb") as fle:
+#     pickle.dump(df_m, fle)
 # +
-# 3 * -7.049 - (2 * -4.657947279999998 + -9.304929736367313)
+from ase_modules.ase_methods import view_in_vesta
 
-# -7.04
+df_tmp = df_m[
+    (df_m.source == "chris") & \
+    (df_m.stoich == "AB2")
+    ].sort_values("dH")
+
+df_tmp2 = df_tmp[
+    (df_tmp.dH < -0.75 + 0.2) & \
+    (df_tmp.dH > -0.75 - 0.1)
+    ]
+
+df_tmp2
+# df_tmp.shape
+
+view_in_vesta(df_tmp2.atoms.tolist(), name_list=df_tmp2.index.tolist())
+
+# # view_in_vesta?
 # -
 
-df_m[
-    (df_m["stoich"] == "AB2") & \
-#     (df_m["stoich"] == "AB2")
-    (df_m["source"] == "raul")
-    ].sort_values("energy_pa")
+df_tmp.path.tolist()
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
 #
 #
 
+
+# + jupyter={"source_hidden": true}
+# for i in df_m.index.tolist():
+#     if "m16" in i:
+#         print(i)
+
+# + jupyter={"source_hidden": true}
+# df_m.loc["m16tvk8h7g"]
+
+# df_m[df_m.stoich == "AB2"].sort_values("dH").iloc[0:10]
+
+# + jupyter={"source_hidden": true}
+# os.path.join(directory, "df_bulk_dft.pickle")
+
+# df_m.loc["cubqbpzd7k"]
+
+# # 3 * -7.049 - (2 * -4.657947279999998 + -9.304929736367313)
+
+# # -7.04
+
+# df_m[
+#     (df_m["stoich"] == "AB2") & \
+# #     (df_m["stoich"] == "AB2")
+#     (df_m["source"] == "raul")
+#     ].sort_values("energy_pa")

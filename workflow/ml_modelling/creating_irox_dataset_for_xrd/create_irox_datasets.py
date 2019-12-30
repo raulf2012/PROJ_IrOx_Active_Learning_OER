@@ -24,7 +24,7 @@
 # + [markdown] Collapsed="false"
 # # Import Modules
 
-# + jupyter={"source_hidden": true} Collapsed="false"
+# + Collapsed="false"
 # %%capture
 #| - OUT_OF_SIGHT
 import os
@@ -69,21 +69,22 @@ from ase_modules.ase_methods import view_in_vesta
 # # Script Inputs
 
 # + Collapsed="false"
-# stoich_i = "AB3"
-stoich_i = "AB2"
+stoich_i = "AB3"
+# stoich_i = "AB2"
+
+drop_duplicates = True
 
 # + [markdown] Collapsed="false"
 # # Read Data
 
 # + Collapsed="false"
-# with open(bulk_dft_data_path, "rb") as fle:
-#     df_bulk_dft = pickle.load(fle)
-
 df_ids = pd.read_csv(unique_ids_path)
 # + [markdown] Collapsed="false"
 # # Duplicate Analysis
 
 # + Collapsed="false"
+# %%capture
+
 sys.path.insert(0, os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling"))
@@ -99,40 +100,20 @@ df_bulk_dft = out_dict["df_bulk_dft"]
 
 CCF_i = CCF(df_dij=df_dij, d_thresh=0.02)
 
-# + Collapsed="false"
 df_bulk_dft = df_bulk_dft[df_bulk_dft.source == "raul"]
 
 ids_to_drop = []
 for id_i in df_bulk_dft.index.tolist():
     simil_dict_i = CCF_i.i_all_similar(id_i)
 
-    # for key, val in simil_dict_i.items():
-    #     tmp = 42
-
     if simil_dict_i is not None:
         similar_ids = [id_i] + list(simil_dict_i.keys())
-
         df_i = df_bulk_dft.loc[similar_ids]
-
         ids_to_drop_i = df_i.sort_values("energy_pa").iloc[1:].index.tolist()
-
         ids_to_drop.extend(ids_to_drop_i)
 
         
 ids_to_drop__duplicates = ids_to_drop
-
-# + Collapsed="false"
-# df_dij.loc[[
-# #     "zimixdvdxd",
-#     "6fcdbh9fz2",
-#     ]]
-
-# df_dij.loc["6fcdbh9fz2"]
-
-# df_tmp = df_dij
-# "6fcdbh9fz2" in df_tmp.index.tolist()
-
-# "6fcdbh9fz2" in df_bulk_dft.index.tolist()
 
 # + [markdown] Collapsed="false"
 # # Filtering dataframes to the correct stoicheometry
@@ -141,14 +122,6 @@ ids_to_drop__duplicates = ids_to_drop
 # # TEMP DROP DUPLICATE and OUTLIER SYSTEMS
 
 # + Collapsed="false"
-# path_i = os.path.join(
-#     os.environ["PROJ_irox"],
-#     "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs/out_data",
-#     "duplicates.pickle")
-# with open(path_i, "rb") as fle:
-#     duplicates_dict = pickle.load(fle)
-#     ids_to_drop__duplicates = duplicates_dict[stoich_i]
-
 # #############################################################################
 path_i = os.path.join(
     os.environ["PROJ_irox"],
@@ -182,25 +155,45 @@ df_ids = df_ids[
     ]
 
 print("df_ids.shape:", df_ids.shape)
-# IDS TO DROP
-df_ids = df_ids[~df_ids["unique_ids"].isin(ids_to_drop)]
+
+# IDS TO DROP <----------------------------------------------------------------
+if drop_duplicates:
+    df_ids = df_ids[~df_ids["unique_ids"].isin(ids_to_drop)]
+
 unique_ids = df_ids["unique_ids"].tolist()
 
 index_filter = np.intersect1d(df_bulk_dft.index, unique_ids)
 df_bulk_dft = df_bulk_dft.loc[index_filter]
 df_bulk_dft = df_bulk_dft[df_bulk_dft["source"] != "chris"]
+# -
+
+# # Calculate formation enthalpy above hull (relative to most stable phase)
+
+df_bulk_dft["e_above_hull"] = df_bulk_dft.dH - df_bulk_dft.dH.min()
+
+
+# # Create output directories
 
 # + Collapsed="false"
 directory = "out_data/" + stoich_i + "_structures_all"
 if not os.path.exists(directory):
     os.makedirs(directory)
 
-
 directory = "out_data/" + stoich_i + "_structures"
 if not os.path.exists(directory):
     os.makedirs(directory)
 
+# +
+# assert False
+# -
+
+# # Write data to csv
+
 # + Collapsed="false"
+df_bulk_dft = df_bulk_dft.sort_values("energy_pa")
+
+df_bulk_dft["energy_order_id"] = [i for i in range(len(df_bulk_dft))]
+
 cols_to_drop = [
     "atoms",
     "form_e_chris",
@@ -209,27 +202,17 @@ cols_to_drop = [
     "source",
     "stoich",
     ]
-
 df_select = df_bulk_dft.drop(cols_to_drop, axis=1)
 
-# + Collapsed="false"
-df_bulk_dft = df_bulk_dft.sort_values("energy_pa")
+if drop_duplicates:
+    df_select.to_csv("out_data/data_table_" + stoich_i + ".csv")
+else:
+    df_select.to_csv("out_data/data_table_" + stoich_i + "_all" + ".csv")
+# -
 
-df_bulk_dft["energy_order_id"] = [i for i in range(len(df_bulk_dft))]
-
-df_select = df_bulk_dft.drop(cols_to_drop, axis=1)
-
-# + Collapsed="false"
-import ase
-
-ase.__version__
+# # Write atoms objects
 
 # + Collapsed="false"
-stoich_i
-
-# + Collapsed="false"
-df_select.to_csv("out_data/data_table_" + stoich_i + ".csv")
-
 for i_cnt, row_i in df_bulk_dft.iterrows():
     atoms = row_i["atoms"]
     file_name_i = "" + \
@@ -243,37 +226,8 @@ for i_cnt, row_i in df_bulk_dft.iterrows():
         "_" + \
         str(row_i["id_old"]).zfill(3) + \
         ".cif"
-    
-    # atoms.write("out_data/" + stoich_i + "_structures_all/" + file_name_i)
-    atoms.write("out_data/" + stoich_i + "_structures/" + file_name_i)
 
-# + Collapsed="false"
-# df_bulk_dft.loc["cubqbpzd7k"]
-
-# df_bulk_dft.sort_values("energy_pa").iloc[0:3].index
-df_bulk_dft.sort_values("energy_pa")
-
-# + Collapsed="false"
-# df_dij.loc[
-#     ["xw9y6rbkxr", "8p8evt9pcg"],
-#     ["xw9y6rbkxr", "8p8evt9pcg"],
-#     ]
-
-# + Collapsed="false" active=""
-#
-#
-#
-#
-#
-
-# + jupyter={"source_hidden": true} Collapsed="false"
-# df_bulk_dft[df_bulk_dft["stoich"] == "AB3"].sort_values("energy_pa")
-
-# -6.469847
-# -6.467450
-
-# + jupyter={"source_hidden": true} Collapsed="false"
-# -6.469847 - -6.46745
-
-# + jupyter={"source_hidden": true} Collapsed="false"
-# assert False
+    if drop_duplicates:
+        atoms.write("out_data/" + stoich_i + "_structures/" + file_name_i)
+    else:
+        atoms.write("out_data/" + stoich_i + "_structures_all/" + file_name_i)

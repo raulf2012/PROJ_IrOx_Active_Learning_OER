@@ -13,7 +13,18 @@ gp_settings = {
     "alpha": 0.018,
     }
 
-name_i = "AL_test_0"
 
+# name_i = "AL_test_0"
 # acquisition_method = "gp_ucb"
-acquisition_method = "random"
+# acquisition_method = "random"
+
+
+# #############################################################################
+runs_list = list(range(5))
+acquisition_methods = ["gp_ucb", "random"]
+duplicate_analysis = [True, False]
+
+# TEST SETTINGS # #############################################################
+runs_list = list(range(1))
+acquisition_methods = ["gp_ucb"]
+duplicate_analysis = [True]

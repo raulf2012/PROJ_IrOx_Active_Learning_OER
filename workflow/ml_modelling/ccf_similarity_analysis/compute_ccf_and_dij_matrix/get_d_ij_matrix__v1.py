@@ -21,7 +21,7 @@
 import time
 t0 = time.time()
 
-# + {"jupyter": {"source_hidden": true}, "Collapsed": "false"}
+# + {"Collapsed": "false", "jupyter": {}}
 import os
 import sys
 import copy
@@ -87,9 +87,6 @@ with open("out_data/df_d_ij_all.pickle", "rb") as fle:
 
 df_tmp = df_d_comp_prev
 "6fcdbh9fz2" in df_tmp.index.tolist()
-
-# + {"Collapsed": "false"}
-assert False
 
 # + {"Collapsed": "false"}
 print("df_ccf.shape:", df_ccf.shape)
@@ -182,131 +179,3 @@ print(
 #
 #
 #
-
-# + {"Collapsed": "false"}
-'vfxezkmsv2' in df_d_comp.index
-
-# + {"Collapsed": "false"}
-df_d_comp.describe()
-
-# + {"Collapsed": "false"}
-"bsv4nex29l" in df_d_comp.index
-
-# + {"jupyter": {"source_hidden": true}, "toc-hr-collapsed": true, "Collapsed": "false"}
-# max_d = df_d_comp.max().max()
-# min_d = df_d_comp.min().min()
-# data_range_z = (max_d - min_d)
-# print("data_range_z: ", data_range_z)
-
-# # d_thresh = 0.01
-# # d_thresh = 0.05
-# d_thresh = 0.075
-# d_thresh_stan = d_thresh * (1 / data_range_z)
-
-# # #############################################################################
-# # #############################################################################
-# trace_i = go.Heatmap(
-#     z=df_d_comp.values,
-#     x=df_d_comp.index.tolist(),
-#     y=df_d_comp.index.tolist(),
-#     colorscale=[
-#         [0.0, "black"],
-#         [0.000001, "red"],
-#         [d_thresh_stan, "pink"],
-#         [d_thresh_stan + 0.000001, "rgb(220,220,220)"],
-#         [1.0, "white"],
-# #         [1.2, "blue"],
-#         ]
-
-#     )
-# data = [trace_i]
-
-# layout = go.Layout(width=1000, height=1000)
-# fig = go.Figure(data=data, layout=layout)
-# fig
-
-## Calculate d_ij
-
-# df = df_ccf
-
-# result = np.zeros((len(df), len(df)))
-# for i_cnt, (row_name_i, row_i) in enumerate(df.iterrows()):
-#     print(str(i_cnt).zfill(4), 75 * "#")
-#     for j_cnt, (row_name_j, row_j) in enumerate(df.iterrows()):
-#         if i_cnt == j_cnt:
-#             continue
-# #         if j_cnt < i_cnt:
-# #             continue
-
-#         d_ij = cal_ccf_d(
-#             row_i["ccf"],
-#             row_j["ccf"])
-
-#         result[i_cnt][j_cnt] = d_ij
-
-# df_d_comp = pd.DataFrame(
-#     result,
-#     index=df.index,
-#     columns=df.index,
-#     )
-
-# # df_d_comp
-
-# # Pickling data ######################################################
-# import os; import pickle
-# directory = "out_data"
-# if not os.path.exists(directory): os.makedirs(directory)
-# with open(os.path.join(directory, "df_d_ij_static_irox_structures.pickle"), "wb") as fle:
-#     pickle.dump(df_d_comp, fle)
-# # #####################################################################
-
-# path_i = os.path.join("out_data", "df_d_ij_static_irox_structures.pickle")
-# with open(path_i, "rb") as fle:
-#     df_d_comp = pickle.load(fle)
-
-# def get_ccf_df(ccf, r_cut_off, r_vector):
-#     """
-#     """
-#     df_i = pd.DataFrame()
-#     for key, value in ccf.items():
-#         df_i[key] = value
-
-#     df_i = df_i.set_index(r_vector)
-    
-#     return(df_i)
-
-# with open("out_data/df_dft_irox_structures_ccf.pickle", "rb") as fle:
-#     df_ccf = pickle.load(fle)
-# # df_ccf = df_ccf[0:80]
-
-# Process Static (Pre-optimized) IrOx Structures
-
-## Read Data
-
-# # with open("out_data/df_static_irox_structures_ccf.pickle", "rb") as fle:
-# with open("out_data/df_ccf.pickle", "rb") as fle:
-#     df_ccf = pickle.load(fle)
-
-# + {"jupyter": {"source_hidden": true}, "Collapsed": "false"}
-# # row_name_i
-# # row_name_j
-# # row_name_j_tmp = 'zuzwxhvuxe_tmp'
-
-# index_in_cols = row_name_j in df_d_comp_prev.columns
-# index_in_rows = row_name_j in df_d_comp_prev.index
-# if index_in_cols and index_in_rows:
-#     try:
-#         d_ij = df_d_comp_prev.loc[row_name_i, row_name_j]
-#     except:
-#         tmp = 42
-#         print("Couldn't find entry in previous D_ij matrix")
-
-# + {"jupyter": {"source_hidden": true}, "Collapsed": "false"}
-# df_d_comp_prev.shape
-
-# index_in_cols
-# index_in_rows
-
-# # df_d_comp_prev.loc['95c29e9f6h']
-
-# '95c29e9f6h' in df_d_comp_prev.index

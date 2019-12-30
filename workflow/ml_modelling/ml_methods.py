@@ -105,8 +105,12 @@ def get_ml_dataframes(
 
         data_i = None
         if is_pickle:
-            with open(path, "rb") as fle:
-                data_i = pickle.load(fle)
+            try:
+                print("TEMP sidjfijsd9i", path)
+                with open(path, "rb") as fle:
+                    data_i = pickle.load(fle)
+            except:
+                data_i = None
         elif is_csv:
             data_i = pd.read_csv(path)
         else:

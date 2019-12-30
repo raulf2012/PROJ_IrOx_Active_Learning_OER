@@ -149,18 +149,6 @@ class ALGeneration:
         Y_data_series = CS.Y_data_series
         Y_data_series_completed = Y_data_series.loc[completed_ids]
 
-
-
-        # Pickling data ######################################################
-        import os; import pickle
-        # directory = "out_data"
-        # if not os.path.exists(directory): os.makedirs(directory)
-        # with open(os.path.join(os.environ["HOME"], "__temp__", "TEMP.pickle"), "wb") as fle:
-        #     pickle.dump((Y_data_series_completed, df_mixed, completed_ids), fle)
-        # #####################################################################
-
-
-
         d = {
             "Y": pd.DataFrame(Y_data_series_completed),
             "X": df_mixed.loc[completed_ids]}
@@ -298,7 +286,6 @@ class ALGeneration:
 
                 #| - MISC checks
                 assert df_tmp.shape[0] > 1, "Only one row in df_tmp"
-
                 #__|
 
 
@@ -388,8 +375,12 @@ class ALGeneration:
 
                 # selected_row = \
                 selected_row_early_gen = \
-                    df_tmp[df_tmp["gen_acquired"] == earlist_gen].sort_values("y_real").iloc[0]
+                    df_tmp[df_tmp["gen_acquired"] == earlist_gen].sort_values(
+                        "y_real").iloc[0]
 
+                print(df_tmp)
+
+                # Select the most stable system
                 selected_row = df_tmp.sort_values("y_real").iloc[0]
                 #__|
 

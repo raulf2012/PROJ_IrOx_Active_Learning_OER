@@ -14,8 +14,16 @@
 #     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
 # ---
 
-# + {"Collapsed": "false"}
+# # Import Modules
+
+# + {"Collapsed": "false", "jupyter": {"source_hidden": true}}
 import os
+print(os.getcwd())
+
+# + {"Collapsed": "false", "jupyter": {"source_hidden": true}}
+# %%capture
+
+import sys
 
 import time
 
@@ -28,38 +36,46 @@ from methods import run_al_i
 from multiprocessing import Pool
 from functools import partial
 
-# + {"Collapsed": "false"}
-t0 = time.time()
-
-# + {"Collapsed": "false"}
-stoich_i = "AB2"
-verbose = False
-
-gp_settings = {
-    "noise": 0.02542,
-    "sigma_l": 1.0049,
-    "sigma_f": 5.19,
-    "alpha": 0.018,
-    }
-
-# duplicate_analysis = False
-# acquisition_method = "gp_ucb"
-# acquisition_method = "random"
-
 # #############################################################################
-runs_list = list(range(5))
-acquisition_methods = ["gp_ucb", "random"]
-duplicate_analysis = [True, False]
-
-# TEST SETTINGS # #############################################################
-runs_list = list(range(1))
-acquisition_methods = ["gp_ucb"]
-duplicate_analysis = [True]
-
-# + {"Collapsed": "false"}
 from misc_modules.misc_methods import GetFriendlyID
 
-# GetFriendlyID()
+# + {"Collapsed": "false"}
+t0 = time.time()
+# -
+
+from inputs import (
+    stoich_i,
+    verbose,
+    gp_settings,
+    runs_list,
+    acquisition_methods,
+    duplicate_analysis,
+    )
+
+# + {"Collapsed": "false"}
+# stoich_i = "AB3"
+# verbose = False
+
+# gp_settings = {
+#     "noise": 0.02542,
+#     "sigma_l": 1.0049,
+#     "sigma_f": 5.19,
+#     "alpha": 0.018,
+#     }
+
+# # duplicate_analysis = False
+# # acquisition_method = "gp_ucb"
+# # acquisition_method = "random"
+
+# # #############################################################################
+# runs_list = list(range(5))
+# acquisition_methods = ["gp_ucb", "random"]
+# duplicate_analysis = [True, False]
+
+# # TEST SETTINGS # #############################################################
+# runs_list = list(range(1))
+# acquisition_methods = ["gp_ucb"]
+# duplicate_analysis = [True]
 
 # + {"Collapsed": "false"}
 variables_dict = dict(
@@ -95,6 +111,11 @@ def run_al_meth(
     print(i_str, 77 * "#")
 
     name_i = "TEST_AL_" + GetFriendlyID()
+
+    print("****")
+    print("name_i: ", name_i)
+    print("****")
+
     save_dir = stoich_i + "/" + acquisition_method + "_" + str(duplicate_analysis)
     run_al_i(
         stoich_i=stoich_i,
@@ -135,52 +156,9 @@ traces_all = Pool().map(
 
 # + {"Collapsed": "false"}
 print("Notebook runtime (s):", time.time() - t0)
-print("Notebook runtime (s):", (time.time() - t0) / 60)
+print("Notebook runtime (min):", (time.time() - t0) / 60)
 
 # + {"Collapsed": "false", "active": ""}
 #
 #
 #
-
-# + {"jupyter": {"source_hidden": true}, "Collapsed": "false"}
-# input_list = []
-# for i in range(num_runs):
-#     data_dict_i = dict(
-#         i=i,
-#         seed=np.random.randint(0, 1000)
-#         )
-#     print(data_dict_i)
-#     input_list.append(data_dict_i)
-# # input_list
-
-# + {"jupyter": {"source_hidden": true}, "Collapsed": "false"}
-# for i in range(1):
-#     i_str = str(i).zfill(2)
-#     print(i_str)
-
-#     print(80 * "#")
-#     print(i_str, 77 * "#")
-
-#     name_i = "AL_" + i_str
-#     save_dir = stoich_i + "/" + acquisition_method + "_" + str(duplicate_analysis)
-#     # print(save_dir)
-#     run_al_i(
-#         stoich_i=stoich_i,
-#         verbose=verbose,
-#         gp_settings=gp_settings,
-#         name_i=name_i,
-#         save_dir_extra=save_dir,
-#         acquisition_method=acquisition_method,
-#         duplicate_analysis=duplicate_analysis,
-#         )
-#     print("")
-
-# + {"jupyter": {"source_hidden": true}, "Collapsed": "false"}
-# AL_i_list = [i for i in ALBulkOpt.al_gen_dict.values()]
-
-# traces_all = Pool().map(partial(
-#     get_trace_j,  # METHOD
-
-#     # KWARGS
-#     **get_trace_j_kwargs,
-#     ), AL_i_list)

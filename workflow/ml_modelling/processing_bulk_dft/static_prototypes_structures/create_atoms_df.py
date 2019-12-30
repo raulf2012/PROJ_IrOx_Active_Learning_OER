@@ -323,7 +323,7 @@ print("AB2:", df_proto.loc[ab2_indices].name_i.unique().shape)
 # + [markdown] {"Collapsed": "false"}
 # # TEMP | Number of atoms in structures
 
-# + {"Collapsed": "false", "jupyter": {"source_hidden": true}}
+# + {"Collapsed": "false", "jupyter": {}}
 def method(row_i, argument_0, optional_arg=None):
     new_column_values_dict = {"num_atoms": None}
 
@@ -354,7 +354,7 @@ print(df_struct_ab3[df_struct_ab3["num_atoms"] > 100].shape)
 
 df_struct_ab3[df_struct_ab3["num_atoms"] > 100]
 
-# + {"Collapsed": "false", "jupyter": {"source_hidden": true}}
+# + {"Collapsed": "false", "jupyter": {}}
 df_tmp = df_struct[df_struct.stoich == "AB2"]
 
 # df_tmp.shape

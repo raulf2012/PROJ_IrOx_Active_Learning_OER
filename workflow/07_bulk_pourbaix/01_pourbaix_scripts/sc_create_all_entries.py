@@ -128,7 +128,8 @@ for key, value in ion_dict_solids_expt.items():
         ComputedEntry(
             comp,
             energy,
-            attribute={
+            # attribute={
+            parameters={
                 "full_name": key,
                 },
             )

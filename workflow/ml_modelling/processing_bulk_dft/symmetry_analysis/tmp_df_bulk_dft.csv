@@ -1,0 +1,17 @@
+id_unique,atoms,energy_pa,source,stoich,dH,num_atoms
+8p8evt9pcg,"Atoms(symbols='Ir4O12', pbc=True, cell=[[8.46395, 0.0, 0.0], [1.706e-05, 4.88743, 0.0], [-2.790668891, 3.656e-05, 4.294955341]], calculator=SinglePointCalculator(...))",-6.46984746,raul,AB3,-0.6507022384081731,16
+macixavwv3,"Atoms(symbols='O36Ir12', pbc=True, cell=[[8.46527, 0.0, 0.0], [0.0, 4.88321, 0.0], [-0.000698758, 0.0, 12.914799981]], calculator=SinglePointCalculator(...))",-6.4690128810416665,raul,AB3,-0.6498676594498392,48
+zimixdvdxd,"Atoms(symbols='O18Ir6', pbc=True, cell=[[8.29207, 0.0, 0.0], [-4.146035, 7.18114327, 0.0], [0.0, -1.7622e-05, 4.37204]], calculator=SinglePointCalculator(...))",-6.467449626666667,raul,AB3,-0.6483044050748399,24
+8ivkxwnhva,"Atoms(symbols='O12Ir4', pbc=True, cell=[4.77954, 8.29347, 4.38456], calculator=SinglePointCalculator(...))",-6.465021838125,raul,AB3,-0.6458766165331724,16
+9lmkmh8s8r,"Atoms(symbols='O18Ir6', pbc=True, cell=[[4.88765, 0.0, 0.0], [-2.443825, 4.232829065, 0.0], [-2.2543e-05, 3.9046e-05, 12.9162]], calculator=SinglePointCalculator(...))",-6.464485296666666,raul,AB3,-0.6453400750748388,24
+vp7gxqv191,"Atoms(symbols='O18Ir6', pbc=True, cell=[[4.88743, 0.0, 0.0], [-2.443715, 4.232638539, 0.0], [-2.2543e-05, 1.3015e-05, 12.9161]], calculator=SinglePointCalculator(...))",-6.4644776508333335,raul,AB3,-0.6453324292415061,24
+9txdvicqcf,"Atoms(symbols='Ir6O18', pbc=True, cell=[[4.88696, 0.0, 0.0], [-2.443475, 4.232222847, 0.0], [6.7635e-05, 6.5082e-05, 12.9173]], calculator=SinglePointCalculator(...))",-6.464471491666667,raul,AB3,-0.6453262700748397,24
+8k7expx2bp,"Atoms(symbols='O18Ir6', pbc=True, cell=[[4.88676, 0.0, 0.0], [-2.4434, 4.232092943, 0.0], [0.0, -7.8104e-05, 12.9183]], calculator=SinglePointCalculator(...))",-6.464471339166667,raul,AB3,-0.6453261175748395,24
+xwvhnh9sx4,"Atoms(symbols='O18Ir6', pbc=True, cell=[[4.88632, 0.0, 0.0], [-2.443243857, 4.23165193, 0.0], [-2.2552e-05, -3.9062e-05, 12.9215]], calculator=SinglePointCalculator(...))",-6.464465467499999,raul,AB3,-0.6453202459081719,24
+vlbdnoxlnh,"Atoms(symbols='O6Ir2', pbc=True, cell=[[4.78162, 0.0, 0.0], [0.0, 4.39131, 0.0], [-2.39081, 0.0, 4.141004391]], calculator=SinglePointCalculator(...))",-6.461792755,raul,AB3,-0.6426475334081729,8
+xjxdzi73bg,"Atoms(symbols='O6Ir2', pbc=True, cell=[[4.78155, 0.0, 0.0], [-2.390775, 4.140943769, 0.0], [0.0, 0.0, 4.39121]], calculator=SinglePointCalculator(...))",-6.46176988,raul,AB3,-0.642624658408173,8
+xg6exl6rmp,"Atoms(symbols='Ir2O6', pbc=True, cell=[[4.78171, 0.0, 0.0], [-2.39099955, 4.140998874, 0.0], [0.0, 0.0, 4.39025]], calculator=SinglePointCalculator(...))",-6.4617369675,raul,AB3,-0.6425917459081729,8
+6fcdbh9fz2,"Atoms(symbols='Ir2O6', pbc=True, cell=[[4.78149, 0.0, 0.0], [-2.390672727, 4.140933534, 0.0], [0.0, 0.0, 4.39022]], calculator=SinglePointCalculator(...))",-6.46172267125,raul,AB3,-0.6425774496581731,8
+9rz5nl9g6o,"Atoms(symbols='O6Ir2', pbc=True, cell=[[4.78135, 0.0, 0.0], [-2.390675, 4.140770564, 0.0], [0.0, 0.0, 4.39195]], calculator=SinglePointCalculator(...))",-6.4617216875,raul,AB3,-0.6425764659081725,8
+xw9y6rbkxr,"Atoms(symbols='Ir12O36', pbc=True, cell=[[4.82822, 0.0, 0.0], [-2.41411, 4.181361175, 0.0], [-4.543e-05, 2.6229e-05, 26.0294]], calculator=SinglePointCalculator(...))",-6.461619971458333,raul,AB3,-0.6424747498665058,48
+v5cym3nycg,"Atoms(symbols='O24Ir8', pbc=True, cell=[[4.79807, 0.0, 0.0], [-2.399035, 4.155250509, 0.0], [6.0983e-05, 0.0, 17.4702]], calculator=SinglePointCalculator(...))",-6.46069822875,raul,AB3,-0.6415530071581728,32

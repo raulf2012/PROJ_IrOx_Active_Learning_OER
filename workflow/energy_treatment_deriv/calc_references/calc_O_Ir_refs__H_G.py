@@ -5,12 +5,12 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.2.1
+#       format_version: '1.5'
+#       jupytext_version: 1.3.0
 #   kernelspec:
-#     display_name: Python [conda env:research-new] *
+#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
 #     language: python
-#     name: conda-env-research-new-py
+#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
 # ---
 
 # # Bulk Energy Treatment for IrOx Systems
@@ -20,6 +20,7 @@
 
 # +
 import os
+print(os.getcwd())
 import sys
 
 sys.path.insert(0,
@@ -184,7 +185,7 @@ h_iro3 = e_iro3 + PV_i
 dh_iro3 = h_iro3 - (3 * oxy_ref.enthalpy_e + h_ir_m_fit)
 dg_iro3 = dh_iro3 - TdS_iro3
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
@@ -215,3 +216,65 @@ print("dh_iro2 - dh_iro3:", dh_iro2 - dh_iro3)
 print("dg_iro2 - dg_iro3:", dg_iro2 - dg_iro3)
 
 print(40 * "-")
+
+# + active=""
+#
+#
+#
+
+# +
+TdS_iro3
+
+-1.8137510174978528 / 4
+# -2.6028071136326894 / 4
+
+# -2.6028071136326894 / 4
+
+(4 * -0.650702238408173) - TdS_iro3
+
+-0.471408668408173 * 4 - TdS_iro3
+# -
+
+# # Collecting variables to save
+
+# +
+out_dict = dict(
+    o_ref=oxy_ref.enthalpy_e,
+    ir_ref=h_ir_m_fit,
+    TdS_iro2=TdS_iro2,
+    TdS_iro3=TdS_iro3,
+
+    # "": ,
+    )
+
+# #######################################################################
+import os; import json
+directory = "out_data"
+if not os.path.exists(directory): os.makedirs(directory)
+with open(os.path.join(directory, "data.json"), "w") as outfile:
+    json.dump(out_dict, outfile, indent=2)
+# #######################################################################
+
+# +
+# /mnt/c/Users/raulf2012/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER
+# workflow/energy_treatment_deriv/calc_references
+
+os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/energy_treatment_deriv/calc_references",
+    "out_data/data.json"
+    )
+# -
+
+# #######################################################################
+import json
+data_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/energy_treatment_deriv/calc_references",
+    "out_data/data.json",
+    )
+with open(data_path, "r") as fle:
+    data = json.load(fle)
+# #######################################################################
+
+data
