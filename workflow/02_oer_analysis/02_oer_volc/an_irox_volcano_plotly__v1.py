@@ -18,7 +18,7 @@
 #
 # ***
 
-# # Import Modules
+# # Import Modules | TEMP NEW
 
 # %%capture
 # %load_ext autoreload
@@ -68,6 +68,8 @@ from proj_data_irox import (
     exp_irox_lim_pot,
     data_dir,
     groupby_props,
+    axis_label_font_size,
+    axis_tick_labels_font_size,
     irox_bulk_color_map)
 
 # #############################################################################
@@ -156,8 +158,9 @@ trace_iro3 = go.Scatter(
     name="lines",
     line={
         "color": irox_bulk_color_map["IrO3"],
-        "width": 1,
-        "dash": "dash",
+        "width": 2.,
+        # "dash": "dash",
+        "dash": "dot",
         },
     )
 
@@ -168,10 +171,89 @@ trace_iro2 = go.Scatter(
     name="lines",
     line={
         "color": irox_bulk_color_map["IrO2"],
-        "width": 1,
-        "dash": "dash",
+        "width": 2.,
+        "dash": "dot",
         },
     )
+
+# #############################################################################
+
+annot_shared = go.layout.Annotation(
+# align=None,
+# arrowcolor=None,
+# arrowhead=None,
+# arrowside=None,
+# arrowsize=None,
+# arrowwidth=None,
+# ax=None,
+# axref=None,
+# ay=None,
+# ayref=None,
+
+# bgcolor="pink",
+bgcolor="white",
+
+# bordercolor=None,
+# borderpad=None,
+# borderwidth=None,
+# captureevents=None,
+# clicktoshow=None,
+font=go.layout.annotation.Font(
+    color="black",
+    family=None,
+    # size=axis_label_font_size,
+    size=axis_tick_labels_font_size,
+    ),
+# height=None,
+# hoverlabel=None,
+# hovertext=None,
+# name=None,
+opacity=0.8,
+showarrow=False,
+# standoff=None,
+# startarrowhead=None,
+# startarrowsize=None,
+# startstandoff=None,
+# templateitemname=None,
+# text=None,
+# textangle=None,
+# valign=None,
+# visible=None,
+# width=None,
+x=layout.xaxis.range[0],
+xanchor="left",
+# xclick=None,
+xref="x1",
+xshift=0.,
+# y=None,
+yanchor="bottom",
+# yclick=None,
+yref="y1",
+# yshift=30,
+yshift=2,
+)
+
+
+annotations_exp = [
+
+    go.layout.Annotation(
+        text="SrIrO<sub>3</sub>",
+        y=exp_irox_lim_pot["10_mA/cm2"]["SrIrO3"],
+        **annot_shared.to_plotly_json()),
+
+    go.layout.Annotation(
+        text="rutile-IrO<sub>2</sub> (110)",
+        y=exp_irox_lim_pot["10_mA/cm2"]["IrO2(110)"],
+        **annot_shared.to_plotly_json()),
+
+    ]
+
+
+layout.update(
+    annotations=list(layout.annotations) + list(annotations_exp),
+    overwrite=True)
+
+tmp = 42
 # -
 
 # # Volcano Plot
@@ -215,47 +297,18 @@ data = volcano_legs_data_tmp + volcano_legs_data + VP.data_points
 if plot_exp_traces:
     data.insert(0, trace_iro3)
     data.insert(0, trace_iro2)
-# -
 
+# +
 fig = go.Figure(data=data, layout=layout)
 
-# +
-# layout_override = {
-#     "width": 35 * 37.795275591,
-#     "height": 19 * 37.795275591,
-#     "showlegend": True}
-# fig.layout.update(layout_override)
-
-fig = my_plotly_plot(
+my_plotly_plot(
     figure=fig,
     plot_name="out_plot_02_large")
-
-# +
-
-
-
 # -
 
 # # TEMP | Changing line type of volcano
 
 # +
-# for trace in fig.data:
-#     tmp = 42
-    
-# #     print(trace.name)
-    
-#     if trace.name == "activity volcano":
-#         trace_tmp = trace
-
-# trace_tmp.line.dash = "7px,2px,7px,2px"
-
-# +
-# layout_override = {
-#     "width": 1.45 * 7.964 * 37.795275591,
-#     "height": 1.5 * 5.6002 * 37.795275591,
-#     "showlegend": False}
-# fig.layout.update(layout_override)
-
 shared_axis_props = dict(ticklen=3)
 
 ticks_props_new_x = dict(
@@ -265,13 +318,6 @@ ticks_props_new_y = dict(
     dtick=0.05,
     **shared_axis_props)
 
-# fig = add_minor_ticks(
-#     fig,
-#     # axis='both',
-#     axis="both",
-#     ticks_props_new_x=ticks_props_new_x,
-#     ticks_props_new_y=ticks_props_new_y,
-#     )
 
 add_duplicate_axes(
     fig, axis_type='x',
@@ -311,8 +357,8 @@ path_i = os.path.join(
 with open(path_i, "rb") as fle:
     df_10mA = pickle.load(fle)
 # #############################################################################
-# -
 
+# +
 df = df_10mA
 trace_kin_10mA = go.Scatter(
     x=df["descriptor"],
@@ -322,13 +368,14 @@ trace_kin_10mA = go.Scatter(
     line=dict(
         # color="#1ee148",
         color="#3e9bf2", 
-        width=2.5,
+        width=2.,
         dash="dot",
         ),
     )
 
-# + jupyter={"outputs_hidden": false}
 fig.add_scatter(**trace_kin_10mA.to_plotly_json())
+
+tmp = 42
 
 # + jupyter={"outputs_hidden": false}
 data_tmp = fig.data
@@ -361,7 +408,7 @@ with open(os.path.join(directory, "oer_volcano_trace.pickle"), "wb") as fle:
 #
 #
 
-# +
+# + jupyter={"source_hidden": true}
 # for i_cnt, trace in enumerate(fig.data):
 #     tmp = 42
 #     print(trace.name)
@@ -392,3 +439,14 @@ with open(os.path.join(directory, "oer_volcano_trace.pickle"), "wb") as fle:
 # for trace_i in data_kin_volc:
 #     data_dict = trace_i.to_plotly_json()
 #     fig.add_scatter(**data_dict)
+# -
+
+# ## for trace in fig.data:
+# #     tmp = 42
+#     
+# # #     print(trace.name)
+#     
+# #     if trace.name == "activity volcano":
+# #         trace_tmp = trace
+#
+# # trace_tmp.line.dash = "7px,2px,7px,2px"

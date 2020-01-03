@@ -48,12 +48,6 @@ from proj_data_irox import (
     )
 #__|
 
-#| - Script Inputs
-
-# TEMP
-
-#__|
-
 #| - Elemental References
 
 # For now I'm applying the entire free energy correction to the electronic
@@ -82,9 +76,10 @@ oxy_ref, hyd_ref = Elem_Refs.calc_ref_energies()
 oxy_ref = oxy_ref.gibbs_e
 hyd_ref = hyd_ref.gibbs_e
 
-print(20 * "TEMP TEMP TEMP")
-print(oxy_ref); print(hyd_ref)
+# print(20 * "TEMP TEMP TEMP")
+# print(oxy_ref); print(hyd_ref)
 #__|
+
 
 def load_df(
     from_file=False,
@@ -93,11 +88,12 @@ def load_df(
     file_name="df_master.pickle",
     process_df=True,
     filter_early_revisions=True,
-    # unique_params=["facet", "coverage_type", "bulk_system"],
     unique_params=["facet", "coverage_type", "bulk_system", "surface_type"],
     name_list=["facet", "coverage_type", "bulk_system"],
     ):
     """Load dataframe and perform some preprocessing.
+
+    unique_params=["facet", "coverage_type", "bulk_system"],
 
     Usage:
 
