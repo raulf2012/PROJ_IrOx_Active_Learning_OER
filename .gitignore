@@ -1,5 +1,8 @@
 # Mine
 voro_temp
+.swp
+.~lock
+.idea
 
 __old__
 __temp__
