@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.3.0
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
 #     language: python
@@ -51,6 +51,8 @@ h2_ref = gas_dft_refs_i["h2"]
 # -
 
 # # Script Inputs
+
+-7.047516 * 6
 
 # +
 T = 298.15

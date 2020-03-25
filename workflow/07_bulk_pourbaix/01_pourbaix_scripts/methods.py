@@ -5,7 +5,7 @@
 Author: Raul A. Flores
 """
 
-#| - Import Modules
+# | - Import Modules
 import numpy as np
 
 import plotly.graph_objs as go
@@ -24,7 +24,7 @@ from proj_data_irox import (
 #__|
 
 
-#| - Inputs
+# | - Inputs
 plot_title = None
 tick_lab_size = 8 * (4. / 3.)
 axes_lab_size = 9 * (4. / 3.)
@@ -41,7 +41,7 @@ def create_pourbaix_plot(
     ):
     """
     """
-    #| - create_pourbaix_plot
+    # | - create_pourbaix_plot
     all_entries = entries
 
     pourbaix = PourbaixDiagram(all_entries)  # comp_dict={'Ru':0.5,'Y':0.5})
@@ -72,7 +72,7 @@ def create_pourbaix_plot(
 def random_color():
     """
     """
-    #| - random_color
+    # | - random_color
     random_color = list(np.random.choice(range(256), size=3))
     random_color = [str(i) for i in random_color]
     random_color_str = \
@@ -85,12 +85,12 @@ def random_color():
 def process_sys(entry, vertices):
     """
     """
-    #| - process_sys
+    # | - process_sys
     x, y = np.transpose(np.vstack([vertices, vertices[0]]))
     center = np.average(vertices, axis=0)
 
 
-    #| - TMP
+    # | - TMP
     name_i = get_entry_name(entry)
 
     # random_color = list(np.random.choice(range(256), size=3))
@@ -108,7 +108,7 @@ def process_sys(entry, vertices):
         )
     #__|
 
-    #| - Scatter Instances
+    # | - Scatter Instances
     trace_i = go.Scatter(
         x=x,
         y=y,
@@ -159,7 +159,7 @@ def create_pourb_entry_outline(
     ):
     """
     """
-    #| - create_pourb_entry_outline
+    # | - create_pourb_entry_outline
     # Common species that all IrO3 species will be plotted with
     ir_entry = get_base_spec("Ir", all_entries)
     iro2_entry = get_base_spec("IrO2", all_entries)
@@ -205,7 +205,7 @@ def create_pourb_entry_outline(
         x_list.append(x_list[0])
         y_list.append(y_list[0])
 
-        #| - plotly scatter instance
+        # | - plotly scatter instance
         data_i = go.Scatter(
             x=x_list,
             y=y_list,
@@ -228,7 +228,7 @@ def create_pourb_entry_outline(
 def get_entry_name(entry):
     """
     """
-    #| - get_entry_name
+    # | - get_entry_name
     obj = entry.entry
     if isinstance(obj, IonEntry):
         print(obj, "is of type MyClass")
@@ -253,7 +253,7 @@ def get_entry_name(entry):
 def get_base_spec(base_species, all_entries):
     """
     """
-    #| - get_base_spec
+    # | - get_base_spec
     entry_out = None
     for entry_i in all_entries:
         entry = entry_i
@@ -264,7 +264,7 @@ def get_base_spec(base_species, all_entries):
             entry_out = entry_i
 
 
-    #| - __old__
+    # | - __old__
 
         # obj = entry.entry
         # if isinstance(obj, IonEntry):
@@ -312,7 +312,7 @@ def get_base_spec(base_species, all_entries):
 def get_spec_entries(entries_list, all_entries):
     """
     """
-    #| - get_spec_entries
+    # | - get_spec_entries
     out_dict = {}
     for j in entries_list:
         for i in all_entries:
@@ -335,7 +335,7 @@ def create_oer_equil_line(axis_ranges=None):
     Args:
         axis_rangs
     """
-    #| - create_oer_equil_line
+    # | - create_oer_equil_line
     # import plotly.graph_objs as go
     PREFAC = 0.0591
 
@@ -364,13 +364,13 @@ def create_oer_equil_line(axis_ranges=None):
 
 
 
-#| - __old__
+# | - __old__
 
 def create_outside_borders(axis_ranges=None):
     """
     Not sure that this is useful, remove later.
     """
-    #| - create_outside_borders
+    # | - create_outside_borders
     x_border = [
         axis_ranges["x_axis"][0],
         axis_ranges["x_axis"][1],
@@ -410,7 +410,7 @@ def create_outside_borders(axis_ranges=None):
 #     ):
 #     """
 #     """
-#     #| - pourbaix_plot_layout
+#     # | - pourbaix_plot_layout
 # 
 #     plot_title = None
 #     tick_lab_size = 12 * (4. / 3.)

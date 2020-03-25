@@ -4,7 +4,7 @@ Author(s): Raul A. Flores
 """
 
 
-#| - Import Modules
+# | - Import Modules
 import sys
 import os
 
@@ -31,10 +31,10 @@ import plotly.graph_objs as go
 axis_num_list = [1, 3, 5, 7]
 # axis_num_list = [1, 2, 3, 4]
 
-#| - Main layout object
+# | - Main layout object
 layout = go.Layout(
 
-    #| - height/width
+    # | - height/width
     width=8.0 * 37.795275591,
 
     # height=15.0 * 37.795275591,
@@ -108,7 +108,7 @@ layout = go.Layout(
     showlegend=False,
     piecolorway=None,
 
-    #| - __old__
+    # | - __old__
     # angularaxis=None,
     # annotations=None,
     # annotationdefaults=None,
@@ -186,12 +186,12 @@ layout = go.Layout(
     )
 #__|
 
-#| - Axis layout options
+# | - Axis layout options
 
-#| - shared axis dict
+# | - shared axis dict
 shared_axis_dict = dict(
 
-    #| - __old__
+    # | - __old__
     # anchor=None,
     # automargin=None,
     # autorange=None,
@@ -290,7 +290,7 @@ yaxis_layout.update(go.layout.YAxis(
     ))
 
 
-#| - Setting x/y-axis to layout
+# | - Setting x/y-axis to layout
 
 tmp = dict(zip(
     ["xaxis" + str(i) for i in axis_num_list],
@@ -305,7 +305,7 @@ tmp = dict(zip(
 layout.update(tmp)
 
 
-#| - __old__
+# | - __old__
 # layout.xaxis = xaxis_layout
 # layout.yaxis = yaxis_layout
 #
@@ -336,9 +336,9 @@ layout.update(tmp)
 
 #__|
 
-#| - Plot Annotations
+# | - Plot Annotations
 
-#| - shared_annot_props
+# | - shared_annot_props
 shared_annot_props = go.layout.Annotation(
 
     # ###########################################
@@ -400,11 +400,12 @@ shared_annot_props = go.layout.Annotation(
 
 annotations = [
 
-    #| - Axis Titles
+    # | - Axis Titles
 
     go.layout.Annotation(
         # COMBAK TODO Is this actually a "free energy"?
-        text="Surface Free Energy (eV / A<sup>2</sup>)",
+        # text="Surface Free Energy (eV / A<sup>2</sup>)",
+        text="Surface Free Energy (eV / Å<sup>2</sup>)",
         font=go.layout.annotation.Font(
             size=axis_label_font_size,),
         x=0.0,
@@ -455,7 +456,7 @@ annotations = [
 
     ]
 
-#| - subplot bulk label in righ-top corner
+# | - subplot bulk label in righ-top corner
 subplot_label_dict = go.layout.Annotation(
     x=layout.xaxis.range[1],
     y=layout.yaxis.range[1],

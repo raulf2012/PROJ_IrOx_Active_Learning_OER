@@ -3,7 +3,7 @@
 Author: Raul A Flores
 """
 
-#| - IrO3|110|O-covered|*OOH
+# | - IrO3|110|O-covered|*OOH
 """
 path:
 /global/cscratch1/sd/flores12/IrOx_Project/04_ads_vib/IrO3/110/01_O_covered/02_ooh/_1
@@ -61,7 +61,7 @@ Free energy components at T = 298.15 K:
 """
 #__|
 
-#| - IrO3|110|O-covered|*O
+# | - IrO3|110|O-covered|*O
 """
 path:
 /global/cscratch1/sd/flores12/IrOx_Project/04_ads_vib/IrO3/110/01_O_covered/03_o/_1
@@ -115,7 +115,7 @@ Free energy components at T = 298.15 K:
 """
 #__|
 
-#| - IrO3|110|O-covered|*OH
+# | - IrO3|110|O-covered|*OH
 """
 path:
 /global/cscratch1/sd/flores12/IrOx_Project/04_ads_vib/IrO3/110/01_O_covered/04_oh/_1

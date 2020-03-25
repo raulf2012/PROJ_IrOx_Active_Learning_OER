@@ -3,7 +3,7 @@
 """
 """
 
-#| - Import Modules
+# | - Import Modules
 import pickle
 
 from pymatgen import MPRester
@@ -29,19 +29,19 @@ warnings.filterwarnings('ignore')
 from dft_energies import ion_dict_solids_expt
 #__|
 
-#| - Script Inputs
+# | - Script Inputs
 #This initializes the REST adaptor. Put your own API key in.
 mpr = MPRester('NJTXWGbreuLAq8O5')  # Raul
 
 #__|
 
-#| - Methods
+# | - Methods
 #Used later to filter duplicate entries
 #If entry is already in entry_list, then return True
 def contains_entry(entry_list, entry):
     """
     """
-    #| - contains_entry
+    # | - contains_entry
     for e in entry_list:
         if e.entry_id == entry.entry_id or (abs(entry.energy_per_atom - e.energy_per_atom) < 1e-6 and entry.composition.reduced_formula == e.composition.reduced_formula):
             return True
@@ -49,11 +49,11 @@ def contains_entry(entry_list, entry):
 
 #__|
 
-#| - Main Code ****************************************************************
+# | - Main Code ****************************************************************
 #Entries are the basic unit for thermodynamic and other analyses in pymatgen.
 entries = mpr.get_entries_in_chemsys(['O', 'H'])
 
-#| - Ion Reference Data
+# | - Ion Reference Data
 #Dictionary of reference state:experimental formation energy
 
 # ion_dict_Co = mpr._make_request('/pourbaix_diagram/reference_data/Ru')
@@ -107,7 +107,7 @@ for entry in stable_solids_minus_h2o:
     pbx_entry.reduced_entry()  # Applies reduction factor?????
     pbx_solid_entries.append(pbx_entry)
 
-#| - Processing My Solid Entries
+# | - Processing My Solid Entries
 # for key in ion_dict_solids_expt:
 for key, value in ion_dict_solids_expt.items():
 
@@ -146,7 +146,7 @@ for a in pbx_solid_entries:
 #__|
 
 
-#| - Ion Entries
+# | - Ion Entries
 # Calculate DFT reference energy for ions (See Persson et al, PRB (2012))
 pbx_ion_entries = []
 for id in ion_dict:
@@ -164,7 +164,7 @@ for id in ion_dict:
 all_entries = pbx_solid_entries + pbx_ion_entries
 #__|
 
-#| - Save all_entries
+# | - Save all_entries
 
 # Pickling data ######################################################
 import os; import pickle
@@ -186,9 +186,9 @@ with open(os.path.join(directory, "all_entries.pickle"), "wb") as fle:
 #
 
 
-#| - __old__
+# | - __old__
 
-#| - __old__
+# | - __old__
 # 'Ru': 0,
 # 'RuO2': 1.0*(-252.681)/kJmol,
 # 'RuO4H4': -691.0/kJmol, # AP - from expt. paper
@@ -214,7 +214,7 @@ with open(os.path.join(directory, "all_entries.pickle"), "wb") as fle:
 # def replot(all_entries):
 #     """
 #     """
-#     #| - replot
+#     # | - replot
 #     pourbaix = PourbaixDiagram(all_entries)  # comp_dict={'Ru':0.5,'Y':0.5})
 #     plotter = PourbaixPlotter(pourbaix)
 #     print_entries(all_entries)
@@ -235,7 +235,7 @@ with open(os.path.join(directory, "all_entries.pickle"), "wb") as fle:
 # def print_entries(all_entries):
 #     """
 #     """
-#     #| - print_entries
+#     # | - print_entries
 #     for e in all_entries:
 #         print(e)
 #     #__|

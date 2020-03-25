@@ -1,0 +1,24 @@
+./scripts/.ipynb_checkpoints/plot_e_v_coor-checkpoint.py:34:duplicates = pickle.load(open('duplicates.pickle', 'rb'))
+./scripts/.ipynb_checkpoints/README-checkpoint.md:19:duplicates.pickle
+./scripts/00_main_plotting_script/.ipynb_checkpoints/00_plotting-checkpoint.py:58:duplicates = pickle.load(open("../duplicates.pickle", "rb"))
+./scripts/00_main_plotting_script/.ipynb_checkpoints/00_plotting_kirsten-checkpoint.ipynb:143:    "duplicates = pickle.load(open(\"../duplicates.pickle\", \"rb\"))\n",
+./scripts/00_main_plotting_script/.ipynb_checkpoints/00_plotting_kirsten-checkpoint.py:101:duplicates = pickle.load(open("../duplicates.pickle", "rb"))
+./scripts/00_main_plotting_script/.ipynb_checkpoints/00_plotting_raul_1-checkpoint.py:55:duplicates = pickle.load(open("../duplicates.pickle", "rb"))
+./scripts/00_main_plotting_script/00_plotting_kirsten.ipynb:143:    "duplicates = pickle.load(open(\"../duplicates.pickle\", \"rb\"))\n",
+./scripts/00_main_plotting_script/00_plotting_kirsten.py:112:duplicates = pickle.load(open("../duplicates.pickle", "rb"))
+./scripts/00_main_plotting_script/out_plot/00_plotting_kirsten.ipynb.bkp:146:    "duplicates = pickle.load(open(\"../duplicates.pickle\", \"rb\"))\n",
+./scripts/00_main_plotting_script/__old__/.ipynb_checkpoints/00_plotting-checkpoint.ipynb:108:    "duplicates = pickle.load(open(\"../duplicates.pickle\", \"rb\"))"
+./scripts/00_main_plotting_script/__old__/.ipynb_checkpoints/00_plotting_kirsten-Copy1-checkpoint.ipynb:148:    "duplicates = pickle.load(open(\"../duplicates.pickle\", \"rb\"))\n",
+./scripts/00_main_plotting_script/__old__/.ipynb_checkpoints/00_plotting_kirsten-Copy1-checkpoint.py:82:duplicates = pickle.load(open("../duplicates.pickle", "rb"))
+./scripts/00_main_plotting_script/__old__/.ipynb_checkpoints/00_plotting_raul_0-checkpoint.ipynb:89:    "duplicates = pickle.load(open(\"../duplicates.pickle\", \"rb\"))"
+./scripts/00_main_plotting_script/__old__/.ipynb_checkpoints/00_plotting_raul_1-checkpoint.ipynb:98:    "duplicates = pickle.load(open(\"../duplicates.pickle\", \"rb\"))"
+./scripts/00_main_plotting_script/__old__/00_plotting.ipynb:108:    "duplicates = pickle.load(open(\"../duplicates.pickle\", \"rb\"))"
+./scripts/00_main_plotting_script/__old__/00_plotting.py:58:duplicates = pickle.load(open("../duplicates.pickle", "rb"))
+./scripts/00_main_plotting_script/__old__/00_plotting_kirsten-Copy1.ipynb:134:    "duplicates = pickle.load(open(\"../duplicates.pickle\", \"rb\"))\n",
+./scripts/00_main_plotting_script/__old__/00_plotting_kirsten-Copy1.py:82:duplicates = pickle.load(open("../duplicates.pickle", "rb"))
+./scripts/00_main_plotting_script/__old__/00_plotting_kirsten_bkp.py:82:duplicates = pickle.load(open("../duplicates.pickle", "rb"))
+./scripts/00_main_plotting_script/__old__/00_plotting_raul_0.ipynb:89:    "duplicates = pickle.load(open(\"../duplicates.pickle\", \"rb\"))"
+./scripts/00_main_plotting_script/__old__/00_plotting_raul_1.ipynb:98:    "duplicates = pickle.load(open(\"../duplicates.pickle\", \"rb\"))"
+./scripts/00_main_plotting_script/__old__/00_plotting_raul_1.py:55:duplicates = pickle.load(open("../duplicates.pickle", "rb"))
+./scripts/README.md:19:duplicates.pickle
+./scripts/__old__/plot_e_v_coor.py:34:duplicates = pickle.load(open('duplicates.pickle', 'rb'))

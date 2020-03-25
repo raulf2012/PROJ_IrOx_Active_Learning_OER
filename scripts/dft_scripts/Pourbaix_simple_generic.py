@@ -5,7 +5,7 @@
 Author: Michal Bajdich; Raul A. Flores
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 
 from pylab import fill_between
@@ -57,9 +57,9 @@ def plot_Pourbaix(
     ):
     """
     """
-    #| - plot_Pourbaix
+    # | - plot_Pourbaix
 
-    #| - Inputs
+    # | - Inputs
     if surfs is None:
         surfs = [
             [-178.96067932, 0, 0, 0],  # clean
@@ -68,7 +68,7 @@ def plot_Pourbaix(
             ]
     #__|
 
-    #| - Setup
+    # | - Setup
     # with golden ration and the whole shebang ...
     # settings size and font for revtex stylesheet
     fig_width_pt = 1.8 * 246.0  # Get from LaTeX using \showthe\columnwidth
@@ -126,12 +126,12 @@ def plot_Pourbaix(
     plt.yticks(list(plt.yticks()[0]) + extraticks)
     #__|
 
-    #| - Methods
+    # | - Methods
 
     def addO(x, y):
         """
         """
-        #| - addO
+        # | - addO
         out = -(h2o - h2) - 2 * (y + x * const) + ds_o
         return(out)
         #__|
@@ -139,7 +139,7 @@ def plot_Pourbaix(
     def addOH(x, y):
         """
         """
-        #| - addOH
+        # | - addOH
         out = -(h2o - 0.5 * h2) - (y + x * const) + ds_oh
         return(out)
         #__|
@@ -147,17 +147,17 @@ def plot_Pourbaix(
     def addH(x, y):
         """
         """
-        #| - addH
+        # | - addH
         out = -0.5 * h2 + 1 * (y + x * const) + ds_h
         return(out)
         #__|
 
     def dg(i, x, y):
         """Function to calculate DG"""
-        #| - dg
+        # | - dg
         if(surfs[i][1] + surfs[i][2] + surfs[i][3] > 0 and x == 0 and y == 0):
 
-            #| - Print
+            # | - Print
             if print_out:
                 print(
                     (
@@ -182,9 +182,9 @@ def plot_Pourbaix(
         # surfs[i][2] * addO(x, y) + surfs[i][3] * addOH(x, y)
     #__|
 
-    #| - Free Energy Corrections For Adsorbates
+    # | - Free Energy Corrections For Adsorbates
 
-    #| - Previous Version
+    # | - Previous Version
     # ds_o = zpe_o - (
     #     +(zpe_h2o - ts_h2o) + \
     #     -(zpe_h2 - ts_h2) + \
@@ -208,7 +208,7 @@ def plot_Pourbaix(
     #__|
 
 
-    #| - TEMP
+    # | - TEMP
     corr_h2o = zpe_h2o + cv_h2o - ts_h2o
     corr_h2 = zpe_h2 + cv_h2 - ts_h2
 
@@ -237,7 +237,7 @@ def plot_Pourbaix(
         print(ds_oh, ds_o, ds_h)
     #__|
 
-    #| -  Find Intersects
+    # | -  Find Intersects
     i = 0  # Ph=0
     lowest_surfaces = []
     for j in U2:
@@ -253,7 +253,7 @@ def plot_Pourbaix(
     # print lowest_surfaces
     #__|
 
-    #| - Finding Crossover and Unique surface
+    # | - Finding Crossover and Unique surface
     crossover = []
     uniquesurf = []
     uniquesurf.append(lowest_surfaces[0])
@@ -272,7 +272,7 @@ def plot_Pourbaix(
         print(uniquesurf)
     #__|
 
-    #| - Main Plotting Loop
+    # | - Main Plotting Loop
     color = [
         "turquoise",
         "green",
@@ -314,7 +314,7 @@ def plot_Pourbaix(
         plot([], [], color=color[i], alpha=0.3, linewidth=5, label=foo)
     #__|
 
-    #| - Additional Ploting and Plot Settings
+    # | - Additional Ploting and Plot Settings
     Vover = 0.526
     y = 1.23 + Vover - pH2 * const
     llabel = '$\eta$ = ' + repr(Vover) + ' V at S$_{12}$'

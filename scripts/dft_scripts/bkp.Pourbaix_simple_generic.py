@@ -11,9 +11,9 @@ def plot_Pourbaix(
     ):
     """
     """
-    #| - plot_Pourbaix
+    # | - plot_Pourbaix
 
-    #| - Import Modules
+    # | - Import Modules
     from math import pow
     from pylab import *
     import matplotlib.pyplot as plt
@@ -28,7 +28,7 @@ def plot_Pourbaix(
     from matplotlib import rc
     #__|
 
-    #| - Setup
+    # | - Setup
     # with golden ration and the whole shebang ...
     # settings size and font for revtex stylesheet
     fig_width_pt = 1.8 * 246.0  # Get this from LaTeX using \showthe\columnwidth
@@ -88,7 +88,7 @@ def plot_Pourbaix(
     plt.yticks(list(plt.yticks()[0]) + extraticks)
     #__|
 
-    #| - Methods
+    # | - Methods
     def frhe(x):
         return 1.78-x*const
     def fh2oequi(x):

@@ -5,7 +5,7 @@
 Author: Raul A. Flores
 """
 
-#| - IMPORT MODULES
+# | - IMPORT MODULES
 import os
 import copy
 
@@ -24,7 +24,7 @@ class ALGeneration:
     """
     """
 
-    #| - ALGeneration *********************************************************
+    # | - ALGeneration *********************************************************
     _TEMP = "TEMP"
 
 
@@ -45,9 +45,9 @@ class ALGeneration:
         ):
         """
         """
-        #| - __init__
+        # | - __init__
 
-        #| - Setting Argument Instance Attributes
+        # | - Setting Argument Instance Attributes
         # Copy completed_ids to this instance so it doesn't change
         # self.completed_ids = completed_ids
         completed_ids = copy.copy(completed_ids)
@@ -67,7 +67,7 @@ class ALGeneration:
         self.verbose = verbose
         #__|
 
-        #| - Initializing Internal Instance Attributes
+        # | - Initializing Internal Instance Attributes
         self.df_train = None
         self.df_test = None
         self.new_acquisition = None
@@ -88,7 +88,7 @@ class ALGeneration:
     def run_regression_model(self):
         """
         """
-        #| - run_regression_model
+        # | - run_regression_model
         # #####################################################################
         RM = self.RegressionModel
         CandidateSpace = self.CandidateSpace
@@ -138,7 +138,7 @@ class ALGeneration:
     def get_df_train_test(self):
         """
         """
-        #| - get_df_train
+        # | - get_df_train
         CS = self.CandidateSpace
         FP = CS.FingerPrints
         completed_ids = self.completed_ids
@@ -178,7 +178,7 @@ class ALGeneration:
                 consideration. Once a system has been identified as a duplicate
                 then it will permenately stay that way
         """
-        #| - __run_duplicate_analysis__
+        # | - __run_duplicate_analysis__
         # #####################################################################
         acquisition_bin = self.acquisition_bin
         model = self.model
@@ -189,7 +189,7 @@ class ALGeneration:
 
 
         # #####################################################################
-        #| - Apply 'gen_acquired' to model df
+        # | - Apply 'gen_acquired' to model df
         def method(row_i, index_acq_gen_dict):
             index_i = row_i.name
             gen_i = index_acq_gen_dict.get(index_i, np.nan)
@@ -201,7 +201,7 @@ class ALGeneration:
         #__|
 
         # #####################################################################
-        #| - Preparing 'simil_dict_master'
+        # | - Preparing 'simil_dict_master'
         # Only consider duplicates in the set of structures that have been computed
         model_acq = model[model["acquired"] == True]
         filter_ids = model_acq.index.tolist()
@@ -284,7 +284,7 @@ class ALGeneration:
                 df_tmp = df_tmp.sort_values("gen_acquired")
                 TEMP_df_tmp_dict[key] = df_tmp
 
-                #| - MISC checks
+                # | - MISC checks
                 assert df_tmp.shape[0] > 1, "Only one row in df_tmp"
                 #__|
 
@@ -296,7 +296,7 @@ class ALGeneration:
                 generations_acquired = df_tmp["gen_acquired"].tolist()
 
 
-                #| - Figuring out what kind of df_tmp we have
+                # | - Figuring out what kind of df_tmp we have
                 if len(list(set(generations_acquired))) == 1:
                     """
                     All duplicates were acquired from the same generation
@@ -368,7 +368,7 @@ class ALGeneration:
                 #__|
 
                 # IMPORTANT <--------------------------------------------------
-                #| - Select desired systems from duplicates ###################
+                # | - Select desired systems from duplicates ###################
                 # Select entry from array of duplicates that will be kept
                 # Can either keep the one that was already there (earliest)
                 # or we can always select the most stable one
@@ -424,7 +424,7 @@ class ALGeneration:
         ):
         """
         """
-        #| - acquisition
+        # | - acquisition
         # #####################################################################
         acquisition_bin = self.acquisition_bin
         model = self.model
@@ -460,7 +460,7 @@ class ALGeneration:
 
         u = Target - kappa * uncertainty
         """
-        #| - acquisition_gp_ucb
+        # | - acquisition_gp_ucb
         model_acq = copy.deepcopy(model_i)
 
         pred = model_acq["y"]
@@ -478,7 +478,7 @@ class ALGeneration:
     def acquisition_random(self, model_i):
         """
         """
-        #| - job_aquisition
+        # | - job_aquisition
         model_acq = copy.deepcopy(model_i)
         index_list = model_acq.index.tolist()
 

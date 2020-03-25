@@ -5,7 +5,7 @@
 Author: Raul A. Flores
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 import shutil
 from ase.build import add_adsorbate
@@ -24,7 +24,7 @@ def dir_setup(step_i, path_i, job_i_params, wf_vars):
         job_i_params:
         wf_vars:
     """
-    #| - dir_setup ************************************************************
+    # | - dir_setup ************************************************************
     from ase import io
     # from ase_modules.adsorbates import Adsorbate
 
@@ -35,7 +35,7 @@ def dir_setup(step_i, path_i, job_i_params, wf_vars):
         # print(path_i)
         return(None)
 
-    #| - Parsing wf_vars
+    # | - Parsing wf_vars
     master_root_dir = wf_vars["root_dir"]
     mod_dir = wf_vars["mod_dir"]
     model_names = wf_vars["model_names"]
@@ -45,12 +45,12 @@ def dir_setup(step_i, path_i, job_i_params, wf_vars):
     atoms_dir = wf_vars["atoms_dir"]
     #__|
 
-    #| - Copying Model Scripts
+    # | - Copying Model Scripts
     model_dir = master_root_dir + "/" + mod_dir + "/" + model_names[step_i]
     shutil.copyfile(model_dir, path_i + "/model.py")
     #__|
 
-    #| - Atoms Object
+    # | - Atoms Object
     for atoms_info_i in atoms_list_names:
         params_i = atoms_info_i["job_params"]
 
@@ -102,7 +102,7 @@ def dir_setup(step_i, path_i, job_i_params, wf_vars):
     # slab.write(path_i + "/init.traj")
     #__|
 
-    #| - Writing Ready File for First Step
+    # | - Writing Ready File for First Step
     if step_i == 0:
         open(path_i + "/.READY", "w")
     #__|
@@ -129,9 +129,9 @@ def job_maint(
             If False will not create new revision folders and copy files into
             them.
     """
-    #| - job_maint ************************************************************
+    # | - job_maint ************************************************************
 
-    #| - Parsing wf_vars
+    # | - Parsing wf_vars
     # master_root_dir = wf_vars["root_dir"]
     # mod_dir = wf_vars["mod_dir"]
     # model_names = wf_vars["model_names"]
@@ -147,12 +147,12 @@ def job_maint(
     # path_i = Jobs.var_lst_to_path(job_i, job_rev="Auto", relative_path=False)
     path_i = copy.deepcopy(job_i)
 
-    #| - Not READY | Job Dir Not Set Up
+    # | - Not READY | Job Dir Not Set Up
     # if Jobs._job_setup(job_i):
         # print("SUBMITTING" + " | " + path_i)
     #__|
 
-    #| - READY  | Not SUBMITTED
+    # | - READY  | Not SUBMITTED
     if Jobs._job_ready(job_i):
         print("SUBMITTING" + " | " + path_i)
 
@@ -163,7 +163,7 @@ def job_maint(
         #     )
     #__|
 
-    #| - PENDING | Leave Alone
+    # | - PENDING | Leave Alone
     # print("Is job pending:")
     # print(Jobs._job_pending(job_i))
 
@@ -173,14 +173,14 @@ def job_maint(
         tally["pending"] += 1
     #__|
 
-    #| - RUNNING
+    # | - RUNNING
     if Jobs._job_running(job_i):
         print("RUNNING" + " | " + path_i)  # PERM_PRINT
 
         tally["running"] += 1
     #__|
 
-    #| - SUCCEEDED | Copy Files to Next Step
+    # | - SUCCEEDED | Copy Files to Next Step
     if Jobs._job_succeeded(job_i):
         print("SUCCESS" + " | " + path_i)  # PERM_PRINT
 
@@ -202,12 +202,12 @@ def job_maint(
     #     pass
     #__|
 
-    #| - FAILED | Rerun Job
+    # | - FAILED | Rerun Job
     if Jobs._job_failed(job_i):
         print("FAILURE" + " | " + path_i)  # PERM_PRINT
         tally["failures"] += 1
 
-        #| - Step 1 Restart
+        # | - Step 1 Restart
         if step_i == 0:
             prev_files = [
                 "dft-params.json",

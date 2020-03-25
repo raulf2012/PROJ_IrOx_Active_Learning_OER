@@ -7,7 +7,7 @@ Author: Michal Bajdich, Raul Flores
 
 print(""); print("")
 
-#| - Script Inputs
+# | - Script Inputs
 kjmol = 96.485
 T = 298.15
 convert_dS = T / (1000 * kjmol)
@@ -32,7 +32,7 @@ o2zpe = 0.098
 o2cp = 0.089962
 #__|
 
-#| - Gas Phase References
+# | - Gas Phase References
 h_ref = (h2 + h2zpe + h2cp) / 2  # dH at 300 K
 h2o_ref = h2o + h2ozpe + h2ocp  # dH at 300 K
 
@@ -94,7 +94,7 @@ print(
     )
 #__|
 
-#| - IrOxHy
+# | - IrOxHy
 
 print('#############now our IrOxHy system####################################')
 #now Ir system constants
@@ -111,7 +111,7 @@ iro3 = -6.442159 * 4  # calculated lowest PBE energy , 600 eV
 irho3 = -6.123924 * 5  # calculated lowest PBE energy , 600 eV
 ir_metal = -8.860644725
 
-#| - Fit Ir (metal) Enthalpy
+# | - Fit Ir (metal) Enthalpy
 
 #molecular references are dH, so they contain vibrations
 # here, o_ref2 is a dH of 1/2 O2
@@ -125,7 +125,7 @@ print(
     )
 #__|
 
-#| - Calc dH
+# | - Calc dH
 print('Calculate dHs now')
 dh_iro2 = iro2 - (2 * o_ref2 + ir_metal_fit)
 print(
@@ -148,7 +148,7 @@ dh_irho3 = irho3 - (3 * o_ref2 + ir_metal_fit + h_ref)
 print('IrHO3: dH= ', dh_irho3, ' eV ', dh_irho3 * kjmol, ' kjmol')
 #__|
 
-#| - Calc dG
+# | - Calc dG
 print('Calculate dGs now')
 
 TdS_iro2 = (S_iro2_solid - S_ir_metal - S_o2_gas) * convert_dS

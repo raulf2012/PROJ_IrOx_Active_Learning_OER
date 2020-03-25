@@ -8,7 +8,7 @@ a colorbar for the contours, and labelled contours.
 See also contour_image.py.
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 import matplotlib
 import numpy as np
@@ -18,7 +18,7 @@ from pylab import polyfit
 from pylab import poly1d
 from pylab import plot
 
-#| - __old__
+# | - __old__
 # from pylab import *
 # from matplotlib.ticker import *
 # from scipy import *
@@ -36,12 +36,12 @@ from pylab import plot
 
 #__|
 
-#| - Data *********************************************************************
+# | - Data *********************************************************************
 calc_systems=[]
 #energies are dGs on dEs!
 #to input dEs
 
-#| - User Data
+# | - User Data
 calc_systems.append([0.821, 2.517, 4.017, 0.466, r'IrO3 (110) OH-covered','black',0.0,0.08,1.5,'8','green','s'])
 # calc_systems.append([ 0.33, r'IrO3 110 O-covered','black',0.0,0.08,1.5,'8','green','s'])
 calc_systems.append([0.865, 2.425, 3.868, 0.33, r'IrO3 (110) O-covered','black',0.0,0.08,1.5,'8','green','^'])
@@ -97,10 +97,10 @@ def create_OER_plots(
         data:
         plots_folder:
     """
-    #| - create_OER_plots
+    # | - create_OER_plots
     calc_systems = data
 
-    #| - Styling and Setup
+    # | - Styling and Setup
     # settings size and font for revtex stylesheet
 
     fig_width_pt = 1.8 * 246.0  # Get this from LaTeX using \showthe\columnwidth
@@ -146,7 +146,7 @@ def create_OER_plots(
             Use unicode. Default: False.
 
         """
-        #| - setfont
+        # | - setfont
         # Use TeX for all figure text!
         plt.rc('text', usetex=True)
 
@@ -237,11 +237,11 @@ def create_OER_plots(
     #Z = 10.0 * (Z2 - Z1)
     #__|
 
-    #| - Methods
+    # | - Methods
     #fit=[0.84527288, 3.38026638]
     def ooh_oh_scaling(doh):
         """ooh_oh_scaling equation."""
-        #| - ooh_oh_scaling
+        # | - ooh_oh_scaling
         #like ambars
         #dooh=0.5*doh  + 3.0		 #O
         #normal one
@@ -257,7 +257,7 @@ def create_OER_plots(
             doh:
             do:
         """
-        #| - overpotential
+        # | - overpotential
         dooh = ooh_oh_scaling(doh)
         dg14 = [doh, do - doh, dooh - do, - dooh + 4.92]
         m = max(dg14)
@@ -272,7 +272,7 @@ def create_OER_plots(
             x:
             doh:
         """
-        #| - overpotential2
+        # | - overpotential2
         dooh = ooh_oh_scaling(doh)
         dg14 = [doh, x, -x + 2.46, -dooh + 4.92]
         m = max(dg14)
@@ -287,7 +287,7 @@ def create_OER_plots(
             x:
             doh:
         """
-        #| - overpotential3
+        # | - overpotential3
         dooh = ooh_oh_scaling(doh)
         dg14 = [doh, x, dooh - (x + doh), -dooh + 4.92]
         m = max(dg14)
@@ -303,7 +303,7 @@ def create_OER_plots(
             doh:
             do:
         """
-        #| - overpotential_label
+        # | - overpotential_label
         dooh = ooh_oh_scaling(doh)
         dg14 = [doh, do - doh, dooh - do, -dooh + 4.92]
         m = max(dg14)
@@ -323,7 +323,7 @@ def create_OER_plots(
 
     #Z=overpotential(X,Y)
 
-    #| - OER_contour_plot *****************************************************
+    # | - OER_contour_plot *****************************************************
     Z = []
     for j in y:
         tmp = []
@@ -373,7 +373,7 @@ def create_OER_plots(
         # hold='on',
         )
 
-    #| - __old__
+    # | - __old__
     #levels = np.arange(0, 2, 0.05)
     #CS = plt.contourf(X,Y,Z, levels, cmap=cm.jet_r, origin='lower')
     #CS = plt.contourf(X,Y,Z, levels, origin='lower')
@@ -398,7 +398,7 @@ def create_OER_plots(
     #cbar.ax.set_ylabel(r'$\eta_{\sf calc.}$')
     cbar.ax.set_ylabel(r'$\eta_{\sf OER}$')
 
-    #| - __old__
+    # | - __old__
     #cbar.add_lines(CS2)
     #plt.clabel(CS, levels[1::2],  # label every second level
     #           inline=1,
@@ -414,7 +414,7 @@ def create_OER_plots(
     ax.get_xaxis().tick_bottom()   # remove unneeded ticks
     ax.get_yaxis().tick_left()
 
-    #| - __old__
+    # | - __old__
     #plot(x,ooh_oh_scaling(x),'--',color='orange',lw=1,
     # dashes=(3,1),label='$\Delta$G$_{\sf OOH}$=0.82G$_{\sf OH}$+3.18 eV')
     #ax.text(x1+0.02,y2-0.3,
@@ -445,7 +445,7 @@ def create_OER_plots(
             label=calc_systems[i][4] + ' : %.2f V' % (calc_systems[i][3])
             )
 
-    #| - __old__
+    # | - __old__
     # if i!=0 and 1:
     # ax.text(calc_systems[i][1]-calc_systems[i][0]+calc_systems[i][6],
     # calc_systems[i][0]+calc_systems[i][7],
@@ -505,7 +505,7 @@ def create_OER_plots(
 
     #__| **********************************************************************
 
-    #| - OER_scaling **********************************************************
+    # | - OER_scaling **********************************************************
 
     fig = plt.figure(figsize=fig_size, dpi=300)
     ax = fig.add_axes([0.2, 0.2, 0.6, 0.6])
@@ -631,7 +631,7 @@ def create_OER_plots(
 
     #__| **********************************************************************
 
-    #| - OER_1D_plot **********************************************************
+    # | - OER_1D_plot **********************************************************
     ax = fig.add_axes([0.2, 0.2, 0.6, 0.6])
 
     #x1=1.23-1
@@ -665,7 +665,7 @@ def create_OER_plots(
         zorder=2,
         )
 
-    #| - __old__
+    # | - __old__
     #plot(x,1.23,'--',color='black',lw=0.67, dashes=(3,1),zorder=2)
     # xy=np.array([xp for xp in x if 1.55<xp<1.66])
     # ax.fill_between(xy, y2, np.maximum(xy,3.2-xy)-1.23,
@@ -711,7 +711,7 @@ def create_OER_plots(
 
             )
 
-    #| - __old__
+    # | - __old__
     # if(i!=1):
     # ax.text(calc_systems[i][1]-calc_systems[i][0],
     # calc_systems[i][3]-0.02,calc_systems[i][3])
@@ -756,11 +756,11 @@ def create_OER_plots(
 
 # create_OER_plots(calc_systems)
 
-#| - __old__
+# | - __old__
 # def make_dGs(x,i):
 #     """
 #     """
-#     #| - make_dGs
+#     # | - make_dGs
 #     dgeoh=0.391254
 #     dgeo=0.0216138
 #     dgeooh=0.451538

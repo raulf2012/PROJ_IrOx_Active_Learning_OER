@@ -345,7 +345,7 @@ my_plotly_plot(plot_name="TEMP_PLOT",
 
 # + {"jupyter": {"source_hidden": true}}
 #     # #########################################################################
-#     #| - Surface Energy (DFT Bulk)
+#     # | - Surface Energy (DFT Bulk)
 #     y_surface_e = []; x_slab_thickness = []
 #     for SE_inst_i in self.SurfaceEnergy_instances:
 #         y_surface_e.append(SE_inst_i.surface_e_per_area)
@@ -378,7 +378,7 @@ my_plotly_plot(plot_name="TEMP_PLOT",
 #     #__|
 
 #     # #########################################################################
-#     #| - Surface Energy (Fitted Bulk)
+#     # | - Surface Energy (Fitted Bulk)
 #     y_surface_e = []; x_slab_thickness = []
 #     for SE_inst_i in self.new_SurfaceEnergy_instances:
 #         y_surface_e.append(SE_inst_i.surface_e_per_area)
@@ -411,7 +411,7 @@ my_plotly_plot(plot_name="TEMP_PLOT",
 #     #__|
 
 #     # #########################################################################
-#     #| - Average Surface Energy (DFT Bulk)
+#     # | - Average Surface Energy (DFT Bulk)
 #     ave_surface_energy = self.ave_surface_energy_per_area
 #     trace_i = go.Scatter(
 #         x=[0, 30],
@@ -440,7 +440,7 @@ my_plotly_plot(plot_name="TEMP_PLOT",
 #     #__|
 
 #     # #########################################################################
-#     #| - Average Surface Energy (Fitted Bulk)
+#     # | - Average Surface Energy (Fitted Bulk)
 #     ave_surface_energy = self.new_ave_surface_energy_per_area
 #     trace_i = go.Scatter(
 #         x=[0, 30],

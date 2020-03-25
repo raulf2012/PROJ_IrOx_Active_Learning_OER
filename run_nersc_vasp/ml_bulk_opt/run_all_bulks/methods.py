@@ -5,7 +5,7 @@
 Author(s): Raul A. Flores
 """
 
-#| - IMPORT MODULES
+# | - IMPORT MODULES
 import os
 from ase import io
 
@@ -31,7 +31,7 @@ from ase.visualize import view
 from dft_job_automat.compute_env import ComputerCluster
 #__|
 
-#| - Job parsing methods
+# | - Job parsing methods
 # #############################################################################
 def parse_job_err(path):
     status_dict = {
@@ -46,7 +46,7 @@ def parse_job_err(path):
     compenv = os.environ["COMPENV"]
     print("compenv:", compenv)
 
-    #| - Parsing SLAC job
+    # | - Parsing SLAC job
     if compenv == "slac":
         job_out_file_path = os.path.join(path, "job.out")
         my_file = Path(job_out_file_path)
@@ -62,7 +62,7 @@ def parse_job_err(path):
                     break
     #__|
 
-    #| - Parsing error file
+    # | - Parsing error file
     job_err_file_path = os.path.join(path, "job.err")
     my_file = Path(job_err_file_path)
     if my_file.is_file():
@@ -87,7 +87,7 @@ def parse_job_err(path):
     #__|
 
 
-    #| - Parsing out file
+    # | - Parsing out file
     if status_dict["error"] is True:
         job_out_file_path = os.path.join(path, "job.out")
         my_file = Path(job_out_file_path)
@@ -186,7 +186,7 @@ def set_up__submit__new_job(
     ):
     """
     """
-    #| - set_up__submit__new_job
+    # | - set_up__submit__new_job
     path = latest_revision["path"]
     pre_path = latest_revision["pre_path"]
     current_revision = latest_revision["revision"]
@@ -208,7 +208,7 @@ def set_up__submit__new_job(
 
 
 
-    #| - Copy files into new directory
+    # | - Copy files into new directory
     for file_path_i, dist_name in new_job_file_dict.items():
         copyfile(file_path_i, os.path.join(job_0_dir_i, dist_name))
     #__|
@@ -317,7 +317,7 @@ def set_up__submit__new_job(
 def read_write_CONTCAR(path, new_job_file_list):
     """
     """
-    #| - read_write_CONTCAR
+    # | - read_write_CONTCAR
     # Getting the latest atoms object from CONTCAR
     contcar_file_path = os.path.join(path, "CONTCAR")
     contcar_file = Path(contcar_file_path)

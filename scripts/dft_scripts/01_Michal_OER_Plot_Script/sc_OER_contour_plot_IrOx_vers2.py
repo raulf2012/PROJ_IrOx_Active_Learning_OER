@@ -8,7 +8,7 @@ a colorbar for the contours, and labelled contours.
 See also contour_image.py.
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 import matplotlib
 import numpy as np
@@ -38,10 +38,10 @@ def create_OER_plots(
         data:
         plots_folder:
     """
-    #| - create_OER_plots
+    # | - create_OER_plots
     calc_systems = data
 
-    #| - Styling and Setup
+    # | - Styling and Setup
     # settings size and font for revtex stylesheet
 
     # Get this from LaTeX using \showthe\columnwidth
@@ -88,7 +88,7 @@ def create_OER_plots(
             Use unicode. Default: False.
 
         """
-        #| - setfont
+        # | - setfont
         # Use TeX for all figure text!
         plt.rc('text', usetex=True)
 
@@ -179,11 +179,11 @@ def create_OER_plots(
     #Z = 10.0 * (Z2 - Z1)
     #__|
 
-    #| - Methods
+    # | - Methods
     #fit=[0.84527288, 3.38026638]
     def ooh_oh_scaling(doh):
         """ooh_oh_scaling equation."""
-        #| - ooh_oh_scaling
+        # | - ooh_oh_scaling
         #like ambars
         #dooh=0.5*doh  + 3.0		 #O
         #normal one
@@ -199,7 +199,7 @@ def create_OER_plots(
             doh:
             do:
         """
-        #| - overpotential
+        # | - overpotential
         dooh = ooh_oh_scaling(doh)
         dg14 = [doh, do - doh, dooh - do, - dooh + 4.92]
         m = max(dg14)
@@ -214,7 +214,7 @@ def create_OER_plots(
             x:
             doh:
         """
-        #| - overpotential2
+        # | - overpotential2
         dooh = ooh_oh_scaling(doh)
         dg14 = [doh, x, -x + 2.46, -dooh + 4.92]
         m = max(dg14)
@@ -229,7 +229,7 @@ def create_OER_plots(
             x:
             doh:
         """
-        #| - overpotential3
+        # | - overpotential3
         dooh = ooh_oh_scaling(doh)
         dg14 = [doh, x, dooh - (x + doh), -dooh + 4.92]
         m = max(dg14)
@@ -245,7 +245,7 @@ def create_OER_plots(
             doh:
             do:
         """
-        #| - overpotential_label
+        # | - overpotential_label
         dooh = ooh_oh_scaling(doh)
         dg14 = [doh, do - doh, dooh - do, -dooh + 4.92]
         m = max(dg14)
@@ -265,7 +265,7 @@ def create_OER_plots(
     #__|
 
     # *************************************************************************
-    #| - OER_contour_plot *****************************************************
+    # | - OER_contour_plot *****************************************************
     Z = []
     for j in y:
         tmp = []
@@ -358,7 +358,7 @@ def create_OER_plots(
             label=calc_systems[i][4] + ' : %.2f V' % (calc_systems[i][3])
             )
 
-    #| - __old__
+    # | - __old__
     # if i!=0 and 1:
     # ax.text(calc_systems[i][1]-calc_systems[i][0]+calc_systems[i][6],
     # calc_systems[i][0]+calc_systems[i][7],
@@ -419,7 +419,7 @@ def create_OER_plots(
     #__| **********************************************************************
 
     # *************************************************************************
-    #| - OER_scaling **********************************************************
+    # | - OER_scaling **********************************************************
     # fig = plt.figure(figsize=fig_size, dpi=300)
     # ax = fig.add_axes([0.2, 0.2, 0.6, 0.6])
     # x1 = -1
@@ -546,7 +546,7 @@ def create_OER_plots(
     #__| **********************************************************************
 
     # *************************************************************************
-    #| - OER_1D_plot **********************************************************
+    # | - OER_1D_plot **********************************************************
     ax = fig.add_axes([0.2, 0.2, 0.6, 0.6])
 
     x1 = axes_ranges["x1"]
@@ -567,7 +567,7 @@ def create_OER_plots(
     ax.set_ylabel(r'Limiting Potential (V)')
     ax.set_ylim(ax.get_ylim()[::-1])
 
-    #| - Plotting Volcano Lines
+    # | - Plotting Volcano Lines
     plot(
         x,
         np.maximum(x, 3.2 - x),
@@ -579,7 +579,7 @@ def create_OER_plots(
         )
     #__|
 
-    #| - Plotting Data Points
+    # | - Plotting Data Points
     for i in range(len(calc_systems)):
 
         marker_color = calc_systems[i][10]
@@ -610,7 +610,7 @@ def create_OER_plots(
             label=label_i,
             )
 
-        #| - NEW | Adding Labels
+        # | - NEW | Adding Labels
         if annotate_data:
             x_tmp = calc_systems[i][1] - calc_systems[i][0]
             y_tmp = calc_systems[i][3] + 1.23
@@ -652,7 +652,7 @@ def create_OER_plots(
 
     #__|
 
-    #| - Plotting Experimental Overpotentials <--------------------------------
+    # | - Plotting Experimental Overpotentials <--------------------------------
 
     # 1.45 for IrO3
     # and 1.6 for IrO2
@@ -660,7 +660,7 @@ def create_OER_plots(
 
     if exp_lines:
 
-        #| - IrO3
+        # | - IrO3
         pos_IrO3 = 1.45
         color_IrO3 = "red"
         plot(
@@ -685,7 +685,7 @@ def create_OER_plots(
 
         #__|
 
-        #| - IrO2
+        # | - IrO2
         pos_IrO2 = 1.8
         color_IrO3 = "blue"
         plot(
@@ -710,7 +710,7 @@ def create_OER_plots(
 
         #__|
 
-        #| - IrOx
+        # | - IrOx
         pos_IrOx = 1.57
         color_IrOx = "green"
         plot(
@@ -780,9 +780,9 @@ def create_OER_plots(
     #__|
 
 
-#| - __old__
+# | - __old__
 
-    #| - __old__
+    # | - __old__
     #plot(x,1.23,'--',color='black',lw=0.67, dashes=(3,1),zorder=2)
     # xy=np.array([xp for xp in x if 1.55<xp<1.66])
     # ax.fill_between(xy, y2, np.maximum(xy,3.2-xy)-1.23,
@@ -812,7 +812,7 @@ def create_OER_plots(
     #)
     #__|
 
-    #| - __old__
+    # | - __old__
     # if(i!=1):
     # ax.text(calc_systems[i][1]-calc_systems[i][0],
     # calc_systems[i][3]-0.02,calc_systems[i][3])
@@ -823,7 +823,7 @@ def create_OER_plots(
     # color='black',fontsize=6,horizontalalignment='right',rotation=0,zorder=4)
     #__|
 
-    #| - __old__
+    # | - __old__
     #levels = np.arange(0, 2, 0.05)
     #CS = plt.contourf(X,Y,Z, levels, cmap=cm.jet_r, origin='lower')
     #CS = plt.contourf(X,Y,Z, levels, origin='lower')
@@ -843,7 +843,7 @@ def create_OER_plots(
     #plt.setp(zc, linewidth=2)
     #__|
 
-    #| - __old__
+    # | - __old__
     #cbar.add_lines(CS2)
     #plt.clabel(CS, levels[1::2],  # label every second level
     #           inline=1,
@@ -855,7 +855,7 @@ def create_OER_plots(
     # so let's improve its position.
     #__|
 
-    #| - __old__
+    # | - __old__
     #plot(x,ooh_oh_scaling(x),'--',color='orange',lw=1,
     # dashes=(3,1),label='$\Delta$G$_{\sf OOH}$=0.82G$_{\sf OH}$+3.18 eV')
     #ax.text(x1+0.02,y2-0.3,

@@ -1,7 +1,7 @@
 """
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 import sys
 
@@ -19,7 +19,7 @@ from proj_data_irox import (
 # #############################################################################
 
 
-#| - Main layout object
+# | - Main layout object
 layout = go.Layout(
     angularaxis=None,
     annotations=None,
@@ -141,9 +141,9 @@ layout = go.Layout(
 #__|
 
 
-#| - Axis Layout  options
+# | - Axis Layout  options
 
-#| - shared axis dict
+# | - shared axis dict
 shared_axis_dict = dict(
     anchor=None,
     automargin=None,
@@ -261,7 +261,7 @@ layout.yaxis = yaxis_layout
 #__|
 
 
-#| - Plot Annotations
+# | - Plot Annotations
 
 
 annotations = [
@@ -274,6 +274,7 @@ annotations = [
         yref="y",
         # text="G<sub>OOH</sub>=G<sub>OH</sub>+3.2 <br> G<sub>O</sub> = 2 G<sub>OH</sub>",
         text="G<sub>OOH</sub>=G<sub>OH</sub>+3.2",
+        name="ooh_oh_scaling_univ",
         showarrow=False,
         textangle=-45,
         font=dict(
@@ -291,6 +292,7 @@ annotations = [
         yref="y",
         # text="G<sub>OOH</sub>=G<sub>OH</sub>+3.2 <br> G<sub>O</sub> = 2 G<sub>OH</sub>",
         text="G<sub>OOH</sub>=G<sub>OH</sub>+3.0",
+        name="ooh_oh_scaling_mine",
         showarrow=False,
         textangle=-45,
         font=dict(
@@ -303,6 +305,5 @@ annotations = [
 
     ]
 
-layout.annotations = annotations
+# layout.annotations = annotations
 #__|
-

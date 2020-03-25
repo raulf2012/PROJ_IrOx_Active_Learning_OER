@@ -1,8 +1,11 @@
 # PROJ_IrOx_Active_Learning_OER
 
 #TODO
+
 TODO Add labels to OER volcano plot for exp. overpot. lines
+
 TODO Add Columbite IrO2 data to everything #imp
+
 
 # Setting up conda environment:
 
@@ -20,4 +23,5 @@ colormap nodejs jupytext nb_conda_kernels tensorflow==1.15
 $HOME/anaconda3/envs/PROJ_IrOx_Active_Learning_OER/conda-meta/pinned
 
 Add this following line
+
 tensorflow ==1.15.*

@@ -10,7 +10,7 @@ print("len(job_dirs):", len(job_dirs))
 completed_ids = []
 for dir_i in job_dirs:
 
-    #| - Getting path of max revision
+    # | - Getting path of max revision
     rev_dirs_list = os.listdir(dir_i)
 
     rev_dirs_list = [i for i in rev_dirs_list if i[0] == "_"]
@@ -25,7 +25,7 @@ for dir_i in job_dirs:
     max_rev_path = os.path.join(dir_i, "_" + str(max_rev_i))
     #__|
 
-    #| - Checking isif
+    # | - Checking isif
     isif_2_bool = False
 
     with open(max_rev_path + "/model.py") as fle:
@@ -43,7 +43,7 @@ for dir_i in job_dirs:
         isif_2_bool = True
     #__|
 
-    #| - Checking if .FINISHED file is present
+    # | - Checking if .FINISHED file is present
     finished_file_path = os.path.join(max_rev_path, ".FINISHED")
     finished_bool = os.path.isfile(finished_file_path)
     #__|

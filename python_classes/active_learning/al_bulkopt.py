@@ -5,7 +5,7 @@
 Author: Raul A. Flores
 """
 
-#| - IMPORT MODULES
+# | - IMPORT MODULES
 import os
 # import copy
 #
@@ -42,7 +42,7 @@ class ALBulkOpt:
     """
     """
 
-    #| - ALBulkOpt ************************************************************
+    # | - ALBulkOpt ************************************************************
     _TEMP = "TEMP"
 
 
@@ -87,9 +87,9 @@ class ALBulkOpt:
             name: <str>
                 Name of active learning campaign, will be used for file name(s)
         """
-        #| - __init__
+        # | - __init__
 
-        #| - Setting Argument Instance Attributes
+        # | - Setting Argument Instance Attributes
         self.CandidateSpace = CandidateSpace
         self.RegressionModel = RegressionModel
         self.DuplicateFinder = DuplicateFinder
@@ -106,7 +106,7 @@ class ALBulkOpt:
         self.seed = seed
         #__|
 
-        #| - Initializing Internal Instance Attributes
+        # | - Initializing Internal Instance Attributes
         self.seed_ids = None
         self.al_gen = 0
         self.al_converged = False
@@ -128,9 +128,9 @@ class ALBulkOpt:
     def run_AL(self):
         """
         """
-        #| - run_AL
+        # | - run_AL
 
-        #| - class attributes #################################################
+        # | - class attributes #################################################
         al_gen = self.al_gen
         verbose = self.verbose
         seed_ids = self.seed_ids
@@ -164,7 +164,7 @@ class ALBulkOpt:
                 prev_acquisition = al_gen_dict[self.al_gen - 1].new_acquisition
 
 
-            #| - Testing whether to break AL loop
+            # | - Testing whether to break AL loop
             # Calculate remaining ids #########################################
             remaining_ids = \
                 CandidateSpace.Y_data.index.difference(completed_ids)
@@ -187,7 +187,7 @@ class ALBulkOpt:
                         continue
             #__|
 
-            #| - ALGeneration #################################################
+            # | - ALGeneration #################################################
             ALGen_i = ALGeneration(
                 completed_ids=completed_ids,
                 acquisition_bin=acquisition_bin,
@@ -253,10 +253,10 @@ class ALBulkOpt:
                 Use DFT energy if already acquired and available instead of
                 predicted value from ML model
         """
-        #| - add_main_Y_to_model
+        # | - add_main_Y_to_model
 
         def method(row_i):
-            #| - method
+            # | - method
             computed = row_i["acquired"]
             y_real = row_i["y_real"]
 
@@ -306,7 +306,7 @@ class ALBulkOpt:
                 Types of performance anaysis to perform on AL, must have
                 corresponding method defined
         """
-        #| - __evaluate_performance__
+        # | - __evaluate_performance__
 
         # #####################################################################
         _evaluate_performance__static_winners = \
@@ -324,9 +324,9 @@ class ALBulkOpt:
         performing systems are unchanging over several generations of the AL
         loop
         """
-        #| - _evaluate_performance__
+        # | - _evaluate_performance__
 
-        #| - class attributes #################################################
+        # | - class attributes #################################################
         AL = self
         al_gen = self.al_gen
         verbose = self.verbose
@@ -398,7 +398,7 @@ class ALBulkOpt:
 
     def __check_inputs__(self):
         """Check inputs to class."""
-        #| - __check_inputs__
+        # | - __check_inputs__
         # #####################################################################
         stop_mode = self.stop_mode
         stop_num_generations = self.stop_num_generations
@@ -412,7 +412,7 @@ class ALBulkOpt:
 
     def get_seed_ids(self):
         """Retrieve the ids for the initial seed calculations."""
-        #| - get_seed_ids
+        # | - get_seed_ids
         # #####################################################################
         mode = self.mode
         num_seed_calcs = self.num_seed_calcs
@@ -448,7 +448,7 @@ class ALBulkOpt:
     def __save_state__(self):
         """
         """
-        #| - __save_state__
+        # | - __save_state__
         AL = self
         name = self.name
         save_dir_extra = self.save_dir_extra
@@ -473,7 +473,7 @@ class ALBulkOpt:
     def duplicate_system_history_analysis(self):
         """
         """
-        #| - duplicate_system_history_analysis
+        # | - duplicate_system_history_analysis
         self.__create_swap_histories__()
 
         self.__color_dict_progression__()
@@ -484,7 +484,7 @@ class ALBulkOpt:
         """
         self.swap_histories
         """
-        #| - __create_swap_histories__
+        # | - __create_swap_histories__
 
         # #####################################################################
         # ALBulkOpt = self.ALBulkOpt
@@ -579,7 +579,7 @@ class ALBulkOpt:
 
         self.color_dict_progression
         """
-        #| - __color_dict_progression__
+        # | - __color_dict_progression__
 
         # #####################################################################
         # ALBulkOpt = self.ALBulkOpt

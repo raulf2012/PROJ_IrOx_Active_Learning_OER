@@ -1,5 +1,5 @@
 
-#| - Import Modules
+# | - Import Modules
 # import os
 # import sys
 
@@ -80,7 +80,7 @@ def plot_dij_matrix_heatmap(
         ygap=0.,
 
 
-        #| - Additional heatmap arguments
+        # | - Additional heatmap arguments
         autocolorscale=None,
         coloraxis=None,
         colorbar=None,

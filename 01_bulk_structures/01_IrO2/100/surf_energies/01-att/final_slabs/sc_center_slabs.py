@@ -5,7 +5,7 @@ from os import listdir
 from os.path import isfile, join
 
 
-#| - Script Inputs
+# | - Script Inputs
 out_dir = "out_cifs"
 
 #__|

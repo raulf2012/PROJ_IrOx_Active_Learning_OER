@@ -1,6 +1,6 @@
 # TEMP
 
-stoich_i = "AB2"
+stoich_i = "AB3"
 verbose = False
 
 # num_gen_stop = 5
@@ -25,6 +25,7 @@ acquisition_methods = ["gp_ucb", "random"]
 duplicate_analysis = [True, False]
 
 # TEST SETTINGS # #############################################################
-runs_list = list(range(1))
-acquisition_methods = ["gp_ucb"]
+runs_list = list(range(20))
+#  acquisition_methods = ["gp_ucb"]
+acquisition_methods = ["random"]
 duplicate_analysis = [True]

@@ -1,4 +1,4 @@
-#| - Import Modules
+# | - Import Modules
 from pymatgen.analysis.local_env import (
     LocalStructOrderParams, get_neighbors_of_site_with_index)
 #__|
@@ -36,7 +36,7 @@ def site_is_of_motif_type(
 
     Returns: motif type (str).
     """
-    #| - site_is_of_motif_type
+    # | - site_is_of_motif_type
     # print("THIS IS MY CUSTOM METHOD, NOT NATIVE PYMATGEN")
 
     if thresh is None:

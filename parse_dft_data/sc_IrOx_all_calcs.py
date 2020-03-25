@@ -5,7 +5,7 @@
 Author: Raul A. Flores
 """
 
-#| - Import Modules
+# | - Import Modules
 from datetime import datetime
 startTime = datetime.now()
 
@@ -20,7 +20,7 @@ from dft_job_automat.job_analysis import DFT_Jobs_Analysis
 from dft_job_automat.job_types_classes.dft_methods import DFT_Methods
 #__|
 
-#| - Script Parameters
+# | - Script Parameters
 parse_data = True
 parse_all_rev = False
 
@@ -33,7 +33,7 @@ parallel_exec = False
 from job_dirs import dir_list
 
 if parse_data:
-    #| - Instantiate Classes
+    # | - Instantiate Classes
     dft_inst = DFT_Methods(
         methods_to_run=[
             # "elec_energy",
@@ -60,7 +60,7 @@ if parse_data:
     #__|
 
 if maint_data:
-    #| - Job Maintance
+    # | - Job Maintance
     print(25 * "*")
 
     tally = {"successes": 0, "failures": 0, "running": 0, "pending": 0}
@@ -82,7 +82,7 @@ if maint_data:
     #__|
 
 if cross_check_jobs:
-    #| - NEW | Parse for Job Folders w/o dir_list
+    # | - NEW | Parse for Job Folders w/o dir_list
     from dft_job_automat.job_analysis import (
         parse_job_dirs,
         compare_parsed_and_user_job_dirs,

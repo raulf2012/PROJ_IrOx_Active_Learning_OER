@@ -1,7 +1,7 @@
 """
 """
 
-#| - Import Modules
+# | - Import Modules
 # import os
 # import pickle
 # import pandas as pd
@@ -16,9 +16,9 @@ def get_layout(
     ):
     """
     """
-    #| - get_layout
+    # | - get_layout
 
-    #| - updatemenus
+    # | - updatemenus
     updatemenus = [
         {
             'buttons': [
@@ -153,7 +153,7 @@ def get_sliders_init_dict(duration_short):
 def get_slider_step_i(i_cnt, duration_short):
     """
     """
-    #| - get_slider_step_i
+    # | - get_slider_step_i
     slider_step_i = {
         'args': [
             [str(i_cnt)],
@@ -176,9 +176,9 @@ def get_slider_step_i(i_cnt, duration_short):
 
 
 
-#| - __old__
+# | - __old__
 
-#| - Script Inputs
+# | - Script Inputs
 # duration_long = 500
 # duration_short = 300
 
@@ -197,9 +197,9 @@ def get_slider_step_i(i_cnt, duration_short):
 #     ):
 #     """
 #     """
-#     #| - get_data
+#     # | - get_data
 #
-#     #| - Read Data
+#     # | - Read Data
 #     # path_i = os.path.join(
 #     #     os.environ["PROJ_irox"],
 #     #     "workflow/ml_modelling/00_ml_workflow/190611_new_workflow",
@@ -211,9 +211,9 @@ def get_slider_step_i(i_cnt, duration_short):
 #     # # models_list = models_list[-5:]
 #     #__|
 #
-#     #| - Process Data
+#     # | - Process Data
 #     #
-#     # #| - Calculate y-axis range
+#     # # | - Calculate y-axis range
 #     # max_ys = []
 #     # min_ys = []
 #     # for model_i in models_list:
@@ -280,9 +280,9 @@ def get_slider_step_i(i_cnt, duration_short):
 #     # #########################################################################
 #     # #########################################################################
 #
-#     #| - Layout
+#     # | - Layout
 #
-#     #| - updatemenus
+#     # | - updatemenus
 #     updatemenus = [
 #         {
 #             'buttons': [
@@ -399,7 +399,7 @@ def get_slider_step_i(i_cnt, duration_short):
 #     return(data)
 #
 #
-#     #| - __old__
+#     # | - __old__
 #     # sliders_dict = {
 #     #     # 'active': 0,
 #     #     'active': 0,
@@ -439,7 +439,7 @@ def get_slider_step_i(i_cnt, duration_short):
 #     # 'x_axis_index_4',
 #     # 'color_order_rank_4',
 #     """
-#     #| - get_trace_i
+#     # | - get_trace_i
 #     ref_cols = ["prediction", "x_axis_index"]
 #
 #     data_i = {}
@@ -470,7 +470,7 @@ def get_slider_step_i(i_cnt, duration_short):
 #             data_i["color_order_rank"] = grid.get_column(col_j).data
 #
 #
-#     #| - Creating Horizontal Line Trace
+#     # | - Creating Horizontal Line Trace
 #     # x_array = [0 - 50, len(models_list[0]) + 50]
 #     x_array = [0 - 50, num_structures + 50]
 #
@@ -516,7 +516,7 @@ def get_slider_step_i(i_cnt, duration_short):
 #         )
 #     #__|
 #
-#     #| - Setting Individual Marker Settings
+#     # | - Setting Individual Marker Settings
 #     marker_size_list = []
 #     marker_line_size_list = []
 #     marker_line_color_list = []
@@ -531,7 +531,7 @@ def get_slider_step_i(i_cnt, duration_short):
 #             marker_line_size_list.append(0.05)
 #     #__|
 #
-#     #| - go.Scatter instance
+#     # | - go.Scatter instance
 #     trace_i = go.Scatter(
 #         x=data_i["x_axis_index"],
 #         y=data_i["prediction"],

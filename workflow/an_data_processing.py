@@ -5,7 +5,7 @@
 Author: Raul A. Flores
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 import sys
 
@@ -48,7 +48,7 @@ from proj_data_irox import (
     )
 #__|
 
-#| - Elemental References
+# | - Elemental References
 
 # For now I'm applying the entire free energy correction to the electronic
 # adsorption energies, so keep the energies of gas references as only
@@ -77,7 +77,7 @@ oxy_ref = oxy_ref.gibbs_e
 hyd_ref = hyd_ref.gibbs_e
 
 # print(20 * "TEMP TEMP TEMP")
-# print(oxy_ref); print(hyd_ref)
+print("oxy_ref:", oxy_ref); print("hyd_ref:", hyd_ref)
 #__|
 
 
@@ -108,10 +108,10 @@ def load_df(
     Args:
         from_file:
     """
-    #| - load_df
+    # | - load_df
     if from_file:
 
-        #| - From Saved Pickle File
+        # | - From Saved Pickle File
         print("Attempting to load df from pickle")
         with open(data_dir + "/" + file_name, "rb") as fle:
             df_master = pickle.load(fle)
@@ -120,7 +120,7 @@ def load_df(
 
     else:
 
-        #| - Process Data Frame
+        # | - Process Data Frame
         Jobs = DFT_Jobs_Analysis(
             update_job_state=False,
             job_type_class=None,
@@ -136,24 +136,9 @@ def load_df(
             df_master = Jobs.data_frame
 
 
-        #| - TEMP
-        # TEMP_PRINT
-        # print("_S)DFJ()SDIFU)_SDF")
-        # print(len(df_master))
-        #
-        # df_master = df_master[
-        #     (df_master["dopant"] == "Ni") & \
-        #     (df_master["bulk_system"] == "IrO2") & \
-        #     (df_master["facet"] == "110") & \
-        #     (df_master["site"] == "ir_site")
-        #     ]
-        #
-        # print(len(df_master))
-        #__|
-
         if process_df:
 
-            #| - Short Path
+            # | - Short Path
             # Shorter path
             root_dir = "/global/cscratch1/sd/flores12/IrOx_Project"
 
@@ -169,7 +154,7 @@ def load_df(
                 )
             #__|
 
-            #| - Entry Name Column
+            # | - Entry Name Column
             # System Specific Name (for legends)
             df_master["name_i"] = df_master["facet"] + \
                 " | " + df_master["coverage_type"] + " | " + \
@@ -187,7 +172,7 @@ def load_df(
                 df_master["name_i_3"] += ", "
             #__|
 
-            #| - NEW | 181226 | Updating "surface_type" column
+            # | - NEW | 181226 | Updating "surface_type" column
             # np.nan -> 'NaN'
             if "surface_type" in list(df_master):
                 df_master["surface_type"] = df_master["surface_type"].replace(
@@ -197,7 +182,7 @@ def load_df(
                     )
             #__|
 
-            #| - Extract Chemical Formula
+            # | - Extract Chemical Formula
             def get_chemical_formula(row, index=-1):
                 """Extract chemical formula from atoms object.
 
@@ -216,11 +201,11 @@ def load_df(
             #     )
             #__|
 
-            #| - Max Force
+            # | - Max Force
             def get_max_force(row):
                 """
                 """
-                #| - get_max_force
+                # | - get_max_force
                 if row["atoms_object"] is not None:
                     try:
                         max_force_tmp = max_force(row["atoms_object"][-1])
@@ -235,7 +220,7 @@ def load_df(
             def get_sum_force(row):
                 """
                 """
-                #| - get_sum_force
+                # | - get_sum_force
                 if row["atoms_object"] is not None:
                     try:
                         max_force_tmp = max_force(row["atoms_object"][-1])
@@ -259,11 +244,11 @@ def load_df(
                 )
             #__|
 
-            #| - Number of Atoms
+            # | - Number of Atoms
             def N_atoms(row):
                 """
                 """
-                #| - N_atoms
+                # | - N_atoms
                 if row["atoms_object"] is not None:
 
                     try:
@@ -295,11 +280,11 @@ def load_df(
                 )
             #__|
 
-            #| - Element Number Dict
+            # | - Element Number Dict
             def get_elem_num_dict(row):
                 """
                 """
-                #| - get_elem_num_dict
+                # | - get_elem_num_dict
                 if row["atoms_object"] is not None:
 
                     try:
@@ -331,9 +316,9 @@ def load_df(
                 )
             #__|
 
-            #| - NEW | INCAR Processing
+            # | - NEW | INCAR Processing
             def parse_incar_tmp(row_i):
-                #| - parse_incar_tmp
+                # | - parse_incar_tmp
 
                 # print(row_i.incar)
                 # print(row_i.path)
@@ -356,7 +341,7 @@ def load_df(
             def ldipol(row_i):
                 """
                 """
-                #| - ldipol
+                # | - ldipol
                 return(row_i.incar_parsed.get("LDIPOL", np.nan))
                 #__|
 
@@ -368,7 +353,7 @@ def load_df(
             def ldau(row_i):
                 """
                 """
-                #| - ldau
+                # | - ldau
                 return(row_i.incar_parsed.get("LDAU", np.nan))
                 #__|
 
@@ -379,12 +364,12 @@ def load_df(
 
             #__|
 
-            #| - NEW | 181107 | Getting magmoms From Atoms Calc Object
+            # | - NEW | 181107 | Getting magmoms From Atoms Calc Object
 
             def get_final_magmoms(row):
                 """
                 """
-                #| - get_magmoms
+                # | - get_magmoms
                 atoms_i = row["atoms_object"]
                 if atoms_i is None:
                     return(None)
@@ -408,7 +393,7 @@ def load_df(
             def total_magmom(row):
                 """
                 """
-                #| - total_magmom
+                # | - total_magmom
 
                 magmoms_i = row["magmoms"]
                 if magmoms_i is not None:
@@ -427,7 +412,7 @@ def load_df(
             def abs_magmom(row):
                 """
                 """
-                #| - abs_magmom
+                # | - abs_magmom
                 magmoms_i = row["magmoms"]
                 if magmoms_i is not None:
                     abs_magmom_out = np.sum(np.abs(magmoms_i))
@@ -467,11 +452,13 @@ def load_df(
             df_ads = df_m[df_m["job_type"] == "ORR_adsorption"]
 
 
-            #| - DF Adsorption ************************************************
+
+            # #################################################################
+            # | - DF Adsorption ************************************************
 
             if not df_ads.empty:
 
-                #| - TEMP TEMP TEMP
+                # | - TEMP TEMP TEMP
                 # print(5 * "Fixing Elec E Values | ")
                 # print(5 * "Fixing Elec E Values | ")
                 # print(5 * "Fixing Elec E Values | ")
@@ -511,14 +498,14 @@ def load_df(
                 # # df_ads.at[ind_oh, "elec_energy"] = -435.784688  # -435.784688
                 #__|
 
-                #| - Calculate Adsorption Energy
+                # | - Calculate Adsorption Energy
                 def calc_ads_e(group):
                     """Calculate species adsorption energy.
 
                     Args:
                         group
                     """
-                    #| - calc_ads_e
+                    # | - calc_ads_e
                     df_calc_adsorption_e(
                         group,
                         oxy_ref,
@@ -540,7 +527,7 @@ def load_df(
                     Args:
                         group
                     """
-                    #| - calc_ads_e
+                    # | - calc_ads_e
                     row_i = group[group["coverage_type"] == "bare"]
                     bare_e = row_i["elec_energy"].iloc[0]
 
@@ -574,7 +561,7 @@ def load_df(
                 # df_pourbaix = grouped.apply(calc_ads_e_2)
                 #__|
 
-                #| - Ordering Columns
+                # | - Ordering Columns
 
                 col_order_list = [
                     # Main system variables
@@ -651,7 +638,7 @@ def load_df(
 
                 #__|
 
-                #| - Filtering Out Extra Calculations
+                # | - Filtering Out Extra Calculations
                 """
                 Each OER set (bare, O, OH, OOH) should only have 1 calculation
                 corresponding to the 4 intermediate structures
@@ -722,15 +709,17 @@ def load_df(
             #__| **************************************************************
 
 
-            #| - DF Surface Energies ******************************************
+
+            # #################################################################
+            # | - DF Surface Energies ******************************************
 
             if not df_surf.empty:
 
-                #| - Slab Area
+                # | - Slab Area
                 def slab_area(row):
                     """
                     """
-                    #| - slab_area
+                    # | - slab_area
                     if row["atoms_object"] is not None:
                         try:
                             atoms_i = row.atoms_object[-1]
@@ -763,7 +752,7 @@ def load_df(
                     )
                 #__|
 
-                #| - Bulk Energy per Atom (DFT)
+                # | - Bulk Energy per Atom (DFT)
                 def bulk_elec_e(row):
                     if row["bulk_system"] == "IrO3":
                         return(IrO3_bulk_e_dft)
@@ -784,7 +773,7 @@ def load_df(
                     )
                 #__|
 
-                #| - Surface Energy (Averaged Bulk Reference State)
+                # | - Surface Energy (Averaged Bulk Reference State)
                 # Calculated surface energy using only the bulk phase as a
                 # reference frame. This scheme does not treat
                 # non-stoicheometric oxygens, instead just having a
@@ -802,7 +791,7 @@ def load_df(
                     )
                 #__|
 
-                #| - Nonstoicheometric Oxygen Count
+                # | - Nonstoicheometric Oxygen Count
                 def nonstoich_Os(row_i):
                     bulk_i = row_i.bulk_system
                     atoms_i = row_i.init_atoms
@@ -840,13 +829,14 @@ def load_df(
             #__| **************************************************************
 
 
-            #| - Saving Dataframe to Pickle
+
+            # | - Saving Dataframe to Pickle
             with open(data_dir + "/" + file_name, "wb") as fle:
                 pickle.dump((df_pourbaix, df_ads, df_surf), fle)
             #__|
 
 
-            #| - Constructing Output
+            # | - Constructing Output
             out_set = ()
 
             if not df_pourbaix.empty:
@@ -873,3 +863,26 @@ def load_df(
     #__|
 
     #__|
+
+
+
+# | - __old__
+
+
+        # | - TEMP
+        # TEMP_PRINT
+        # print("_S)DFJ()SDIFU)_SDF")
+        # print(len(df_master))
+        #
+        # df_master = df_master[
+        #     (df_master["dopant"] == "Ni") & \
+        #     (df_master["bulk_system"] == "IrO2") & \
+        #     (df_master["facet"] == "110") & \
+        #     (df_master["site"] == "ir_site")
+        #     ]
+        #
+        # print(len(df_master))
+        #__|
+
+
+# __|

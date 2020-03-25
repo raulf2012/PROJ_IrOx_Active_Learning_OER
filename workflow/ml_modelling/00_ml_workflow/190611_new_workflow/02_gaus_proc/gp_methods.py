@@ -2,7 +2,7 @@
 """
 """
 
-#| - Import Modules
+# | - Import Modules
 import numpy as np
 import pandas as pd
 
@@ -32,7 +32,7 @@ def gp_model_gpflow(
     active_dims
     ARD=True
     """
-    #| - gp_model_gpflow
+    # | - gp_model_gpflow
     dim = len(list(train_x))
     # print(dim)
     k = gpflow.kernels.RBF(
@@ -79,7 +79,7 @@ def gp_model_catlearn(
     ):
     """test_features
     """
-    #| - gp_model_catlearn
+    # | - gp_model_catlearn
     test_features = df_predict
 
     noise_default = 0.01  # Regularisation parameter.
@@ -92,7 +92,7 @@ def gp_model_catlearn(
     sigma_f = gp_settings_dict.get("sigma_f", sigma_f_default)
     alpha = gp_settings_dict.get("alpha", alpha_default)
 
-    #| - Jose Optimized GP
+    # | - Jose Optimized GP
     # Define initial prediction parameters.
     #
     # noise = 0.0042  # Regularisation parameter.
@@ -118,9 +118,9 @@ def gp_model_catlearn(
     #     )
     #__|
 
-    #| - Sandbox parameters
+    # | - Sandbox parameters
 
-    #| - HIDE
+    # | - HIDE
     # noise = 0.0042  # Regularisation parameter.
     # sigma_l = 6.3917  # Length scale parameter.
     # sigma_f = 0.5120  # Scaling parameter.
@@ -139,7 +139,7 @@ def gp_model_catlearn(
 
     kdict = [
 
-        #| - Rational Quadratic Kernel
+        # | - Rational Quadratic Kernel
         # {
         #     'type': 'quadratic',
         #     'dimension': 'single',
@@ -150,7 +150,7 @@ def gp_model_catlearn(
         #     },
         #__|
 
-        #| - Guassian Kernel (RBF)
+        # | - Guassian Kernel (RBF)
         {
             'type': 'gaussian',
             'dimension': 'single',
@@ -168,7 +168,7 @@ def gp_model_catlearn(
             },
         #__|
 
-        #| - Constant Kernel
+        # | - Constant Kernel
         {
             "type": "constant",
             # "operation": 0.2,
@@ -195,7 +195,7 @@ def gp_model_catlearn(
 
             algomin='L-BFGS-B',  # The standard one ***************************
 
-            #| - algomin
+            # | - algomin
             # algomin='Nelder-Mead',  # Seems to work well **********************
             # algomin='Newton-CG',  # Doesn't work
             # algomin='BFGS',  # Didn't work
@@ -224,9 +224,9 @@ def gp_model_catlearn(
 
     return(pred, GP)
 
-    #| - __old__
+    # | - __old__
 
-    #| - Clean data
+    # | - Clean data
     # finite_numeric_data = clean_infinite(
     #     train_features,
     #     test=df_predict,
@@ -290,7 +290,7 @@ def gp_workflow(
     ):
     """
     """
-    #| - gp_workflow
+    # | - gp_workflow
     out_dict = {
         "model": None,
         "model_inst": None,
@@ -304,7 +304,7 @@ def gp_workflow(
         }
 
 
-    #| - Standardize Data
+    # | - Standardize Data
     # Testing that the columns of the test and training data set have the columns
     # df_post_cols = list(df_features_post["voronoi"])
     df_post_cols = list(df_features_post)
@@ -330,7 +330,7 @@ def gp_workflow(
 
 
     # #########################################################################
-    #| - Clean Variance #######################################################
+    # | - Clean Variance #######################################################
     if clean_variance_flag:
         if verbose:
             print("Cleaning variance:")
@@ -360,7 +360,7 @@ def gp_workflow(
     #__|
 
     # #########################################################################
-    #| - Clean Skewness #######################################################
+    # | - Clean Skewness #######################################################
     if clean_skewness_flag:
         if verbose:
             print("Cleaning skewness:")
@@ -386,7 +386,7 @@ def gp_workflow(
     #__|
 
     # #########################################################################
-    #| - Clean Infinite #######################################################
+    # | - Clean Infinite #######################################################
     if clean_infinite_flag:
         if verbose:
             print("Cleaning infinite:")
@@ -413,7 +413,7 @@ def gp_workflow(
     #__|
 
     # #########################################################################
-    #| - Standardize ##########################################################
+    # | - Standardize ##########################################################
     if standardize_data_flag:
         cleaned_data = standardize(
             train_data,
@@ -454,7 +454,7 @@ def gp_workflow(
     out_dict["df_test_pre_pca"] = df_test
     #__|
 
-    #| - PCA Analysis
+    # | - PCA Analysis
     ###########################################################################
     df = df_train
 
@@ -509,7 +509,7 @@ def gp_workflow(
     #__|
 
 
-    #| - GP Model
+    # | - GP Model
     train_x = df_train
     train_y = df_bulk_dft[y_train_key]
     train_y_standard = (train_y - train_y.mean()) / train_y.std()
@@ -541,7 +541,7 @@ def gp_workflow(
             gp_settings_dict=gp_params,
             )
 
-        #| - GP Model continued
+        # | - GP Model continued
         model_0 = pd.DataFrame(
             gp_model_out,
             index=df_test.index)
@@ -607,7 +607,7 @@ def job_aquisition(
     ):
     """
     """
-    #| - job_aquisition
+    # | - job_aquisition
     if df_bulk_dft_all is not None:
         # Doing the aquistition
         def method(row_i):
@@ -655,7 +655,7 @@ def random_job_aquisition(
     ):
     """
     """
-    #| - job_aquisition
+    # | - job_aquisition
     if df_bulk_dft_all is not None:
         # Doing the aquistition
         def method(row_i):
@@ -705,7 +705,7 @@ def random_job_aquisition(
 
 
 def test_al_conv(model_i):
-    #| - test_al_conv
+    # | - test_al_conv
     al_converged = False
 
     model_i = model_i.sort_values("prediction_unstandardized")
@@ -736,13 +736,13 @@ def test_al_conv(model_i):
 
 
 
-#| - __old__
+# | - __old__
 
 
 
 
 
-    #| - __old__
+    # | - __old__
     # if df_bulk_dft_all is not None:
     #     # Doing the aquistition
     #     def method(row_i):
@@ -759,7 +759,7 @@ def test_al_conv(model_i):
     #__|
 
 
-    #| - __old__
+    # | - __old__
     # df_i = model_i.sort_values("prediction_unstandardized", ascending=True)
     # df_next_systems = df_i[df_i["computed"] == False][0:aqs_bin_size]
     # df_not_computed_but_needed = \
@@ -781,7 +781,7 @@ def test_al_conv(model_i):
 # def clean_data(df_features):
 #     """
 #     """
-#     #| - clean_data
+#     # | - clean_data
 #     df_features_i = df_features
 #     # df_features_i = df_i["features"]
 #
@@ -791,7 +791,7 @@ def test_al_conv(model_i):
 #     train_features = df_features_cpy.values
 #     train_labels = list(df_features_cpy)
 #
-#     #| - Clean variance
+#     # | - Clean variance
 #     output = clean_variance(
 #         train_features,
 #         test=None,
@@ -802,7 +802,7 @@ def test_al_conv(model_i):
 #     train_labels = output["labels"]
 #     #__|
 #
-#     #| - Clean infinite
+#     # | - Clean infinite
 #     output = clean_infinite(
 #         train_features,
 #         test=None,
@@ -816,7 +816,7 @@ def test_al_conv(model_i):
 #     train_labels = output["labels"]
 #     #__|
 #
-#     #| - Clean skewness
+#     # | - Clean skewness
 #     # output = clean_skewness(
 #     #     train_features,
 #     #     test=None,
@@ -830,7 +830,7 @@ def test_al_conv(model_i):
 #     # column_labels = output["labels"]
 #     #__|
 #
-#     #| - Standardize Data
+#     # | - Standardize Data
 #     output = standardize(
 #         train_features,
 #         test_matrix=None,
@@ -850,7 +850,7 @@ def test_al_conv(model_i):
 #
 #     return(df_features_i)
 #
-#     #| - __old__
+#     # | - __old__
 #     # multi_index = pd.MultiIndex.from_tuples(
 #     #     [tuple(i) for i in column_labels],
 #     #     # names=("tmp1", "tmp2"),

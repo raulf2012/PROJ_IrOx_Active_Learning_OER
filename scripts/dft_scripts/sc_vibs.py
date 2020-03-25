@@ -1,6 +1,6 @@
 ## #! /usr/bin/envpython
 
-#| - Import Modules
+# | - Import Modules
 from ase.structure import bulk
 from ase.lattice.spacegroup import crystal
 from ase.io import *
@@ -53,7 +53,7 @@ new_atoms.write(name+'_init'+'.traj')
 new_atoms.write(name+'_init'+'.cif')
 
 #print cell
-#| - Calculator
+# | - Calculator
 vasp_calculator.int_keys.append("nedos")
 vasp_calculator.int_keys.append("ICHARG")
 vasp_calculator.float_keys.append("AMIX")

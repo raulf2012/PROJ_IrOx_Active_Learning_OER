@@ -1,7 +1,7 @@
 """
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 import sys
 
@@ -15,7 +15,6 @@ from proj_data_irox import (
     axis_tick_labels_font_size,
     font_family,
     base_font_color,
-
     irox_bulk_color_map,
     )
 
@@ -24,7 +23,7 @@ from proj_data_irox import (
 # #############################################################################
 
 
-#| - Main layout object
+# | - Main layout object
 layout = go.Layout(
     angularaxis=None,
     annotations=None,
@@ -150,9 +149,9 @@ layout = go.Layout(
 #__|
 
 
-#| - Axis Layout  options
+# | - Axis Layout  options
 
-#| - shared axis dict
+# | - shared axis dict
 shared_axis_dict = dict(
     anchor=None,
     automargin=None,
@@ -276,7 +275,7 @@ xaxis_layout.update(go.layout.XAxis(
 yaxis_layout = go.layout.YAxis(shared_axis_dict)
 yaxis_layout.update(go.layout.YAxis(
     title=dict(
-        text="U<sub>RHE</sub> (V)",
+        text="U<sub>SHE</sub> (V)",
         ),
     ))
 
@@ -285,7 +284,7 @@ layout.yaxis = yaxis_layout
 #__|
 
 
-#| - Plot Annotations
+# | - Plot Annotations
 
 shared_annot_props = go.layout.Annotation(
     font={"size": axis_label_font_size},

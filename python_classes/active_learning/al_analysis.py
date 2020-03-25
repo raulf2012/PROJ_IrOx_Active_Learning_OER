@@ -5,7 +5,7 @@
 Author: Raul A. Flores
 """
 
-#| - IMPORT MODULES
+# | - IMPORT MODULES
 import os
 import sys
 
@@ -29,7 +29,7 @@ class ALAnalysis:
     """
     """
 
-    #| - ALAnalysis ***********************************************************
+    # | - ALAnalysis ***********************************************************
     _TEMP = "TEMP"
 
     def __init__(self,
@@ -37,13 +37,13 @@ class ALAnalysis:
         ):
         """
         """
-        #| - __init__
+        # | - __init__
 
-        #| - Setting Argument Instance Attributes
+        # | - Setting Argument Instance Attributes
         self.ALBulkOpt = ALBulkOpt
         #__|
 
-        #| - Initializing Internal Instance Attributes
+        # | - Initializing Internal Instance Attributes
 
         #__|
 
@@ -56,7 +56,7 @@ class ALAnimation:
     """
     """
 
-    #| - ALAnimation **********************************************************
+    # | - ALAnimation **********************************************************
     _TEMP = "TEMP"
 
 
@@ -66,20 +66,23 @@ class ALAnimation:
         # duration_short=800 * 6,
         marker_color_dict=None,
         verbose=True,
+        color_custom_points=False,
         ):
         """
         """
-        #| - __init__
+        # | - __init__
 
-        #| - Setting Argument Instance Attributes
+        # | - Setting Argument Instance Attributes
         self.ALBulkOpt = ALBulkOpt
         # self.duration_long = duration_long
         # self.duration_short = duration_short
         self.marker_color_dict = marker_color_dict
         self.verbose = verbose
+
+        self.color_custom_points = color_custom_points
         #__|
 
-        #| - Initializing Internal Instance Attributes
+        # | - Initializing Internal Instance Attributes
         self.traces = dict()
 
         self.swap_histories = None
@@ -101,9 +104,9 @@ class ALAnimation:
         ):
         """
         """
-        #| - create_animation
+        # | - create_animation
 
-        #| - Attributes #######################################################
+        # | - Attributes #######################################################
         ALBulkOpt = self.ALBulkOpt
         verbose = self.verbose
 
@@ -143,9 +146,9 @@ class ALAnimation:
         ):
         """
         """
-        #| - __create_traces__
+        # | - __create_traces__
 
-        #| - Attributes #######################################################
+        # | - Attributes #######################################################
         ALBulkOpt = self.ALBulkOpt
         verbose = self.verbose
 
@@ -182,7 +185,7 @@ class ALAnimation:
             # #################################################################
 
         if not traces_read_succ:
-            #| - Create traces
+            # | - Create traces
             # Shared kwargs for 'get_trace_j' method
             get_trace_j_kwargs = dict(
                 prediction_key="y",
@@ -202,22 +205,21 @@ class ALAnimation:
                 t0 = time.time()
 
                 # models = [i.model for i in ALBulkOpt.al_gen_dict.values()]
-                AL_i_list = [i for i in ALBulkOpt.al_gen_dict.values()]
 
                 # TEMP
-                # AL_i_list = AL_i_list[0:5]
+                al_gen_dict = ALBulkOpt.al_gen_dict
+                #  print("Removing gens manually here")
+                #  al_gen_dict.pop(48)
+                #  al_gen_dict.pop(47)
 
-                # TEMP_PRINT
-                # print("IJSIFJISDJFSDF*SDF&DS")
-                # print(get_trace_j_kwargs)
+                AL_i_list = [i for i in al_gen_dict.values()]
+                # AL_i_list = [i for i in ALBulkOpt.al_gen_dict.values()]
 
                 traces_all = Pool().map(partial(
                     get_trace_j,  # METHOD
-
                     # KWARGS
                     **get_trace_j_kwargs,
                     ), AL_i_list)
-                    # ), models)
 
                 run_time = time.time() - t0
                 run_time_per = run_time / len(ALBulkOpt.al_gen_dict)
@@ -238,7 +240,7 @@ class ALAnimation:
                 #__|
 
             elif serial_parallel == "serial":
-                #| - Serial execution
+                # | - Serial execution
                 t0 = time.time()
 
                 iterator = enumerate(ALBulkOpt.al_gen_dict.items())
@@ -290,7 +292,7 @@ class ALAnimation:
         ):
         """
         """
-        #| - __create_figure__
+        # | - __create_figure__
         # #####################################################################
         ALBulkOpt = self.ALBulkOpt
         verbose = self.verbose
@@ -317,7 +319,7 @@ class ALAnimation:
         for i_cnt, (gen_i, traces_i) in enumerate(traces_dict.items()):
             # traces_i = traces_dict[gen_i]
 
-            #| - Adding custom layout to frames (Work in progress)
+            # | - Adding custom layout to frames (Work in progress)
             # AL_i = al_gen_dict[gen_i]
             # model = AL_i.model
             # num_dft_calcs = model[model["acquired"] == True].shape[0]
@@ -341,11 +343,30 @@ class ALAnimation:
             #     )
             #__|
 
+            # traces_i = [
+            #     go.Scatter(x=[1, 2], y=[1, 2]),
+            #     go.Scatter(x=[1, 2], y=[1, 2]),
+            #     ]
+            #  print("type(traces_i):", type(traces_i))
+            #  print("len(traces_i):", len(traces_i))
+            #  print("traces_i:", traces_i)
+
             # #################################################################
             if i_cnt == 0: data.extend(traces_i)
             data_i = []; data_i.extend(traces_i)
 
-            frame_i = go.Frame(data=data_i, name=str(i_cnt),
+            #  print("type(data_i):", type(data_i))
+            #  print("len(data_i):", len(data_i))
+            #  print("data_i:", data_i)
+
+            # print(type(data_i))
+            # print(len(data_i))
+            # print(data_i)
+
+
+            frame_i = go.Frame(
+                data=data_i,
+                name=str(i_cnt),
                 # layout=layout_i,
                 )
 
@@ -367,7 +388,7 @@ class ALAnimation:
 
     def __save_figure_to_file__(self, filename=None):
         """Save figure to file."""
-        #| - __save_figure_to_file__
+        # | - __save_figure_to_file__
         # #####################################################################
         ALBulkOpt = self.ALBulkOpt
         fig = self.fig
@@ -408,6 +429,8 @@ class ALAnimation:
         internally_order_df=False,
         dft_calc_al_gen_text_overlay=True,
         # marker_color_dict=None,
+        add_vertical_track_lines=False,
+        just_traces=True,
         ):
         """
 
@@ -420,7 +443,7 @@ class ALAnimation:
                 NOTE: This messes up the animation feature and is only intended
                 for generating single generation figures
         """
-        #| - get_trace_j
+        # | - get_trace_j
         # #####################################################################
         ALBulkOpt = self.ALBulkOpt
         verbose = self.verbose
@@ -459,7 +482,7 @@ class ALAnimation:
         model = model.sort_index()
 
 
-        #| - Rearrange indices to account for duplicates
+        # | - Rearrange indices to account for duplicates
         model_i = model
 
         model_index = model_i.index.tolist()
@@ -487,9 +510,9 @@ class ALAnimation:
 
         data = []
         # #####################################################################
-        #| - If computed use DFT energy
+        # | - If computed use DFT energy
         def method(row_i):
-            #| - method
+            # | - method
             computed = row_i["acquired"]
             y_real = row_i["y_real"]
 
@@ -532,11 +555,11 @@ class ALAnimation:
 
 
         # #####################################################################
-        #| - Applying formating to df
+        # | - Applying formating to df
         def method(row_i,
             marker_color_dict,
             ):
-            #| - method
+            # | - method
             new_column_values_dict = {}
 
             id_i = row_i.name
@@ -558,28 +581,28 @@ class ALAnimation:
                 new_column_values_dict["marker_color"] = "grey"
                 new_column_values_dict["marker_line_size"] = 0.2
 
-
-            # if marker_color_dict is not None:
-            if False:
+            if marker_color_dict is not None and self.color_custom_points: 
                 if id_i in marker_color_dict.keys():
-                    # new_column_values_dict["marker_symbol"] = "circle"
                     # new_column_values_dict["marker_symbol"] = "circle-cross"
-                    new_column_values_dict["marker_symbol"] = "x"
+                    # new_column_values_dict["marker_symbol"] = "circle-open"
+                    new_column_values_dict["marker_symbol"] = "circle"
 
-                    # new_column_values_dict["marker_size"] = 6
-                    new_column_values_dict["marker_size"] = 8
-                    # new_column_values_dict["marker_line_color"] = \
-                    #     marker_color_dict.get(id_i, "orange")
+                    new_column_values_dict["marker_size"] = 6
 
-                    new_column_values_dict["marker_line_color"] = "green"
+                    new_column_values_dict["marker_line_color"] = \
+                       marker_color_dict.get(id_i, "orange")
+
+                    # new_column_values_dict["marker_line_color"] = "green"
                     new_column_values_dict["marker_line_size"] = 2.0
 
                     if computed_bool:
                         new_column_values_dict["marker_color"] = \
                             "rgba(255,0,0,1.0)"
+                            # "rgba(0,255,0,1.0)"
                     else:
                         new_column_values_dict["marker_color"] = \
-                            "white"
+                            "rgba(255,255,255,.0)"
+                            # "white"
 
 
             # #########################################################################
@@ -595,7 +618,7 @@ class ALAnimation:
 
 
         # #####################################################################
-        #| - Removing duplicates from main trace (set them aside)
+        # | - Removing duplicates from main trace (set them aside)
 
         # ████████ ███████ ███    ███ ██████
         #    ██    ██      ████  ████ ██   ██
@@ -658,12 +681,13 @@ class ALAnimation:
             #     ])
 
 
-
+        #| - Horizontal track id lines
         special_ids = list(marker_color_dict.keys())
         special_ids = \
             [i for i in model.index.tolist() if i in special_ids]
 
         model_0 = model.loc[special_ids]
+
         # print(3 * "\n")
         # print(model_0)
 
@@ -678,33 +702,36 @@ class ALAnimation:
 
 
         # Adding vertical traces to track top 10
-        for i_ind, row_i in model_0.iterrows():
-            tmp1 = 42
+        if add_vertical_track_lines:
+            for i_ind, row_i in model_0.iterrows():
+                Y_main = row_i["Y_main"]
+                x_ind = row_i["x_axis_ind"]
+                acquired = row_i["acquired"]
 
-            Y_main = row_i["Y_main"]
-            x_ind = row_i["x_axis_ind"]
-            acquired = row_i["acquired"]
+                if acquired:
+                    color = "red"
+                    y = [4.7, 6]
+                    width = 0.8
+                else:
+                    color = "grey"
+                    y = [5., 6]
+                    width = 0.5
 
-            if acquired:
-                color = "red"
-                y = [4.7, 6]
-                width = 0.8
-            else:
-                color = "grey"
-                y = [5., 6]
-                width = 0.5
+                trace_i = go.Scatter(
+                    mode="lines",
+                    x=[x_ind, x_ind],
+                    y=y,
+                    name="top_ten",
+                    line=dict(
+                        width=width,
+                        color=color,
+                        ),
+                    )
 
-            trace_i = go.Scatter(
-                mode="lines",
-                x=[x_ind, x_ind],
-                y=y,
-                line=dict(
-                    width=width,
-                    color=color,
-                    ),
-                )
+                data.append(trace_i)
 
-            data.append(trace_i)
+        # TEMP COMBAK
+        model__tracked = model_0
 
 
         # trace_i = go.Scatter(
@@ -716,15 +743,15 @@ class ALAnimation:
         #
         # data.append(trace_i)
 
-
+        # __|
 
 
 
         # #####################################################################
-        #| - Main data trace
+        # | - Main data trace
 
 
-        #| - Error filled area trace
+        # | - Error filled area trace
         shared_scatter_props = dict(
             mode="lines",
 
@@ -759,8 +786,8 @@ class ALAnimation:
         trace = go.Scatter(
             x=model_tmp["x_axis_ind"],
             y=model_tmp["Y_main"] + model_tmp["Y_uncer"],
+            name="error_high",
             **shared_scatter_props,
-            # fill="tonexty",
             )
         data.append(trace)
 
@@ -768,6 +795,7 @@ class ALAnimation:
             x=model_tmp["x_axis_ind"],
             y=model_tmp["Y_main"] - model_tmp["Y_uncer"],
             fill="tonexty",
+            name="error_low",
             **shared_scatter_props,
             )
         data.append(trace)
@@ -788,12 +816,13 @@ class ALAnimation:
             #     # color="rgba(120,120,120,1.0)",
             #     color="rgba(80,80,60,1.0)",
             #     ),
+
             # name=model["id"],
             mode="markers",
 
             text=model.index.tolist(),
             hoverinfo="text",
-
+            name="main",
             marker={
                 "opacity": 1.,
                 "symbol": model["marker_symbol"],
@@ -812,49 +841,49 @@ class ALAnimation:
 
 
         # #####################################################################
-        #| - Horizontal lines at E minimum
+        # | - Horizontal lines at E minimum
         min_e = model[prediction_key].min()
         min_e_w_uncert = (model[prediction_key] - model[uncertainty_key]).min()
 
         # #########################################################################
         trace_i = go.Scatter(
-            x=[0, len(model["x_axis_ind"].tolist())],
-            y=[min_e, min_e],
-            mode="lines",
-            line=dict(
-                color="firebrick",
-                width=2,
-                dash="dot",
-                ),
-            )
+                x=[0, len(model["x_axis_ind"].tolist())],
+                y=[min_e, min_e],
+                mode="lines",
+                line=dict(
+                    color="firebrick",
+                    width=2,
+                    dash="dot",
+                    ),
+                )
 
         if trace_horiz_lines:
             data.append(trace_i)
 
         # #########################################################################
         trace_i = go.Scatter(
-            x=[0, len(model["x_axis_ind"].tolist())],
-            y=[min_e_w_uncert, min_e_w_uncert],
-            mode="lines",
-            line=dict(
-                color="black",
-                width=1.5,
-                dash="dash",
-                ),
-            )
+                x=[0, len(model["x_axis_ind"].tolist())],
+                y=[min_e_w_uncert, min_e_w_uncert],
+                mode="lines",
+                line=dict(
+                    color="black",
+                    width=1.5,
+                    dash="dash",
+                    ),
+                )
         if trace_horiz_lines:
             data.append(trace_i)
         #__|
 
 
         # #####################################################################
-        #| - Validation DFT Trace
+        # | - Validation DFT Trace
         if plot_validation_dft:
             df_dft_val = model[~model["y_real"].isna()]
             df_dft_val = df_dft_val[["y_real", "acquired", "x_axis_ind"]]
 
             def method(row_i):
-                #| - method
+                # | - method
                 acquired = row_i["acquired"]
                 y_real = row_i["y_real"]
 
@@ -943,7 +972,7 @@ class ALAnimation:
 
 
         # #####################################################################
-        #| - DFT Calc and AL Gen Num Text Overlay
+        # | - DFT Calc and AL Gen Num Text Overlay
         # dft_calc_al_gen_text_overlay = True
         if dft_calc_al_gen_text_overlay:
             num_dft_calcs = model[model["acquired"] == True].shape[0]
@@ -983,7 +1012,13 @@ class ALAnimation:
         #__|
 
 
-        return(data)
+        other_data_dict = dict(
+            model__tracked=model__tracked,
+            )
+        if just_traces:
+            return(data)
+        else:
+            return(data, other_data_dict)
         #__|
 
     def get_layout(self,
@@ -992,9 +1027,9 @@ class ALAnimation:
         ):
         """
         """
-        #| - get_layout
+        # | - get_layout
 
-        #| - updatemenus
+        # | - updatemenus
         updatemenus = [
             {
                 'buttons': [
@@ -1130,7 +1165,7 @@ class ALAnimation:
     def get_slider_step_i(self, i_cnt, duration_short):
         """
         """
-        #| - get_slider_step_i
+        # | - get_slider_step_i
         slider_step_i = {
             'args': [
                 [str(i_cnt)],
@@ -1154,7 +1189,7 @@ class ALAnimation:
     def duplicate_system_history_analysis(self):
         """
         """
-        #| - duplicate_system_history_analysis
+        # | - duplicate_system_history_analysis
         # #####################################################################
         ALBulkOpt = self.ALBulkOpt
         verbose = self.verbose
@@ -1179,7 +1214,7 @@ class ALAnimation:
         ):
         """
         """
-        #| - get_color_dict
+        # | - get_color_dict
         # #####################################################################
         ALBulkOpt = self.ALBulkOpt
         verbose = self.verbose
@@ -1221,7 +1256,7 @@ class ALPerformance:
     """
     """
 
-    #| - ALPerformance ********************************************************
+    # | - ALPerformance ********************************************************
     _TEMP = "TEMP"
 
 
@@ -1231,15 +1266,15 @@ class ALPerformance:
         ):
         """
         """
-        #| - __init__
+        # | - __init__
 
-        #| - Setting Argument Instance Attributes
+        # | - Setting Argument Instance Attributes
         self.ALBulkOpt = ALBulkOpt
         self.verbose = verbose
         #__|
 
 
-        #| - Initializing Internal Instance Attributes
+        # | - Initializing Internal Instance Attributes
 
         #__|
 
@@ -1267,7 +1302,7 @@ class ALPerformance:
                 User defined list of top ids to track
 
         """
-        #| - num_sys_discovered
+        # | - num_sys_discovered
 
         # #####################################################################
         ALBulkOpt = self.ALBulkOpt
@@ -1285,7 +1320,7 @@ class ALPerformance:
         # #####################################################################
         # #####################################################################
 
-        #| - Gettings ids to track
+        # | - Gettings ids to track
         if mode != "user_specified":
             if mode == "perc":
                 num_candidates_init = model.shape[0]

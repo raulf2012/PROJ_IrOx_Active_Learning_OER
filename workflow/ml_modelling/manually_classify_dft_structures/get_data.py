@@ -5,7 +5,7 @@
 Author(s): Raul A. Flores
 """
 
-#| - IMPORT MODULES
+# | - IMPORT MODULES
 import os
 import sys
 import pickle
@@ -25,7 +25,7 @@ from proj_data_irox import bulk_dft_data_path
 #__|
 
 
-#| - Read Data
+# | - Read Data
 path_i = os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling",

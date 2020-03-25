@@ -1,7 +1,7 @@
 """
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 import sys
 
@@ -34,7 +34,7 @@ def get_ml_dataframes(
     ):
     """
     """
-    #| - get_ml_dataframes
+    # | - get_ml_dataframes
 
     # | - Import paths from data file
     sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
@@ -106,7 +106,7 @@ def get_ml_dataframes(
         data_i = None
         if is_pickle:
             try:
-                print("TEMP sidjfijsd9i", path)
+                #  print("TEMP sidjfijsd9i", path)
                 with open(path, "rb") as fle:
                     data_i = pickle.load(fle)
             except:
@@ -134,11 +134,11 @@ def get_data_for_al(
     ):
     """
     """
-    #| - get_data_for_al
+    # | - get_data_for_al
     sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
     from proj_data_irox import (ids_to_discard__too_many_atoms_path)
 
-    #| - Get all necessary dfs
+    # | - Get all necessary dfs
     df_dict = get_ml_dataframes(
         names=[
             "bulk_dft_data_path",
@@ -169,7 +169,7 @@ def get_data_for_al(
     df_static_irox = df_dict.get("static_irox_structures", None)
     #__|
 
-    #| - Filter ids to user specifications
+    # | - Filter ids to user specifications
     df_ids = df_ids[
         (df_ids["stoich"] == stoich) & \
         (df_ids["source"] != "oqmd") & \
@@ -178,9 +178,9 @@ def get_data_for_al(
     ids = df_ids["unique_ids"]
     #__|
 
-    # #########################################################################
+    # #####################################################
 
-    #| - DFT dataframe
+    # | - DFT dataframe
     df_i = df_bulk_dft
 
     # print("isidfjisdjifjsidjf8yu2894h90832uy4908tyu98023wht0982quj098gtfujw3e")
@@ -200,10 +200,14 @@ def get_data_for_al(
         print("len(ids_not_in__bulk_dft_data):", len(ids_not_in__df_i))
         print("\n", "df_i.shape: ", df_i.shape, sep="")
 
+    df_i = df_i[df_i.source == "raul"]
+
     df_bulk_dft = df_i
+
+    print("TEMP TEMP TEMP 89ihsjdgf", "6dzhcimdxs" in df_bulk_dft.index)
     #__|
 
-    #| - Featurs pre-DFT
+    # | - Featurs pre-DFT
     df_i = df_features_pre
 
     # Common ids between user ids and df
@@ -224,7 +228,7 @@ def get_data_for_al(
     df_features_pre = df_features_pre["voronoi"]
     #__|
 
-    #| - Features post-DFT
+    # | - Features post-DFT
     df_i = df_features_post
 
     # Common ids between user ids and df
@@ -250,7 +254,7 @@ def get_data_for_al(
     #__|
 
 
-    #| - Dropping certain rows
+    # | - Dropping certain rows
     all_ids = list(set(
         df_bulk_dft.index.tolist() + \
         df_features_pre.index.tolist() + \
@@ -266,7 +270,7 @@ def get_data_for_al(
         "ids_to_discard__proto_dupl.pickle")
     with open(path_i, "rb") as fle:
         ids_to_discard__proto_dupl = pickle.load(fle)
-        ids_to_drop.extend(ids_to_discard__proto_dupl)
+        # ids_to_drop.extend(ids_to_discard__proto_dupl)
     # #########################################################################
 
     if drop_too_many_atoms:
@@ -295,12 +299,15 @@ def get_data_for_al(
         ]
 
 
+    print("TEMP TEMP TEMP 89ihsjdgf", "6dzhcimdxs" in df_bulk_dft.index)
+
     df_bulk_dft = df_bulk_dft.loc[
         df_bulk_dft.index.intersection(
             df_features_pre.index
             ).unique()
         ]
 
+    print("TEMP TEMP TEMP 89ihsjdgf", "6dzhcimdxs" in df_bulk_dft.index)
 
     df_static_irox = df_static_irox.loc[
         df_static_irox.index.intersection(
@@ -313,7 +320,7 @@ def get_data_for_al(
         df_dij.index.intersection(df_features_pre.index)
 
 
-    print("TEMP TEMP TEMP", "6fcdbh9fz2" in df_dij.index)
+    # print("TEMP TEMP TEMP", "6fcdbh9fz2" in df_dij.index)
 
     ids_dij = ids_static.tolist() + ids_completed_post_dft.tolist()
     df_dij = df_dij.loc[ids_dij, ids_dij]
@@ -353,7 +360,7 @@ def create_mixed_df(
     ids in computed_ids will be attempted to be pulled from df_post, otherwise
     the row will be pulled from df_pre
     """
-    #| - create_mixed_df
+    # | - create_mixed_df
     # #########################################################################
 
     # TODO Check that computed_ids are in all_ids

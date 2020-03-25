@@ -2,7 +2,7 @@
 
 """
 
-#| - Import  Modules
+# | - Import  Modules
 import pandas as pd
 
 import plotly.graph_objs as go
@@ -29,7 +29,7 @@ def get_trace_j(
         plot_dft_instead_of_pred:
             Plot the actual DFT energy instead of the predicted value
     """
-    #| - get_trace_j
+    # | - get_trace_j
     redundant_key = "TEMP_redundant"
     redundant_key_global = "TEMP_redundant_global"
 
@@ -37,9 +37,9 @@ def get_trace_j(
     data = []
 
     # ########################################################################
-    #| - NEW
+    # | - NEW
     def method(row_i):
-        #| - method
+        # | - method
         computed = row_i["computed"]
         actually_computed = row_i["actually_computed"]
         dft_energy = row_i["energy_pa"]
@@ -75,7 +75,7 @@ def get_trace_j(
     #__|
 
     # #########################################################################
-    #| - Applying formating to df
+    # | - Applying formating to df
 
     # def method(row_i, argument_0, optional_arg=None):
     #     """
@@ -92,7 +92,7 @@ def get_trace_j(
     #     )
 
     def method(row_i, marker_size):
-        #| - method
+        # | - method
         new_column_values_dict = {
             "marker_size": 4,
             "marker_line_color": "rgb(0,0,0)",
@@ -122,7 +122,7 @@ def get_trace_j(
     #__|
 
     # #########################################################################
-    #| - Main data trace
+    # | - Main data trace
     trace_i = go.Scatter(
         x=model_i["x_axis_ind"],
         # y=model_i[prediction_key],
@@ -157,7 +157,7 @@ def get_trace_j(
     #__|
 
     # #########################################################################
-    #| - Horizontal lines at E minimum
+    # | - Horizontal lines at E minimum
     min_e = model_i[prediction_key].min()
     min_e_w_uncert = (model_i[prediction_key] - model_i[uncertainty_key]).min()
 
@@ -193,7 +193,7 @@ def get_trace_j(
 
     # #########################################################################
     if df_bulk_dft is not None:
-        #| - Known DFT data
+        # | - Known DFT data
 
         filter_indices = [i for i in model_i.index if i in df_bulk_dft.index]
         df_tmp = pd.concat(
@@ -207,7 +207,7 @@ def get_trace_j(
         df_tmp = df_tmp.reindex(model_i.index.sort_values().tolist())
 
         def method(row_i):
-            #| - method
+            # | - method
             computed = row_i["computed"]
             actually_computed = row_i["actually_computed"]
             redundant_global = row_i[redundant_key_global]
@@ -252,7 +252,7 @@ def get_trace_j(
         df_tmp = df_tmp.apply(method, axis=1)
         df_tmp = df_tmp.fillna(value=-5.)
 
-        #| - Scatter plot trace
+        # | - Scatter plot trace
         trace_tmp = go.Scatter(
             y=df_tmp["energy_pa"],
             x=df_tmp["x_axis_ind"],
@@ -289,7 +289,7 @@ def plot_model(
     custom_text="TEMP"):
     """
     """
-    #| - plot_model
+    # | - plot_model
     annotations = [
         go.layout.Annotation(
             x=0.1,
@@ -335,9 +335,9 @@ def plot_model(
 
 
 
-#| - __old__
+# | - __old__
 
-        #| - __old__
+        # | - __old__
         # # TEMP
         # return(df_bulk_dft, model_i)\
         # df_tmp = pd.concat(
@@ -353,7 +353,7 @@ def plot_model(
         # df_computed = df_tmp[df_tmp["energy_pa"].notnull()]
         #__|
 
-        #| - __old__ **********************************************************
+        # | - __old__ **********************************************************
 
         # # Ordering df_bulk_dft so that the data points are correctly animated
         # # indices_sorted = df_bulk_dft.index.sort_values()
@@ -393,7 +393,7 @@ def plot_model(
         #__| ******************************************************************
 
 
-    #| - DEPRECATED | All known DFT energies for validation
+    # | - DEPRECATED | All known DFT energies for validation
     # def method(row_i, argument_0, optional_arg=None):
     #     if row_i["computed"] == True:
     #         energy_pa = np.NaN

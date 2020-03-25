@@ -5,7 +5,7 @@
 Author: Raul A. Flores
 """
 
-#| - Import Modules
+# | - Import Modules
 from ase import io
 # from ase.visualize import view
 
@@ -18,11 +18,11 @@ from atoms_objects.slab_generation import (
 from catkit.gen import utils
 #__|
 
-#| - Script Inputs
+# | - Script Inputs
 facet = (1, 1, 1)
 #__|
 
-#| - Read Bulk Structure
+# | - Read Bulk Structure
 # bulk = io.read("init.cif")
 bulk = io.read("bulk.cif")
 
@@ -30,7 +30,7 @@ bulk = io.read("bulk.cif")
 # bulk.write("bulk_standard.cif")
 #__|
 
-#| - ASE
+# | - ASE
 slab_ase = cut_slab_ase(
     bulk,
     facet,
@@ -40,7 +40,7 @@ slab_ase = cut_slab_ase(
 slab_ase.write("out_slab_ase.cif")
 #__|
 
-#| - pymatgen
+# | - pymatgen
 slab_pymatgen = cut_slab_pymatgen(
     bulk,
     facet,
@@ -50,7 +50,7 @@ slab_pymatgen = cut_slab_pymatgen(
 slab_pymatgen.write("out_slab_pymatgen.cif")
 #__|
 
-#| - CatKit
+# | - CatKit
 slab_catkit = cut_slab_catkit(
     bulk,
     facet,

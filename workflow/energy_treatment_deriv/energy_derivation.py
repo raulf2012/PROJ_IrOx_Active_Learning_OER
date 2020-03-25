@@ -5,8 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.2.1
+#       format_version: '1.5'
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -29,7 +29,7 @@ from proj_data_irox import *
 E_h2o = h2o_ref
 E_h2 = h2_ref
 
-# + {"active": ""}
+# + active=""
 #
 #
 # -
@@ -105,7 +105,7 @@ phi
 # \rbrack
 # $$
 
-# + {"active": ""}
+# + active=""
 #
 #
 # -
@@ -201,7 +201,7 @@ phi
 # $$
 #
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
@@ -263,7 +263,7 @@ print("phi_H_ref: ", phi_H_ref)
 E_H_ref = E_h2 / 2
 print("E_H_ref: ", E_H_ref)
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
@@ -330,7 +330,7 @@ D_phi_o_ads = phi_o_ads - (1 * phi_O_ref + 0 * phi_H_ref)
 print("D_phi_ooh_ads: ", D_phi_ooh_ads)
 print("D_phi_oh_ads: ", D_phi_oh_ads)
 print("D_phi_o_ads: ", D_phi_o_ads)
-# + {"active": ""}
+# + active=""
 #
 #
 #
@@ -364,7 +364,7 @@ with open("out_data/data.pickle", "wb") as fle:
 
 # # Output from Michal's Script
 
-# + {"active": ""}
+# + active=""
 # corr_OH: 0.30225
 # corr_O: -0.0145
 # corr_H:  0.31675

@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.3.0
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
 #     language: python
@@ -27,7 +27,7 @@
 # + [markdown] Collapsed="false"
 # ## Python Packages
 
-# + Collapsed="false" jupyter={"source_hidden": true}
+# + Collapsed="false"
 import sys
 import os
 print(os.getcwd())
@@ -49,26 +49,26 @@ import plotly.graph_objs as go
 
 import plotly.offline as py_off
 from plotly.offline import (
-    init_notebook_mode,
-    iplot,
-    )
+        init_notebook_mode,
+        iplot,
+        )
 
 # #############################################################################
 from methods import (
-    create_pourbaix_plot,
-    create_outside_borders,
-    create_pourb_entry_outline,
-    create_oer_equil_line,
-    )
+        create_pourbaix_plot,
+        create_outside_borders,
+        create_pourb_entry_outline,
+        create_oer_equil_line,
+        )
 
 init_notebook_mode(connected=True)
 
 
 # #############################################################################
 from plotting.my_plotly import (
-    add_minor_ticks,
-    my_plotly_plot,
-    add_duplicate_axes)
+        add_minor_ticks,
+        my_plotly_plot,
+        add_duplicate_axes)
 
 # + [markdown] Collapsed="false"
 # # Script Inputs
@@ -77,12 +77,12 @@ from plotting.my_plotly import (
 run_create_entries_script = True
 
 axis_ranges = {
-    "x_axis": [0., 14],
-    "y_axis": [0., 2.5],
+        "x_axis": [0., 14],
+        "y_axis": [0., 2.5],
 
-    # "x_axis": [-0.0001, 0.0001],
-    # "y_axis": [1.4920084, 1.4923185],
-    }
+        # "x_axis": [-0.0001, 0.0001],
+        # "y_axis": [1.4920084, 1.4923185],
+        }
 
 entries_to_remove_list = [
     # "IrO3_TEMP00",
@@ -112,7 +112,7 @@ entries_to_remove_list = [
     "IrO3_rutile-like",
     "IrO3_battery",
 
-#     "IrO3_a-AlF3",
+    # "IrO3_a-AlF3",
     ]
 
 # + [markdown] Collapsed="false"
@@ -136,6 +136,8 @@ with open(path_i, "rb") as fle:
     all_entries = pickle.load(fle)
 # #############################################################################
 # -
+
+all_entries
 
 # ## Bulk Pourbaix transitions
 
@@ -194,7 +196,23 @@ fig.layout.xaxis.range = x_axis_range_tmp
 
 # fig.layout.yaxis.range = axis_ranges["y_axis"]
 # fig.layout.xaxis.range = axis_ranges["x_axis"]
+
+# +
+# len(layout.annotations)
+
+annotations_new = []
+for annot_i in layout.annotations:
+    # print(annot_i)
+    
+    if "<sub>3<" in annot_i.text:
+        # print(annot_i)
+        
+        annotations_new.append(annot_i)
+
+    print("")
 # -
+
+fig.layout.update(annotations=annotations_new)
 
 # # Adding 2nd x-axis for minor ticks
 
@@ -223,6 +241,7 @@ add_duplicate_axes(
 # +
 my_plotly_plot(
     figure=fig,
+    # plot_name="bulk_pourbaix_wo_alpha",
     plot_name="bulk_pourbaix",
     write_html=True,
     write_png=False,

@@ -1,4 +1,4 @@
-#| - Import Modules
+# | - Import Modules
 import os
 import sys
 
@@ -17,14 +17,14 @@ from methods import (
     )
 #__|
 
-#| - Script Inputs
+# | - Script Inputs
 paths_to_parse_list = [
     "/scratch/users/flores12/PROJ_irox_ml_oer/beta_iro3_phase_calc/01_attempt",
     ]
 #__|
 
 
-#| - Parsing files
+# | - Parsing files
 for path_i in paths_to_parse_list:
     print(path_i)
     print("DIFJIDJFISJDIFJISDJIFJSDi")
@@ -70,7 +70,7 @@ for path_i in paths_to_parse_list:
     df = pd.DataFrame(data_list)
 #__|
 
-#| - Apply job parse methods
+# | - Apply job parse methods
 def method(row_i):
     status_dict = parse_job_err(row_i["path"])
     for key, value in status_dict.items():
@@ -121,7 +121,7 @@ df = df.apply(method, axis=1)
 
 
 
-#| - Write and upload dataframe to Dropbox
+# | - Write and upload dataframe to Dropbox
 
 
 # Write pickle file

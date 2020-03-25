@@ -5,7 +5,7 @@ TEMP NEW
 Author: Raul A. Flores
 """
 
-#| - IMPORT MODULES
+# | - IMPORT MODULES
 import os
 import copy
 
@@ -43,7 +43,7 @@ class RegressionModel:
     """
     """
 
-    #| - RegressionModel ******************************************************
+    # | - RegressionModel ******************************************************
     _TEMP = "TEMP"
 
 
@@ -64,9 +64,9 @@ class RegressionModel:
                 Whether to use the regular uncertainty from the GP or the
                 "regulization" corrected one
         """
-        #| - __init__
+        # | - __init__
 
-        #| - Setting Argument Instance Attributes
+        # | - Setting Argument Instance Attributes
         self.df_train = df_train
         self.train_targets = train_targets
         self.df_test = df_test
@@ -76,7 +76,7 @@ class RegressionModel:
         self.verbose = verbose
         #__|
 
-        #| - Initializing Internal Instance Attributes
+        # | - Initializing Internal Instance Attributes
         self.model = None
         #__|
 
@@ -85,21 +85,21 @@ class RegressionModel:
     def set_df_train(self, df_train):
         """
         """
-        #| - set_df_train
+        # | - set_df_train
         self.df_train = df_train
         #__|
 
     def set_train_targets(self, train_targets):
         """
         """
-        #| - set_train_targets
+        # | - set_train_targets
         self.train_targets = train_targets
         #__|
 
     def set_df_test(self, df_test):
         """
         """
-        #| - set_df_test
+        # | - set_df_test
         self.df_test = df_test
         #__|
 
@@ -107,7 +107,7 @@ class RegressionModel:
     def run_regression(self):
         """
         """
-        #| - run_regression
+        # | - run_regression
         # #####################################################################
         df_train = self.df_train
         train_targets = self.train_targets
@@ -156,7 +156,7 @@ class RegressionModel:
             index=df_test.index)
 
 
-        #| - Add column to model df that indicates the acquired points
+        # | - Add column to model df that indicates the acquired points
         df_acquired = pd.DataFrame(index=df_train.index.unique())
         df_acquired["acquired"] = True
 
@@ -188,7 +188,7 @@ class RegressionModel:
         ):
         """test_features
         """
-        #| - gp_model_catlearn
+        # | - gp_model_catlearn
         test_features = df_predict
 
         noise_default = 0.01  # Regularisation parameter.
@@ -201,7 +201,7 @@ class RegressionModel:
         sigma_f = gp_settings_dict.get("sigma_f", sigma_f_default)
         alpha = gp_settings_dict.get("alpha", alpha_default)
 
-        #| - Jose Optimized GP
+        # | - Jose Optimized GP
         # Define initial prediction parameters.
         #
         # noise = 0.0042  # Regularisation parameter.
@@ -227,9 +227,9 @@ class RegressionModel:
         #     )
         #__|
 
-        #| - Sandbox parameters
+        # | - Sandbox parameters
 
-        #| - HIDE
+        # | - HIDE
         # noise = 0.0042  # Regularisation parameter.
         # sigma_l = 6.3917  # Length scale parameter.
         # sigma_f = 0.5120  # Scaling parameter.
@@ -248,7 +248,7 @@ class RegressionModel:
 
         kdict = [
 
-            #| - Rational Quadratic Kernel
+            # | - Rational Quadratic Kernel
             # {
             #     'type': 'quadratic',
             #     'dimension': 'single',
@@ -259,7 +259,7 @@ class RegressionModel:
             #     },
             #__|
 
-            #| - Guassian Kernel (RBF)
+            # | - Guassian Kernel (RBF)
             {
                 'type': 'gaussian',
                 'dimension': 'single',
@@ -282,7 +282,7 @@ class RegressionModel:
                 },
             #__|
 
-            #| - Constant Kernel
+            # | - Constant Kernel
             # {
             #     "type": "constant",
             #     # "operation": 0.2,
@@ -314,7 +314,7 @@ class RegressionModel:
 
                 algomin='L-BFGS-B',  # The standard one ***********************
 
-                #| - algomin
+                # | - algomin
                 # algomin='Nelder-Mead',  # Seems to work well **********************
                 # algomin='Newton-CG',  # Doesn't work
                 # algomin='BFGS',  # Didn't work
@@ -363,7 +363,7 @@ class FingerPrints:
     """
     """
 
-    #| - FingerPrints *********************************************************
+    # | - FingerPrints *********************************************************
     _TEMP = "TEMP"
 
     def __init__(self,
@@ -376,9 +376,9 @@ class FingerPrints:
         ):
         """
         """
-        #| - __init__
+        # | - __init__
 
-        #| - Setting Argument Instance Attributes
+        # | - Setting Argument Instance Attributes
         self.df_pre = df_features_pre
         self.df_post = df_features_post
 
@@ -389,7 +389,7 @@ class FingerPrints:
         self.verbose = verbose
         #__|
 
-        #| - Initializing Internal Instance Attributes
+        # | - Initializing Internal Instance Attributes
         self.df_test = None
         self.df_train = None
         #__|
@@ -407,7 +407,7 @@ class FingerPrints:
         ):
         """
         """
-        #| - clean_data
+        # | - clean_data
         mess_i = "Train and test data need to have the same columns"
         assert list(df_test) == list(df_train), mess_i
         labels = list(df_test)
@@ -459,7 +459,7 @@ class FingerPrints:
     def clean_variance(self, df_train, df_test, labels):
         """
         """
-        #| - clean_variance
+        # | - clean_variance
         verbose = self.verbose
         # #####################################################################
 
@@ -492,7 +492,7 @@ class FingerPrints:
     def clean_skewness(self, df_train, df_test, labels):
         """
         """
-        #| - clean_skewness
+        # | - clean_skewness
         verbose = self.verbose
         # #####################################################################
 
@@ -525,7 +525,7 @@ class FingerPrints:
     def clean_infinite(self, df_train, df_test, labels):
         """
         """
-        #| - clean_infinite
+        # | - clean_infinite
         verbose = self.verbose
         # #####################################################################
 
@@ -559,7 +559,7 @@ class FingerPrints:
     def clean_standardize(self, df_train, df_test):
         """
         """
-        #| - clean_standardize
+        # | - clean_standardize
         cleaned_data = standardize(
             df_train,
             test_matrix=df_test,
@@ -584,7 +584,7 @@ class FingerPrints:
     def pca_analysis(self):
         """
         """
-        #| - pca_analysis
+        # | - pca_analysis
         df_pre = self.df_pre
         df_post = self.df_post
         verbose = self.verbose
@@ -625,7 +625,7 @@ class FingerPrints:
         pca.fit(df)
 
 
-        #| - Transforming the training data set
+        # | - Transforming the training data set
         pca_features_cleaned = pca.transform(df)
 
         num_pca_comp = pca_features_cleaned.shape[-1]
@@ -645,7 +645,7 @@ class FingerPrints:
         df_train = df_pca
         #__|
 
-        #| - Transforming the test data set
+        # | - Transforming the test data set
         df = df_test
         pca_features_cleaned = pca.transform(df)
 
@@ -662,6 +662,9 @@ class FingerPrints:
 
         # out_dict["pca"] = pca
 
+
+        # NEW | Setting pca instance as class attribute so that it can be called latter
+        self.PCA = pca
 
         self.df_test = df_test
         self.df_train = df_train
@@ -681,7 +684,7 @@ class CandidateSpace:
     """
     """
 
-    #| - CandidateSpace *******************************************************
+    # | - CandidateSpace *******************************************************
     _TEMP = "TEMP"
 
     def __init__(self,
@@ -699,9 +702,9 @@ class CandidateSpace:
             Y_key: <string>
                 Column name of Y_data df that correponds to the target value
         """
-        #| - __init__
+        # | - __init__
 
-        #| - Setting Argument Instance Attributes
+        # | - Setting Argument Instance Attributes
         self.Y_data = Y_data
         self.Y_key = Y_key
         self.FingerPrints = FingerPrints
@@ -709,7 +712,7 @@ class CandidateSpace:
         self.restrict_to_validated_space = restrict_to_validated_space
         #__|
 
-        #| - Initializing Internal Instance Attributes
+        # | - Initializing Internal Instance Attributes
 
         #__|
 
@@ -724,7 +727,7 @@ class CandidateSpace:
 
     def set_fingerprints(self, FingerPrints):
         """Set instance of FingerPrints class."""
-        #| - set_fingerprints
+        # | - set_fingerprints
         restrict_to_validated_space = self.restrict_to_validated_space
         # #####################################################################
 
@@ -746,7 +749,7 @@ class CandidateSpace:
         ids in computed_ids will be attempted to be pulled from df_post,
         otherwise the row will be pulled from df_pre
         """
-        #| - create_mixed_candidate_space
+        # | - create_mixed_candidate_space
         FingerPrints = self.FingerPrints
         df_pre = FingerPrints.df_pre
         df_post = FingerPrints.df_post
@@ -769,7 +772,7 @@ class CandidateSpace:
     def check_input_data(self):
         """
         """
-        #| - check_input_data
+        # | - check_input_data
         Y_data = self.Y_data
 
         if len(Y_data.index) != len(Y_data.index.unique()):

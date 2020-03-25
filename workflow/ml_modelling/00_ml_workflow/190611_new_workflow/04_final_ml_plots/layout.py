@@ -1,7 +1,7 @@
 """
 """
 
-#| - Import Modules
+# | - Import Modules
 import sys
 import os
 
@@ -27,9 +27,9 @@ import plotly.graph_objs as go
 def get_layout(model=None):
     """
     """
-    #| - get_layout
+    # | - get_layout
 
-    #| - Process model data
+    # | - Process model data
     if model is not None:
         e_max = model["prediction_unstandardized"].max()
         e_min = model["prediction_unstandardized"].min()
@@ -46,7 +46,7 @@ def get_layout(model=None):
 
     #__|
 
-    #| - Main layout object
+    # | - Main layout object
     layout = go.Layout(
         angularaxis=None,
         annotations=None,
@@ -149,9 +149,9 @@ def get_layout(model=None):
         )
     #__|
 
-    #| - Axis Layout  options
+    # | - Axis Layout  options
 
-    #| - shared axis dict
+    # | - shared axis dict
     shared_axis_dict = dict(
         anchor=None,
         automargin=None,
@@ -260,10 +260,10 @@ def get_layout(model=None):
     #__|
 
 
-    #| - Plot Annotations
+    # | - Plot Annotations
     annotations = [
 
-        #| - Axis Titles
+        # | - Axis Titles
         {
             # 'font': {'size': axis_label_font_size},
             'font': {'size': 12},

@@ -26,7 +26,7 @@
 
 # + Collapsed="false"
 # %%capture
-#| - OUT_OF_SIGHT
+# | - OUT_OF_SIGHT
 import os
 import sys
 

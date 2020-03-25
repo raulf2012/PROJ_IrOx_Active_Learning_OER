@@ -5,7 +5,7 @@
 Author: Raul A. Flores
 """
 
-#| - IMPORT MODULES
+# | - IMPORT MODULES
 import os
 import sys
 
@@ -16,7 +16,7 @@ class CCF:
     """
     """
 
-    #| - CCF ******************************************************************
+    # | - CCF ******************************************************************
     _TEMP = "TEMP"
 
 
@@ -26,14 +26,14 @@ class CCF:
         ):
         """
         """
-        #| - __init__
+        # | - __init__
 
-        #| - Setting Argument Instance Attributes
+        # | - Setting Argument Instance Attributes
         self.df_dij = df_dij
         self.d_thresh = d_thresh
         #__|
 
-        #| - Initializing Internal Instance Attributes
+        # | - Initializing Internal Instance Attributes
 
         #__|
 
@@ -42,7 +42,7 @@ class CCF:
     def i_all_similar(self, index_i, filter_ids=None):
         """Check whether there are any systems similar to i.
         """
-        #| - i_all_similar
+        # | - i_all_similar
         # self = CCF
         d_thresh = self.d_thresh
         df_dij = self.df_dij
@@ -73,7 +73,7 @@ class CCF:
     def i_j_similar(self, index_i, index_j):
         """Test whether systems i and j are similar to one another.
         """
-        #| - i_j_similar
+        # | - i_j_similar
         # self = CCF
         d_thresh = self.d_thresh
         df_dij = self.df_dij

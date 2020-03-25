@@ -7,11 +7,11 @@ Author: Raul A. Flores
 /global/cscratch1/sd/flores12/IrOx_Project/03_OER_Calc/IrO3/111/01_O_covered/04_oh/02_attempt
 """
 
-#| - Import Modules
+# | - Import Modules
 from os.path import join as join
 #__|
 
-#| - Script Parameters
+# | - Script Parameters
 rt = "/global/cscratch1/sd/flores12/IrOx_Project"
 surf_e_rt = "01_surface_calcs"
 surf_rt = "02_surface_coverage"
@@ -19,13 +19,13 @@ ads_rt = "03_OER_Calc"
 surf_cov_e_rt = "07_diff_coverages_term"
 #__|
 
-#| - dir_list
+# | - dir_list
 
 dir_list = [
 
-    #| - IrO2 *****************************************************************
+    # | - IrO2 *****************************************************************
 
-    #| - Surface Energies
+    # | - Surface Energies
     # 100
     join(rt, surf_e_rt, "IrO2/100/01_layers"),
     join(rt, surf_e_rt, "IrO2/100/03_layers"),
@@ -47,7 +47,7 @@ dir_list = [
     join(rt, surf_e_rt, "IrO2/110/13_layers"),  # Couldn't converge
     #__|
 
-    #| - Surface Coverage Calculations
+    # | - Surface Coverage Calculations
 
     # 100
 
@@ -71,11 +71,11 @@ dir_list = [
 
     #__|
 
-    #| - Adsorbate Calculations
+    # | - Adsorbate Calculations
 
-    #| - 100
+    # | - 100
 
-    #| - O-covered
+    # | - O-covered
     join(rt, ads_rt, "IrO2/100/01_O_covered/01_bare/01_attempt"),
     join(rt, ads_rt, "IrO2/100/01_O_covered/01_bare/02_attempt"),
 
@@ -100,7 +100,7 @@ dir_list = [
     join(rt, ads_rt, "IrO2/100/01_O_covered/04_oh/02_attempt"),
     #__|
 
-    #| - H-covered
+    # | - H-covered
     join(rt, ads_rt, "IrO2/100/02_H_covered/01_bare"),
 
     join(rt, ads_rt, "IrO2/100/02_H_covered/02_ooh/01_face_up"),
@@ -113,9 +113,9 @@ dir_list = [
 
     #__|
 
-    #| - 110
+    # | - 110
 
-    #| - O-covered
+    # | - O-covered
     join(rt, ads_rt, "IrO2/110/01_O_covered/01_bare"),
 
     # /global/cscratch1/sd/flores12/IrOx_Project/03_OER_Calc/
@@ -132,7 +132,7 @@ dir_list = [
 
     #__|
 
-    #| - H-covered
+    # | - H-covered
     join(rt, ads_rt, "IrO2/110/02_H_covered/01_bare"),
 
     join(rt, ads_rt, "IrO2/110/02_H_covered/02_ooh/01_face_up"),
@@ -149,7 +149,7 @@ dir_list = [
 
     #__|
 
-    #| - Surface Energies @ Different Coverages
+    # | - Surface Energies @ Different Coverages
 
     # 100
     join(rt, surf_cov_e_rt, "IrO2/100/OH_covered"),
@@ -164,9 +164,9 @@ dir_list = [
 
     #__| **********************************************************************
 
-    #| - IrO3 (a-AlF3) ********************************************************
+    # | - IrO3 (a-AlF3) ********************************************************
 
-    #| - Surface Energies
+    # | - Surface Energies
 
     # 100
     join(rt, surf_e_rt, "IrO3/100/03_layers"),
@@ -236,7 +236,7 @@ dir_list = [
 
     #__|
 
-    #| - Surface Coverage Calculations
+    # | - Surface Coverage Calculations
     # 100
     join(rt, surf_rt, "IrO3/100/01_O_covered"),
     join(rt, surf_rt, "IrO3/100/02_H_covered"),
@@ -272,11 +272,11 @@ dir_list = [
 
     #__|
 
-    #| - Adsorbate Calculations
+    # | - Adsorbate Calculations
 
-    #| - 100
+    # | - 100
 
-    #| - O-covered
+    # | - O-covered
     join(rt, ads_rt, "IrO3/100/01_O_covered/01_bare/01_attempt"),
     join(rt, ads_rt, "IrO3/100/01_O_covered/01_bare/02_attempt"),
 
@@ -295,7 +295,7 @@ dir_list = [
     join(rt, ads_rt, "IrO3/100/01_O_covered/04_oh/02_attempt"),
     #__|
 
-    #| - H-covered
+    # | - H-covered
     join(rt, ads_rt, "IrO3/100/02_H_covered/01_bare"),
 
     join(rt, ads_rt, "IrO3/100/02_H_covered/02_ooh/01_face_up"),
@@ -312,9 +312,9 @@ dir_list = [
 
     #__|
 
-    #| - 110
+    # | - 110
 
-    #| - O-covered
+    # | - O-covered
     join(rt, ads_rt, "IrO3/110/01_O_covered/01_bare/01_attempt"),
     join(rt, ads_rt, "IrO3/110/01_O_covered/01_bare/02_attempt"),
 
@@ -333,7 +333,7 @@ dir_list = [
     join(rt, ads_rt, "IrO3/110/01_O_covered/04_oh/02_attempt"),
     #__|
 
-    #| - H-covered
+    # | - H-covered
     join(rt, ads_rt, "IrO3/110/02_H_covered/01_bare"),
 
     join(rt, ads_rt, "IrO3/110/02_H_covered/02_ooh/01_face_up"),
@@ -347,9 +347,9 @@ dir_list = [
 
     #__|
 
-    #| - 111
+    # | - 111
 
-    #| - O-covered
+    # | - O-covered
     join(rt, ads_rt, "IrO3/111/01_O_covered/01_bare/01_attempt"),
     join(rt, ads_rt, "IrO3/111/01_O_covered/01_bare/02_attempt"),
 
@@ -368,7 +368,7 @@ dir_list = [
     join(rt, ads_rt, "IrO3/111/01_O_covered/04_oh/02_attempt"),
     #__|
 
-    #| - H-covered | Haven't done yet
+    # | - H-covered | Haven't done yet
     # join(rt, ads_rt, "IrO3/111/02_H_covered/01_bare"),
     # join(rt, ads_rt, "IrO3/111/02_H_covered/02_ooh"),
     # join(rt, ads_rt, "IrO3/111/02_H_covered/03_o"),
@@ -377,9 +377,9 @@ dir_list = [
 
     #__|
 
-    #| - 211
+    # | - 211
 
-    #| - O-covered
+    # | - O-covered
     join(rt, ads_rt, "IrO3/211/01_O_covered/01_bare/01_attempt"),
     join(rt, ads_rt, "IrO3/211/01_O_covered/01_bare/02_attempt"),
 
@@ -394,7 +394,7 @@ dir_list = [
     join(rt, ads_rt, "IrO3/211/01_O_covered/04_oh/02_attempt"),
     #__|
 
-    #| - H-covered
+    # | - H-covered
     join(rt, ads_rt, "IrO3/211/02_H_covered/01_bare"),
 
 
@@ -410,7 +410,7 @@ dir_list = [
 
     #__|
 
-    #| - Surface Energies @ Different Coverages
+    # | - Surface Energies @ Different Coverages
     # 100
     join(rt, surf_cov_e_rt, "IrO3/100/OH_covered"),
     join(rt, surf_cov_e_rt, "IrO3/100/O_covered"),
@@ -435,9 +435,9 @@ dir_list = [
 
     #__| **********************************************************************
 
-    #| - IrO3 (rutile-like) ***************************************************
+    # | - IrO3 (rutile-like) ***************************************************
 
-    #| - Surface Energies
+    # | - Surface Energies
 
     # 001
     join(rt, surf_e_rt, "IrO3_rutile-like/001/02_layers"),
@@ -465,7 +465,7 @@ dir_list = [
 
     #__|
 
-    #| - Surface Coverage Calculations
+    # | - Surface Coverage Calculations
 
     # 001
     join(rt, surf_rt, "IrO3_rutile-like/001/01_O_covered/0_8_O_covered"),
@@ -512,16 +512,16 @@ dir_list = [
 
     #__|
 
-    #| - Adsorbate Calculations
+    # | - Adsorbate Calculations
 
     # TODO
-    #| - 001
+    # | - 001
 
     #__|
 
-    #| - 100
+    # | - 100
 
-    #| - 01_O-4_OH-0
+    # | - 01_O-4_OH-0
     join(rt, ads_rt, "IrO3_rutile-like/100/01_O-4_OH-0/01_bare/01_attempt"),
     join(rt, ads_rt, "IrO3_rutile-like/100/01_O-4_OH-0/01_bare/02_attempt"),
 
@@ -537,7 +537,7 @@ dir_list = [
     join(rt, ads_rt, "IrO3_rutile-like/100/01_O-4_OH-0/04_oh/02_attempt"),
     #__|
 
-    #| - 02_O-2_OH-0
+    # | - 02_O-2_OH-0
     join(rt, ads_rt, "IrO3_rutile-like/100/02_O-2_OH-0/01_bare/01_attempt"),
     join(rt, ads_rt, "IrO3_rutile-like/100/02_O-2_OH-0/01_bare/02_attempt"),
 
@@ -556,7 +556,7 @@ dir_list = [
     join(rt, ads_rt, "IrO3_rutile-like/100/02_O-2_OH-0/04_oh/02_attempt"),
     #__|
 
-    #| - 03_O-2_OH-2
+    # | - 03_O-2_OH-2
     join(rt, ads_rt, "IrO3_rutile-like/100/03_O-2_OH-2/01_bare"),
     join(rt, ads_rt, "IrO3_rutile-like/100/03_O-2_OH-2/02_ooh"),
     join(rt, ads_rt, "IrO3_rutile-like/100/03_O-2_OH-2/03_o"),
@@ -565,9 +565,9 @@ dir_list = [
 
     #__|
 
-    #| - 110
+    # | - 110
 
-    #| - O_covered
+    # | - O_covered
     join(rt, ads_rt, "IrO3_rutile-like/110/01_O_covered/01_bare/01_attempt"),
     join(rt, ads_rt, "IrO3_rutile-like/110/01_O_covered/01_bare/02_attempt"),
 
@@ -585,7 +585,7 @@ dir_list = [
     join(rt, ads_rt, "IrO3_rutile-like/110/01_O_covered/04_oh/02_attempt"),
     #__|
 
-    #| - H_covered
+    # | - H_covered
     join(rt, ads_rt, "IrO3_rutile-like/110/02_H_covered/01_bare"),
     join(rt, ads_rt, "IrO3_rutile-like/110/02_H_covered/02_ooh"),
     join(rt, ads_rt, "IrO3_rutile-like/110/02_H_covered/03_o"),
@@ -596,7 +596,7 @@ dir_list = [
 
     #__|
 
-    #| - Surface Energies @ Different Coverages
+    # | - Surface Energies @ Different Coverages
 
     # 001
     join(rt, surf_cov_e_rt, "IrO3_rutile-like/001/OH_covered"),
@@ -617,19 +617,19 @@ dir_list = [
 
     #__|
 
-    #| - IrO3 (battery) *******************************************************
+    # | - IrO3 (battery) *******************************************************
 
-    #| - Adsorbate Calculations
+    # | - Adsorbate Calculations
 
-    #| - 001
+    # | - 001
 
     #__|
 
-    #| - 010
+    # | - 010
 
-    #| - 01_surface_type_a
+    # | - 01_surface_type_a
 
-    #| - O-covered
+    # | - O-covered
     join(rt, ads_rt, "IrO3_battery/010/01_surface_type_a/01_O_covered/01_bare/01_attempt"),
     join(rt, ads_rt, "IrO3_battery/010/01_surface_type_a/01_O_covered/01_bare/02_attempt"),
 
@@ -649,9 +649,9 @@ dir_list = [
 
     #__|
 
-    #| - 02_surface_type_b
+    # | - 02_surface_type_b
 
-    #| - O-covered
+    # | - O-covered
     join(rt, ads_rt, "IrO3_battery/010/01_O_covered/01_bare/01_attempt"),
     join(rt, ads_rt, "IrO3_battery/010/01_O_covered/01_bare/02_attempt"),
 
@@ -676,14 +676,14 @@ dir_list = [
 
     #__|
 
-    #| - Surface Energies @ Different Coverages
+    # | - Surface Energies @ Different Coverages
 
-    #| - 001
+    # | - 001
     join(rt, surf_cov_e_rt, "IrO3_battery/001/01_surface_type_a/12_layers/O_covered/01_attempt"),
     # join(rt, surf_cov_e_rt, ""),
     #__|
 
-    #| - 010
+    # | - 010
     # join(rt, surf_cov_e_rt, "IrO3_battery/010/01_surface_type_a/04_layers/O_covered"),
 
     join(rt, surf_cov_e_rt, "IrO3_battery/010/01_surface_type_a/02_layers/O_covered/01_attempt"),

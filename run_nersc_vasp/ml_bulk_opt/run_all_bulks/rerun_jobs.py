@@ -16,7 +16,7 @@
 # # Import Modules
 
 # +
-#| - Import Modules
+# | - Import Modules
 import os
 import pickle
 
@@ -155,7 +155,7 @@ df = pd.DataFrame(data_list)
 # # Parsing dirs to get job state info
 
 # +
-#| - Parsing dirs to get job state info
+# | - Parsing dirs to get job state info
 # #############################################################################
 print("Parsing dirs to get job state info")
 print(80 * "&")
@@ -294,7 +294,7 @@ for name, group in grouped:
         cond_1 = job_state == "PENDING"
         cond_2 = job_state == "CONFIGURING"
         if cond_0 or cond_1 or cond_2:
-            #| - If job is either running, pending or being configured
+            # | - If job is either running, pending or being configured
             # (whatever that means), just move on for now
             mess_i = "Job is busy, will skip"
             data_dict_i["action"] = mess_i
@@ -304,7 +304,7 @@ for name, group in grouped:
             #__|
 
         elif job_state == "SUCCEEDED" or completed:
-            #| - SUCCEEDED
+            # | - SUCCEEDED
             # Picking the model.py script to use
             mess_i = "Job done"
             data_dict_i["action"] = mess_i
@@ -347,7 +347,7 @@ for name, group in grouped:
             #__|
 
         elif timed_out or failed:
-            #| - Timed out of failed
+            # | - Timed out of failed
             print("timed out or failed")
 
             if error_type == "Error in SGRCON (symm error)":

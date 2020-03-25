@@ -5,7 +5,7 @@
 Author(s):Raul A. Flores
 """
 
-#| - Import Modules
+# | - Import Modules
 import numpy as np
 
 import plotly.graph_objs as go
@@ -25,7 +25,7 @@ def make_bulk_stability_shading_dict(
     ):
     """
     """
-    #| - make_bulk_stability_shading_dict
+    # | - make_bulk_stability_shading_dict
     out_dict = {
         'type': 'rect',
         'x0': x_range[0],
@@ -67,10 +67,10 @@ def make_color_subplot_list(
     ):
     """
     """
-    #| - make_color_subplot_list
+    # | - make_color_subplot_list
     out_list = []
 
-    #| - Bulk Pourbaix Entries
+    # | - Bulk Pourbaix Entries
     out_list.append(
         make_bulk_stability_shading_dict(
             subplot_num=subplot_num,
@@ -112,12 +112,12 @@ def make_color_subplot_list(
             ))
     #__|
 
-    #| - IrO3 Metastable Polymorph Lines
+    # | - IrO3 Metastable Polymorph Lines
     height_i = 0.05
     # width_i = 2.
     width_i = 0.02
 
-    #| - Battery IrO3
+    # | - Battery IrO3
 
     key_i = "IrO3_battery"
     out_list.append(
@@ -178,7 +178,7 @@ def make_color_subplot_list(
     #     )
     #__|
 
-    #| - Rutile IrO3
+    # | - Rutile IrO3
     key_i = "IrO3_rutile-like"
     out_list.append(
         {
@@ -238,7 +238,7 @@ def add_convex_hull(
     ):
     """
     """
-    #| - add_convex_hull
+    # | - add_convex_hull
     list_tmp = []
     for i_cnt, row_i in df_i.iterrows():
         list_tmp.append(
@@ -302,9 +302,9 @@ def process_row(
         mesh_eval:
             Whether to evaluate the surface energy on a discritized mesh for V
     """
-    #| - process_row
+    # | - process_row
 
-    #| - Selecting Bulk Reference
+    # | - Selecting Bulk Reference
     if row_i["bulk_system"] == "IrO2":
         bulk_e_per_atom = bulk_e_per_atom_dict["IrO2"]
         xy_axis = ("x1", "y1")
@@ -335,7 +335,7 @@ def process_row(
         energy_list.append(energy_i)
 
     if mesh_eval:
-        #| - mesh_eval = True
+        # | - mesh_eval = True
         surf_e_i_vs_V = []
         x_mesh = np.linspace(O_mu_range[0], O_mu_range[1],
             num=num_mesh_points, endpoint=True, retstep=False, dtype=None)
@@ -355,7 +355,7 @@ def process_row(
         return(surf_e_i_vs_V)
         #__|
 
-    #| - Constructing Series Properties
+    # | - Constructing Series Properties
     series_format_dict_i = ORR_Free_E_Plot().__create_smart_format_dict__(
         row_i.to_dict(),
         smart_format_dict,
@@ -374,7 +374,7 @@ def process_row(
     name_i = name_i.replace("IrO3_", "")
     #__|
 
-    #| - Plotly Scatter Trace
+    # | - Plotly Scatter Trace
     trace = go.Scatter(
         x=v_list,
         y=energy_list,
@@ -401,7 +401,7 @@ def process_row(
 
 
 
-    #| - __old__
+    # | - __old__
     # if row_i["bulk_system"] == "IrO2":
     #     traces_IrO2.append(trace)
     # elif row_i["bulk_system"] == "IrO3":
@@ -419,7 +419,7 @@ def process_row(
 
 
 
-#| - __old__
+# | - __old__
 
 # def surf_e_4(
 #     row_i,
@@ -436,9 +436,9 @@ def process_row(
 #     Calculate surface energy assuming a water reference state
 #     and using the computational hydrogen electrode.
 #     """
-#     #| - surf_e_4
+#     # | - surf_e_4
 #
-#     #| - Read info from row_i
+#     # | - Read info from row_i
 #     # COMBAK This shouldn't be hard coded in
 #     metal = "Ir"
 #
@@ -456,7 +456,7 @@ def process_row(
 #     nonstoich_Hs = elems_dict.get("H", 0)
 #     #__|
 #
-#     #| - Calculate Standard State Surface Energy
+#     # | - Calculate Standard State Surface Energy
 #     if "surf_e_0" in row_i:
 #         surf_e_0 = row_i.get("surf_e_0", default=0.)
 #     else:
@@ -474,7 +474,7 @@ def process_row(
 #                 surf_e_0 = surf_e_0 / (2 * num_atoms)
 #     #__|
 #
-#     #| - Calculate V, pH Dependant Surface Energy
+#     # | - Calculate V, pH Dependant Surface Energy
 #     slope = 2 * nonstoich_Os - nonstoich_Hs
 #
 #     surf_e = 0. + \

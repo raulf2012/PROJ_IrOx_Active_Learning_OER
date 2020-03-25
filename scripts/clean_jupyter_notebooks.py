@@ -1,7 +1,7 @@
 """
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 import sys
 
@@ -16,14 +16,15 @@ from shutil import copyfile
 def clean_ipynb(ipynb_file_path, overwrite):
     """
     """
-    #| - clean_ipynb
+    # | - clean_ipynb
     if not overwrite:
         ipynb_file_path = copyfile(
             ipynb_file_path,
             ipynb_file_path.replace(".ipynb", ".cleaned.ipynb")
             )
 
-    with open(ipynb_file_path) as io:
+    # with open(ipynb_file_path) as io:
+    with open(ipynb_file_path, "rb") as io:
         ipynb_dict = load(io)
 
 
@@ -95,7 +96,7 @@ root_dir = os.path.join(
     )
 for subdir, dirs, files in os.walk(root_dir):
 
-    #| - Pass over ignored directories
+    # | - Pass over ignored directories
     ignore_subdir = False
     for ignore_dir in dirs_to_ignore:
         if ignore_dir in subdir:
@@ -105,8 +106,14 @@ for subdir, dirs, files in os.walk(root_dir):
     #__|
 
     for file in files:
+        if ".swp" in file:
+            # pass
+            continue
+
         if ".ipynb" in file:
             file_path = os.path.join(subdir, file)
             print(file_path)
+
+            # print(os.path.join(subdir, file))
 
             clean_ipynb(file_path, True)

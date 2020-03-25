@@ -5,7 +5,7 @@
 Author(s): Michal Badich, Raul A. Flores
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 import subprocess
 import ase.calculators.vasp as vasp_calculator
@@ -15,11 +15,11 @@ from ase import io
 from ase_modules.ase_methods import clean_up_dft
 #__|
 
-#| - Script Inputs
+# | - Script Inputs
 dipole_corr = False
 #__|
 
-#| - Read Atoms Object
+# | - Read Atoms Object
 if os.path.isfile("init.cif"):
     atoms = io.read('init.cif')
 elif os.path.isfile("init.traj"):
@@ -28,12 +28,12 @@ elif os.path.isfile("init.traj"):
 
 # atoms.center(vacuum=7.5, axis=2)
 
-#| - Copy Previous OUTCAR and moments.traj
+# | - Copy Previous OUTCAR and moments.traj
 subprocess.call('cp -rf OUTCAR OUTCAR_$(date +%s)', shell=True)
 subprocess.call('cp -rf moments.traj moments.traj_$(date +%s)', shell=True)
 #__|
 
-#| - Calculator
+# | - Calculator
 calc = vasp_calculator.Vasp(
     encut=500,
     xc='PBE',

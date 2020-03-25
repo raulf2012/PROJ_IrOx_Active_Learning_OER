@@ -7,7 +7,7 @@ pd.set_option('display.max_rows', None)
 
 
 
-#| - Get command line argument
+# | - Get command line argument
 filename = sys.argv[-1]
 
 #__|

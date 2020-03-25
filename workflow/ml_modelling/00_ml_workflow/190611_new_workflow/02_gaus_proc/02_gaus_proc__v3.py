@@ -25,7 +25,7 @@
 # +
 # %%capture
 
-#| - OUT_OF_SIGHT
+# | - OUT_OF_SIGHT
 import os
 import sys
 
@@ -324,7 +324,7 @@ df_bulk_dft.shape
 data_dict = dict()
 for al_iter_i in range(80):
 # for al_iter_i in range(5):
-    #| - GP AL Iteration ******************************************************
+    # | - GP AL Iteration ******************************************************
     # *************************************************************************
     t0 = time.time(); num_training = str(len(computed_ids)).zfill(3)
     al_iter_i_str = str(al_iter_i).zfill(3)

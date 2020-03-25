@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-#| - Import Modules
+# | - Import Modules
 import sys
 import os
 
@@ -23,7 +23,7 @@ from proj_data_irox import (
     )
 
 
-#| - old imports
+# | - old imports
 # from math import pow
 # import matplotlib.pyplot as plt
 # import numpy as np
@@ -38,7 +38,7 @@ from scipy import *
 
 #__|
 
-#| - Reassigning my corrections to the correct variable names
+# | - Reassigning my corrections to the correct variable names
 
 zpeh2o = zpe_h2o
 cvh2o = cv_h2o
@@ -64,9 +64,9 @@ tsooh = ads_fe_dict["ooh"]["ts"]
 def overpot(deoh, deo, deooh):
     """
     """
-    #| - overpot
+    # | - overpot
 
-    #| - Constants
+    # | - Constants
     #Constants
     kbt = 0.0256
     const = kbt*log(10)
@@ -94,7 +94,7 @@ def overpot(deoh, deo, deooh):
     tsooh=0.116  #0.135    #0.215 From Colin
     #__|
 
-    #| - __old__
+    # | - __old__
     #else:
     #    if (RPBE_GPAW):
     #        zpeo=0.065
@@ -150,11 +150,11 @@ def overpot(deoh, deo, deooh):
     return(max1-1.23)
     #__|
 
-#| - __main__
+# | - __main__
 
 if __name__ == '__main__':
 
-    #| - __old__
+    # | - __old__
     #VASP-PBE Energies for adsorbates
     #PBE_VASP=1
     #RPBE_GPAW=0
@@ -169,7 +169,7 @@ if __name__ == '__main__':
         quit()
 
     if(sys.argv[1] == '-rawsoftsymmetric'):
-        #| - rawsoftsymmetric
+        # | - rawsoftsymmetric
         clean=float(sys.argv[2])
         eoh=float(sys.argv[3])
         eo=float(sys.argv[4])
@@ -186,7 +186,7 @@ if __name__ == '__main__':
     else:
 
         if(sys.argv[1] == '-rawsymmetric'):
-            #| - rawsymmetric
+            # | - rawsymmetric
             clean=float(sys.argv[2])
             eoh=float(sys.argv[3])
             eo=float(sys.argv[4])
@@ -204,7 +204,7 @@ if __name__ == '__main__':
         else:
 
             if(sys.argv[1] == '-raw'):
-                #| - raw
+                # | - raw
                 clean=float(sys.argv[2])
                 eoh=float(sys.argv[3])
                 eo=float(sys.argv[4])
@@ -226,7 +226,7 @@ if __name__ == '__main__':
             else:
 
                 if(sys.argv[1] == '-rawsoft'):
-                    #| - rawsoft
+                    # | - rawsoft
                     clean=float(sys.argv[2])
                     eoh=float(sys.argv[3])
                     eo=float(sys.argv[4])
@@ -243,7 +243,7 @@ if __name__ == '__main__':
                 else:
 
                     if (sys.argv[1] == '-rawsofthse'):
-                        #| - rawsofthse
+                        # | - rawsofthse
                         clean = float(sys.argv[2])
                         eoh = float(sys.argv[3])
                         eo = float(sys.argv[4])
@@ -261,7 +261,7 @@ if __name__ == '__main__':
                     else:
 
                         if (sys.argv[1]=='-rawsoftrpbe'):
-                            #| - rawsoftrpbe
+                            # | - rawsoftrpbe
                             clean=float(sys.argv[2])
                             eoh=float(sys.argv[3])
                             eo=float(sys.argv[4])

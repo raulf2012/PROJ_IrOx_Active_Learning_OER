@@ -13,13 +13,14 @@ sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
 from proj_data_irox import calc_dH
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 #__|
 
-#| - VASP Gas-phase References
+
+# | - VASP Gas-phase References
 # Exp. heat of formation of H2O
-DG_f_H2O = -2.4583  # eV | -4.9166 eV for 2 H2O molecules
+DG_f_H2O = -2.4583  # eV   -4.9166 eV for 2 H2O molecules
 
 h2_ref = -6.759300
 
@@ -49,7 +50,7 @@ gas_dft_references_dict = {
 
 
 
-#| - Free Energy Corrections
+# | - Free Energy Corrections
 #Contributions to Gibbs Energies for gas molecules
 # (VASP-PBE calculated by Max; T= 300K)
 
@@ -78,7 +79,8 @@ h2_corr = zpe_h2 + cv_h2 - ts_h2
 
 #__|
 
-#| - Adsorbate Free Energy Corrections
+
+# | - Adsorbate Free Energy Corrections
 # Adsorbate Vibrational Analysis --> Free Energy Contributions
 # Obtained from DFT jobs in the following dir:
 # /global/cscratch1/sd/flores12/IrOx_Project/04_ads_vib/IrO3/110/01_O_covered
@@ -102,7 +104,7 @@ ads_fe_dict = {
         },
     }
 
-#| - NEW | Attempt to automate the calculation of the adsorbate FE corr dict
+# | - NEW | Attempt to automate the calculation of the adsorbate FE corr dict
 # 0.42611961567987805
 
 
@@ -114,7 +116,7 @@ ads_fe_dict = {
 #     ):
 #     """
 #     """
-#     #| - calc_ads_corr_i
+#     # | - calc_ads_corr_i
 #     if ads_spec == "oh":
 #         num_H = 1
 #         num_O = 1
@@ -164,7 +166,8 @@ corrections_dict = {
     }
 #__|
 
-#| - Bulk Calculations
+
+# | - Bulk Calculations
 # Bulk energies from typical bulk DFT calculation
 # Energies are on a per atom basis
 # Regressed bulk energies from surface energy extrapolations
@@ -190,7 +193,7 @@ IrO2_ave_regressed_bulk_e = -7.044138074749999
 # Ir2O4
 #__|
 
-#| - IrO3 (aAlF3)
+# | - IrO3 (aAlF3)
 # DFT bulk energy
 IrO3_bulk_e_dft = -6.46018589875
 
@@ -204,7 +207,7 @@ IrO3_ave_regressed_bulk_e = -6.463877450346546
 # Ir2O6
 #__|
 
-#| - IrO3 (rutile)
+# | - IrO3 (rutile)
 # DFT bulk energy
 IrO3_rutile_like_bulk_e_dft = -6.457128223125
 
@@ -218,7 +221,7 @@ IrO3_rutile_like_ave_regressed_bulk_e = -6.42967135329762
 # Ir4O12
 #__|
 
-#| - IrO3 (battery)
+# | - IrO3 (battery)
 # DFT bulk energy
 IrO3_battery_bulk_e_dft = -6.38668709984375
 
@@ -253,14 +256,19 @@ bulk_e_per_atom_dict = {
     }
 #__|
 
-#| - Computing dH and dG for IrO2 and IrO3
+
+# | - Computing dH and dG for IrO2 and IrO3
 def calc_dH(
     e_per_atom,
     stoich=None
     ):
     """
+    Based on a E_DFT/atom of -7.047516 for rutile-IrO2
+    
+    See the following dir for derivation:
+        PROJ_IrOx_Active_Learning_OER/workflow/energy_treatment_deriv/calc_references
     """
-    #| - calc_dH
+    # | - calc_dH
     o_ref = -4.64915959
     ir_metal_fit = -9.32910211636731
 
@@ -283,7 +291,8 @@ def calc_dH(
 
 #__|
 
-#| - Bulk Pourbaix Transitions
+
+# | - Bulk Pourbaix Transitions
 # From my bulk Pourbaix plot | RF | 190104
 bulk_pourb_trans_dict = {
     "ir_iro2": 0.74107,
@@ -297,7 +306,8 @@ bulk_pourb_trans_dict = {
     }
 #__|
 
-#| - Metastability limits of IrO2 and IrO3
+
+# | - Metastability limits of IrO2 and IrO3
 metastability_limits_raw_dft = dict(
     AB2=-6.542,
     AB3=-6.163,
@@ -310,7 +320,7 @@ metastability_limits_raw_dft = dict(
 #__|
 
 
-#| - Color Palettes
+# | - Color Palettes
 irox_bulk_color_map = {
     "Ir": "#6799A3",
     "IrO2": "#7FC97F",
@@ -358,9 +368,9 @@ irox_surface_e_color_map = {
 
 
 
-#| - Regular/Old Color Scheme | RF - 181109
+# | - Regular/Old Color Scheme | RF - 181109
 
-#| - color_palettes
+# | - color_palettes
 color_palettes = {
 
     "red_brown": [
@@ -477,9 +487,10 @@ system_color_map = {
     }
 #__|
 
-#__|
+# __|
 
-#| - Surface Energies
+
+# | - Surface Energies
 surface_energies = {
     "IrO2_100": 0.22334409161204058,
     "IrO2_110": 0.16552537099343662,
@@ -497,9 +508,10 @@ surface_energies = {
 
 max_surf_e = max(list(surface_energies.values()))
 min_surf_e = min(list(surface_energies.values()))
-#__|
+# __|
 
-#| - Smart Format Dict
+
+# | - Smart Format Dict
 smart_format_dict = [
 
     [
@@ -564,7 +576,32 @@ smart_format_dict_FED = [
 #__|
 
 
-#| - Scaling Relation Data
+#| - OER Systems to plot
+oer_systems_to_plot = [
+    "IrO2_100_h_covered_NaN",
+    "IrO2_100_o_covered_NaN",
+    "IrO2_110_h_covered_NaN",
+    "IrO2_110_o_covered_NaN",
+    "IrO3_100_h_covered_NaN",
+    "IrO3_100_o_covered_NaN",
+    "IrO3_110_h_covered_NaN",
+    "IrO3_110_o_covered_NaN",
+    "IrO3_111_o_covered_NaN",
+    #  "IrO3_211_h_covered_NaN",
+    "IrO3_211_o_covered_NaN",
+    "IrO3_battery_010_o_covered_a",
+    "IrO3_battery_010_o_covered_b",
+    "IrO3_rutile-like_100_h_covered_NaN",
+    "IrO3_rutile-like_100_o_covered_NaN",
+    "IrO3_rutile-like_100_o_covered_2_NaN",
+    #  "IrO3_rutile-like_110_h_covered_NaN",
+    "IrO3_rutile-like_110_o_covered_NaN",
+
+    ]
+#__|
+
+
+# | - Scaling Relation Data
 g_h2o = 0
 g_o2 = 4.92
 
@@ -613,10 +650,16 @@ scaling_dict_fitted = {
 
 #__|
 
-#| - Experimental IrOx Data From Nature Paper (R14)
+
+# | - Experimental IrOx Data From Nature Paper (R14)
 exp_irox_lim_pot_10mA = {
+    # R14
     "SrIrO3": 1.51,
-    "IrO2(110)": 1.94}
+    "IrO2(110)": 1.94,
+
+    # R95
+    "IrO2(110)_R95": 1.8,
+    }
 
 exp_irox_lim_pot_1mA = {
     "SrIrO3": 1.45,
@@ -632,9 +675,9 @@ exp_irox_lim_pot = {
 #__|
 
 
-#| - Figure Settings
+# | - Figure Settings
 
-#| - Fonts styling
+# | - Fonts styling
 axis_label_font_size = 10 * (4 / 3)
 # axis_tick_labels_font_size = 9 * (4 / 3)
 axis_tick_labels_font_size = 8 * (4 / 3)
@@ -648,7 +691,8 @@ voltage_name = "U<sub>RHE</sub> (V)"
 
 #__|
 
-#| - __misc__
+
+# | - __misc__
 proj_dir_name = "04_IrOx_surfaces_OER"
 
 data_dir_name = "04_IrOx_surfaces_OER"
@@ -664,10 +708,15 @@ data_dir = os.path.join(
     )
 
 system_names_dict = {
-    "IrO2": "IrO<sub>2</sub> (rutile)",
-    "IrO3": "IrO<sub>3</sub> (a-AlF<sub>3</sub>)",
-    "IrO3_rutile-like": "IrO<sub>3</sub> (rutile)",
-    "IrO3_battery": "IrO<sub>3</sub> (battery)"
+    "IrO2": "R-IrO<sub>2</sub>",
+    "IrO3": "α-IrO<sub>3</sub>",
+    "IrO3_rutile-like": "R-IrO<sub>3</sub>",
+    "IrO3_battery": "β-IrO<sub>3</sub>"
+
+    #  "IrO2": "IrO<sub>2</sub> (rutile)",
+    #  "IrO3": "IrO<sub>3</sub> (a-AlF<sub>3</sub>)",
+    #  "IrO3_rutile-like": "IrO<sub>3</sub> (rutile)",
+    #  "IrO3_battery": "IrO<sub>3</sub> (battery)"
     }
 
 # The following properties split the OER ads data into sets of bare,O,OH,OOH
@@ -680,7 +729,7 @@ groupby_props = [
 #__|
 
 
-#| - Location of important data files
+# | - Location of important data files
 # import os; import sys
 # sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
 # from proj_data_irox import (
@@ -809,7 +858,7 @@ ids_to_discard__too_many_atoms_path = os.path.join(
     )
 
 
-#| - __old__
+# | - __old__
 # voronoi_features_data_path = os.path.join(
 #     os.environ["PROJ_irox"],
 #     "workflow/ml_modelling/00_ml_workflow",
@@ -827,7 +876,8 @@ ids_to_discard__too_many_atoms_path = os.path.join(
 
 #__|
 
-#| - METHODS
+
+# | - METHODS
 def get_relative_path_to_proj(path):
     relative_path_to_proj = path.replace(
         os.environ["PROJ_irox"], "")
@@ -842,7 +892,7 @@ def get_relative_path_to_proj(path):
 
 
 
-#| - __old__
+# | - __old__
 
 # irox_surface_e_color_map = {
 #     "IrO2_bare": "#b4e9b4",

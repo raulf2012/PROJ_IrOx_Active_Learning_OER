@@ -5,7 +5,7 @@
 Author(s): Michal Badich, Raul A. Flores
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 import subprocess
 
@@ -18,25 +18,25 @@ from ase.thermochemistry import HarmonicThermo
 from ase_modules.ase_methods import clean_up_dft, an_ads_vib
 #__|
 
-#| - Script Inputs
+# | - Script Inputs
 dipole_corr = False
 indices_list = [3]
 name = "vib_vasp"
 #__|
 
-#| - Read Atoms Object
+# | - Read Atoms Object
 if os.path.isfile("init.cif"):
     atoms = io.read('init.cif')
 elif os.path.isfile("init.traj"):
     atoms = io.read('init.traj')
 #__|
 
-#| - Copy Previous OUTCAR and moments.traj
+# | - Copy Previous OUTCAR and moments.traj
 subprocess.call('cp -rf OUTCAR OUTCAR_$(date +%s)', shell=True)
 subprocess.call('cp -rf moments.traj moments.traj_$(date +%s)', shell=True)
 #__|
 
-#| - Calculator
+# | - Calculator
 calc = vasp_calculator.Vasp(
     lwave=False,
     encut=500,
@@ -118,7 +118,7 @@ calc = vasp_calculator.Vasp(
 atoms.set_calculator(calc)
 #__|
 
-#| - Vibrations
+# | - Vibrations
 vibstr = 'vib_' + name
 vib = Vibrations(atoms, name=vibstr, indices=indices_list, delta=0.005)
 vib.run()

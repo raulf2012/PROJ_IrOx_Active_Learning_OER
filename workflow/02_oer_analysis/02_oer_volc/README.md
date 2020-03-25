@@ -1,4 +1,4 @@
-13 #| - Color Palettes
+13 # | - Color Palettes
 314 irox_bulk_color_map = {
 315     "Ir": "#6799A3",
 316     "IrO2": "#7FC97F",

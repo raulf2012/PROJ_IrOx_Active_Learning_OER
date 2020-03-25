@@ -1,7 +1,7 @@
 #!/global/common/edison/software/python/2.7-anaconda-4.4/bin/python
 ##!/usr/common/software/python/2.7.9/bin/python
 
-#| - Import Modules
+# | - Import Modules
 from math import pow
 #from pylab import *
 #import matplotlib

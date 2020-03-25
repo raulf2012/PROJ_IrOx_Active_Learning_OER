@@ -5,7 +5,7 @@
 Author(s): Michal Badich, Chris Paolucci, Raul A. Flores
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 import ase.calculators.vasp as vasp_calculator
 import subprocess
@@ -15,7 +15,7 @@ import numpy as np
 from ase_modules.ase_methods import clean_up_dft
 #__|
 
-#| - Read Atoms Object
+# | - Read Atoms Object
 if os.path.isfile("init.cif"):
     atoms = io.read('init.cif')
 elif os.path.isfile("init.traj"):
@@ -25,7 +25,7 @@ elif os.path.isfile("init.traj"):
 subprocess.call('cp -rf OUTCAR OUTCAR_$(date +%s)', shell=True)
 subprocess.call('cp -rf moments.traj moments.traj_$(date +%s)', shell=True)
 
-#| - k-points
+# | - k-points
 unitcell = atoms.get_cell()
 print(unitcell)
 
@@ -48,7 +48,7 @@ if kpoints[0] * kpoints[1] * kpoints[2] < 10:
 print(kpoints)
 #__|
 
-#| - Calculator
+# | - Calculator
 
 calc_params = dict(
     # potim=0.03,

@@ -5,7 +5,7 @@
 Author: Raul A. Flores
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 
 import copy
@@ -29,7 +29,7 @@ def add_duplicate_axes(
     ):
     """
     """
-    #| - add_duplicate_axes
+    # | - add_duplicate_axes
 
     # This is necessary to make sure that the original traces are still visible after adding the new traces
     fig.update_layout(

@@ -1,7 +1,7 @@
 """
 """
 
-#| - Import Modules
+# | - Import Modules
 import os
 import sys
 
@@ -19,7 +19,7 @@ from proj_data_irox import (
 # #############################################################################
 
 
-#| - Main layout object
+# | - Main layout object
 layout = go.Layout(
     angularaxis=None,
     annotations=None,
@@ -77,7 +77,8 @@ layout = go.Layout(
     modebar=None,
     orientation=None,
     # #########################################################################
-    paper_bgcolor="rgba(250,250,250,0.9)",
+    # paper_bgcolor="rgba(250,250,250,0.9)",
+    paper_bgcolor="white",
     plot_bgcolor="rgba(0,0,0,0)",
     piecolorway=None,
     polar=None,
@@ -140,9 +141,9 @@ layout = go.Layout(
 #__|
 
 
-#| - Axis Layout  options
+# | - Axis Layout  options
 
-#| - shared axis dict
+# | - shared axis dict
 shared_axis_dict = dict(
     anchor=None,
     automargin=None,
@@ -263,7 +264,7 @@ layout.yaxis = yaxis_layout
 #__|
 
 
-#| - Plot Annotations
+# | - Plot Annotations
 
 
 annotations = [
@@ -307,4 +308,3 @@ annotations = [
 
 # layout.annotations = annotations
 #__|
-
