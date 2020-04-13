@@ -1,0 +1,7 @@
+# app/config/credentials.yml
+credentials:
+    username: foo
+    password: bar
+
+mpcontrib:
+    api_key: TEMP
