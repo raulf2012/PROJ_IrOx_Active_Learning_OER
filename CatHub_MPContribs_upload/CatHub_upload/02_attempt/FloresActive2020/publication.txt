@@ -1,0 +1,11 @@
+authors: ['Flores, Raul A.', 'Paolucci, Christopher', 'Winther, Kirsten T. ', 'Jain, Ankit', 'Torres, Jose Antonio Garrido', 'Aykol, Muratahan', 'Montoya, Joseph ', 'Nørskov, Jens K.', 'Bajdich, Michal', 'Bligaard, Thomas']
+doi: 10.NNNN/....
+journal: TBD
+number: '1'
+pages: 23-42
+publisher: TBD
+tags: []
+title: 'Active Learning Accelerated Discovery of Stable IrOx Polymorphs for the Oxygen Evolution Reaction'
+volume: '1'
+year: '2020'
+email: 'flores12@stanford.edu'
