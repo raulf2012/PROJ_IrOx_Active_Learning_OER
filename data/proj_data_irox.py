@@ -858,6 +858,21 @@ ids_to_discard__too_many_atoms_path = os.path.join(
     )
 
 
+# Prototype Classification Analysis
+
+df_prototype_dft_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling/processing_bulk_dft/symmetry_analysis_dft_static",
+    "out_data",
+    "df_prototype_dft.pickle")
+
+df_prototype_static_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling/processing_bulk_dft/symmetry_analysis_dft_static",
+    "out_data",
+    "df_prototype_static.pickle")
+
+
 # | - __old__
 # voronoi_features_data_path = os.path.join(
 #     os.environ["PROJ_irox"],
