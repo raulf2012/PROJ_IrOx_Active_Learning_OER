@@ -67,6 +67,7 @@ class ALAnimation:
         marker_color_dict=None,
         verbose=True,
         color_custom_points=False,
+        gens_to_plot=None,
         ):
         """
         """
@@ -80,6 +81,7 @@ class ALAnimation:
         self.verbose = verbose
 
         self.color_custom_points = color_custom_points
+        self.gens_to_plot = gens_to_plot
         #__|
 
         # | - Initializing Internal Instance Attributes
@@ -143,6 +145,7 @@ class ALAnimation:
         # marker_color_dict=None,
         serial_parallel=None,
         read_traces_from_file=True,
+        get_trace_j_kwargs=None,
         ):
         """
         """
@@ -153,17 +156,16 @@ class ALAnimation:
         verbose = self.verbose
 
         get_trace_j = self.get_trace_j
-        get_layout = self.get_layout
-        get_sliders_init_dict = self.get_sliders_init_dict
-        get_slider_step_i = self.get_slider_step_i
-        __save_figure_to_file__ = self.__save_figure_to_file__
+        # get_layout = self.get_layout
+        # get_sliders_init_dict = self.get_sliders_init_dict
+        # get_slider_step_i = self.get_slider_step_i
+        # __save_figure_to_file__ = self.__save_figure_to_file__
 
+        gens_to_plot = self.gens_to_plot
         #__| #################################################################
 
-
+        # | - Read traces from file
         traces_read_succ = False
-
-        # TEMP
         read_traces_from_file = False
         if read_traces_from_file:
             print("TEMP | 0 | ijs8hf8sdf")
@@ -183,20 +185,35 @@ class ALAnimation:
                     self.traces = traces
                     traces_read_succ = True
             # #################################################################
+        #__|
 
         if not traces_read_succ:
             # | - Create traces
             # Shared kwargs for 'get_trace_j' method
-            get_trace_j_kwargs = dict(
-                prediction_key="y",
-                uncertainty_key="err",
-                plot_dft_instead_of_pred=True,
-                # trace_all_dft=False,
-                trace_horiz_lines=False,
-                plot_validation_dft=False,
-                # marker_color_dict=marker_color_dict,
-                # marker_size=8,
-                )
+            if get_trace_j_kwargs is None:
+                get_trace_j_kwargs = dict(
+                    prediction_key="y",
+                    uncertainty_key="err",
+                    plot_dft_instead_of_pred=True,
+                    # trace_all_dft=False,
+                    trace_horiz_lines=False,
+                    plot_validation_dft=False,
+                    # marker_color_dict=marker_color_dict,
+                    # marker_size=8,
+                    add_vertical_track_lines=False,
+                    just_traces=True,
+                    )
+
+            # #################################################################
+            if gens_to_plot is not None:
+                gens_to_plot_dict = dict()
+                for gen_i in gens_to_plot:
+                    gens_to_plot_dict[gen_i] = ALBulkOpt.al_gen_dict.get(gen_i)
+            else:
+                gens_to_plot_dict = ALBulkOpt.al_gen_dict
+
+            # iterator = enumerate(gens_to_plot_dict.items())
+
 
             # ALBulkOpt.al_gen_dict.items()
 
@@ -206,13 +223,11 @@ class ALAnimation:
 
                 # models = [i.model for i in ALBulkOpt.al_gen_dict.values()]
 
-                # TEMP
-                al_gen_dict = ALBulkOpt.al_gen_dict
-                #  print("Removing gens manually here")
-                #  al_gen_dict.pop(48)
-                #  al_gen_dict.pop(47)
+                # al_gen_dict = ALBulkOpt.al_gen_dict
 
-                AL_i_list = [i for i in al_gen_dict.values()]
+
+                AL_i_list = [i for i in gens_to_plot_dict.values()]
+                # AL_i_list = [i for i in al_gen_dict.values()]
                 # AL_i_list = [i for i in ALBulkOpt.al_gen_dict.values()]
 
                 traces_all = Pool().map(partial(
@@ -243,7 +258,16 @@ class ALAnimation:
                 # | - Serial execution
                 t0 = time.time()
 
-                iterator = enumerate(ALBulkOpt.al_gen_dict.items())
+                # if gens_to_plot is not None:
+                #     gens_to_plot_dict = dict()
+                #     for gen_i in gens_to_plot:
+                #         gens_to_plot_dict[gen_i] = ALBulkOpt.al_gen_dict.get(gen_i)
+                # else:
+                #     gens_to_plot_dict = ALBulkOpt.al_gen_dict
+                #
+
+                iterator = enumerate(gens_to_plot_dict.items())
+                # iterator = enumerate(ALBulkOpt.al_gen_dict.items())
                 for i_cnt, (gen_i, AL_gen_i) in iterator:
                     if verbose:
                         print(4 * "", "Processing generation #", gen_i)
@@ -273,21 +297,21 @@ class ALAnimation:
                 #__|
 
 
-            # Pickling data #######################################################
+            # Pickling data ###################################################
             import os; import pickle
             directory = "out_data"
             if not os.path.exists(directory): os.makedirs(directory)
             file_path = os.path.join(directory, "ALAnim__traces.pickle")
             with open(file_path, "wb") as fle:
                 pickle.dump(self.traces, fle)
-            # #####################################################################
+            # #################################################################
 
             #__|
 
         #__|
 
     def __create_figure__(self,
-        duration_long=None,
+            duration_long=None,
         duration_short=None,
         ):
         """
@@ -581,7 +605,7 @@ class ALAnimation:
                 new_column_values_dict["marker_color"] = "grey"
                 new_column_values_dict["marker_line_size"] = 0.2
 
-            if marker_color_dict is not None and self.color_custom_points: 
+            if marker_color_dict is not None and self.color_custom_points:
                 if id_i in marker_color_dict.keys():
                     # new_column_values_dict["marker_symbol"] = "circle-cross"
                     # new_column_values_dict["marker_symbol"] = "circle-open"
@@ -682,27 +706,31 @@ class ALAnimation:
 
 
         #| - Horizontal track id lines
-        special_ids = list(marker_color_dict.keys())
-        special_ids = \
-            [i for i in model.index.tolist() if i in special_ids]
-
-        model_0 = model.loc[special_ids]
-
-        # print(3 * "\n")
-        # print(model_0)
-
-        # TEMP
-        # Pickling data ######################################################
-        import os; import pickle
-        # directory = "out_data"
-        # if not os.path.exists(directory): os.makedirs(directory)
-        # with open(os.path.join(os.environ["HOME"], "__temp__", "TEMP.pickle"), "wb") as fle:
-        #     pickle.dump(model_0, fle)
-        # #####################################################################
 
 
         # Adding vertical traces to track top 10
+        model__tracked = None
         if add_vertical_track_lines:
+
+            special_ids = list(marker_color_dict.keys())
+            special_ids = \
+                [i for i in model.index.tolist() if i in special_ids]
+
+            model_0 = model.loc[special_ids]
+
+            # print(3 * "\n")
+            # print(model_0)
+
+            # TEMP
+            # Pickling data ######################################################
+            # import os; import pickle
+            # directory = "out_data"
+            # if not os.path.exists(directory): os.makedirs(directory)
+            # with open(os.path.join(os.environ["HOME"], "__temp__", "TEMP.pickle"), "wb") as fle:
+            #     pickle.dump(model_0, fle)
+            # #####################################################################
+
+
             for i_ind, row_i in model_0.iterrows():
                 Y_main = row_i["Y_main"]
                 x_ind = row_i["x_axis_ind"]
@@ -730,8 +758,8 @@ class ALAnimation:
 
                 data.append(trace_i)
 
-        # TEMP COMBAK
-        model__tracked = model_0
+            # TEMP COMBAK
+            model__tracked = model_0
 
 
         # trace_i = go.Scatter(

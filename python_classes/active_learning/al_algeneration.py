@@ -378,7 +378,7 @@ class ALGeneration:
                     df_tmp[df_tmp["gen_acquired"] == earlist_gen].sort_values(
                         "y_real").iloc[0]
 
-                print(df_tmp)
+                # print(df_tmp)
 
                 # Select the most stable system
                 selected_row = df_tmp.sort_values("y_real").iloc[0]

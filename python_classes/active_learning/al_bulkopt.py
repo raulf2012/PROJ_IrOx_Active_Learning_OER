@@ -7,11 +7,13 @@ Author: Raul A. Flores
 
 # | - IMPORT MODULES
 import os
-# import copy
-#
+
 import pickle
-#
+
 import numpy as np
+
+#| - __old__
+# import copy
 # import pandas as pd
 #
 # # SciKitLearn
@@ -26,6 +28,8 @@ import numpy as np
 # from catlearn.preprocess.scaling import standardize
 #
 # from IPython.display import display
+#__|
+
 #__|
 
 # TEMP

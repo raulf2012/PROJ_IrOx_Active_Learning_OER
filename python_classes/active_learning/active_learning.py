@@ -170,8 +170,17 @@ class RegressionModel:
 
         #  ####################################################################
         # Unstandardizing the output ##########################################
-        y_std = train_y.std().values[0]
-        y_mean = train_y.mean().values[0]
+
+        y_std = train_y.std()
+        if type(y_std) != float:
+            y_std = y_std.values[0]
+
+        y_mean = train_y.mean()
+        if type(y_std) != float:
+            y_mean = y_mean.values[0]
+
+        # y_std = train_y.std().values[0]
+        # y_mean = train_y.mean().values[0]
 
         model_i["y"] = (model_i["y"] * y_std) + y_mean
         model_i["err"] = (model_i["err"] * y_std)
