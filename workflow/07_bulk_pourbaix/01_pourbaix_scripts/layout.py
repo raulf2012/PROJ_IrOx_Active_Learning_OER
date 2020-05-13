@@ -323,7 +323,7 @@ annotations = [
 
     # rutile-IrO3
     copy.deepcopy(shared_annot_props).update(
-        text="rutile-IrO<sub>3</sub> (s)",
+        text="R-IrO<sub>3</sub> (s)",
         font_color=irox_bulk_color_map["IrO3_rutile-like"],
         x=0.02 + dx0,
         y=0.91 + dy - 0.005,
@@ -340,7 +340,8 @@ annotations = [
     # #########################################################################
     # rutile-IrO2 #############################################################
     copy.deepcopy(shared_annot_props).update(
-        text="rutile IrO<sub>2</sub> (s)",
+        # text="rutile IrO<sub>2</sub> (s)",
+        text="R-IrO<sub>2</sub> (s)",
         x=0.5,
         y=0.23,
         overwrite=True),

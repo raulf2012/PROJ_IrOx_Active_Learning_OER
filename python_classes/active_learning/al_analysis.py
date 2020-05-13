@@ -88,6 +88,8 @@ class ALAnimation:
         self.traces = dict()
 
         self.swap_histories = None
+
+        self.get_global_props()
         #__|
 
 
@@ -154,13 +156,7 @@ class ALAnimation:
         # | - Attributes #######################################################
         ALBulkOpt = self.ALBulkOpt
         verbose = self.verbose
-
         get_trace_j = self.get_trace_j
-        # get_layout = self.get_layout
-        # get_sliders_init_dict = self.get_sliders_init_dict
-        # get_slider_step_i = self.get_slider_step_i
-        # __save_figure_to_file__ = self.__save_figure_to_file__
-
         gens_to_plot = self.gens_to_plot
         #__| #################################################################
 
@@ -213,8 +209,6 @@ class ALAnimation:
                 gens_to_plot_dict = ALBulkOpt.al_gen_dict
 
             # iterator = enumerate(gens_to_plot_dict.items())
-
-
             # ALBulkOpt.al_gen_dict.items()
 
             if serial_parallel == "parallel":
@@ -222,7 +216,6 @@ class ALAnimation:
                 t0 = time.time()
 
                 # models = [i.model for i in ALBulkOpt.al_gen_dict.values()]
-
                 # al_gen_dict = ALBulkOpt.al_gen_dict
 
 
@@ -258,32 +251,18 @@ class ALAnimation:
                 # | - Serial execution
                 t0 = time.time()
 
-                # if gens_to_plot is not None:
-                #     gens_to_plot_dict = dict()
-                #     for gen_i in gens_to_plot:
-                #         gens_to_plot_dict[gen_i] = ALBulkOpt.al_gen_dict.get(gen_i)
-                # else:
-                #     gens_to_plot_dict = ALBulkOpt.al_gen_dict
-                #
-
                 iterator = enumerate(gens_to_plot_dict.items())
-                # iterator = enumerate(ALBulkOpt.al_gen_dict.items())
                 for i_cnt, (gen_i, AL_gen_i) in iterator:
                     if verbose:
                         print(4 * "", "Processing generation #", gen_i)
-
-                    # model_i = AL_gen_i.model
 
                     # #############################################################
                     traces_i = self.traces.get(gen_i, None)
                     if traces_i is None:
                         traces_i = get_trace_j(
                             AL_gen_i,
-                            # model_i,
-
                             # KWARGS
-                            **get_trace_j_kwargs,
-                            )
+                            **get_trace_j_kwargs)
 
                         traces_dict_i = {gen_i: traces_i}
                         self.traces.update(traces_dict_i)
@@ -441,6 +420,39 @@ class ALAnimation:
             file_path_i)
         #__|
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     def get_trace_j(self,
         AL_i,
         # model,
@@ -455,6 +467,7 @@ class ALAnimation:
         # marker_color_dict=None,
         add_vertical_track_lines=False,
         just_traces=True,
+        error_type="filled",  # 'filled', 'normal'
         ):
         """
 
@@ -466,21 +479,24 @@ class ALAnimation:
                 they've been acquired and then by the target value
                 NOTE: This messes up the animation feature and is only intended
                 for generating single generation figures
+            error_type: 'filled' or 'normal'
+                Whether the error bars will be filled in or just normal error bars that are attached to the datapoints
         """
         # | - get_trace_j
         # #####################################################################
         ALBulkOpt = self.ALBulkOpt
         verbose = self.verbose
         marker_color_dict = self.marker_color_dict
-        traces_dict = self.traces
-        get_trace_j = self.get_trace_j
-        get_layout = self.get_layout
-        get_sliders_init_dict = self.get_sliders_init_dict
-        get_slider_step_i = self.get_slider_step_i
-        __save_figure_to_file__ = self.__save_figure_to_file__
+        y_max_global = self.y_max_global
+
+        # traces_dict = self.traces
+        # get_trace_j = self.get_trace_j
+        # get_layout = self.get_layout
+        # get_sliders_init_dict = self.get_sliders_init_dict
+        # get_slider_step_i = self.get_slider_step_i
+        # __save_figure_to_file__ = self.__save_figure_to_file__
         # #####################################################################
 
-        # print("plot_validation_dft:", plot_validation_dft)
 
         # TEMP
         verbose = False
@@ -687,8 +703,8 @@ class ALAnimation:
                 model_acq_f.sort_values(key_tmp),
                 model_acq_t.sort_values(key_tmp)])
 
-            # if id_i in marker_color_dict.keys():
 
+            # if id_i in marker_color_dict.keys():
             # Bringing 'special' systems up front
             # special_ids = list(marker_color_dict.keys())
             # special_ids = \
@@ -706,8 +722,6 @@ class ALAnimation:
 
 
         #| - Horizontal track id lines
-
-
         # Adding vertical traces to track top 10
         model__tracked = None
         if add_vertical_track_lines:
@@ -718,19 +732,14 @@ class ALAnimation:
 
             model_0 = model.loc[special_ids]
 
-            # print(3 * "\n")
-            # print(model_0)
+            model_tmp = model[model.duplicate == False]
 
-            # TEMP
-            # Pickling data ######################################################
-            # import os; import pickle
-            # directory = "out_data"
-            # if not os.path.exists(directory): os.makedirs(directory)
-            # with open(os.path.join(os.environ["HOME"], "__temp__", "TEMP.pickle"), "wb") as fle:
-            #     pickle.dump(model_0, fle)
-            # #####################################################################
+            y_min = model_tmp.y_real.min()
+            y_max = model_tmp.y_real.max()
 
+            y_max_tmp = y_max + 0.4
 
+            y_max_global_tmp = y_max_global + 2
             for i_ind, row_i in model_0.iterrows():
                 Y_main = row_i["Y_main"]
                 x_ind = row_i["x_axis_ind"]
@@ -738,11 +747,14 @@ class ALAnimation:
 
                 if acquired:
                     color = "red"
-                    y = [4.7, 6]
+                    # y = [4.7, 6]
+                    # y = [y_max_global - 1.3, y_max_global]
+                    y = [y_max_global - 0.2, y_max_global_tmp]
                     width = 0.8
                 else:
                     color = "grey"
-                    y = [5., 6]
+                    # y = [y_max_global - 1, y_max_global]
+                    y = [y_max_global - 0.1, y_max_global_tmp]
                     width = 0.5
 
                 trace_i = go.Scatter(
@@ -760,17 +772,6 @@ class ALAnimation:
 
             # TEMP COMBAK
             model__tracked = model_0
-
-
-        # trace_i = go.Scatter(
-        #     mode="lines",
-        #     x=[100, 100],
-        #     y=[0, 4],
-        #     )
-        #
-        #
-        # data.append(trace_i)
-
         # __|
 
 
@@ -817,7 +818,9 @@ class ALAnimation:
             name="error_high",
             **shared_scatter_props,
             )
-        data.append(trace)
+
+        if error_type == "filled":
+            data.append(trace)
 
         trace = go.Scatter(
             x=model_tmp["x_axis_ind"],
@@ -826,14 +829,32 @@ class ALAnimation:
             name="error_low",
             **shared_scatter_props,
             )
-        data.append(trace)
+        if error_type == "filled":
+            data.append(trace)
         #__|
 
+
+        #  error_type="filled",  # 'filled', 'normal'
+        if error_type == "normal":
+
+            error_y = dict(
+               type='data',
+               array=model["Y_uncer"],
+               visible=True,
+               thickness=0.3,
+               width=1.5,
+               # color="rgba(120,120,120,1.0)",
+               color="rgba(80,80,60,1.0)",
+               )
+        else:
+            error_y = None
 
         trace_i = go.Scatter(
             x=model["x_axis_ind"],
             # y=model[prediction_key],
             y=model["Y_main"],
+
+            error_y=error_y,
 
             # error_y=dict(
             #     type='data',
@@ -844,8 +865,8 @@ class ALAnimation:
             #     # color="rgba(120,120,120,1.0)",
             #     color="rgba(80,80,60,1.0)",
             #     ),
-
             # name=model["id"],
+
             mode="markers",
 
             text=model.index.tolist(),
@@ -863,8 +884,6 @@ class ALAnimation:
                 },
             )
         data.append(trace_i)
-
-
         #__|
 
 
@@ -1049,6 +1068,66 @@ class ALAnimation:
             return(data, other_data_dict)
         #__|
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def get_global_props(self,
+        #  duration_long=1000 * 2,
+        #  duration_short=800 * 2,
+        ):
+        """
+        """
+        #| - get_global_props
+        ALBulkOpt = self.ALBulkOpt
+
+        y_max_list = []
+        y_min_list = []
+        #  for gen_i, AL_i in AL.al_gen_dict.items():
+        for gen_i, AL_i in ALBulkOpt.al_gen_dict.items():
+            model = AL_i.model
+
+            model_tmp = model[model.duplicate == False]
+
+            y_max = model_tmp.y.max()
+            y_max_list.append(y_max)
+
+            y_min = model_tmp.y.min()
+            y_min_list.append(y_min)
+
+        y_max_global = np.max(y_max_list)
+        y_min_global = np.min(y_min_list)
+
+        self.y_max_global = y_max_global
+        self.y_min_global = y_min_global
+        #__|
+
+
     def get_layout(self,
         duration_long=1000 * 2,
         duration_short=800 * 2,
@@ -1056,6 +1135,28 @@ class ALAnimation:
         """
         """
         # | - get_layout
+
+        # #####################################################################
+        ALBulkOpt = self.ALBulkOpt
+        #  verbose = self.verbose
+        #  marker_color_dict = self.marker_color_dict
+
+        y_max_global = self.y_max_global
+        y_min_global = self.y_min_global
+
+        # traces_dict = self.traces
+        # get_trace_j = self.get_trace_j
+        # get_layout = self.get_layout
+        # get_sliders_init_dict = self.get_sliders_init_dict
+        # get_slider_step_i = self.get_slider_step_i
+        # __save_figure_to_file__ = self.__save_figure_to_file__
+        # #####################################################################
+
+        # AL = self.ALBulkOpt
+
+        AL_i = ALBulkOpt.al_gen_dict[0]
+        num_xaxis = AL_i.model.shape[0]
+
 
         # | - updatemenus
         updatemenus = [
@@ -1120,18 +1221,19 @@ class ALAnimation:
             xaxis={
                 'title': 'Candidate Space',
 
-                # 'range': [0 - 5, len(models_list[0]) + 5],
-                # 'autorange': False,
-                'autorange': True,
+                #  'range': [0 - 5, len(models_list[0]) + 5],
+                'range': [-10, num_xaxis + 5],
+
+                'autorange': False,
+                #  'autorange': True,
 
                 'showgrid': False,
                 'zeroline': False,
                 'showline': True,
-                'ticks': '',
+                'ticks': 'outside',
                 'showticklabels': True,
                 'mirror': True,
                 'linecolor': 'black',
-
                 },
 
             yaxis={
@@ -1139,14 +1241,18 @@ class ALAnimation:
 
                 # 'range': [global_y_min, global_y_max],
                 # 'range': [-1.5, 2.4],
+                #  'range': [-1., y_max_global + 0.1],
+                'range': [y_min_global - 0.1, y_max_global + 0.1],
+
                 # 'autorange': False,
-                'autorange': True,
+                #  'autorange': True,
+
                 'fixedrange': False,
 
                 'showgrid': False,
                 'zeroline': True,
                 'showline': True,
-                'ticks': '',
+                'ticks': 'outside',
                 'showticklabels': True,
                 'mirror': True,
                 'linecolor': 'black',

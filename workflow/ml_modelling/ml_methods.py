@@ -29,6 +29,10 @@ def get_ml_dataframes(
         "df_ccf_path",
         "df_dij_path",
         "ids_to_discard__too_many_atoms_path",
+        "df_prototype_dft",
+        "df_prototype_static",
+        "df_dft_final_final_path",
+        "ids_duplicates_path",
         ],
 
     ):
@@ -56,6 +60,11 @@ def get_ml_dataframes(
         df_ccf_path,
         df_dij_path,
         ids_to_discard__too_many_atoms_path,
+
+        df_prototype_dft_path,
+        df_prototype_static_path,
+        df_dft_final_final_path,
+        ids_duplicates_path,
         )
 
     data_paths = {
@@ -63,8 +72,7 @@ def get_ml_dataframes(
         "unique_ids_path": unique_ids_path,
         "prototypes_data_path": prototypes_data_path,
         "static_irox_structures_path": static_irox_structures_path,
-        "static_irox_structures_kirsten_path":
-            static_irox_structures_kirsten_path,
+        "static_irox_structures_kirsten_path": static_irox_structures_kirsten_path,
         "oqmd_irox_data_path": oqmd_irox_data_path,
         "df_features_pre_opt_path": df_features_pre_opt_path,
         "df_features_pre_opt_kirsten_path": df_features_pre_opt_kirsten_path,
@@ -75,14 +83,23 @@ def get_ml_dataframes(
         "oer_bulk_structures_path": oer_bulk_structures_path,
         "df_ccf_path": df_ccf_path,
         "df_dij_path": df_dij_path,
-        "ids_to_discard__too_many_atoms_path":
-            ids_to_discard__too_many_atoms_path,
+        "ids_to_discard__too_many_atoms_path": ids_to_discard__too_many_atoms_path,
+
+        #  "df_prototype_dft": df_prototype_dft,
+        #  "df_prototype_static": df_prototype_static,
+        "df_prototype_dft_path": df_prototype_dft_path,
+        "df_prototype_static_path": df_prototype_static_path,
+        "df_dft_final_final_path": df_dft_final_final_path,
+        "ids_duplicates_path": ids_duplicates_path,
         }
     #__|
 
     temp = data_paths
     data_dict = dict()
     for key, path in temp.items():
+
+        #  print("key:", key)
+        #  print("path:", path)
 
         if key not in names:
             continue
@@ -106,7 +123,7 @@ def get_ml_dataframes(
         data_i = None
         if is_pickle:
             try:
-                #  print("TEMP sidjfijsd9i", path)
+                # print("TEMP sidjfijsd9i", path)
                 with open(path, "rb") as fle:
                     data_i = pickle.load(fle)
             except:
@@ -165,6 +182,9 @@ def get_data_for_al(
 
     df_dij = df_dict.get("df_dij", None)
 
+    print("ISDFIODISFIDS*F*SDF*SDYUGFSODIUFG")
+    print("6fcdbh9fz2 in df_bulk_dft", "6fcdbh9fz2" in df_bulk_dft.index)
+
 
     df_static_irox = df_dict.get("static_irox_structures", None)
     #__|
@@ -204,7 +224,10 @@ def get_data_for_al(
 
     df_bulk_dft = df_i
 
-    print("TEMP TEMP TEMP 89ihsjdgf", "6dzhcimdxs" in df_bulk_dft.index)
+    print("ISDFIODISFIDS*F*SDF*SDYUGFSODIUFG")
+    print("6fcdbh9fz2 in df_bulk_dft", "6fcdbh9fz2" in df_bulk_dft.index)
+
+    # print("TEMP TEMP TEMP 89ihsjdgf", "6dzhcimdxs" in df_bulk_dft.index)
     #__|
 
     # | - Featurs pre-DFT
@@ -286,7 +309,7 @@ def get_data_for_al(
 
     ids_to_drop = [i for i in ids_to_drop if i in all_ids]
 
-    print("in ids to drop", "6fcdbh9fz2" in ids_to_drop)
+    # print("in ids to drop", "6fcdbh9fz2" in ids_to_drop)
 
     df_features_pre = df_features_pre.drop(
         labels=ids_to_drop, axis=0)
@@ -299,7 +322,7 @@ def get_data_for_al(
         ]
 
 
-    print("TEMP TEMP TEMP 89ihsjdgf", "6dzhcimdxs" in df_bulk_dft.index)
+    # print("TEMP TEMP TEMP 89ihsjdgf", "6dzhcimdxs" in df_bulk_dft.index)
 
     df_bulk_dft = df_bulk_dft.loc[
         df_bulk_dft.index.intersection(
@@ -307,7 +330,10 @@ def get_data_for_al(
             ).unique()
         ]
 
-    print("TEMP TEMP TEMP 89ihsjdgf", "6dzhcimdxs" in df_bulk_dft.index)
+    print("ISDFIODISFIDS*F*SDF*SDYUGFSODIUFG")
+    print("6fcdbh9fz2 in df_bulk_dft", "6fcdbh9fz2" in df_bulk_dft.index)
+
+    # print("TEMP TEMP TEMP 89ihsjdgf", "6dzhcimdxs" in df_bulk_dft.index)
 
     df_static_irox = df_static_irox.loc[
         df_static_irox.index.intersection(
@@ -325,7 +351,7 @@ def get_data_for_al(
     ids_dij = ids_static.tolist() + ids_completed_post_dft.tolist()
     df_dij = df_dij.loc[ids_dij, ids_dij]
 
-    print("TEMP TEMP TEMP", "6fcdbh9fz2" in df_dij.index)
+    # print("TEMP TEMP TEMP", "6fcdbh9fz2" in df_dij.index)
 
     #__|
 

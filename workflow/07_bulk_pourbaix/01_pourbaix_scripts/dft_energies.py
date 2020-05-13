@@ -61,6 +61,17 @@ ion_dict_solids_expt = {
 #__|
 
 
+#  tmp = calc_dH(-6.456962203125, stoich="AB3")
+#  print("ISFIIDIFJDISJFIDSF")
+#  print("R-IrO3", tmp)
+#  print("ISFIIDIFJDISJFIDSF")
+#  print("")
+#  tmp = calc_dH(-6.41597669640625, stoich="AB3")
+#  print("ISFIIDIFJDISJFIDSF")
+#  print("B-IrO3", tmp)
+#  print("ISFIIDIFJDISJFIDSF")
+
+
 # Newest effort, using energetics at 500eV (AL energies)
 ion_dict_solids_expt = {
 
@@ -73,13 +84,13 @@ ion_dict_solids_expt = {
 
     # #########################################################################
     # "IrO3_a-AlF3": (4 * -0.650702238408173) - TdS_iro3,
-    # "IrO3_a-AlF3": (4 * calc_dH(-6.46984746, stoich="AB3")) - TdS_iro3,
+    "IrO3_a-AlF3": (4 * calc_dH(-6.46984746, stoich="AB3")) - TdS_iro3,
 
     # #########################################################################
-    # "IrO3_rutile-like": (4 * calc_dH(-6.456962203125, stoich="AB3")) - TdS_iro3,  # b5cgvsb16w
+    "IrO3_rutile-like": (4 * calc_dH(-6.456962203125, stoich="AB3")) - TdS_iro3,  # b5cgvsb16w
 
     # #########################################################################
-    # "IrO3_battery": (4 * calc_dH(-6.41597669640625, stoich="AB3")) - TdS_iro3,  # Current calc, running
+    "IrO3_battery": (4 * calc_dH(-6.41597669640625, stoich="AB3")) - TdS_iro3,  # Current calc, running
 
 
     # #########################################################################

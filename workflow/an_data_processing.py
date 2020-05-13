@@ -9,13 +9,9 @@ Author: Raul A. Flores
 import os
 import sys
 
-sys.path.insert(
-    0,
-    os.path.join(
-        os.environ["PROJ_irox"],
-        "data",
-        ),
-    )
+sys.path.insert(0, os.path.join(
+    os.environ["PROJ_irox"],
+    "data"))
 
 import pickle
 import copy
@@ -109,9 +105,11 @@ def load_df(
         from_file:
     """
     # | - load_df
+
     if from_file:
 
         # | - From Saved Pickle File
+        import pickle
         print("Attempting to load df from pickle")
         with open(data_dir + "/" + file_name, "rb") as fle:
             df_master = pickle.load(fle)
@@ -134,6 +132,28 @@ def load_df(
             df_master = Jobs.filter_early_revisions(Jobs.data_frame)
         else:
             df_master = Jobs.data_frame
+
+
+        # #########################################################
+        import pickle; import os
+        path_i = os.path.join(
+            os.environ["PROJ_irox"],
+            "parse_dft_data/out_data",
+            "df_data_new.pickle")
+        with open(path_i, "rb") as fle:
+            df_m_new = pickle.load(fle)
+        # #########################################################
+
+        df_m_new.index = ["new"]
+
+        df_master = pd.concat([
+            df_master,
+            df_m_new
+            ], axis=0)
+
+
+        df_master.index = [str(i) for i in df_master.index.tolist()]
+
 
 
         if process_df:
@@ -458,6 +478,85 @@ def load_df(
 
             if not df_ads.empty:
 
+                # | - Filtering Out Extra Calculations
+                """
+                Each OER set (bare, O, OH, OOH) should only have 1 calculation
+                corresponding to the 4 intermediate structures
+
+                If there are more than 1 calculation available, then the "best"
+                one should be selected.
+
+                This is often based on the criteria of energy (most stable)
+                """
+                from proj_data_irox import groupby_props
+                groupby_props = copy.deepcopy(groupby_props)
+
+
+                df_ads.loc[df_ads["coverage_type"] == "O-4_OH-0", "coverage_type"] = "o_covered"
+                df_ads.loc[df_ads["coverage_type"] == "O-2_OH-0", "coverage_type"] = "o_covered_2"
+                df_ads.loc[df_ads["coverage_type"] == "O-2_OH-2", "coverage_type"] = "h_covered"
+
+
+                groupby_props.append("adsorbate")
+                grouped = df_ads.groupby(groupby_props)
+
+                ignore_indices = np.array([])
+                for i_ind, (name, group) in enumerate(grouped):
+                    props_i = dict(zip(groupby_props, list(name)))
+                    df_i = group
+
+                    if len(df_i) > 1:
+                        # print(""); print("_____")
+                        # print("more than 1 structure here")
+                        print(name)
+
+                        if props_i["adsorbate"] == "ooh":
+
+                            if "new" in df_i.index.tolist():
+                                # print(df_i)
+                                df_i_tmp = df_i.copy(deep=True)
+                                ignore_indices_i = df_i_tmp.drop("new").index.values
+                                ignore_indices = np.append(ignore_indices, ignore_indices_i)
+
+                            else:
+                                if "up" in df_i["ooh_direction"].tolist():
+
+                                    ignore_indices_i = list(df_i[df_i["ooh_direction"] != "up"].index.values)
+                                    ignore_indices = np.append(ignore_indices, ignore_indices_i)
+
+                                elif "sideways" in df_i["ooh_direction"].tolist():
+                                    ignore_indices_i = list(df_i[df_i["ooh_direction"] != "sideways"].index.values)
+                                    ignore_indices = np.append(ignore_indices, ignore_indices_i)
+                                else:
+                                    tmp = 42
+
+                        elif props_i["adsorbate"] == "bare":
+                            df_copy_i = df_i.copy(deep=True)
+                            min_e_ind = df_copy_i["elec_energy"].idxmin()
+
+                            ignore_indices_i = df_copy_i.drop(min_e_ind).index.values
+                            ignore_indices = np.append(ignore_indices, ignore_indices_i)
+
+                        elif props_i["adsorbate"] == "o":
+                            df_copy_i = df_i.copy(deep=True)
+                            min_e_ind = df_copy_i["elec_energy"].idxmin()
+
+                            ignore_indices_i = df_copy_i.drop(min_e_ind).index.values
+                            ignore_indices = np.append(ignore_indices, ignore_indices_i)
+
+                        elif props_i["adsorbate"] == "oh":
+                            df_copy_i = df_i.copy(deep=True)
+                            min_e_ind = df_copy_i["elec_energy"].idxmin()
+
+                            ignore_indices_i = df_copy_i.drop(min_e_ind).index.values
+                            ignore_indices = np.append(ignore_indices, ignore_indices_i)
+
+                        else:
+                            tmp = 42
+
+                df_ads = df_ads.drop(labels=ignore_indices)
+                #__|
+
                 # | - TEMP TEMP TEMP
                 # print(5 * "Fixing Elec E Values | ")
                 # print(5 * "Fixing Elec E Values | ")
@@ -636,74 +735,6 @@ def load_df(
                         ],
                     axis=1)
 
-                #__|
-
-                # | - Filtering Out Extra Calculations
-                """
-                Each OER set (bare, O, OH, OOH) should only have 1 calculation
-                corresponding to the 4 intermediate structures
-
-                If there are more than 1 calculation available, then the "best"
-                one should be selected.
-
-                This is often based on the criteria of energy (most stable)
-                """
-                from proj_data_irox import groupby_props
-                groupby_props = copy.deepcopy(groupby_props)
-
-
-                df_ads.loc[df_ads["coverage_type"] == "O-4_OH-0", "coverage_type"] = "o_covered"
-                df_ads.loc[df_ads["coverage_type"] == "O-2_OH-0", "coverage_type"] = "o_covered_2"
-                df_ads.loc[df_ads["coverage_type"] == "O-2_OH-2", "coverage_type"] = "h_covered"
-
-
-                groupby_props.append("adsorbate")
-                grouped = df_ads.groupby(groupby_props)
-
-                ignore_indices = np.array([])
-                for i_ind, (name, group) in enumerate(grouped):
-                    props_i = dict(zip(groupby_props, list(name)))
-                    df_i = group
-
-                    if len(df_i) > 1:
-                        print(""); print("_____")
-                        print("more than 1 structure here")
-                        if props_i["adsorbate"] == "ooh":
-                            if "up" in df_i["ooh_direction"].tolist():
-                                ignore_indices_i = list(df_i[df_i["ooh_direction"] != "up"].index.values)
-                                ignore_indices = np.append(ignore_indices, ignore_indices_i)
-
-                            elif "sideways" in df_i["ooh_direction"].tolist():
-                                ignore_indices_i = list(df_i[df_i["ooh_direction"] != "sideways"].index.values)
-                                ignore_indices = np.append(ignore_indices, ignore_indices_i)
-                            else:
-                                tmp = 42
-
-                        elif props_i["adsorbate"] == "bare":
-                            df_copy_i = df_i.copy(deep=True)
-                            min_e_ind = df_copy_i["elec_energy"].idxmin()
-
-                            ignore_indices_i = df_copy_i.drop(min_e_ind).index.values
-                            ignore_indices = np.append(ignore_indices, ignore_indices_i)
-
-                        elif props_i["adsorbate"] == "o":
-                            df_copy_i = df_i.copy(deep=True)
-                            min_e_ind = df_copy_i["elec_energy"].idxmin()
-
-                            ignore_indices_i = df_copy_i.drop(min_e_ind).index.values
-                            ignore_indices = np.append(ignore_indices, ignore_indices_i)
-
-                        elif props_i["adsorbate"] == "oh":
-                            df_copy_i = df_i.copy(deep=True)
-                            min_e_ind = df_copy_i["elec_energy"].idxmin()
-
-                            ignore_indices_i = df_copy_i.drop(min_e_ind).index.values
-                            ignore_indices = np.append(ignore_indices, ignore_indices_i)
-
-                        else:
-                            tmp = 42
-
-                df_ads = df_ads.drop(labels=ignore_indices)
                 #__|
 
             #__| **************************************************************

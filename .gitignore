@@ -1,9 +1,12 @@
 # Mine
+workspace.xml
+.idea
+*.swp
 voro_temp
 .swp
 .~lock
 .idea
-
+config.yml
 __old__
 __temp__
 __test__

@@ -15,8 +15,10 @@ from proj_data_irox import calc_dH
 
 # | - Import Modules
 import os
+import sys
 #__|
 
+tmp = 42
 
 # | - VASP Gas-phase References
 # Exp. heat of formation of H2O
@@ -257,6 +259,16 @@ bulk_e_per_atom_dict = {
 #__|
 
 
+#| - Experimental Thermochemical Data
+# dh_iro2_exp = -242.672 / kjmol  # Barin
+dh_iro2_exp = -2.515126703632689
+
+# dg_iro2_exp = -188.386 / kjmol  # Barin
+dg_iro2_exp = -1.9524900243561174
+
+#__|
+
+
 # | - Computing dH and dG for IrO2 and IrO3
 def calc_dH(
     e_per_atom,
@@ -364,129 +376,6 @@ irox_surface_e_color_map = {
     "IrO3_battery_o_covered": "#ff1b8c",
     "IrO3_battery_half_o_covered": "#ff1b8c",
     }
-
-
-
-
-# | - Regular/Old Color Scheme | RF - 181109
-
-# | - color_palettes
-color_palettes = {
-
-    "red_brown": [
-        "#DE522D",
-        "#CB948A",
-        "#E0993F",
-        "#D85467",
-        "#AC6D3F",
-        ],
-
-    "green_blue": [
-        "#98C3AC",
-        "#95CD7C",
-        "#6FE9BA",
-        "#C1EBBA",
-        "#5DBD8F",
-        ],
-
-    "pink_purple": [
-        "#EE6BEE",
-        "#ED8EC1",
-        "#C688F3",
-        "#EF7DD2",
-        "#D19BEA",
-        ],
-
-    "blue": [
-        "#335862",
-        "#34789a",
-        "#0d353f",
-        "#4c707b",
-        "#1c5872",
-        ],
-
-    "blue2": [
-        "#35bca3",
-        "#8fe0d1",
-        "#2a9682",
-        "#60eefe",
-        ],
-
-    "green_mint": [
-        "#879b60",
-        "#70cf54",
-        "#cbd356",
-        ],
-
-    "yellow": [
-        "#f3ff0c",
-        "#d7fe60",
-        "#fddc23",
-        "#c0a300",
-        "#f7ff1c",
-        "#dcff1c",
-        ],
-
-    "red1": [
-        "#d70000",
-        "#c81f00",
-        "#ff003e",
-        # "#ff008e",
-        "#9a0000",
-        "#bc3a35",
-        "#ff0000",
-        ],
-
-    "purple_wine": [
-        "#9670fd",
-        "#ca70fd",
-        "#ca3aff",
-        ],
-
-    # "purple_wine": [
-    #     "#442593",
-    #     "#412d54",
-    #     "#5b2fc3",
-    #     "#3f2a74",
-    #     "#7c2c8e",
-    #     ],
-
-    "black_grey": [
-        "#000000",
-        "#575757",
-        "#959595",
-        "#CDCDCD",
-
-        ],
-
-    }
-
-#__|
-
-IrO2_colors = "black_grey"
-IrO3_colors = "blue2"
-IrO3_rutile_like_colors = "purple_wine"
-IrO3_battery = "green_mint"
-
-system_color_map = {
-    "IrO2_100": color_palettes[IrO2_colors][0],
-    "IrO2_110": color_palettes[IrO2_colors][1],
-
-    "IrO3_100": color_palettes[IrO3_colors][0],
-    "IrO3_110": color_palettes[IrO3_colors][1],
-    "IrO3_111": color_palettes[IrO3_colors][2],
-    "IrO3_211": color_palettes[IrO3_colors][3],
-
-    "IrO3_rutile-like_001": color_palettes[IrO3_rutile_like_colors][0],
-    "IrO3_rutile-like_100": color_palettes[IrO3_rutile_like_colors][1],
-    "IrO3_rutile-like_110": color_palettes[IrO3_rutile_like_colors][2],
-
-    "IrO3_battery_010": color_palettes[IrO3_battery][0],
-    "IrO3_battery_001": color_palettes[IrO3_battery][1],
-    # "NEW_110": color_palettes[IrO3_battery][2],
-    }
-#__|
-
 # __|
 
 
@@ -740,8 +629,6 @@ groupby_props = [
 #     oqmd_irox_data_path,
 #     )
 
-
-
 # Processed bulk data (No OQMD data here)
 bulk_dft_data_path = os.path.join(
     os.environ["PROJ_irox"],
@@ -858,6 +745,12 @@ ids_to_discard__too_many_atoms_path = os.path.join(
     )
 
 
+ids_duplicates_path = os.path.join( 
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/get_duplicates_from_al",
+    "out_data/duplicates.pickle")
+
+
 # Prototype Classification Analysis
 
 df_prototype_dft_path = os.path.join(
@@ -871,6 +764,13 @@ df_prototype_static_path = os.path.join(
     "workflow/ml_modelling/processing_bulk_dft/symmetry_analysis_dft_static",
     "out_data",
     "df_prototype_static.pickle")
+
+df_dft_final_final_path = os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling/processing_bulk_dft/creating_final_dataset_for_upload",
+    "out_data/df_dft_final_no_dupl.pickle")
+
+#  /mnt/f/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER
 
 
 # | - __old__
@@ -906,25 +806,9 @@ def get_relative_path_to_proj(path):
 #__|
 
 
-
-# | - __old__
-
-# irox_surface_e_color_map = {
-#     "IrO2_bare": "#b4e9b4",
-#     "IrO2_h_covered": "#7fc97f",
-#     "IrO2_o_covered": "#36b836",
-#
-#     "IrO3_bare": "#dcd9e1",
-#     "IrO3_h_covered": "#be9fe3",
-#     "IrO3_o_covered": "#b56eee",
-#
-#     "IrO3_rutile-like_bare": "#FEE6D0",
-#     "IrO3_rutile-like_h_covered": "#FDC086",
-#     "IrO3_rutile-like_o_covered": "#fb8a20",
-#
-#     "IrO3_battery_bare": "#e3ec00",
-#     "IrO3_battery_h_covered": "#C5C511",
-#     "IrO3_battery_o_covered": "#97B10F",
-#     "IrO3_battery_half_o_covered": "#97B10F",
-#     }
+#| - AL Settings and Variables | OLD
+sys.path.insert(0, os.path.join(
+    os.environ["PROJ_irox"],
+    "workflow/ml_modelling/00_ml_workflow/191102_new_workflow"))
 #__|
+

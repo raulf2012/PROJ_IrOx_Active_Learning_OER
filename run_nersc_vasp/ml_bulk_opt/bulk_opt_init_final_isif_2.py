@@ -49,7 +49,6 @@ print(kpoints)
 #__|
 
 # | - Calculator
-
 calc_params = dict(
     potim=0.03,
     encut=600,

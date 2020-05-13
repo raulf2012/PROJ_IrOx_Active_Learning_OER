@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.3.0
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
 #     language: python
@@ -72,7 +72,7 @@ from ase_modules.ase_methods import view_in_vesta
 stoich_i = "AB3"
 # stoich_i = "AB2"
 
-drop_duplicates = True
+drop_duplicates = False
 
 # + [markdown] Collapsed="false"
 # # Read Data
@@ -143,6 +143,9 @@ ids_to_drop = [] + \
 print("len(ids_to_drop):", len(ids_to_drop))
 ids_to_drop = list(set(ids_to_drop))
 print("len(ids_to_drop):", len(ids_to_drop))
+# -
+
+"6fcdbh9fz2" in ids_to_drop
 
 # + Collapsed="false"
 # #############################################################################

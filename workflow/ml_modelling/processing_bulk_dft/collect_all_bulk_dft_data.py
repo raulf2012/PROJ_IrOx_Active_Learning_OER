@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.3.0
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
 #     language: python
@@ -226,17 +226,38 @@ def method(row_i):
 df_m["num_atoms"] = df_m.apply(
     method,
     axis=1)
+
+
+# +
+def method(row_i):
+    atoms_i = row_i["atoms"]
+    volume = atoms_i.get_volume()
+
+    return(volume)
+
+df_m["volume"] = df_m.apply(
+    method,
+    axis=1)
+
+# row_i = df_m.iloc[0]
+# atoms = row_i.atoms
+# atoms.get_volume()
 # -
+
+df_m["volume_pa"] = df_m.volume / df_m.num_atoms
 
 # # Save data
 
 # +
-# directory = "out_data"
-# if not os.path.exists(directory):
-#     os.makedirs(directory)
+directory = "out_data"
+if not os.path.exists(directory):
+    os.makedirs(directory)
 
-# with open(os.path.join(directory, "df_bulk_dft.pickle"), "wb") as fle:
-#     pickle.dump(df_m, fle)
+with open(os.path.join(directory, "df_bulk_dft.pickle"), "wb") as fle:
+    pickle.dump(df_m, fle)
+# -
+assert False
+
 # +
 from ase_modules.ase_methods import view_in_vesta
 
@@ -253,12 +274,9 @@ df_tmp2 = df_tmp[
 df_tmp2
 # df_tmp.shape
 
-view_in_vesta(df_tmp2.atoms.tolist(), name_list=df_tmp2.index.tolist())
+# view_in_vesta(df_tmp2.atoms.tolist(), name_list=df_tmp2.index.tolist())
 
 # # view_in_vesta?
-# -
-
-df_tmp.path.tolist()
 
 # + active=""
 #
@@ -267,6 +285,9 @@ df_tmp.path.tolist()
 #
 #
 
+
+# + jupyter={"source_hidden": true}
+# df_tmp.path.tolist()
 
 # + jupyter={"source_hidden": true}
 # for i in df_m.index.tolist():
