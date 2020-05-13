@@ -5,3 +5,5 @@ credentials:
 
 mpcontrib:
     api_key: TEMP
+materials_project:
+    api_key: TEMP

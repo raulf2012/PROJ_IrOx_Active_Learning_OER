@@ -4,7 +4,11 @@
 """
 
 # | - Import Modules
+import os
+import sys
+
 import pickle
+import yaml
 
 # Decomposes ion into composition object that can handle the charge string
 from pymatgen import MPRester
@@ -18,7 +22,14 @@ from dft_energies import ion_dict_solids_expt
 
 # | - Script Inputs
 #This initializes the REST adaptor. Put your own API key in.
-mpr = MPRester('NJTXWGbreuLAq8O5')  # Raul
+
+path_i = os.path.join(os.environ["PROJ_irox"], "config", "config.yml")
+with open(path_i) as file:
+    config_dict = yaml.load(file, Loader=yaml.FullLoader)
+
+api_key = config_dict["materials_project"]["api_key"]
+
+mpr = MPRester(api_key)  # Raul
 #__|
 
 # | - Methods
