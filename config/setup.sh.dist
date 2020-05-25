@@ -1,0 +1,99 @@
+#!/bin/bash
+
+# #########################################################
+# Source this file to properly set paths and stuff
+#
+# #########################################################
+
+
+#| - TEMP LINES REMOVE LATER
+# #########################################################
+# #########################################################
+# TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
+export sc=$norskov_research/04_comp_clusters/00_scripts
+export PYTHONMODULES=$norskov_research/04_comp_clusters/00_PythonModules
+export PYTHONPACKAGES=$norskov_research/04_comp_clusters/00_packages
+source $sys_sett/functions.sh
+source $sys_sett/aliases.sh
+source $sys_sett/sys_settings.sh
+
+# TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
+export PYTHONNOUSERSITE=True
+# #########################################################
+# #########################################################
+#__|
+
+
+
+
+
+
+# ########################################################
+# Activate the custom and local conda environment for repo
+conda_env_name='PROJ_irox'
+# conda_env_name='test_PROJ_irox'  # TEMP
+conda activate $conda_env_name
+
+
+# ########################################################
+# Set the location of repo as project environment variable
+
+# export PROJ_irox=$HOME/GitHub/PROJ_IrOx_Active_Learning_OER
+# export PROJ_irox=/home/raulf2012/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER  # TEMP
+# export PROJ_irox=/home/raulf2012/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER_test  # TEMP
+# export PROJ_irox=/home/raulf2012/__test__/PROJ_IrOx_Active_Learning_OER  # TEMP
+# export PROJ_irox=/mnt/f/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER_test_0  # TEMP
+
+
+
+
+# ########################################################
+# Adding the PROJ_DATA location to PATH
+
+# PROJ_DATA_path=<PROJ_DATA path here>
+# PROJ_DATA_path=$HOME/Dropbox/01_norskov/PROJECT_DATA  # TEMP
+# PROJ_DATA_path=/mnt/f/Dropbox/01_norskov/PROJECT_DATA  # TEMP
+
+export PROJ_DATA=$PROJ_DATA_path
+
+# ########################################################
+# Adding gdrive ENV variable
+export gdrive=$gdrive_path
+
+# ########################################################
+# Adding the Active Learning python momdules to path
+
+al_python_path=$PROJ_irox/python_classes
+export PYTHONPATH=$al_python_path:$PYTHONPATH
+
+al_data_path=$PROJ_irox/workflow/ml_modelling/00_ml_workflow
+export PYTHONPATH=$al_data_path:$PYTHONPATH
+
+
+
+# ########################################################
+# Adding the 00_PythonModules repo to PYTHONPATH
+
+# my_pyth_modules=<location of cloned 00_PythonModules repo>
+# my_pyth_modules=/mnt/f/Dropbox/01_norskov/00_PythonModules
+# $HOME/__test__/00_PythonModules
+
+export PYTHONPATH=$my_pyth_modules:$PYTHONPATH
+
+
+# ########################################################
+# Adding CatLearn to path
+# catlearn_path=/home/raulf2012/__test__/CatLearn
+export PYTHONPATH=$catlearn_path:$PYTHONPATH
+
+
+# ########################################################
+# Adding StructurePrototypeAnalysisPackage
+
+spap_path=/home/raul_desktop/__test__/StructurePrototypeAnalysisPackage
+export PYTHONPATH=$spap_path:$PYTHONPATH
+
+# ########################################################
+# Adding ProtoSearch to path
+# export protosearch_path=<protosearch repo path>
+export PYTHONPATH=$protosearch_path:$PYTHONPATH
