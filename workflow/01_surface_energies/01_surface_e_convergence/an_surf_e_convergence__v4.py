@@ -5,8 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.2.1
+#       format_version: '1.5'
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -21,10 +21,10 @@
 # * TMP2
 # * TMP3
 
-# + {"toc-hr-collapsed": true, "cell_type": "markdown"}
+# + [markdown] toc-hr-collapsed=true
 # # Notebook Setup
 
-# + {"toc-hr-collapsed": true, "cell_type": "markdown"}
+# + [markdown] toc-hr-collapsed=true
 # ## Import Modules
 # -
 
@@ -81,7 +81,7 @@ from IPython.display import display
 
 verbose = False
 
-# + {"toc-hr-collapsed": true, "cell_type": "markdown"}
+# + [markdown] toc-hr-collapsed=true
 # ## Read Data
 # -
 
@@ -165,7 +165,7 @@ df_m["SurfaceEnergy"] = df_m.apply(
 #     [True for i in range(len(df_m))]
 #     ]
 
-# + {"toc-hr-collapsed": true, "cell_type": "markdown"}
+# + [markdown] toc-hr-collapsed=true
 # # Surface Energy vs Slab Width Plot <------------------------
 #
 # Explain what's happenging here
@@ -206,7 +206,7 @@ for i_cnt, (name, group) in enumerate(grouped):
 my_plotly_plot(plot_name="TEMP_PLOT",
     save_dir=None, data=data, upload_plot=False)
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
@@ -215,7 +215,7 @@ my_plotly_plot(plot_name="TEMP_PLOT",
 
 # # -------------------------------------
 
-# + {"toc-hr-collapsed": true, "cell_type": "markdown"}
+# + [markdown] toc-hr-collapsed=true
 # # Averaging the fitted bulk energies across different facets
 # -
 
@@ -267,7 +267,7 @@ for i_cnt, (name, group) in enumerate(grouped):
 
     final_averaged_fitted_bulk_energies[name] = ave_fitted_bulk_energy
 
-# + {"active": ""}
+# + active=""
 # ________________________________________________________________________________
 # |  IrO2  |
 # ----------
@@ -284,11 +284,11 @@ for i_cnt, (name, group) in enumerate(grouped):
 # ave_fitted_bulk_energy: -6.458260171334821
 # std_fitted_bulk_energy: 0.0001088472764921181
 
-# + {"active": ""}
+# + active=""
 # These results look pretty good
 # The fitted bulk energies are very close to one another for each bulk system
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
@@ -336,14 +336,14 @@ for i_cnt, (name, group) in enumerate(grouped):
 my_plotly_plot(plot_name="TEMP_PLOT",
     save_dir=None, data=data, upload_plot=False)
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
 #
 #
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={}
 #     # #########################################################################
 #     # | - Surface Energy (DFT Bulk)
 #     y_surface_e = []; x_slab_thickness = []
@@ -467,7 +467,7 @@ my_plotly_plot(plot_name="TEMP_PLOT",
 #     data.append(trace_i)
 #     #__|
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={}
 # TEMP
 # # self.fit_bulk_energy()
 # # self.calculate_surface_energies(bulk_energy=self.fitted_bulk_energy)

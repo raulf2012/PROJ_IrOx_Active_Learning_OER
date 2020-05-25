@@ -5,8 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.1.7
+#       format_version: '1.5'
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -63,7 +63,7 @@ change_file_sys = False
 # root_dir = "."
 # root_dir = "__test__/iro2_calcs_test"
 
-# + {"active": ""}
+# + active=""
 # # Job rules
 #
 # ## If the job is running or pending or configuring, ignore for now
@@ -468,12 +468,12 @@ if os.environ["USER"] == "flores12":
 # Deleting temp files
 os.system("rm init.cif run_vasp.py")
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={}
 # Coping over job folders to easily recover state
 
 # shutil.rmtree("./__test__/job_folders")

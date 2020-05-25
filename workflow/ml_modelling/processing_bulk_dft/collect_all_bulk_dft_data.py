@@ -286,20 +286,20 @@ df_tmp2
 #
 
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # df_tmp.path.tolist()
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # for i in df_m.index.tolist():
 #     if "m16" in i:
 #         print(i)
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # df_m.loc["m16tvk8h7g"]
 
 # df_m[df_m.stoich == "AB2"].sort_values("dH").iloc[0:10]
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # os.path.join(directory, "df_bulk_dft.pickle")
 
 # df_m.loc["cubqbpzd7k"]

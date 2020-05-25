@@ -4,12 +4,12 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.2.1
+#       format_version: '1.5'
+#       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python [conda env:research-new]
+#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
 #     language: python
-#     name: conda-env-research-new-py
+#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
 # ---
 
 # # Import Modules
@@ -50,19 +50,19 @@ df_voronoi.head()
 df_voronoi_pca.describe()
 
 # +
-df_i = df_voronoi_pca
+# df_i = df_voronoi_pca
 
-fig = px.scatter_matrix(df_i)
-fig.show()
+# fig = px.scatter_matrix(df_i)
+# fig.show()
 
-fig.layout["height"] = 1200
-fig = my_plotly_plot(figure=fig, plot_name="scatter_matrix_tmp")
+# fig.layout["height"] = 1200
+# fig = my_plotly_plot(figure=fig, plot_name="scatter_matrix_tmp")
 
 # +
-df_i = df_voronoi
+# df_i = df_voronoi
 
-fig = px.scatter_matrix(df_i)
-fig.show()
+# fig = px.scatter_matrix(df_i)
+# fig.show()
 
-fig.layout["height"] = 1200
-fig = my_plotly_plot(figure=fig, plot_name="scatter_matrix_voronoi_full")
+# fig.layout["height"] = 1200
+# fig = my_plotly_plot(figure=fig, plot_name="scatter_matrix_voronoi_full")

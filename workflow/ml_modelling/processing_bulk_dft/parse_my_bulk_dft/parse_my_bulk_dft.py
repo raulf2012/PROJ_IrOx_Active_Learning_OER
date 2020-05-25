@@ -5,8 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.1.7
+#       format_version: '1.5'
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python [conda env:research-new]
 #     language: python
@@ -129,7 +129,7 @@ df_iro2 = drop_columns(df=df_iro2, columns=["atoms", "path"], keep_or_drop="keep
 # Adding stoich column
 df_iro2["stoich"] = "AB2"
 
-# + {"active": ""}
+# + active=""
 # # #############################################################################
 # # #############################################################################
 # # #############################################################################
@@ -208,7 +208,7 @@ df_iro3 = drop_columns(df=df_iro3, columns=["atoms", "path"], keep_or_drop="keep
 # Adding stoich column
 df_iro3["stoich"] = "AB3"
 
-# + {"active": ""}
+# + active=""
 # # #############################################################################
 # # #############################################################################
 # # #############################################################################
@@ -284,7 +284,7 @@ print("AB3:", df_m[df_m["stoich"] == "AB3"].shape)
 
 # # Keeping track of competed jobs (Manually)
 
-# + {"active": ""}
+# + active=""
 # # IrO2
 # # ########################
 #
@@ -307,7 +307,7 @@ print("AB3:", df_m[df_m["stoich"] == "AB3"].shape)
 # (485, 4)
 # (487, 4)
 
-# + {"active": ""}
+# + active=""
 # # IrO3
 # # ########################
 #
@@ -319,7 +319,7 @@ print("AB3:", df_m[df_m["stoich"] == "AB3"].shape)
 # (248, 4)
 # (249, 4)
 
-# + {"jupyter": {"source_hidden": true}, "active": ""}
+# + jupyter={} active=""
 # # IrO2
 # # ########################
 #
@@ -399,7 +399,7 @@ print("AB3:", df_m[df_m["stoich"] == "AB3"].shape)
 # (177, 4)
 # (188, 4)
 
-# + {"active": ""}
+# + active=""
 #
 #
 #

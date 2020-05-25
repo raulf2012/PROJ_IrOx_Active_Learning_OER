@@ -5,8 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.1.7
+#       format_version: '1.5'
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python [conda env:research-new]
 #     language: python
@@ -15,7 +15,7 @@
 
 # # Import Modules
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={}
 # %%capture
 
 import os
@@ -154,7 +154,7 @@ df_bulk_dft = df_bulk_dft.loc[ids_w_dft]
 df_features_pre = df_features_pre.loc[ids_w_dft]
 df_features_post = df_features_post.loc[ids_w_dft]
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
@@ -229,7 +229,7 @@ if run_al:
 
 assert False
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
@@ -301,7 +301,7 @@ data = [trace]
 fig = go.Figure(data=data)
 fig.show()
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
@@ -342,7 +342,7 @@ assert False
 
 # # Performance # of structures vs DFT calcs
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
