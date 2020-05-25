@@ -128,7 +128,8 @@ pre_path_all = os.path.join(
 
 pre_path = os.path.join(
     os.environ["PROJ_irox"],
-    "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs/out_data/AB3/random_True",
+    # "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs/out_data/AB3/random_True",
+    "workflow/ml_modelling/00_ml_workflow/00_abx_al_runs/out_data/AB3/random_True",
     )
 
 files_list_ab3_random = [
@@ -160,7 +161,6 @@ files_list_ab3_random = [
     pre_path + "/TEST_AL_3_wetipotu.pickle",
     pre_path + "/TEST_AL_3_wusabupa.pickle",
     pre_path + "/TEST_AL_3_wutonovi.pickle",
-
     pre_path + "/TEST_AL_4_benegeka.pickle",
     pre_path + "/TEST_AL_4_dehebiko.pickle",
     pre_path + "/TEST_AL_4_dinisefa.pickle",
@@ -201,7 +201,6 @@ files_list_ab3_random = [
     pre_path + "/TEST_AL_4_wibemafu.pickle",
     pre_path + "/TEST_AL_4_wobumone.pickle",
     pre_path + "/TEST_AL_4_wohaguha.pickle",
-
     pre_path + "/TEST_AL_5_bimugese.pickle",
     pre_path + "/TEST_AL_5_hufalage.pickle",
     pre_path + "/TEST_AL_5_humekofa.pickle",
@@ -215,7 +214,6 @@ files_list_ab3_random = [
     pre_path + "/TEST_AL_5_vapasuda.pickle",
     pre_path + "/TEST_AL_5_watimeni.pickle",
     pre_path + "/TEST_AL_5_wogibalu.pickle",
-
     pre_path + "/TEST_AL_6_budowilu.pickle",
     pre_path + "/TEST_AL_6_dusideti.pickle",
     pre_path + "/TEST_AL_6_fipawefu.pickle",

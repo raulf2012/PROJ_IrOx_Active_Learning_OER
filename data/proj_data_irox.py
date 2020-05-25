@@ -276,7 +276,7 @@ def calc_dH(
     ):
     """
     Based on a E_DFT/atom of -7.047516 for rutile-IrO2
-    
+
     See the following dir for derivation:
         PROJ_IrOx_Active_Learning_OER/workflow/energy_treatment_deriv/calc_references
     """
@@ -632,8 +632,7 @@ groupby_props = [
 # Processed bulk data (No OQMD data here)
 bulk_dft_data_path = os.path.join(
     os.environ["PROJ_irox"],
-    "workflow/ml_modelling",
-    "processing_bulk_dft/out_data",
+    "workflow/ml_modelling/processing_bulk_dft/out_data",
     "df_bulk_dft.pickle")
 
 unique_ids_path = os.path.join(
@@ -707,7 +706,6 @@ df_features_pre_opt_path = os.path.join(
     fp_base_path, "df_features_pre_opt.pickle")
 df_features_pre_opt_kirsten_path = os.path.join(
     fp_base_path, "df_features_pre_opt_kirsten.pickle")
-
 df_features_post_opt_path = os.path.join(
     fp_base_path, "df_features_post_opt.pickle")
 
@@ -745,7 +743,7 @@ ids_to_discard__too_many_atoms_path = os.path.join(
     )
 
 
-ids_duplicates_path = os.path.join( 
+ids_duplicates_path = os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/get_duplicates_from_al",
     "out_data/duplicates.pickle")
@@ -811,4 +809,3 @@ sys.path.insert(0, os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling/00_ml_workflow/191102_new_workflow"))
 #__|
-
