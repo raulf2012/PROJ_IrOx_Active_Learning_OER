@@ -7,9 +7,9 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # + Collapsed="false" jupyter={}
@@ -48,7 +48,7 @@ from methods import (
     create_outside_borders,
     create_pourb_entry_outline,
     create_oer_equil_line,
-    
+
     get_base_spec,
     get_spec_entries,
     )
@@ -63,9 +63,9 @@ from plotting.my_plotly import (
     add_duplicate_axes)
 
 # + Collapsed="false"
-# %%capture
+# # %%capture
 
-if False:
+if True:
     !python sc_create_all_entries.py
 
 # + Collapsed="false"
@@ -148,6 +148,9 @@ PD = PourbaixDiagram([
 
 iro2_a_iro3_trans = find_pour_trans(PourbaixDiagram=PD, range=[1, 1.5], num=1000)
 print("iro2_a_iro3_trans:", iro2_a_iro3_trans)
+
+# +
+# assert False
 # -
 
 # # IrO2 --> rutile-IrO3 Transition

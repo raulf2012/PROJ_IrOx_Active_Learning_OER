@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 # ---
 # jupyter:
@@ -53,8 +54,8 @@ from al_data import main_AB2_run, main_AB3_run, gens_to_plot_dict
 # ## Script Inputs
 
 # + Collapsed="false"
-stoich_i = "AB2"
-# stoich_i = "AB3"
+# stoich_i = "AB2"
+stoich_i = "AB3"
 
 # inset_x_range = [-0.5, 11.6]
 # inset_x_range = [-0.5, 15.5]
@@ -83,7 +84,8 @@ path_root = os.path.join(
 # AL Performance ##############################################################
 path_i = os.path.join(
     path_root,
-    "00_ml_workflow/191102_new_workflow/performance_comp/top_10_disc_vs_dft/out_data",
+    # "00_ml_workflow/191102_new_workflow/performance_comp/top_10_disc_vs_dft/out_data",
+    "00_ml_workflow/performance_comp/top_10_disc_vs_dft/out_data",
     stoich_i + "_" + "fig_al_perf.pickle")
 with open(path_i, "rb") as fle:
     fig_perf = pickle.load(fle)
@@ -92,7 +94,8 @@ with open(path_i, "rb") as fle:
 # ALL Figures #################################################################
 path_i = os.path.join(
     path_root,
-    "00_ml_workflow/191102_new_workflow/al_plots_for_figure/out_data",
+    # "00_ml_workflow/191102_new_workflow/al_plots_for_figure/out_data",
+    "00_ml_workflow/al_plots_for_figure/out_data",
     stoich_i + "_False_" + "figs_dict__v2.pickle")
 with open(path_i, "rb") as fle:
     fig_dict = pickle.load(fle)
@@ -103,7 +106,8 @@ num_dft_list = fig_dict["num_dft_list"]
 
 path_i = os.path.join(
     path_root,
-    "00_ml_workflow/191102_new_workflow/al_plots_for_figure/out_data",
+    # "00_ml_workflow/191102_new_workflow/al_plots_for_figure/out_data",
+    "00_ml_workflow/al_plots_for_figure/out_data",
     stoich_i + "_True_" + "figs_dict__v2.pickle")
 with open(path_i, "rb") as fle:
     fig_dict = pickle.load(fle)
@@ -214,7 +218,7 @@ for trace in fig_al_series.data:
         trace.marker.symbol = list(np.delete(trace.marker.symbol, indices_to_delete))
     if trace.text is not None:
         trace.text = list(np.delete(trace.text, indices_to_delete))
-        
+
 for trace in fig_al_series_top10.data:
     indices_to_delete = np.argwhere(trace.x==-60)
 
@@ -251,7 +255,7 @@ for trace_i in fig_al_series.data:
             col_i += 1
         else:
             col_i = int(trace_i.xaxis[1:])
-    
+
     # print(col_i)
     fig.add_trace(
         trace_i,
@@ -508,7 +512,7 @@ for col_i in range_tmp:
         x_range_i = [-30, 258]
 
     # #########################################################################
-    # #########################################################################    
+    # #########################################################################
     # #########################################################################
 
     # #################################
@@ -543,7 +547,7 @@ for col_i in range_tmp:
 
 
     # #########################################################################
-    # #########################################################################    
+    # #########################################################################
     # #########################################################################
 
     xaxis_i = dict(
@@ -560,7 +564,7 @@ for col_i in range_tmp:
         showticklabels=False,
         )
     fig.update_yaxes(**yaxis_i, row=1, col=col_i)
-    
+
 
 if left_padding_subplot:
     col_i = 2
@@ -745,7 +749,7 @@ for col_i in range_tmp:
         tickfont=dict(size=(4/3) * 6),
         **xaxis_i, row=3, col=col_i)
 
-        
+
     # #################################
     if left_padding_subplot:
         col_i_tmp = col_i - 1
@@ -999,9 +1003,9 @@ my_plotly_plot(
     write_svg=False,
     try_orca_write=True,
     )
+# -
 
-# +
-# fig.show()
+fig.show()
 
 # + active=""
 #

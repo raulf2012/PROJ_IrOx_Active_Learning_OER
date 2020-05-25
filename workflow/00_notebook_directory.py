@@ -21,7 +21,7 @@
 #   * 02_surface_e_pourb_plot
 #     * [an_surface-energy_pourbaix.ipynb](01_surface_energies/02_surface_e_pourb_plot/an_surface-energy_pourbaix.ipynb)
 #     * [creating_legend.ipynb](01_surface_energies/02_surface_e_pourb_plot/creating_legend.ipynb)
-#   
+#
 #   * an_my_bulk_opt
 #     * [an_latt_opt.ipynb](01_latt_const_opt/an_my_bulk_opt/an_latt_opt.ipynb)
 #   * an_xrd_pattern
@@ -72,5 +72,3 @@
 # PROJ_IrOx_Active_Learning_OER/workflow/02_oer_analysis/03_ads_e_scaling/an_irox_scaling__v2.ipynb
 
 # ## TEMP
-
-

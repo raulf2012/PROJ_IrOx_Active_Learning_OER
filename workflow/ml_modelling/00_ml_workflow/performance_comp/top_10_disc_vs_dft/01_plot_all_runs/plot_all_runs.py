@@ -55,7 +55,8 @@ main_AB3_run_name = main_AB3_run.split("/")[-1].split(".")[0].split("_")[-1]
 import pickle; import os
 path_root = os.path.join(
     os.environ["PROJ_irox"],
-    "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/performance_comp/top_10_disc_vs_dft",
+    # "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/performance_comp/top_10_disc_vs_dft",
+    "workflow/ml_modelling/00_ml_workflow/performance_comp/top_10_disc_vs_dft",
     "out_data")
 
 stoich_i = "AB2"
@@ -227,7 +228,7 @@ for i_cnt, col_i in enumerate(df_i.columns):
         name=name_i,
         line_color=color_i,
         )
-    
+
     if name_i in special_names:
         data_i_ontop.append(trace_i)
     else:
@@ -702,7 +703,7 @@ my_plotly_plot(
 
 #     # #####################################################
 #     data_dict_list.append(data_dict_i)
-        
+
 
 # df_best_worst = pd.DataFrame(data_dict_list)
 # df_best_worst = df_best_worst.set_index("name")
@@ -715,7 +716,7 @@ my_plotly_plot(
 
 # + jupyter={}
 
-# # dft_to_reach_10 = 
+# # dft_to_reach_10 =
 # df_i[col][df_i[col] == 10]
 
 # + jupyter={}

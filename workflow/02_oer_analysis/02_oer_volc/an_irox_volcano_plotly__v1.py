@@ -8,9 +8,9 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # # OER Volcano for IrOx systems
@@ -226,7 +226,7 @@ df_dict_i = dict()
 grouped = df_m.groupby(groupby_props, sort=False)
 for i_ind, (name, group) in enumerate(grouped):
     df_i = group
-    
+
     name_i = "_".join(list(name))
     print("name:", name_i)
 
@@ -296,7 +296,7 @@ df_i[short_cols_list]
 # +
 trace_iro3 = go.Scatter(
     x=plot_range["x"],
-    y=2 * [exp_irox_lim_pot["10_mA/cm2"]["SrIrO3"]],    
+    y=2 * [exp_irox_lim_pot["10_mA/cm2"]["SrIrO3"]],
     mode="lines",
     name="lines",
     line={
@@ -360,7 +360,7 @@ annotations_exp = [
         text="R-IrO<sub>2</sub> (110) @10 mA/cm<sup>2</sup>",
         # y=exp_irox_lim_pot["10_mA/cm2"]["IrO2(110)"],
         y=exp_irox_lim_pot["10_mA/cm2"]["IrO2(110)_R95"],
-        
+
         name="exp_lim_pot_IrO2_110",
         **annot_shared.to_plotly_json()),
 
@@ -507,7 +507,7 @@ trace_kin_10mA = go.Scatter(
     name="temp_4348",
     line=dict(
         # color="#1ee148",
-        color="#3e9bf2", 
+        color="#3e9bf2",
         width=2.,
         dash="dot",
         ),
@@ -642,9 +642,9 @@ for i in ORR_PLT.series_list:
 # + jupyter={}
 ## for trace in fig.data:
 #     tmp = 42
-    
+
 # #     print(trace.name)
-    
+
 #     if trace.name == "activity volcano":
 #         trace_tmp = trace
 

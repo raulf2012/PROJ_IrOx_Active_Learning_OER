@@ -51,7 +51,8 @@ from active_learning.al_analysis import ALAnalysis, ALAnimation
 from IPython.display import display
 # -
 
-stoich_i = "AB3"
+# stoich_i = "AB3"
+stoich_i = "AB2"
 verbose = True
 name_i = "TEMP"
 save_dir_extra=None
@@ -114,7 +115,7 @@ df_features_post = df_features_post.loc[ids_w_dft]
 
 # models_list = []
 # for i_cnt, i in enumerate(chunks(ids_w_dft, 100)):
-    
+
 # leave_out_ids = i
 
 
@@ -247,7 +248,7 @@ model_master["err_pred_real"] = np.abs(model_master["y_real"] - model_master["y"
 model_master["err_pred_real"].mean()
 
 # model_master
-# -1.658857 - -1.784430	
+# -1.658857 - -1.784430
 # 0.12557299999999993
 
 # + active=""

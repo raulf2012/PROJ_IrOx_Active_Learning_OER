@@ -34,14 +34,18 @@ import pickle; import os
 path_i = os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling/opt_mae_err_gp_model",
-    "out_data/data_0.pickle")
+    "out_data/AB3_data.pickle")
+    # "out_data/data_0.pickle")
 with open(path_i, "rb") as fle:
     df = pickle.load(fle)
 # #########################################################
 
+df.head()
+
 # +
 x_array = df.pca_comp
-y_array = df.mae_cv
+# y_array = df.mae_cv
+y_array = df.mae_ave
 
 
 trace = go.Scatter(
@@ -88,7 +92,14 @@ my_plotly_plot(
     try_orca_write=True,
     )
 
-# +
+# + active=""
+#
+#
+#
+#
+#
+
+# + jupyter={}
 # from plotting.my_plotly import add_duplicate_axes
 
 # shared_axis_props = dict(
@@ -115,6 +126,3 @@ my_plotly_plot(
 #     # axis_num_list=None,
 #     tmp_define_both_axis_types=False,
 #     )
-# -
-
-fig.show()

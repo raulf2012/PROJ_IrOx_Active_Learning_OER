@@ -7,9 +7,9 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # +
@@ -48,14 +48,20 @@ duplicates = DF_dict.get("ids_duplicates")
 # duplicates = ids_duplicates_dict
 
 # +
+# duplicates
+
+# +
+# assert False
+
+# +
 bulk_dft_data = bulk_dft_data[bulk_dft_data.source == "raul"]
 # bulk_dft_data.shape
 
 static_irox_structures = static_irox_structures[static_irox_structures.source == "chris"]
 # static_irox_structures.shape
-# -
 
-"64cg6j9any" in duplicates["AB2"]
+# +
+# "64cg6j9any" in duplicates["AB2"]
 
 # +
 # assert False
@@ -68,7 +74,7 @@ static_irox_structures.loc[:, "num_of_atoms"] = [i.get_number_of_atoms() for i i
 
 static_irox_structures = static_irox_structures[static_irox_structures.num_of_atoms <= 75]
 # static_irox_structures = static_irox_structures[static_irox_structures.num_of_atoms < 75]
-# 
+#
 # -
 
 print("TEMP:", static_irox_structures.shape[0])
@@ -106,9 +112,9 @@ bulk_dft_data_ab3 = bulk_dft_data_ab3.drop(
     bulk_dft_data_ab3.index.intersection(duplicates["AB3"])
     )
 print(bulk_dft_data_ab3.shape)
-# -
 
-384 + 191
+# +
+# assert False
 
 # +
 print(len(duplicates["AB2"]))
@@ -139,6 +145,9 @@ with open(os.path.join(directory, "df_dft_final_no_dupl.pickle"), "wb") as fle:
 #
 #
 #
+# -
+
+384 + 191
 
 # + jupyter={}
 # os.path.join(
@@ -146,24 +155,19 @@ with open(os.path.join(directory, "df_dft_final_no_dupl.pickle"), "wb") as fle:
 #     "workflow/ml_modelling/processing_bulk_dft/creating_final_dataset_for_upload",
 #     "out_data/df_dft_final_no_dupl.pickle")
 
-# + jupyter={}
 # "6fcdbh9fz2" in duplicates["AB3"]
 
-# + jupyter={}
 # df_dft[df_dft.stoich == "AB3"].sort_values("dH")
 
 
-# + jupyter={}
-# intersection_indices = 
+# intersection_indices =
 
 # static_ind.intersection(dft_ind)
 
 # dft_ind.intersection(static_ind)
 
-# + jupyter={}
 # assert False
 
-# + jupyter={}
 # df_tmp = bulk_dft_data[bulk_dft_data.stoich == "AB2"]
 
 # # ids_to_discard__too_many_atoms
@@ -178,7 +182,6 @@ with open(os.path.join(directory, "df_dft_final_no_dupl.pickle"), "wb") as fle:
 
 # print(len(ids_to_discard__too_many_atoms))
 
-# + jupyter={}
 # path_i = os.path.join(
 #     os.environ["PROJ_irox"],
 #     "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs",
@@ -190,5 +193,4 @@ with open(os.path.join(directory, "df_dft_final_no_dupl.pickle"), "wb") as fle:
 #     duplicates = pickle.load(fle)
 # # #########################################################
 
-# + jupyter={}
 # "6fcdbh9fz2" in duplicates["AB3"]

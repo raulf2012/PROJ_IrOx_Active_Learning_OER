@@ -2,16 +2,15 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_json: true
-#     formats: ipynb,py:light
 #     text_representation:
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # + [markdown] {"Collapsed": "false"}
@@ -25,6 +24,7 @@
 
 # + {"Collapsed": "false"}
 import os
+print(os.getcwd())
 import sys
 
 import pickle
@@ -37,7 +37,6 @@ from ase.visualize import view
 import pandas as pd
 
 
-import bulk_enumerator as be
 import time
 
 from pymatgen.io.vasp.inputs import Poscar
@@ -78,7 +77,8 @@ for root, dirs, files in os.walk(root_path):
         if ".POSCAR" in file_i or ".cif" in file_i:
             id_i = file_i.split("_")[0]
 
-            path_i = root.replace("/mnt/c/Users/raulf/Dropbox/01_norskov/00_projects/", "")
+            # path_i = root.replace("/mnt/c/Users/raulf/Dropbox/01_norskov/00_projects/", "")
+            path_i = root
 
             atoms_i = io.read(
                 os.path.join(root, file_i))
@@ -93,6 +93,10 @@ for root, dirs, files in os.walk(root_path):
             master_list.append(sys_i)
 
 df_struct = pd.DataFrame(master_list)
+# -
+
+root_path
+os.environ["PROJ_DATA"]
 
 # + [markdown] {"Collapsed": "false"}
 # # Setting Unique ID Tag
@@ -158,53 +162,64 @@ df_struct["static_id"] = df_struct.apply(
 
 # + [markdown] {"Collapsed": "false"}
 # # Analyzing Structures with Bulk Enumerator
+# -
+
+is_bulk_enumerator_installed = False
+try:
+    import bulk_enumerator as be
+    is_bulk_enumerator_installed = True
+except:
+    print("bulk_enumerator is not installed/importable")
+    print("Contact ankitjain.me.iitk@gmail.com to be added as a guest so that you can install the Enumerator package")
+    print("https://gitlab.com/ankitjainmeiitk/Enumerator")
 
 # + {"Collapsed": "false"}
-# t0 = time.time()
+if is_bulk_enumerator_installed:
+    t0 = time.time()
 
-# data_list = []
-# for id_i, row_i in df_struct.iterrows():
-#     atoms_i = row_i["atoms"]
+    data_list = []
+    for id_i, row_i in df_struct.iterrows():
+        atoms_i = row_i["atoms"]
 
-#     structure_i = AseAtomsAdaptor.get_structure(atoms_i)
-#     poscar_str_i = Poscar(structure_i).get_string()
+        structure_i = AseAtomsAdaptor.get_structure(atoms_i)
+        poscar_str_i = Poscar(structure_i).get_string()
 
-#     b = be.bulk.BULK()
-#     b.set_structure_from_file(poscar_str_i)
+        b = be.bulk.BULK()
+        b.set_structure_from_file(poscar_str_i)
 
-#     spacegroup_i = b.get_spacegroup()
-#     species_i = b.get_species()
-#     wyckoff_i = b.get_wyckoff()
-#     name_i = b.get_name()
-#     parameter_values_i = b.get_parameter_values()
+        spacegroup_i = b.get_spacegroup()
+        species_i = b.get_species()
+        wyckoff_i = b.get_wyckoff()
+        name_i = b.get_name()
+        parameter_values_i = b.get_parameter_values()
 
-#     row_dict_i = {
-#         "id": id_i,
-#         "spacegroup_i": spacegroup_i,
-#         "species_i": species_i,
-#         "wyckoff_i": wyckoff_i,
-#         "name_i": name_i,
-#         "parameter_values_i": parameter_values_i,
-#         }
-#     data_list.append(row_dict_i)
+        row_dict_i = {
+            "id": id_i,
+            "spacegroup_i": spacegroup_i,
+            "species_i": species_i,
+            "wyckoff_i": wyckoff_i,
+            "name_i": name_i,
+            "parameter_values_i": parameter_values_i,
+            }
+        data_list.append(row_dict_i)
 
 
-# t1 = time.time()
-# print("time to complete for loop: ")
-# print(t1 - t0)
+    t1 = time.time()
+    print("time to complete for loop: ")
+    print(t1 - t0)
 
-# df_proto = pd.DataFrame(data_list)
-# df_proto.set_index("id", inplace=True)
+    df_proto = pd.DataFrame(data_list)
+    df_proto.set_index("id", inplace=True)
 
-# print(
-#     "Number of entries processed: ",
-#     len(df_proto["name_i"].to_list())
-#     )
+    print(
+        "Number of entries processed: ",
+        len(df_proto["name_i"].to_list())
+        )
 
-# print(len(
-#     "Unique entries (some systems with the same prototype): ", 
-#     set(df_proto["name_i"].to_list())
-#     ))
+    print(len(
+        "Unique entries (some systems with the same prototype): ", 
+        set(df_proto["name_i"].to_list())
+        ))
 
 # + [markdown] {"Collapsed": "false"}
 # # Save data to pickle
@@ -215,11 +230,14 @@ if not os.path.exists(directory):
     os.makedirs(directory)
 
 # + {"Collapsed": "false"}
-# with open("out_data/data_structures.pickle", "wb") as fle:
-#     pickle.dump(df_struct, fle)
+if True:
+# if False:
+    with open("out_data/data_structures.pickle", "wb") as fle:
+        pickle.dump(df_struct, fle)
 
-# with open("out_data/data_prototypes.pickle", "wb") as fle:
-#     pickle.dump(df_proto, fle)
+    if is_bulk_enumerator_installed:
+        with open("out_data/data_prototypes.pickle", "wb") as fle:
+            pickle.dump(df_proto, fle)
 
 # + {"Collapsed": "false"}
 # #############################################################################
@@ -231,17 +249,115 @@ with open(path_i, "rb") as fle:
 # #############################################################################
 
 # #############################################################################
-path_i = os.path.join(
-    "out_data",
-    "data_prototypes.pickle")
-with open(path_i, "rb") as fle:
-    df_proto = pickle.load(fle)
+if is_bulk_enumerator_installed:
+    path_i = os.path.join(
+        "out_data",
+        "data_prototypes.pickle")
+    with open(path_i, "rb") as fle:
+        df_proto = pickle.load(fle)
+else:
+    # COMBAK Read from PROJ_DATA instead
+    df_proto = None
 # #############################################################################
+
+# + {"active": ""}
+#
+#
+#
+#
+# -
+
+assert False
 
 # + [markdown] {"Collapsed": "false"}
 # # Checking that static structures are structurally unique
 
 # + {"Collapsed": "false"}
+print("df_proto.name_i.unique().shape:", df_proto.name_i.unique().shape)
+
+duplicates_list = []
+for proto_i in df_proto.name_i.unique():
+    df_i = df_proto[df_proto.name_i == proto_i]
+
+    if df_i.shape[0] > 1:
+        # display(df_i)
+        
+        df_tmp = df_i
+        
+        dupl_ids = df_tmp.index.tolist()
+        duplicates_list.append(dupl_ids)
+
+with open("out_data/duplicates_proto.pickle", "wb") as fle:
+    pickle.dump(duplicates_list, fle)
+
+# + {"Collapsed": "false"}
+# df_proto[df_proto["stoich"] == "AB3"]
+# df_struct[df_struct["stoich"] == "AB2"].index.shape
+# df_struct[df_struct["stoich"] == "AB2"].index.unique().shape
+
+ab3_indices = df_struct[df_struct["stoich"] == "AB3"].index.unique().tolist()
+ab2_indices = df_struct[df_struct["stoich"] == "AB2"].index.unique().tolist()
+
+print("df_proto.loc[ab3_indices].shape:", df_proto.loc[ab3_indices].shape)
+print("AB3:", df_proto.loc[ab3_indices].name_i.unique().shape)
+
+print("")
+
+print("df_proto.loc[ab2_indices].shape:", df_proto.loc[ab2_indices].shape)
+print("AB2:", df_proto.loc[ab2_indices].name_i.unique().shape)
+
+# + {"Collapsed": "false", "active": ""}
+#
+#
+#
+#
+
+# + [markdown] {"Collapsed": "false"}
+# # TEMP | Number of atoms in structures
+
+# + {"Collapsed": "false", "jupyter": {}}
+# def method(row_i, argument_0, optional_arg=None):
+#     new_column_values_dict = {"num_atoms": None}
+
+#     new_column_values_dict["num_atoms"] = row_i["atoms"].get_number_of_atoms()
+
+#     # #########################################################################
+#     for key, value in new_column_values_dict.items():
+#         row_i[key] = value
+#     return(row_i)
+
+# df_i = df_struct
+
+# arg1 = "TEMP_0"
+# df_i = df_i.apply(
+#     method,
+#     axis=1,
+#     args=(arg1, ),
+#     optional_arg="TEMP_1"
+#     )
+# df_struct = df_i
+
+# df_struct_ab3 = df_struct[df_struct["stoich"] == "AB3"]
+
+# df_struct_ab3
+
+# print(df_struct_ab3.shape)
+# print(df_struct_ab3[df_struct_ab3["num_atoms"] > 100].shape)
+
+# df_struct_ab3[df_struct_ab3["num_atoms"] > 100]
+
+# + {"Collapsed": "false", "jupyter": {}}
+# df_tmp = df_struct[df_struct.stoich == "AB2"]
+
+# # df_tmp.shape
+
+# df_tmp[df_tmp.num_atoms <= 75].shape
+
+# + {"Collapsed": "false", "jupyter": {}}
+# df_struct[df_struct["stoich"] == "AB3"].shape
+# df_struct[df_struct["stoich"] == "AB2"].shape
+
+# + {"Collapsed": "false", "jupyter": {}}
 # TEMP
 
 # ids_to_drop = [
@@ -273,90 +389,3 @@ with open(path_i, "rb") as fle:
 
 
 # df_proto = df_proto.drop(ids_to_drop)
-
-# + {"Collapsed": "false"}
-print("df_proto.name_i.unique().shape:", df_proto.name_i.unique().shape)
-
-duplicates_list = []
-for proto_i in df_proto.name_i.unique():
-    df_i = df_proto[df_proto.name_i == proto_i]
-
-    if df_i.shape[0] > 1:
-        # display(df_i)
-        
-        df_tmp = df_i
-        
-        dupl_ids = df_tmp.index.tolist()
-        duplicates_list.append(dupl_ids)
-
-with open("out_data/duplicates_proto.pickle", "wb") as fle:
-    pickle.dump(duplicates_list, fle)
-
-# + {"Collapsed": "false"}
-# df_proto[df_proto["stoich"] == "AB3"]
-# df_struct[df_struct["stoich"] == "AB2"].index.shape
-# df_struct[df_struct["stoich"] == "AB2"].index.unique().shape
-
-ab3_indices = df_struct[df_struct["stoich"] == "AB3"].index.unique().tolist()
-ab2_indices = df_struct[df_struct["stoich"] == "AB2"].index.unique().tolist()
-
-# + {"Collapsed": "false"}
-print("df_proto.loc[ab3_indices].shape:", df_proto.loc[ab3_indices].shape)
-print("AB3:", df_proto.loc[ab3_indices].name_i.unique().shape)
-
-print("")
-
-print("df_proto.loc[ab2_indices].shape:", df_proto.loc[ab2_indices].shape)
-print("AB2:", df_proto.loc[ab2_indices].name_i.unique().shape)
-
-
-# + {"Collapsed": "false"}
-# df_struct[df_struct["stoich"] == "AB3"].shape
-# df_struct[df_struct["stoich"] == "AB2"].shape
-
-# + {"Collapsed": "false", "active": ""}
-#
-#
-#
-#
-
-# + [markdown] {"Collapsed": "false"}
-# # TEMP | Number of atoms in structures
-
-# + {"Collapsed": "false", "jupyter": {}}
-def method(row_i, argument_0, optional_arg=None):
-    new_column_values_dict = {"num_atoms": None}
-
-    new_column_values_dict["num_atoms"] = row_i["atoms"].get_number_of_atoms()
-
-    # #########################################################################
-    for key, value in new_column_values_dict.items():
-        row_i[key] = value
-    return(row_i)
-
-df_i = df_struct
-
-arg1 = "TEMP_0"
-df_i = df_i.apply(
-    method,
-    axis=1,
-    args=(arg1, ),
-    optional_arg="TEMP_1"
-    )
-df_struct = df_i
-
-df_struct_ab3 = df_struct[df_struct["stoich"] == "AB3"]
-
-df_struct_ab3
-
-print(df_struct_ab3.shape)
-print(df_struct_ab3[df_struct_ab3["num_atoms"] > 100].shape)
-
-df_struct_ab3[df_struct_ab3["num_atoms"] > 100]
-
-# + {"Collapsed": "false", "jupyter": {}}
-df_tmp = df_struct[df_struct.stoich == "AB2"]
-
-# df_tmp.shape
-
-df_tmp[df_tmp.num_atoms <= 75].shape

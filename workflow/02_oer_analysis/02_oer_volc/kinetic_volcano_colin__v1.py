@@ -7,9 +7,9 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: python3
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # # Kinetic OER Volcano (From Colin's microkinetic OER paper)
@@ -137,7 +137,7 @@ def rate_eqn(
     U_SHE=None,
     verbose=False,
     ):
-    
+
 
     # #########################################################################
     # K__OH_O Calculation #####################################################
@@ -154,7 +154,7 @@ def rate_eqn(
     term_const_1 = (kb * T / h)
     term_const_2 = (1 - gamma)
     term_const = term_const_0 * term_const_1 * term_const_2
-    
+
     if verbose:
         term_const_tmp = '%.4E' % Decimal(float(term_const))
         print("term_const:", term_const_tmp)
@@ -219,7 +219,7 @@ def test_meth(
         G__O_OH=G__O_OH,
         U_SHE=U,
         )
-    
+
     desired_current_density = 10  # mA/cm2
     out = np.abs(rate_i - desired_current_density)
 
@@ -257,10 +257,10 @@ data_list = []
 # for i in np.linspace(1.5, 1.7, 193, endpoint=True):
 for i in np.linspace(0.5, 2.5, 100, endpoint=True):
     data_dict_i = dict()
-    
+
     data_dict_i["descriptor"] = i
     print("DG_O - DG_OH", i)
-   
+
     for U_i in np.linspace(-0.5, 3.0, 50, endpoint=True):
         fun = test_meth
         min_out = minimize(

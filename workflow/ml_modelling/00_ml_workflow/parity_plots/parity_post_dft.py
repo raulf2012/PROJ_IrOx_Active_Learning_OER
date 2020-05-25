@@ -13,9 +13,10 @@
 # ---
 
 # +
-# %%capture
+# # %%capture
 
 import os
+print(os.getcwd())
 import sys
 
 import copy
@@ -51,7 +52,8 @@ from active_learning.al_analysis import ALAnalysis, ALAnimation
 from IPython.display import display
 # -
 
-stoich_i = "AB3"
+# stoich_i = "AB3"
+stoich_i = "AB2"
 verbose = True
 name_i = "TEMP"
 save_dir_extra=None
@@ -107,13 +109,11 @@ df_features_post = df_features_post.loc[ids_w_dft]
 # --
 
 # +
-df_bulk_dft.loc["8p8evt9pcg"]
+# df_bulk_dft.loc["8p8evt9pcg"]
 
-df_bulk_dft.sort_values
-# -
+# df_bulk_dft.sort_values
 
-df_bulk_dft.shape
-
+# df_bulk_dft.shape
 
 # +
 def chunks(l, n):
@@ -123,9 +123,9 @@ def chunks(l, n):
 
 models_list = []
 for i_cnt, i in enumerate(chunks(ids_w_dft, 40)):
-    
+
     leave_out_ids = i
-    
+
 
     # df_post_i = df_features_post.drop(labels=leave_out_ids)
     # df_features_post
@@ -231,7 +231,7 @@ model_i.sort_values("y_real")
 
 # # arg1 = "TEMP_0"
 # df_i = model_i
-# # df_i["column_name"] = 
+# # df_i["column_name"] =
 
 # df_i.apply(
 #     method,
@@ -302,7 +302,7 @@ model_master["err_pred_real"].mean()
 
 
 # model_master
-# -1.658857 - -1.784430	
+# -1.658857 - -1.784430
 # 0.12557299999999993
 
 # + active=""

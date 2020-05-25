@@ -7,10 +7,12 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-PROJ_irox-py
 # ---
+
+# # I don't think this notebook is necessary at all, only 02_fingerprints_pre_opt.ipynb is needed
 
 # # New ML Active Learning Workflow
 # ---
@@ -71,8 +73,8 @@ with open(bulk_dft_data_path, "rb") as fle:
 with open(static_irox_structures_path, "rb") as fle:
     df_struct = pickle.load(fle)
 
-with open(static_irox_structures_kirsten_path, "rb") as fle:
-    df_struct_kirsten = pickle.load(fle)
+# with open(static_irox_structures_kirsten_path, "rb") as fle:
+#     df_struct_kirsten = pickle.load(fle)
 
 df_ids = pd.read_csv(unique_ids_path)
 # -
@@ -125,8 +127,8 @@ df_struct.columns
 with open(df_features_pre_opt_path, "rb") as fle:
     df_features_pre_opt = pickle.load(fle)
 
-with open(df_features_pre_opt_kirsten_path, "rb") as fle:
-    df_features_pre_opt_kirsten = pickle.load(fle)
+# with open(df_features_pre_opt_kirsten_path, "rb") as fle:
+#     df_features_pre_opt_kirsten = pickle.load(fle)
 # -
 
 with open(df_features_post_opt_path, "rb") as fle:
@@ -142,6 +144,9 @@ with open(df_features_post_opt_path, "rb") as fle:
 #
 #
 #
+
+# +
+# df_features_post_opt
 
 # +
 df_features_post_opt["data", "INDEX_OLD"] = df_features_post_opt.index
@@ -224,8 +229,6 @@ df_bulk_dft = df_bulk_dft.drop(("INDEX_OLD"), axis=1)
 # -
 
 assert False
-
-df_features_
 
 # + active=""
 #

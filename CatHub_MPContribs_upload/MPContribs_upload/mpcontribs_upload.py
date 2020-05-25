@@ -28,11 +28,6 @@ import pandas as pd
 from pymatgen.io.ase import AseAtomsAdaptor
 
 from mpcontribs.client import load_client
-
-# +
-import ase
-
-ase.__version__
 # -
 
 # # Read IrOx DFT Data
@@ -49,6 +44,8 @@ with open(path_i, "rb") as fle:
 # #########################################################
 
 df_dft = df_dft.drop(columns=["id", "form_e_chris", "path", "source"])
+
+# +
 df_dft = df_dft.sort_values(["stoich", "dH"])
 
 
@@ -57,32 +54,9 @@ df_dft = df_dft.sort_values(["stoich", "dH"])
 # df_dft = df_dft.sample(n=10)
 
 # +
-# df_dft = df_dft.loc[[
-#     '94x5nkmjmf',
-#     'cazivwbq94',
-#     '8kvd8qnim4',
-#     '656qniby7j',
-#     '9yn4m16ux1',
-#     'cfzam1mdbf',
-#     'zy9dzknhnj',
-#     'zanqv2xtvk',
-#     'njntmu9w93',
-#     'mrbine8k72',
-
-#     'cg8p7fxq65',
-#     '64cg6j9any',
-#     '85z4msnl6o',
-#     'xozr8f7p7g',
-#     '949rnem5z2',
-#     'mkmsvkcyc5',
-#     'vwxfn3blxi',
-#     'nrml6dms9l',
-#     ]]
-
-# +
 # %%capture
 
-sys.path.insert(0, 
+sys.path.insert(0,
     os.path.join(
         os.environ["PROJ_irox"],
         "workflow/ml_modelling"))
@@ -215,7 +189,7 @@ for ind_i, row_i in df_dft.iterrows():
         spacegroup_dft = int(row_proto_dft.spacegroup)
     else:
         print("Woops", ind_i)
-        
+
         prototype_name_dft = ""
         spacegroup_dft = None
 
@@ -255,8 +229,8 @@ for ind_i, row_i in df_dft.iterrows():
             print("There is no MP duplicate for this entry, but there should be")
 
         mp_duplicate = mp_duplicates[0]
-        identifier_i = mp_duplicate    
-    
+        identifier_i = mp_duplicate
+
     # #####################################################
     contributions[ind_i] = dict(
         contrib=dict(

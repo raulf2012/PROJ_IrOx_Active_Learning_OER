@@ -55,6 +55,9 @@ files_list_random = al_data_files_dict[stoich_i]["files_list_random"]
 # elif stoich_i == "AB3":
 #     files_list_gp_ucb = al_data_files_dict[stoich_i]["files_list_ab3_gp_ucb"]
 #     files_list_random = al_data_files_dict[stoich_i]["files_list_ab3_random"]
+# -
+
+files_list_random[0]
 
 # + [markdown] Collapsed="false"
 # # Script Inputs
@@ -191,15 +194,15 @@ def process_data(
     for i in data_dict.keys():
         del df_m[i, "num_dft"]
 
-        
+
     # TEMP
     # out_data_dict["df_perf"] = df_m
     # return(out_data_dict)
-    
-    
+
+
     columns_list = list(df_m.columns.levels[0])
     col = df_m.loc[: , columns_list[0]:columns_list[-1]]
- 
+
     # col = df_m.loc[: , 0:list(df_m.columns.levels[0])[-1]]
 
     y_mean = col.mean(axis=1)
@@ -566,6 +569,9 @@ with open(os.path.join(directory, stoich_i + "_" + "df_gbucb.pickle"), "wb") as 
     pickle.dump(df_perf_gpucb, fle)
 # #####################################################################
 
+# +
+# df_perf_random
+
 # + Collapsed="false" active=""
 #
 #
@@ -584,7 +590,7 @@ with open(os.path.join(directory, stoich_i + "_" + "df_gbucb.pickle"), "wb") as 
 #         name=col_i[0],
 #         )
 #     data_i.append(trace_i)
-    
+
 # fig = go.Figure(data=data_i)
 # # fig.show()
 
@@ -626,7 +632,7 @@ with open(os.path.join(directory, stoich_i + "_" + "df_gbucb.pickle"), "wb") as 
 
 #         # "01_attempt/AL_geheneva.pickle",
 #         # "01_attempt/AL_pifehohu.pickle",
-        
+
 #         # NEW RUNS
 #         # "TEST_AL_2_fugunefo.pickle",
 #         "TEST_AL_2_seruladi.pickle",
@@ -651,7 +657,7 @@ with open(os.path.join(directory, stoich_i + "_" + "df_gbucb.pickle"), "wb") as 
 #     pre_path + "/TEST_AL_2_pomogobu.pickle",
 #     pre_path + "/TEST_AL_2_seruladi.pickle",
 
-    
+
 #     pre_path + "/TEST_AL_3_bikufupi.pickle",
 #     pre_path + "/TEST_AL_3_dakubiku.pickle",
 #     pre_path + "/TEST_AL_3_duloputo.pickle",
@@ -704,7 +710,7 @@ with open(os.path.join(directory, stoich_i + "_" + "df_gbucb.pickle"), "wb") as 
 #     pre_path + "/TEST_AL_5volibavo.pickle",
 #     pre_path + "/TEST_AL_5wigidipu.pickle",
 #     pre_path + "/TEST_AL_5wolowewu.pickle",
-    
+
 #     pre_path + "/TEST_AL_6_dodemuho.pickle",
 #     pre_path + "/TEST_AL_6_fisopova.pickle",
 #     pre_path + "/TEST_AL_6_gelabere.pickle",

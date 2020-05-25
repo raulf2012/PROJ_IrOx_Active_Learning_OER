@@ -501,7 +501,7 @@ add_duplicate_axes(
 
 # ## | - Save/display plot
 
-# +
+# + jupyter={}
 my_plotly_plot(
     figure=fig,
     plot_name="pl_scaling_relations",

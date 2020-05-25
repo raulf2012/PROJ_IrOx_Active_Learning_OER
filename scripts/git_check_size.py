@@ -42,13 +42,10 @@ for path_i in res.splitlines():
 
     size_i = os.stat(path_i).st_size / 1000  # Size in KB
     data_dict_i["size_kb"] = size_i
-    
-    data_dict_list.append(data_dict_i)
-    
-df = pd.DataFrame(data_dict_list)
-# -
 
-df
+    data_dict_list.append(data_dict_i)
+
+df = pd.DataFrame(data_dict_list)
 
 # +
 df["size_mb"] = df.size_kb / 1000
@@ -57,6 +54,3 @@ df["size_mb"] = df.size_kb / 1000
 df = df.sort_values("size_kb", ascending=False)
 
 df.iloc[0:20]
-# -
-
-df.shape

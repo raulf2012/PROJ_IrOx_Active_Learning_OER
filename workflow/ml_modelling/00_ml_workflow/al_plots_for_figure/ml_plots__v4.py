@@ -13,6 +13,10 @@
 #     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
 # ---
 
+# # Creating the AL plots
+#
+# This whole script needs be run twice with the variable `color_custom_points` set to `True` and `False` and twice for IrO2 and IrO3 stoichs, so 4 times in total
+
 # + [markdown] Collapsed="false"
 # # Import Modules
 
@@ -54,8 +58,8 @@ from layout import layout as layout_base
 # # Script Inputs
 
 # +
-# stoich_i = "AB3"
-stoich_i = "AB2"
+stoich_i = "AB3"
+# stoich_i = "AB2"
 
 lowest_N_sys_to_track = 10
 
@@ -144,6 +148,7 @@ from active_learning.al_analysis import ALAnimation
 
 color_custom_points = False
 # color_custom_points = True
+
 ALAnim = ALAnimation(
     ALBulkOpt=AL,
     marker_color_dict=marker_color_dict,
@@ -161,7 +166,7 @@ ALAnim = ALAnimation(
 #     # serial_parallel='serial',
 #     serial_parallel='parallel',
 #     filename=filename_i,
-    
+
 #     )
 
 # +
@@ -175,13 +180,13 @@ num_dft_list = []
 # top_ten_tracking_dict = dict()
 for gen_i in gens_to_plot:
     print(gen_i)
-    
+
     if gen_i < 0:
         gen_i = list(al_gen_dict.keys())[gen_i]
 
     AL_i = al_gen_dict[gen_i]
     model_i = AL_i.model
-    
+
     tmp = model_i[model_i.acquired == True].shape
     num_dft_list.append(tmp[0])
 
@@ -274,7 +279,7 @@ if stoich_i == "AB3":
     range_y = [-0.8, 1.5]
 elif stoich_i == "AB2":
     range_y = None
-        
+
 
 layout_override = dict(
     # height=200,
@@ -303,7 +308,7 @@ layout_override = dict(
         ticks=None,
         ),
     )
-        
+
 layout_base_cpy = copy.deepcopy(layout_base)
 layout = layout_base_cpy.update(layout_override)
 fig.update_layout(layout)
@@ -312,7 +317,7 @@ fig.update_xaxes(layout.xaxis)
 fig.update_yaxes(layout.yaxis)
 
 # #############################################################################
-# 
+#
 fig.update_xaxes(
     linecolor="red",
     row=1, col=3)
@@ -386,7 +391,7 @@ for i in fig_al_series.data:
 for gen_i in gens_to_plot:
     if gen_i < 0:
         al_gen_i = al_gen_dict[
-            list(al_gen_dict.keys())[gen_i]    
+            list(al_gen_dict.keys())[gen_i]
             ]
     else:
         al_gen_i = al_gen_dict[gen_i]
@@ -454,7 +459,7 @@ for gen_i in gens_to_plot:
 
     #     "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/01_abx_al_runs_new/out_data/AB2/gp_ucb_True",
     #     "TEST_AL_6_radetama.pickle",
-    #     ) 
+    #     )
 
 
 # + jupyter={}

@@ -7,9 +7,9 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: python3
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # # Import Modules

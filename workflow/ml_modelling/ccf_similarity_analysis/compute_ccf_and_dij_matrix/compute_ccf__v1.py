@@ -1,16 +1,15 @@
 # ---
 # jupyter:
 #   jupytext:
-#     formats: ipynb,py:light
 #     text_representation:
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # # Import Modules
@@ -32,7 +31,8 @@ from proj_data_irox import (
     unique_ids_path,
     )
 
-from StructurePrototypeAnalysisPackage.ccf import struc2ccf
+# from StructurePrototypeAnalysisPackage.ccf import struc2ccf
+from spap.ccf import struc2ccf
 # -
 
 # # Script Inputs
@@ -59,8 +59,12 @@ with open(bulk_dft_data_path, "rb") as fle:
 
 df_ids = pd.read_csv(unique_ids_path)
 
-with open("out_data/df_ccf.pickle", "rb") as fle:
-    df_ccf_prev = pickle.load(fle)
+try:
+    with open("out_data/df_ccf.pickle", "rb") as fle:
+        df_ccf_prev = pickle.load(fle)
+except:
+    # df_ccf_prev
+    df_ccf_prev = pd.DataFrame()
 # -
 
 # # Filtering df_bulk_dft
@@ -214,19 +218,16 @@ with open("out_data/df_ccf.pickle", "wb") as fle:
     pickle.dump(df_ccf_new, fle)
 
 # +
-# df_tmp.reindex(index_before_splitting)
-
-# len(index_before_splitting)
-
-# +
 with open("out_data/df_ccf.pickle", "rb") as fle:
     df_ccf_tmp = pickle.load(fle)
 
 # with open("out_data/df_ccf.pickle", "rb") as fle:
 #     df_ccf = pickle.load(fle)
+# -
 
-# +
-# df_ccf_tmp.shape
+print("df_bulk_dft_scaled.shape:", df_bulk_dft_scaled.shape)
+print("df_ccf_prev.shape:", df_ccf_prev.shape)
+print("df_ccf_new.shape:", df_ccf_new.shape)
 
 # + active=""
 #
@@ -235,15 +236,13 @@ with open("out_data/df_ccf.pickle", "rb") as fle:
 #
 #
 
-# +
-print("df_bulk_dft_scaled.shape:", df_bulk_dft_scaled.shape)
-print("df_ccf_prev.shape:", df_ccf_prev.shape)
-print("df_ccf_new.shape:", df_ccf_new.shape)
-
-
-# df_ccf_prev.index
-
 # + jupyter={}
+# df_tmp.reindex(index_before_splitting)
+
+# len(index_before_splitting)
+
+# df_ccf_tmp.shape
+
 # print(df_ccf_prev.index.unique().shape)
 
 
@@ -269,7 +268,6 @@ print("df_ccf_new.shape:", df_ccf_new.shape)
 # with open("out_data/df_ccf_test.pickle", "wb") as fle:
 #     pickle.dump(df_ccf, fle)
 
-# + jupyter={}
 # # TEMP | Reducing datasize for testing
 
 # # TEMP
@@ -339,43 +337,36 @@ print("df_ccf_new.shape:", df_ccf_new.shape)
 # df_bulk_dft[df_bulk_dft["source"] == "raul_oer"].index.tolist()
 # # df_bulk_dft = df_bulk_dft.loc[ids_to_keep]
 
-# +
-df_bulk_dft[df_bulk_dft.stoich == "AB3"].sort_values("dH").iloc[0:120]
-# ~0.3 eV/atom
+# df_bulk_dft[df_bulk_dft.stoich == "AB3"].sort_values("dH").iloc[0:120]
+# # ~0.3 eV/atom
 
-df_bulk_dft[df_bulk_dft.stoich == "AB2"].sort_values("dH").iloc
-# ~0.5 eV/atom
-# -
+# df_bulk_dft[df_bulk_dft.stoich == "AB2"].sort_values("dH").iloc
+# # ~0.5 eV/atom
 
-ab2_min = df_bulk_dft[df_bulk_dft.stoich == "AB2"].dH.min()
-ab3_min = df_bulk_dft[df_bulk_dft.stoich == "AB3"].dH.min()
+# ab2_min = df_bulk_dft[df_bulk_dft.stoich == "AB2"].dH.min()
+# ab3_min = df_bulk_dft[df_bulk_dft.stoich == "AB3"].dH.min()
 
-# +
-from proj_data_irox import calc_dH
+# from proj_data_irox import calc_dH
 
-print(calc_dH(-6.542, stoich="AB2"))
+# print(calc_dH(-6.542, stoich="AB2"))
 
-print(calc_dH(-6.163, stoich="AB3"))
-# -
+# print(calc_dH(-6.163, stoich="AB3"))
 
-ab3_min - -0.3438547784081729
+# ab3_min - -0.3438547784081729
 
-ab2_min - -0.33285956787756277
+# ab2_min - -0.33285956787756277
 
--0.3068474600000002
--0.5070619763541669
+# -0.3068474600000002
+# -0.5070619763541669
 
-# +
-with open(bulk_dft_data_path, "rb") as fle:
-    df_bulk_dft = pickle.load(fle)
+# with open(bulk_dft_data_path, "rb") as fle:
+#     df_bulk_dft = pickle.load(fle)
 
-df_tmp = df_bulk_dft[df_bulk_dft.source == "chris"]
+# df_tmp = df_bulk_dft[df_bulk_dft.source == "chris"]
 
-# +
--0.838172  # From chris | 9yz2mt8hbh
--0.839922  # Mine | cubqbpzd7k
+# -0.838172  # From chris | 9yz2mt8hbh
+# -0.839922  # Mine | cubqbpzd7k
 
--0.838286  # Mine | 9yz2mt8hbh
-# -
+# -0.838286  # Mine | 9yz2mt8hbh
 
-df_tmp[df_tmp.stoich == "AB2"].sort_values("dH")
+# df_tmp[df_tmp.stoich == "AB2"].sort_values("dH")

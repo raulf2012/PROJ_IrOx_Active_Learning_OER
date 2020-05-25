@@ -7,13 +7,14 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # +
 import os
+print(os.getcwd())
 import sys
 
 import ase.db
@@ -32,7 +33,7 @@ data_list = []
 for row in db.select():
     atoms_i = row.toatoms()
     id_unique_i = row.structure_id
-    
+
     data_dict_i = {
         "atoms": atoms_i,
         "id_unique": id_unique_i}

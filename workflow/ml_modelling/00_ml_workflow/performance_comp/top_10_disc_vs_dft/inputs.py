@@ -9,8 +9,8 @@ TEMP
 #__|
 
 
-# stoich_i = "AB2"
 stoich_i = "AB3"
+# stoich_i = "AB3"
 
 
 #| - Top IDs to Track

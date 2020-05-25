@@ -1,10 +1,11 @@
 # ---
 # jupyter:
 #   jupytext:
+#     formats: ipynb,py:hydrogen
 #     text_representation:
 #       extension: .py
-#       format_name: light
-#       format_version: '1.5'
+#       format_name: hydrogen
+#       format_version: '1.3'
 #       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
@@ -12,9 +13,10 @@
 #     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
 # ---
 
+# %% [markdown]
 # # Import Modules
 
-# + jupyter={}
+# %% jupyter={}
 import os
 print(os.getcwd())
 import sys
@@ -22,16 +24,22 @@ import sys
 import pandas as pd
 
 import pickle
-# -
 
+# %%
 sys.path.insert(0, os.path.join(
     os.environ["PROJ_irox"],
-    "workflow/ml_modelling/00_ml_workflow/191102_new_workflow"))
+    "workflow/ml_modelling/00_ml_workflow"))
+    # "workflow/ml_modelling/00_ml_workflow/191102_new_workflow"))
 from al_data import al_data_files_dict, main_AB2_run, main_AB3_run
 
+# %%
+main_AB2_run
+main_AB3_run
+
+# %% [markdown]
 # # Script Input
 
-# +
+# %%
 ab2_file_list = [
     main_AB2_run,
     ]
@@ -46,8 +54,7 @@ file_list_dict = dict(
     )
 
 
-# -
-
+# %%
 # #############################################################################
 def get_duplicates_list(stoich_i, file_list_dict=None):
     """
@@ -88,7 +95,7 @@ def get_duplicates_list(stoich_i, file_list_dict=None):
 
     return(duplicates_i)
 
-# +
+# %%
 duplicates_ab2 = get_duplicates_list("AB2", file_list_dict=file_list_dict)
 duplicates_ab3 = get_duplicates_list("AB3", file_list_dict=file_list_dict)
 
@@ -96,28 +103,29 @@ duplicates_dict = dict(
     AB2=duplicates_ab2,
     AB3=duplicates_ab3,
     )
-# -
 
+# %%
 "6fcdbh9fz2" in duplicates_dict["AB3"]
 
-# +
+# %%
 # # Pickling data ######################################################
 # directory = "out_data"
 # if not os.path.exists(directory): os.makedirs(directory)
 # with open(os.path.join(directory, "duplicates.pickle"), "wb") as fle:
 #     pickle.dump(duplicates_dict, fle)
 # # #####################################################################
-# -
 
+# %% [markdown]
 # # Constructing Duplicates Manually (Without AL Run)
 
+# %%
 sys.path.insert(0, os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling"))
 from ml_methods import get_ml_dataframes
 from ccf_similarity.ccf import CCF
 
-# +
+# %%
 DF_dict = get_ml_dataframes()
 
 df_dft = DF_dict.get("bulk_dft_data")
@@ -127,15 +135,21 @@ ids_to_discard__too_many_atoms = DF_dict.get("ids_to_discard__too_many_atoms")
 
 df_dft = df_dft[df_dft.source == "raul"]
 df_dft = df_dft.drop(columns=["path", "id_old", "id", "form_e_chris", "atoms"])
-# -
 
+# %%
 id_i = "cubqbpzd7k"
 id_i in df_dft.index
 
-# +
+# %%
 # assert False
 
-# +
+# %%
+ids_to_discard__too_many_atoms
+
+# %%
+df_dij
+
+# %%
 print(df_dft.shape)
 df_dft = df_dft.drop(
     index=df_dft.index.intersection(ids_to_discard__too_many_atoms)
@@ -147,10 +161,9 @@ df_dij = df_dij.drop(
     )
 
 
-# -
-
+# %%
 def get_duplicates_list_manually(
-    stoich_i=None, 
+    stoich_i=None,
     df_dft=None,
     df_dij=None,
     ):
@@ -175,13 +188,13 @@ def get_duplicates_list_manually(
 
     ids_to_drop__duplicates = ids_to_drop
     ids_to_drop__duplicates = list(set(ids_to_drop__duplicates))
-    
+
     return(ids_to_drop__duplicates)
 
-# +
+# %%
 # assert False
 
-# +
+# %%
 duplicates_ab2_manual = get_duplicates_list_manually(stoich_i="AB2", df_dft=df_dft, df_dij=df_dij)
 
 duplicates_ab3_manual = get_duplicates_list_manually(stoich_i="AB3", df_dft=df_dft, df_dij=df_dij)
@@ -190,8 +203,8 @@ duplicates_dict_manual = dict(
     AB2=duplicates_ab2_manual,
     AB3=duplicates_ab3_manual,
     )
-# -
 
+# %%
 # Pickling data ######################################################
 directory = "out_data"
 if not os.path.exists(directory): os.makedirs(directory)
@@ -199,15 +212,15 @@ with open(os.path.join(directory, "duplicates.pickle"), "wb") as fle:
     pickle.dump(duplicates_dict_manual, fle)
 # #####################################################################
 
-# + active=""
+# %% [raw]
 #
 #
 #
-# -
 
+# %% [markdown]
 # # Comparing duplicate lists constructed from AL to those constructed manually
 
-# +
+# %%
 print(len(duplicates_ab3_manual))
 print(len(set(duplicates_ab3)))
 
@@ -222,7 +235,7 @@ for i in duplicates_ab3:
     if i not in duplicates_ab3_manual:
         print(i)
 
-# +
+# %%
 #           duplicates_ab2_manual
 print(len(duplicates_ab2_manual))
 print(len(set(duplicates_ab2)))
@@ -237,24 +250,25 @@ print("")
 for i in duplicates_ab2:
     if i not in duplicates_ab2_manual:
         print(i)
-# -
 
+# %% [markdown]
 # I think that it is best to go with the duplicates processed manually
 #
 # It looks like the AL runs are missing something
 
+# %% [markdown]
 # # TEST
 
-# +
+# %%
 stoich_i = "AB2"
 
 # stoich_i=None,
 df_dft=df_dft
 df_dij=df_dij
 
-# +
+# %%
 # def get_duplicates_list_manually(
-# stoich_i=None, 
+# stoich_i=None,
 # df_dft=None,
 # df_dij=None,
 # ):
@@ -283,7 +297,7 @@ ids_to_drop__duplicates = list(set(ids_to_drop__duplicates))
 
 # return(ids_to_drop__duplicates)
 
-# +
+# %%
 len(ids_to_drop__duplicates)
 
 df_dft
@@ -292,23 +306,24 @@ df_dij.index
 # ids_to_drop__duplicates
 
 # df_dft.stoich.unique()
-# -
 
+# %%
 df_dft.sort_values("dH")
 
-# +
+# %%
 # df_i.sort_values("dH")
 
 "64cg6j9any" in ids_to_drop__duplicates
 
 # # CCF_i.i_all_similar("64cg6j9any")
-# -
 
+# %%
 assert False
 
+# %% [markdown]
 # # Comparing old and new duplicates
 
-# + jupyter={}
+# %% jupyter={}
 # #############################################################################
 path_i = os.path.join(
     os.environ["PROJ_irox_2"],
@@ -327,24 +342,23 @@ with open(path_i, "rb") as fle:
     duplicates_dict_new = pickle.load(fle)
 # #############################################################################
 
-# + jupyter={}
+# %% jupyter={}
 duplicates_dict_new["AB2"] == duplicates_dict_old["AB2"]
 
 print(len(duplicates_dict_new["AB2"]))
 print(len(duplicates_dict_old["AB2"]))
 
-# + jupyter={}
+# %% [raw]
+#
+#
+#
+#
+
+# %%
 # for id in duplicates_dict_old["AB2"]:
 #     if id not in duplicates_dict_new["AB2"]:
 #         print(id)
 
-# + active=""
-#
-#
-#
-#
-
-# + jupyter={}
 # DF_dict = get_ml_dataframes()
 
 # df_dft = DF_dict.get("bulk_dft_data")
@@ -356,14 +370,12 @@ print(len(duplicates_dict_old["AB2"]))
 
 # df_dij = df_dij.loc[df_dft.index, df_dft.index]
 
-# + jupyter={}
 # df_bulk_dft.index
 
 # df_i
 
 # df_bulk_dft.loc["pudomile_09"]
 
-# + Collapsed="false" jupyter={}
 # sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
 # from proj_data_irox import unique_ids_path
 
@@ -373,12 +385,11 @@ print(len(duplicates_dict_old["AB2"]))
 # drop_duplicates = False
 
 # df_ids = pd.read_csv(unique_ids_path)
-# + jupyter={}
+
 # al_data_files_dict["AB3"].keys()
 
 # main_AB3_run
 
-# + jupyter={}
 # "6fcdbh9fz2" in duplicates_ab3_manual
 
 # "6fcdbh9fz2" in duplicates_dict_manual["AB3"]

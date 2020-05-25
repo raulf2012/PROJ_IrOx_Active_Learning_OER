@@ -27,9 +27,9 @@
 # ## Python Packages
 
 # + Collapsed="false"
-import sys
 import os
 print(os.getcwd())
+import sys
 
 sys.path.insert(
     0,
@@ -211,10 +211,10 @@ fig.layout.xaxis.range = x_axis_range_tmp
 annotations_new = []
 for annot_i in layout.annotations:
     # print(annot_i)
-    
+
     if "<sub>3<" in annot_i.text:
         # print(annot_i)
-        
+
         annotations_new.append(annot_i)
 
     print("")
@@ -274,13 +274,3 @@ if not os.path.exists(directory): os.makedirs(directory)
 with open(os.path.join(directory, "pourb_fig_0.pickle"), "wb") as fle:
     pickle.dump(fig, fle)
 # #####################################################################
-
-# + active=""
-#
-#
-#
-
-# + active=""
-#
-#
-#

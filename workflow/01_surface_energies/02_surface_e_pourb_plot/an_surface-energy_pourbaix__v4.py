@@ -8,9 +8,9 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # # Title HERE
@@ -307,7 +307,7 @@ def method(row_i):
     color_i = irox_surface_e_color_map.get(
         row_i["bulk_system"] + "_" + row_i["coverage_type"]
         )
-    name_i = row_i["coverage_type"] + " " + row_i["facet"] 
+    name_i = row_i["coverage_type"] + " " + row_i["facet"]
 
     trace_i = go.Scatter(
         x=bias_list,
@@ -659,7 +659,7 @@ surf_e_list = []
 color_list = []
 label_list = []
 for i_cnt, row_i in df_m.iterrows():
-    
+
     # #########################################################################
     if row_i["coverage_type"] == "h_covered":
         label_i = "*OH"
@@ -830,7 +830,7 @@ fig.show()
 #         # x=0.83,
 #         # x=0.81,
 #         # x=0.82,
-        
+
 #         # x=0.815,
 #         x=0.8,
 
@@ -903,7 +903,7 @@ fig.show()
 
 #     annot_i.xref = "x2"
 #     annot_i.yref = "y2"
-    
+
 #     oer_volc_annot.append(annot_i)
 
 # new_annotations = list(fig.layout.annotations) + oer_volc_annot
@@ -922,7 +922,7 @@ fig.show()
 
 #         annot_i.font.color = "black"
 #         annot_i.xanchor = "center"
-        
+
 # tmp = 42
 
 # fig.show()

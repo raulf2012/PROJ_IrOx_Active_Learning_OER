@@ -7,15 +7,16 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python [conda env:research-new]
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-research-new-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # # Import Modules
 
 # +
 import os
+print(os.getcwd())
 import sys
 import pickle
 
@@ -34,7 +35,7 @@ atom_cutoff = 75
 # +
 with open(bulk_dft_data_path, "rb") as fle:
     df_bulk_dft = pickle.load(fle)
-    
+
 with open(static_irox_structures_path, "rb") as fle:
     df_static_irox = pickle.load(fle)
 
@@ -46,7 +47,7 @@ with open(static_irox_structures_path, "rb") as fle:
 # +
 def method(row_i):
     atoms_i = row_i["atoms"]
-    num_atoms_i = atoms_i.get_number_of_atoms() 
+    num_atoms_i = atoms_i.get_number_of_atoms()
     return(num_atoms_i)
 
 df_i = df_static_irox
@@ -73,11 +74,10 @@ print(
 
 # # Saving data
 
-# +
-# directory = "out_data"
-# if not os.path.exists(directory): os.makedirs(directory)
-# with open(os.path.join(directory, "ids_to_discard__too_many_atoms.pickle"), "wb") as fle:
-#     pickle.dump(ids_to_discard, fle)
+directory = "out_data"
+if not os.path.exists(directory): os.makedirs(directory)
+with open(os.path.join(directory, "ids_to_discard__too_many_atoms.pickle"), "wb") as fle:
+    pickle.dump(ids_to_discard, fle)
 
 # + active=""
 #

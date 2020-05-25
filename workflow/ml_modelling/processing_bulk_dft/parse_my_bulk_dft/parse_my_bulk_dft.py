@@ -1,16 +1,16 @@
 # ---
 # jupyter:
 #   jupytext:
-#     formats: ipynb,py:light
+#     cell_metadata_json: true
 #     text_representation:
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python [conda env:research-new]
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-research-new-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # # Parsing my bulk DFT data
@@ -264,7 +264,7 @@ df_m["id_old"] = df_m.apply(
 # +
 with open(os.path.join(directory, "df_bulk_raul_iro2.pickle"), "wb") as fle:
     pickle.dump(df_iro2, fle)
-    
+
 with open(os.path.join(directory, "df_bulk_raul_iro3.pickle"), "wb") as fle:
     pickle.dump(df_iro3, fle)
 
@@ -281,6 +281,23 @@ with open(os.path.join(directory, "df_irox_long.pickle"), "wb") as fle:
 
 print("AB2:", df_m[df_m["stoich"] == "AB2"].shape)
 print("AB3:", df_m[df_m["stoich"] == "AB3"].shape)
+
+assert False
+
+# + {"active": ""}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+# -
 
 # # Keeping track of competed jobs (Manually)
 
@@ -319,7 +336,7 @@ print("AB3:", df_m[df_m["stoich"] == "AB3"].shape)
 # (248, 4)
 # (249, 4)
 
-# + jupyter={} active=""
+# + {"active": ""}
 # # IrO2
 # # ########################
 #

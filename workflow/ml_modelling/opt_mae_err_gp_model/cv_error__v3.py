@@ -117,6 +117,8 @@ df_feat_post = DF_dict["df_features_post_opt"]
 df_ids = DF_dict['unique_ids']
 # -
 
+df_feat_post
+
 # # Preprocessing Dataframes
 
 # +
@@ -148,10 +150,12 @@ df_feat_pre = df_feat_pre["voronoi"]
 #
 #
 
-# +
+# + jupyter={"outputs_hidden": true}
 data_dict_list = []
 # for pca_comp_i in range(1, 35, 1):
+
 for pca_comp_i in range(1, 40, 1):
+# for pca_comp_i in range(1, 2, 1):
     print("pca_comp_i:", pca_comp_i)
     data_dict_j = dict()
 
@@ -191,8 +195,8 @@ for pca_comp_i in range(1, 40, 1):
 
 
 
-        
-        
+
+
 
         # #################################################
         FP = FingerPrints(
@@ -240,18 +244,18 @@ for pca_comp_i in range(1, 40, 1):
             ], axis=1, sort=False)
 
         model_i = model[~model["y"].isna()]
-        
+
         mae = np.abs(model_i.dH - model_i.y).mean()
         print(mae)
-        
+
         data_dict_i["mae"] = mae
-        
+
         data_dict_list_j.append(data_dict_i)
 
     # #####################################################
     df_i = pd.DataFrame(data_dict_list_j)
     mae_ave = df_i.mae.mean()
-    
+
     data_dict_j["mae_ave"] = mae_ave
 
     data_dict_list.append(data_dict_j)
@@ -295,9 +299,6 @@ fig.show()
 #
 #
 #
-# -
-
-assert False
 
 # + jupyter={}
 # df_train_dft.dH.shape
@@ -313,7 +314,6 @@ assert False
 
 # RM.model
 
-# + jupyter={}
 # RM = RegressionModel(
 #     opt_hyperparameters=True,
 #     gp_settings_dict=gp_settings,
@@ -335,7 +335,6 @@ assert False
 #     FingerPrints=FP,
 #     )
 
-# + jupyter={}
 # # CS = self.CandidateSpace
 # FP = CS.FingerPrints
 # completed_ids = self.completed_ids
@@ -361,7 +360,6 @@ assert False
 # df_test = FP.df_test
 
 
-# + jupyter={}
 # sys.path.insert(0, os.path.join(
 #     os.environ["PROJ_irox"],
 #     "python_classes"))
@@ -372,7 +370,6 @@ assert False
 #     df_dij=df_dij,
 #     d_thresh=d_thresh)
 
-# + jupyter={}
 # AL = ALBulkOpt(
 #     CandidateSpace=CS,
 #     RegressionModel=RM,
@@ -392,7 +389,6 @@ assert False
 #     seed=seed,
 #     )
 
-# + jupyter={}
 
 # RM = RegressionModel(
 #     df_train=df_feat_post,
@@ -406,151 +402,144 @@ assert False
 
 # RM.run_regression()
 
-# + active=""
-#
+# def run_cv(
+#     df_dft=None,
+#     n_fold_cv=None,
+#     pca_comp=None,
+#     ):
+#     """Run Cross-validation runs."""
 
-# + jupyter={}
-def run_cv(
-    df_dft=None,
-    n_fold_cv=None,
-    pca_comp=None,
-    ):
-    """Run Cross-validation runs."""
-    
-    out_dict = dict()
+#     out_dict = dict()
 
-    # n_fold_cv = df_dft.shape[0]
-    # n_fold_cv = 5
-    # n_fold_cv = 3
+#     # n_fold_cv = df_dft.shape[0]
+#     # n_fold_cv = 5
+#     # n_fold_cv = 3
 
 
-    fold_size = int(df_dft.shape[0] / n_fold_cv)
-    # print("fold_size:", fold_size)
+#     fold_size = int(df_dft.shape[0] / n_fold_cv)
+#     # print("fold_size:", fold_size)
 
-    # Shuffling training data
-    df_dft = df_dft.sample(
-        n=None,
-        frac=1.,
-        replace=False,
-        axis=None)
+#     # Shuffling training data
+#     df_dft = df_dft.sample(
+#         n=None,
+#         frac=1.,
+#         replace=False,
+#         axis=None)
 
-    # print("n_fold_cv * fold_size:", n_fold_cv * fold_size)
+#     # print("n_fold_cv * fold_size:", n_fold_cv * fold_size)
 
-    ids_0 = df_dft.index[:n_fold_cv * fold_size]
-    folds = np.split(ids_0, n_fold_cv)
+#     ids_0 = df_dft.index[:n_fold_cv * fold_size]
+#     folds = np.split(ids_0, n_fold_cv)
 
-    ids_leftover = df_dft.index[n_fold_cv * fold_size:]
+#     ids_leftover = df_dft.index[n_fold_cv * fold_size:]
 
-    if ids_leftover.shape[0] > 0:
-        folds.append(ids_leftover)
-    folds = np.array(folds)
+#     if ids_leftover.shape[0] > 0:
+#         folds.append(ids_leftover)
+#     folds = np.array(folds)
 
 
 
-    data_dict_list = []
-    for i_cnt, fold_i in enumerate(folds):
-        data_dict_i = dict()
+#     data_dict_list = []
+#     for i_cnt, fold_i in enumerate(folds):
+#         data_dict_i = dict()
 
-        row_i = df_gp_params.iloc[0]
+#         row_i = df_gp_params.iloc[0]
 
-        df_train_dft = df_dft.drop(
-            labels=fold_i,
-            axis=0)
+#         df_train_dft = df_dft.drop(
+#             labels=fold_i,
+#             axis=0)
 
-        df_train_feat = df_feat_post.loc[df_train_dft.index]
-        df_test_feat = df_feat_post.loc[fold_i]
+#         df_train_feat = df_feat_post.loc[df_train_dft.index]
+#         df_test_feat = df_feat_post.loc[fold_i]
 
-        # #####################################################
-        # Running GP Model ####################################
-        gp_params_i = row_i.to_dict()
-        out = gp_workflow(
-            df_features_post=df_train_feat, df_test=df_test_feat,
-            df_bulk_dft=df_train_dft, df_bulk_dft_all=df_dft,
+#         # #####################################################
+#         # Running GP Model ####################################
+#         gp_params_i = row_i.to_dict()
+#         out = gp_workflow(
+#             df_features_post=df_train_feat, df_test=df_test_feat,
+#             df_bulk_dft=df_train_dft, df_bulk_dft_all=df_dft,
 
-            df_ids=df_ids,
-            gp_model=gp_model_catlearn,
-            opt_hyperparameters=True,
-            gp_params=gp_params_i,
-            y_train_key="energy_pa",
+#             df_ids=df_ids,
+#             gp_model=gp_model_catlearn,
+#             opt_hyperparameters=True,
+#             gp_params=gp_params_i,
+#             y_train_key="energy_pa",
 
 
-            verbose=False,
-            clean_variance_flag=True, clean_skewness_flag=True,
-            clean_infinite_flag=True, standardize_data_flag=True,
+#             verbose=False,
+#             clean_variance_flag=True, clean_skewness_flag=True,
+#             clean_infinite_flag=True, standardize_data_flag=True,
 
-            pca_comp=pca_comp,
-            # pca_comp=11,
-            # pca_perc=0.99,
-            pca_mode="num_comp",
-            # pca_mode="perc",
-            )
+#             pca_comp=pca_comp,
+#             # pca_comp=11,
+#             # pca_perc=0.99,
+#             pca_mode="num_comp",
+#             # pca_mode="perc",
+#             )
 
-        model_i = out["model"]
-        model_inst = out["model_inst"]
+#         model_i = out["model"]
+#         model_inst = out["model_inst"]
 
-        test_row_i = model_i[model_i["prediction"].notnull()]
+#         test_row_i = model_i[model_i["prediction"].notnull()]
 
-        mae_i = abs(
-            test_row_i["prediction_unstandardized"] - test_row_i["energy_pa"]
-            ).mean()
-        data_dict_i["mae"] = mae_i
+#         mae_i = abs(
+#             test_row_i["prediction_unstandardized"] - test_row_i["energy_pa"]
+#             ).mean()
+#         data_dict_i["mae"] = mae_i
 
-        # #################################################
-        data_dict_list.append(data_dict_i)
+#         # #################################################
+#         data_dict_list.append(data_dict_i)
 
-    # #####################################################
-    df_cv = pd.DataFrame(data_dict_list)
-    out_dict["df_cv"] = df_cv
+#     # #####################################################
+#     df_cv = pd.DataFrame(data_dict_list)
+#     out_dict["df_cv"] = df_cv
 
-    return(out_dict)
+#     return(out_dict)
 
-# + jupyter={}
-data_dict_list = []
-for pca_comp_i in range(1, 35, 1):
-    print("pca_comp_i:", pca_comp_i)
-    data_dict_i = dict()
+# data_dict_list = []
+# for pca_comp_i in range(1, 35, 1):
+#     print("pca_comp_i:", pca_comp_i)
+#     data_dict_i = dict()
 
-    try:
-        data_dict_i["pca_comp"] = pca_comp_i
+#     try:
+#         data_dict_i["pca_comp"] = pca_comp_i
 
-        out_dict = run_cv(
-            df_dft=df_dft,
-            n_fold_cv=n_fold_cv,
-            # pca_comp=11,
-            pca_comp=pca_comp_i,
-            )
-        df_cv = out_dict["df_cv"]
-        mae_cv = df_cv.mae.mean()
-        data_dict_i["mae_cv"] = mae_cv
+#         out_dict = run_cv(
+#             df_dft=df_dft,
+#             n_fold_cv=n_fold_cv,
+#             # pca_comp=11,
+#             pca_comp=pca_comp_i,
+#             )
+#         df_cv = out_dict["df_cv"]
+#         mae_cv = df_cv.mae.mean()
+#         data_dict_i["mae_cv"] = mae_cv
 
-        data_dict_list.append(data_dict_i)
-    except:
-        print("Didn't work")
+#         data_dict_list.append(data_dict_i)
+#     except:
+#         print("Didn't work")
 
-    print("")
+#     print("")
 
-df = pd.DataFrame(data_dict_list)
+# df = pd.DataFrame(data_dict_list)
 
-# + jupyter={}
-# Pickling data ###########################################
-import os; import pickle
-directory = "out_data"
-if not os.path.exists(directory): os.makedirs(directory)
-with open(os.path.join(directory, "data.pickle"), "wb") as fle:
-    pickle.dump(df, fle)
-# #########################################################
+# # Pickling data ###########################################
+# import os; import pickle
+# directory = "out_data"
+# if not os.path.exists(directory): os.makedirs(directory)
+# with open(os.path.join(directory, "data.pickle"), "wb") as fle:
+#     pickle.dump(df, fle)
+# # #########################################################
 
-# + jupyter={}
-import plotly.graph_objs as go
+# import plotly.graph_objs as go
 
-x_array = df.pca_comp
-y_array = df.mae_cv
+# x_array = df.pca_comp
+# y_array = df.mae_cv
 
-trace = go.Scatter(
-    x=x_array,
-    y=y_array,
-    )
-data = [trace]
+# trace = go.Scatter(
+#     x=x_array,
+#     y=y_array,
+#     )
+# data = [trace]
 
-fig = go.Figure(data=data)
-fig.show()
+# fig = go.Figure(data=data)
+# fig.show()

@@ -7,9 +7,9 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # # Parsing OQMD Structures and Energies into Dataframe
@@ -58,6 +58,8 @@ df_id = pd.read_csv(unique_ids_path)
 with open(static_irox_structures_path, "rb") as fle:
     df_structures = pickle.load(fle)
 
+static_irox_structures_path
+
 # Only processing OQMD entries
 
 df_structures = df_structures.loc[df_id[df_id["source"] == "oqmd"]["unique_ids"]]
@@ -88,7 +90,7 @@ if len(merged_col_unique) == 1:
         print("Not good!! 00")
 else:
     print("Not good!! 11")
-    
+
 if all_good:
     df_merged.drop(["_merge"], axis=1, inplace=True)
 # -
