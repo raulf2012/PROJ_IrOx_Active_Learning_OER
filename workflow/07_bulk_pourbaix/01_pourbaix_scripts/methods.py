@@ -231,7 +231,7 @@ def get_entry_name(entry):
     # | - get_entry_name
     obj = entry.entry
     if isinstance(obj, IonEntry):
-        print(obj, "is of type MyClass")
+        # print(obj, "is of type MyClass")
 
         entry_tmp = entry
 
@@ -318,7 +318,7 @@ def get_spec_entries(entries_list, all_entries):
         for i in all_entries:
 
             name_i = get_entry_name(i)
-            # print(name_i)
+            print(name_i)
 
             if name_i == j:
                 out_dict[name_i] = i
@@ -411,28 +411,28 @@ def create_outside_borders(axis_ranges=None):
 #     """
 #     """
 #     # | - pourbaix_plot_layout
-# 
+#
 #     plot_title = None
 #     tick_lab_size = 12 * (4. / 3.)
 #     axes_lab_size = 14 * (4. / 3.)
 #     # tick_lab_size = 8 * (4. / 3.)
 #     # axes_lab_size = 9 * (4. / 3.)
 #     # legend_size = 18
-# 
+#
 #     # font_family="Computer Modern"  # "Courier New, monospace"
 #     font_family = "Arial"  # "Courier New, monospace"
-# 
-# 
+#
+#
 #     layout = go.Layout(
-# 
+#
 #         font={
 #             "family": font_family,
 #             "color": "black",
 #             },
-# 
+#
 #         title=plot_title,
 #         titlefont=None,
-# 
+#
 #         xaxis={
 #             "title": "pH",
 #             "range": axis_ranges["x_axis"],
@@ -441,16 +441,16 @@ def create_outside_borders(axis_ranges=None):
 #             "mirror": 'ticks',
 #             "linecolor": 'black',
 #             "showgrid": False,
-# 
+#
 #             "ticks": 'inside',
 #             "tick0": 0,
 #             "tickcolor": 'black',
-# 
+#
 #             "dtick": 1,
-# 
+#
 #             "ticklen": 2,
 #             "tickwidth": 1,
-# 
+#
 #             "titlefont": dict(size=axes_lab_size),
 #             "tickfont": dict(
 #                 size=tick_lab_size,
@@ -461,10 +461,10 @@ def create_outside_borders(axis_ranges=None):
 #             #     color="black",
 #             #     )
 #             },
-# 
+#
 #         yaxis={
 #             "title": "E(V)",
-# 
+#
 #             "range": axis_ranges["y_axis"],
 #             "zeroline": False,
 #             "showline": True,
@@ -477,30 +477,28 @@ def create_outside_borders(axis_ranges=None):
 #             # "dtick": 0.25,
 #             "ticklen": 2,
 #             "tickwidth": 1,
-# 
+#
 #             "titlefont": dict(size=axes_lab_size),
 #             "tickfont": dict(
 #                 size=tick_lab_size,
 #                 ),
 #             },
-# 
+#
 #         margin={
 #             "b": 40.,
 #             "l": 40.,
 #             "r": 40.,
 #             "t": 40.,
 #             },
-# 
+#
 #         # legend=None,
 #         showlegend=False,
 #         width=1 * 9. * 37.795275591,
 #         height=1 * 6. * 37.795275591,
 #         )
-# 
+#
 #     return(layout)
 #     #__|
-# 
+#
 
 #__|
-
-

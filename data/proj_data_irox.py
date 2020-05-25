@@ -276,7 +276,7 @@ def calc_dH(
     ):
     """
     Based on a E_DFT/atom of -7.047516 for rutile-IrO2
-    
+
     See the following dir for derivation:
         PROJ_IrOx_Active_Learning_OER/workflow/energy_treatment_deriv/calc_references
     """
@@ -731,9 +731,8 @@ df_ccf_path = os.path.join(
 
 df_dij_path = os.path.join(
     os.environ["PROJ_irox"],
-    "workflow/ml_modelling/ccf_similarity_analysis",
-    "compute_ccf_and_dij_matrix/out_data",
-    "df_d_ij_all.pickle")
+    "workflow/ml_modelling/ccf_similarity_analysis/compute_ccf_and_dij_matrix",
+    "out_data/df_d_ij_all.pickle")
 
 # /mnt/c/Users/raulf2012/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER
 
@@ -745,9 +744,10 @@ ids_to_discard__too_many_atoms_path = os.path.join(
     )
 
 
-ids_duplicates_path = os.path.join( 
+ids_duplicates_path = os.path.join(
     os.environ["PROJ_irox"],
-    "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/get_duplicates_from_al",
+    # "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/get_duplicates_from_al",
+    "workflow/ml_modelling/00_ml_workflow/get_duplicates_from_al",
     "out_data/duplicates.pickle")
 
 
@@ -811,4 +811,3 @@ sys.path.insert(0, os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling/00_ml_workflow/191102_new_workflow"))
 #__|
-

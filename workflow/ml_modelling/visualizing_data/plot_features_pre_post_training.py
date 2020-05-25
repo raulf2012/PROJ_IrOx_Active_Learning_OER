@@ -5,8 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.2.1
+#       format_version: '1.5'
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
 #     language: python
@@ -208,7 +208,7 @@ out = gp_workflow(
     )
 model_i = out["model"]; model_inst = out["model_inst"]
 
-# + {"active": ""}
+# + active=""
 # train_data.shape: (155, 271)
 # train_data.shape: (155, 254)
 
@@ -294,7 +294,7 @@ fig.data[0]
 
 df_m
 
-# + {"active": ""}
+# + active=""
 #
 #
 #

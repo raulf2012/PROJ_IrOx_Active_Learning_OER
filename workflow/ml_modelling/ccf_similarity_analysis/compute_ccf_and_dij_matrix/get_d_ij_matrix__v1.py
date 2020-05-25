@@ -2,12 +2,11 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_json: true
-#     formats: ipynb,py:light
 #     text_representation:
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.3.0
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
 #     language: python
@@ -39,7 +38,8 @@ import chart_studio.plotly as py
 # import plotly.graph_objs as go
 import plotly.graph_objects as go
 
-from StructurePrototypeAnalysisPackage.ccf import (
+# from StructurePrototypeAnalysisPackage.ccf import (
+from spap.ccf import (
     struc2ccf,
     cal_ccf_d,
     cal_inter_atomic_d,
@@ -78,9 +78,12 @@ with open("out_data/df_ccf.pickle", "rb") as fle:
 # df_ccf = df_ccf[0:40]
 
 # #############################################################################
-with open("out_data/df_d_ij_all.pickle", "rb") as fle:
-# with open("out_data/df_d_ij_all_temp.pickle", "rb") as fle:
-    df_d_comp_prev = pickle.load(fle)
+try:
+    with open("out_data/df_d_ij_all.pickle", "rb") as fle:
+    # with open("out_data/df_d_ij_all_temp.pickle", "rb") as fle:
+        df_d_comp_prev = pickle.load(fle)
+except:
+    df_d_comp_prev = pd.DataFrame()
 
 # + {"Collapsed": "false"}
 # df_d_comp_prev.loc["6fcdbh9fz2"]

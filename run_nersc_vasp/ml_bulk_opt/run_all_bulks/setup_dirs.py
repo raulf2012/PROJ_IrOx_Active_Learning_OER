@@ -5,8 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.1.7
+#       format_version: '1.5'
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -15,7 +15,7 @@
 
 # # Import Modules
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={}
 import os
 import sys
 
@@ -204,7 +204,7 @@ for i_cnt, row_i in df.iterrows():
             nodes_i=nodes_i,
             job_0_dir_i=job_0_dir_i)
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
@@ -212,7 +212,7 @@ for i_cnt, row_i in df.iterrows():
 
 # # OLD
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={}
 #         CC = ComputerCluster()
 
 #         if os.environ["COMPENV"] == "sherlock":

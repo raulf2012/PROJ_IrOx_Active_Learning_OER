@@ -287,13 +287,13 @@ def get_data_for_al(
     ids_to_drop = []
 
     # #########################################################################
-    path_i = os.path.join(
-        os.environ["PROJ_irox"],
-        "workflow/ml_modelling/processing_bulk_dft/static_prototypes_structures/out_data",
-        "ids_to_discard__proto_dupl.pickle")
-    with open(path_i, "rb") as fle:
-        ids_to_discard__proto_dupl = pickle.load(fle)
-        # ids_to_drop.extend(ids_to_discard__proto_dupl)
+    # path_i = os.path.join(
+    #     os.environ["PROJ_irox"],
+    #     "workflow/ml_modelling/processing_bulk_dft/static_prototypes_structures/out_data",
+    #     "ids_to_discard__proto_dupl.pickle")
+    # with open(path_i, "rb") as fle:
+    #     ids_to_discard__proto_dupl = pickle.load(fle)
+    #     # ids_to_drop.extend(ids_to_discard__proto_dupl)
     # #########################################################################
 
     if drop_too_many_atoms:

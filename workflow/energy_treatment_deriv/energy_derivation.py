@@ -1,16 +1,15 @@
 # ---
 # jupyter:
 #   jupytext:
-#     formats: ipynb,py:light
 #     text_representation:
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: python3
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # # Derivation of Corrections for Surface Energy Calculations
@@ -356,11 +355,25 @@ out_dict["phi_O_ref"] = float(phi_O_ref)
 out_dict["E_H_ref"] = float(E_H_ref)
 out_dict["E_O_ref"] = float(E_O_ref)
 
+# +
+# Pickling data ###########################################
+import os; import pickle
+directory = "out_data"
+if not os.path.exists(directory): os.makedirs(directory)
+# with open("out_data/data.pickle", "wb") as fle:
+#     pickle.dump(out_dict, fle)
 
-import pickle
-with open("out_data/data.pickle", "wb") as fle:
+with open(os.path.join(directory, "data.pickle"), "wb") as fle:
     pickle.dump(out_dict, fle)
+# #########################################################
+
+# +
+# import pickle
+# with open("out_data/data.pickle", "wb") as fle:
+#     pickle.dump(out_dict, fle)
 # -
+
+
 
 # # Output from Michal's Script
 

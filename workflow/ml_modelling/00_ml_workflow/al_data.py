@@ -12,12 +12,26 @@ import sys
 #__|
 
 
+# Do you want to read files already created by the main authors to run scripts or have you rerun the AL algorithm (time consuming) to create your own data?
+use_authors_data = True
+
+if use_authors_data:
+    root_path = os.path.join(
+        os.environ["PROJ_DATA"],
+        "04_IrOx_surfaces_OER/PROJECT_COMPUTED_OUT_DATA/PROJ_IrOx_Active_Learning_OER",
+        )
+else:
+    root_path = os.environ["PROJ_irox"]
+
+
+
 
 #| - AL Settings and Variables
 
 main_AB2_run = os.path.join(
-    os.environ["PROJ_irox"],
-    "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/01_abx_al_runs_new/out_data/AB2/gp_ucb_True",
+    root_path,
+    # "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/01_abx_al_runs_new/out_data/AB2/gp_ucb_True",
+    "workflow/ml_modelling/00_ml_workflow/01_abx_al_runs_new/out_data/AB2/gp_ucb_True",
     "AB2_AL_02_ropeseso.pickle")
 
     #| - __old__
@@ -31,8 +45,8 @@ main_AB2_run = os.path.join(
     #__|
 
 main_AB3_run = os.path.join(
-    os.environ["PROJ_irox"],
-    "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs/out_data/AB3/gp_ucb_True",
+    root_path,
+    "workflow/ml_modelling/00_ml_workflow/00_abx_al_runs/out_data/AB3/gp_ucb_True",
     "TEST_AL_2_fugunefo.pickle")
 
     #| - __old__
@@ -118,8 +132,9 @@ gens_to_plot_dict = {
 
 #| - Files to read ############################################################
 pre_path_all = os.path.join(
-    os.environ["PROJ_irox"],
-    "workflow/ml_modelling/00_ml_workflow/191102_new_workflow",
+    root_path,
+    # "workflow/ml_modelling/00_ml_workflow/191102_new_workflow",
+    "workflow/ml_modelling/00_ml_workflow",
     )
 
 #| - AB3
@@ -127,8 +142,9 @@ pre_path_all = os.path.join(
 #| - Random Aquisition
 
 pre_path = os.path.join(
-    os.environ["PROJ_irox"],
-    "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs/out_data/AB3/random_True",
+    root_path,
+    # "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs/out_data/AB3/random_True",
+    "workflow/ml_modelling/00_ml_workflow/00_abx_al_runs/out_data/AB3/random_True",
     )
 
 files_list_ab3_random = [
@@ -243,8 +259,9 @@ files_list_ab3_random = [
 
 #| - GP-UCB Aquisition
 pre_path = os.path.join(
-    os.environ["PROJ_irox"],
-    "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs/out_data/AB3/gp_ucb_True",
+    root_path,
+    # "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs/out_data/AB3/gp_ucb_True",
+    "workflow/ml_modelling/00_ml_workflow/00_abx_al_runs/out_data/AB3/gp_ucb_True",
     )
 
 
@@ -484,12 +501,13 @@ files_list_ab2_random = [
 
 #| - GP-UCB Aquisition
 pre_path = os.path.join(
-    os.environ["PROJ_irox"],
+    root_path,
     "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs/out_data/AB2/gp_ucb_True",
     )
 pre_path_new = os.path.join(
-    os.environ["PROJ_irox"],
-    "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/01_abx_al_runs_new/out_data/AB2/gp_ucb_True"
+    root_path,
+    # "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/01_abx_al_runs_new/out_data/AB2/gp_ucb_True"
+    "workflow/ml_modelling/00_ml_workflow/01_abx_al_runs_new/out_data/AB2/gp_ucb_True"
     )
 
 

@@ -5,8 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.1.7
+#       format_version: '1.5'
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python [conda env:research-new]
 #     language: python
@@ -22,7 +22,7 @@
 # # Notes
 # ---
 
-# + {"active": ""}
+# + active=""
 # ID IrO3-146 isn't availabe in the parsed folders
 #
 # -171.82382373
@@ -96,7 +96,7 @@ train_data_dict = {
 #
 # Comment out to read pickled data file instead (saves time)
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={}
 # master_data_list = []
 # id_list_nersc = []
 # for subdir, dirs, files in os.walk(root_dir):

@@ -1,7 +1,16 @@
-#!/usr/bin/env python
+# # !/usr/bin/env python
 
 """
 """
+
+# print("IJFIDSJIFJDISIFSD")
+# import os
+# # try:
+# user_paths = os.environ['PYTHONPATH'].split(os.pathsep)
+# print(user_paths)
+# # except KeyError:
+# #     user_paths = []
+
 
 # | - Import Modules
 import os

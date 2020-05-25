@@ -8,9 +8,9 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.3.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # # Import Modules
@@ -34,18 +34,25 @@ from proj_data_irox import (
     static_irox_structures_path)
 
 print(os.getcwd())
+
+# +
+import ase
+
+print(ase)
+print(ase.__version__)
 # -
 
 # # Read Data
 
-path_i = os.path.join(
-    os.environ["PROJ_irox"],
-    "workflow/ml_modelling",
-    "processing_bulk_dft/parse_chris_bulk_dft/out_data",
-    "df_dft_calcs.pickle")
-with open(path_i, "rb") as fle:
-    df_chris = pickle.load(fle)
-df_chris["source"] = "chris"
+# +
+# path_i = os.path.join(
+#     os.environ["PROJ_irox"],
+#     "workflow/ml_modelling",
+#     "processing_bulk_dft/parse_chris_bulk_dft/out_data",
+#     "df_dft_calcs.pickle")
+# with open(path_i, "rb") as fle:
+#     df_chris = pickle.load(fle)
+# df_chris["source"] = "chris"
 
 # +
 path_i = os.path.join(
@@ -92,7 +99,7 @@ df_oqmd_data["source"] = "oqmd"
 frames = [
     df_raul_irox,
     df_oer_bulk,
-    df_chris,
+    # df_chris,
     df_oqmd_data,
     ]
 
@@ -176,6 +183,14 @@ def method(row_i):
 
     return(energy_norm_i)
 df_m["energy_pa"] = df_m.apply(method, axis=1)
+
+# + active=""
+#
+#
+#
+#
+#
+#
 # -
 
 # # Adding Formation Enthalpy and Gibbs Free Energy
@@ -193,21 +208,6 @@ def method(row_i, calc_dH):
     return(dH)
 
 df_m["dH"] = df_m.apply(method, args=(calc_dH, ), axis=1)
-
-# +
-# def method(row_i, argument_0, optional_arg=None):
-#     """
-#     """
-#     return(argument_0)
-
-# arg1 = "TEMP_0"
-# df_i = model_i
-# df_i["column_name"] = df_i.apply(
-#     method,
-#     axis=1,
-#     args=(arg1, ),
-#     optional_arg="TEMP_1"
-#     )
 # -
 
 # # Removing rows with missing atoms objects
@@ -286,20 +286,20 @@ df_tmp2
 #
 
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # df_tmp.path.tolist()
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # for i in df_m.index.tolist():
 #     if "m16" in i:
 #         print(i)
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # df_m.loc["m16tvk8h7g"]
 
 # df_m[df_m.stoich == "AB2"].sort_values("dH").iloc[0:10]
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # os.path.join(directory, "df_bulk_dft.pickle")
 
 # df_m.loc["cubqbpzd7k"]
@@ -313,3 +313,18 @@ df_tmp2
 # #     (df_m["stoich"] == "AB2")
 #     (df_m["source"] == "raul")
 #     ].sort_values("energy_pa")
+
+# + jupyter={}
+# def method(row_i, argument_0, optional_arg=None):
+#     """
+#     """
+#     return(argument_0)
+
+# arg1 = "TEMP_0"
+# df_i = model_i
+# df_i["column_name"] = df_i.apply(
+#     method,
+#     axis=1,
+#     args=(arg1, ),
+#     optional_arg="TEMP_1"
+#     )

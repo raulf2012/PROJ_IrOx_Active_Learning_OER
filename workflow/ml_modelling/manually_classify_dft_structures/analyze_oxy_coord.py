@@ -5,8 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.1.7
+#       format_version: '1.5'
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python [conda env:research-new]
 #     language: python
@@ -45,7 +45,7 @@ from proj_data_irox import (
 
 # # Systems with O-O bonds
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={}
 systems_with_O_O_bonds = {
  '62xp6e9yzs',
  '63xlmhno8h',
@@ -297,7 +297,7 @@ os.getcwd()
 #     pickle.dump(df_coord, fle)
 # # #####################################################################
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
@@ -499,28 +499,28 @@ fig.show()
 
 # my_plotly_plot
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={}
 # df_tmp[df_tmp["structure_index"] == 32]
 
 # df_oo_bonds = pd.DataFrame()
 # df_oo_bonds["TEMP"] = all_oo_bond_distances
 
-# + {"jupyter": {"source_hidden": true}}
-# pd.DataFrame.sort_values?
+# + jupyter={}
+# # pd.DataFrame.sort_values?
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={}
 # df_oo.sort_values("oo_bond_length")
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={}
 # df_oo[df_oo["id_unique"] == "6dxsvlbymt"].sort_values(by=["structure_index", "oo_bond_length"])
 # df_oo[df_oo["id_unique"] == "639a63mabs"].sort_values
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={}
 # row_i = df_oo.iloc[0]
 
 # # df_ids.loc[]

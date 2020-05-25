@@ -5,8 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: light
-#       format_version: '1.4'
-#       jupytext_version: 1.2.1
+#       format_version: '1.5'
+#       jupytext_version: 1.3.2
 #   kernelspec:
 #     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
 #     language: python
@@ -169,7 +169,7 @@ def get_motiff_distribution(atoms, nn_info):
     return(motiff_frac_dict)
 
 
-# + {"jupyter": {"outputs_hidden": true}}
+# + jupyter={"outputs_hidden": true}
 def method(row_i, get_motiff_distribution):
     # row_i = df_bulk_dft.loc["cubqbpzd7k"]
     atoms_i = row_i["atoms"]
@@ -222,7 +222,7 @@ for i_cnt, row_i in df_coord.iterrows():
 
 len(unrec_list)
 
-# + {"active": ""}
+# + active=""
 # 264
 # 255 | Voronoi
 # -
@@ -247,7 +247,7 @@ len(unrec_list)
 print("Time to execute notebook: ", time.time() - t0, "(s)")
 print("os.getcwd():", os.getcwd())
 
-# + {"active": ""}
+# + active=""
 #
 #
 #
@@ -275,7 +275,7 @@ df_coord["major_motiffs"].unique().tolist()
 #  'square pyramidal_bcc'
 # ]
 
-# + {"jupyter": {"source_hidden": true}}
+# + jupyter={}
 # # df_bulk_dft.sort_values("energy_pa")
 
 # row_i = df_bulk_dft.loc["n36axdbw65"]
