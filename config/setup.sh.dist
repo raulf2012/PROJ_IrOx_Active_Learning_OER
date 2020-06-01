@@ -90,7 +90,7 @@ export PYTHONPATH=$catlearn_path:$PYTHONPATH
 # ########################################################
 # Adding StructurePrototypeAnalysisPackage
 
-spap_path=/home/raul_desktop/__test__/StructurePrototypeAnalysisPackage
+# spap_path=/home/raul_desktop/__test__/StructurePrototypeAnalysisPackage
 export PYTHONPATH=$spap_path:$PYTHONPATH
 
 # ########################################################

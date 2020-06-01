@@ -70,7 +70,8 @@ git clone https://github.com/SUNCAT-Center/Protosearch.git
 
 ## Create a new blank environment
 
-conda create --name PROJ_irox python --no-default-packages
+conda create --name PROJ_irox python=3.6 --no-default-packages
+
 
 
 ## conda install commands
@@ -96,7 +97,9 @@ jupyter labextension install jupyterlab-plotly
 
 
 
+# Notebooks that can be run immedietely
 
+workflow/ml_modelling/processing_bulk_dft/static_prototypes_structures/create_atoms_df.ipynb
 
 
 
