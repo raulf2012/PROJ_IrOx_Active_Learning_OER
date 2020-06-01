@@ -38,33 +38,36 @@ Just a note that setting up the conda environment as specified is critical, othe
 
 ## Download the PROJ_DATA data folder
 
-Data which houses about TEMP GB of raw data that is needed to run scripts
+Data which houses about 7.5 GB of raw data that is needed to run scripts
 
+https://www.dropbox.com/sh/tbe9u21igj43l4q/AACnwx655hFcJwaA8dwv52bTa?dl=0
 
-
+## Install conda package manager
+Conda is used to install all required python packages in an independent virtual environment
 
 ## Download required git repos to local directory
 
 ### Download my personal PythonModules repo
 This has methods that are needed for this Project repo
 Clone the release version 2.0 of 00_PythonModules into a location of your choice
+
 git clone --branch 2.0 https://github.com/raulf2012/00_PythonModules.git
 
 ### Download CatLearn package
 The Gaussian Process regression module is from CatLearn.
+
 git clone --branch 0.6.0 https://github.com/SUNCAT-Center/CatLearn.git
 
 ### Download Structure Prototype Analysis Package
 Used for structure similrity analysis
 
-https://github.com/chuanxun/StructurePrototypeAnalysisPackage
+git clone https://github.com/chuanxun/StructurePrototypeAnalysisPackage.git --branch v1.0.1
 
 ### Download Protosearch codebase
 
 https://github.com/SUNCAT-Center/Protosearch
 
 git clone --branch 0.0.1 https://github.com/SUNCAT-Center/Protosearch.git
-git clone https://github.com/SUNCAT-Center/Protosearch.git
 
 
 # Setting up an isolated conda environment:
