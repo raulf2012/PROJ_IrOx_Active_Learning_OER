@@ -5,63 +5,76 @@
 #
 # #########################################################
 
+root_folder=$HOME/PROJ_irox_repos
 
 #| - TEMP LINES REMOVE LATER
 # #########################################################
 # #########################################################
-# TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
-export sc=$norskov_research/04_comp_clusters/00_scripts
-export PYTHONMODULES=$norskov_research/04_comp_clusters/00_PythonModules
-export PYTHONPACKAGES=$norskov_research/04_comp_clusters/00_packages
-source $sys_sett/functions.sh
-source $sys_sett/aliases.sh
-source $sys_sett/sys_settings.sh
 
-# TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP TEMP
-export PYTHONNOUSERSITE=True
+# export sc=$norskov_research/04_comp_clusters/00_scripts
+# export PYTHONMODULES=$norskov_research/04_comp_clusters/00_PythonModules
+# export PYTHONPACKAGES=$norskov_research/04_comp_clusters/00_packages
+# source $sys_sett/functions.sh
+# source $sys_sett/aliases.sh
+# source $sys_sett/sys_settings.sh
+#
+# export PYTHONNOUSERSITE=True
+
 # #########################################################
 # #########################################################
 #__|
 
 
 
-
-
-
 # ########################################################
 # Activate the custom and local conda environment for repo
-# conda_env_name='PROJ_irox'
-# conda_env_name='test_PROJ_irox'  # TEMP
+conda_env_name='PROJ_irox'
 conda activate $conda_env_name
 
 
 # ########################################################
 # Set the location of repo as project environment variable
-
-# export PROJ_irox=$HOME/GitHub/PROJ_IrOx_Active_Learning_OER
-# export PROJ_irox=/home/raulf2012/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER  # TEMP
-# export PROJ_irox=/home/raulf2012/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER_test  # TEMP
-# export PROJ_irox=/home/raulf2012/__test__/PROJ_IrOx_Active_Learning_OER  # TEMP
-# export PROJ_irox=/mnt/f/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER_test_0  # TEMP
+export PROJ_irox=<Put location of PROJ_irox repo here>  # USER
 
 
 # ########################################################
 # Adding the PROJ_DATA location to PATH
-
-# PROJ_DATA_path=<PROJ_DATA path here>
-# PROJ_DATA_path=$HOME/Dropbox/01_norskov/PROJECT_DATA  # TEMP
-# PROJ_DATA_path=/mnt/f/Dropbox/01_norskov/PROJECT_DATA  # TEMP
-
+PROJ_DATA_path=<PROJ_DATA path here>  # USER
 export PROJ_DATA=$PROJ_DATA_path
+
+
+
+# #######################################################
+# DON'T NEED USER BELOW HERE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # ########################################################
 # Adding gdrive ENV variable
-export gdrive=$gdrive_path
+# export gdrive=$gdrive_path
 
 
 # ########################################################
-# Adding the Active Learning python momdules to path
+# Adding the Active Learning python modules to path
 
 al_python_path=$PROJ_irox/python_classes
 export PYTHONPATH=$al_python_path:$PYTHONPATH
@@ -72,28 +85,23 @@ export PYTHONPATH=$al_data_path:$PYTHONPATH
 
 # ########################################################
 # Adding the 00_PythonModules repo to PYTHONPATH
-
-# my_pyth_modules=<location of cloned 00_PythonModules repo>
-# my_pyth_modules=/mnt/f/Dropbox/01_norskov/00_PythonModules
-# $HOME/__test__/00_PythonModules
-
+my_pyth_modules=$root_folder/00_PythonModules
 export PYTHONPATH=$my_pyth_modules:$PYTHONPATH
 
 
 # ########################################################
 # Adding CatLearn to path
-# catlearn_path=/home/raulf2012/__test__/CatLearn
+catlearn_path=$root_folder/CatLearn
 export PYTHONPATH=$catlearn_path:$PYTHONPATH
 
 
 # ########################################################
 # Adding StructurePrototypeAnalysisPackage
-
-# spap_path=/home/raul_desktop/__test__/StructurePrototypeAnalysisPackage
+spap_path=$root_folder/StructurePrototypeAnalysisPackage
 export PYTHONPATH=$spap_path:$PYTHONPATH
 
 
 # ########################################################
-# Adding ProtoSearch to path
-# export protosearch_path=<protosearch repo path>
+# Adding Protosearch to path
+export protosearch_path=$root_folder/Protosearch
 export PYTHONPATH=$protosearch_path:$PYTHONPATH
