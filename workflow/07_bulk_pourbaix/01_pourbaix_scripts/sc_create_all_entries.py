@@ -30,7 +30,7 @@ from dft_energies import ion_dict_solids_expt
 #__|
 
 # | - Script Inputs
-#This initializes the REST adaptor. Put your own API key in.
+# This initializes the REST adaptor. Put your own API key in.
 
 path_i = os.path.join(os.environ["PROJ_irox"], "config", "config.yml")
 with open(path_i) as file:
@@ -39,7 +39,28 @@ with open(path_i) as file:
 api_key = config_dict["materials_project"]["api_key"]
 
 mpr = MPRester(api_key)  # Raul
+
+use_iro3 = True
+# use_iro3 = False
+
+stoich_i = "AB3"
 #__|
+
+print("12345")
+print(sys.argv)
+# stoich_i = sys.argv[-1]
+if sys.argv[-1] == "AB3" or sys.argv[-1] == "AB2":
+    stoich_i = sys.argv[-1]
+print("12345")
+
+# if not use_iro3:
+if stoich_i == "AB2":
+    ion_dict_solids_expt.pop("IrO3_a-AlF3")
+    ion_dict_solids_expt.pop("IrO3_rutile-like")
+    ion_dict_solids_expt.pop("IrO3_battery")
+    ion_dict_solids_expt.pop("IrO3_TEMP21")
+elif stoich_i == "AB3":
+    pass
 
 # | - Methods
 #Used later to filter duplicate entries
@@ -53,7 +74,7 @@ def contains_entry(entry_list, entry):
             return True
     #__|
 
-#__|
+# __|
 
 # | - Main Code ****************************************************************
 
@@ -90,7 +111,7 @@ for key, value in ion_dict_solids_expt.items():
     pbx_entry_ion.conc = 1
     pbx_solid_entries.append(pbx_entry_ion)
 
-#__|
+# __|
 
 
 # | - Ion Entries
@@ -137,12 +158,15 @@ all_entries = pbx_solid_entries + pbx_ion_entries
 import os; import pickle
 directory = "out_data"
 if not os.path.exists(directory): os.makedirs(directory)
-with open(os.path.join(directory, "all_entries.pickle"), "wb") as fle:
+path_i = os.path.join(directory, "all_entries_" + stoich_i + ".pickle")
+with open(path_i, "wb") as fle:
     pickle.dump(all_entries, fle)
 #__|
 
 
-
+print(20 * "# # ")
+print("All done!")
+assert False
 
 
 # | - __old__
@@ -153,14 +177,14 @@ with open(os.path.join(directory, "all_entries.pickle"), "wb") as fle:
 #  #GGA/GGA+U Mixing Scheme
 #  from pymatgen.entries.compatibility import MaterialsProjectAqueousCompatibility
 
-#Entries are the basic unit for thermodynamic and other analyses in pymatgen.
+# Entries are the basic unit for thermodynamic and other analyses in pymatgen.
 #  entries = mpr.get_entries_in_chemsys(['O', 'H'])
 
 
 
-#| - __old__
+# | - __old__
 
-#NOTE This line assumes that the every entry in the experimental ion energy
+# NOTE This line assumes that the every entry in the experimental ion energy
 # has the same ref. st. solid
 #  ref_state = str(ion_dict[0]['Reference Solid'])
 #  ref_dict = {ref_state: ion_dict[0]['Reference solid energy']}
@@ -193,7 +217,7 @@ with open(os.path.join(directory, "all_entries.pickle"), "wb") as fle:
 #      pbx_entry.g0_replace(pd.get_form_energy(entry))
 #      pbx_entry.reduced_entry()  # Applies reduction factor?????
 #      pbx_solid_entries.append(pbx_entry)
-#__|
+# __|
 
 
 
@@ -222,7 +246,7 @@ with open(os.path.join(directory, "all_entries.pickle"), "wb") as fle:
 # 'HRu4O12': -1242.80340535/kJmol,
 # 'HRu2O6': -714.064039347/kJmol,
 # 'H3Ru4O12': -1544.3919267/kJmol
-#__|
+# __|
 
 # replot(all_entries)
 
@@ -257,4 +281,4 @@ with open(os.path.join(directory, "all_entries.pickle"), "wb") as fle:
 #         print(e)
 #     #__|
 
-#__|
+# __|

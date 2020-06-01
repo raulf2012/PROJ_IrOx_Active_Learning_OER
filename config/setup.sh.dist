@@ -30,7 +30,7 @@ export PYTHONNOUSERSITE=True
 
 # ########################################################
 # Activate the custom and local conda environment for repo
-conda_env_name='PROJ_irox'
+# conda_env_name='PROJ_irox'
 # conda_env_name='test_PROJ_irox'  # TEMP
 conda activate $conda_env_name
 
@@ -45,8 +45,6 @@ conda activate $conda_env_name
 # export PROJ_irox=/mnt/f/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER_test_0  # TEMP
 
 
-
-
 # ########################################################
 # Adding the PROJ_DATA location to PATH
 
@@ -56,9 +54,11 @@ conda activate $conda_env_name
 
 export PROJ_DATA=$PROJ_DATA_path
 
+
 # ########################################################
 # Adding gdrive ENV variable
 export gdrive=$gdrive_path
+
 
 # ########################################################
 # Adding the Active Learning python momdules to path
@@ -68,7 +68,6 @@ export PYTHONPATH=$al_python_path:$PYTHONPATH
 
 al_data_path=$PROJ_irox/workflow/ml_modelling/00_ml_workflow
 export PYTHONPATH=$al_data_path:$PYTHONPATH
-
 
 
 # ########################################################
@@ -92,6 +91,7 @@ export PYTHONPATH=$catlearn_path:$PYTHONPATH
 
 # spap_path=/home/raul_desktop/__test__/StructurePrototypeAnalysisPackage
 export PYTHONPATH=$spap_path:$PYTHONPATH
+
 
 # ########################################################
 # Adding ProtoSearch to path

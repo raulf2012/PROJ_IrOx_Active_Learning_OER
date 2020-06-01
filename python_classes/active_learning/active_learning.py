@@ -172,12 +172,24 @@ class RegressionModel:
         # Unstandardizing the output ##########################################
 
         y_std = train_y.std()
-        if type(y_std) != float:
+
+        #  print("")
+        #  print("siofisjdf890gsddf898s0ddgfs")
+        #  print("y_std:", y_std)
+        #  print("isinstance(y_std, np.float64):", isinstance(y_std, np.float64))
+        #  print("type(y_std) != float:", type(y_std) != float)
+        #  print("siofisjdf890gsddf898s0ddgfs")
+        #  print("")
+
+        if type(y_std) != float and not isinstance(y_std, np.float64):
+            print("This if is True")
             y_std = y_std.values[0]
 
         y_mean = train_y.mean()
-        if type(y_std) != float:
+        # if type(y_mean) != float and type(y_mean) != isinstance(y_mean, np.float64):
+        if type(y_mean) != float and not isinstance(y_mean, np.float64):
             y_mean = y_mean.values[0]
+
 
         # y_std = train_y.std().values[0]
         # y_mean = train_y.mean().values[0]

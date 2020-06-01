@@ -33,6 +33,9 @@ TODO Add Columbite IrO2 data to everything #imp
 
 # Instructions to run all code within this project
 
+Just a note that setting up the conda environment as specified is critical, otherwise you will run into a lot of cross-compatability errors. Recreating the exact environment I used (with conda) is the most robust way of making sure everything runs properly.
+
+
 ## Download the PROJ_DATA data folder
 
 Data which houses about TEMP GB of raw data that is needed to run scripts
