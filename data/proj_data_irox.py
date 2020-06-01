@@ -696,11 +696,7 @@ oqmd_irox_data_path = os.path.join(
 
 fp_base_path = os.path.join(
     os.environ["PROJ_irox"],
-    "workflow/ml_modelling/voronoi_featurize/out_data",
-
-    # "workflow/ml_modelling/00_ml_workflow",
-    # "190611_new_workflow/01_data_coll_feat/out_data",
-    )
+    "workflow/ml_modelling/voronoi_featurize/out_data")
 
 df_features_pre_opt_path = os.path.join(
     fp_base_path, "df_features_pre_opt.pickle")
