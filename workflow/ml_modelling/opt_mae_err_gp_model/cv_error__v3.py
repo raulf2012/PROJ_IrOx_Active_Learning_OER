@@ -327,14 +327,14 @@ fig.show()
 #
 #
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # print("OIUSDGIOUHSDOIIOHSDGHOIUOSDGOH)*(SD(*(*&SDG(*YSDg80sdy80gh89034t82309h82q49807n8w0h8g809sdgf98sd898809h8923890hasdg98h-897aq23497gvawe987awep9877pwht982qpy9a08sfyus89))))")
 # print("OIUSDGIOUHSDOIIOHSDGHOIUOSDGOH)*(SD(*(*&SDG(*YSDg80sdy80gh89034t82309h82q49807n8w0h8g809sdgf98sd898809h8923890hasdg98h-897aq23497gvawe987awep9877pwht982qpy9a08sfyus89))))")
 # print("OIUSDGIOUHSDOIIOHSDGHOIUOSDGOH)*(SD(*(*&SDG(*YSDg80sdy80gh89034t82309h82q49807n8w0h8g809sdgf98sd898809h8923890hasdg98h-897aq23497gvawe987awep9877pwht982qpy9a08sfyus89))))")
 # print("OIUSDGIOUHSDOIIOHSDGHOIUOSDGOH)*(SD(*(*&SDG(*YSDg80sdy80gh89034t82309h82q49807n8w0h8g809sdgf98sd898809h8923890hasdg98h-897aq23497gvawe987awep9877pwht982qpy9a08sfyus89))))")
 # assert False
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # df_train_dft.dH.shape
 # df_train.shape
 

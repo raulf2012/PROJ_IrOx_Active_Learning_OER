@@ -282,7 +282,7 @@ assert False
 #
 #
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # df_bulk_dft[df_bulk_dft["stoich"] == "AB2"].sort_values("energy_pa")
 
 # # df_features_pre_opt
@@ -300,7 +300,7 @@ assert False
 
 # assert False
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # FP_struct = FingerPrint(**{
 #     "feature_methods": ["voronoi"],
 #     "input_data": df_struct_kirsten,
@@ -317,21 +317,21 @@ assert False
 # with open(df_features_pre_opt_kirsten_path, "rb") as fle:
 #     df_features_pre_opt_kirsten = pickle.load(fle)
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # df_features_pre_opt
 
 # df_features_pre_opt__before.head()
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "workflow/ml_modelling"))
 # from ml_methods import get_ml_dataframes
 # ml_data_dict = get_ml_dataframes(names=["df_features_pre_opt_path"])
 # df_features_pre_opt = ml_data_dict["df_features_pre_opt"]
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # TEMP
 # df_struct = df_struct.sample(n=23)
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # with open(df_features_pre_opt_path, "rb") as fle:
 #     df_features_pre_opt = pickle.load(fle)

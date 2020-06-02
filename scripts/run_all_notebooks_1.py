@@ -242,7 +242,7 @@ print(run_time, "min")
 #
 #
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 
 # # #########################################################
 # #
@@ -305,22 +305,22 @@ print(run_time, "min")
 # # Change directory
 # os.chdir(orig_dir)
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # os.getcwd()
 
 # os.system("ls")
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # bash_comm = "run_jupy " + file_name
 
 # os.system(bash_comm)
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # bash_comm = "python " + file_name
 
 # # os.system(bash_comm)
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # import subprocess
 
 # correct = subprocess.run(
@@ -330,7 +330,7 @@ print(run_time, "min")
 #     shell=True
 #     )
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # file_path
 
 # # file_i
@@ -343,7 +343,7 @@ print(run_time, "min")
 # df.iloc[15].full_path
 
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # import subprocess
 
 # bash_comm = "python " + python_file_name
@@ -357,7 +357,7 @@ print(run_time, "min")
 #     )
 # output
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # type(str(output))
 # print(str(output))
 
