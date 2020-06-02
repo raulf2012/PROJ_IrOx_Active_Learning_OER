@@ -14,7 +14,7 @@
 
 # +
 import os
-print(os.getcwd())
+# print(os.getcwd())
 import sys
 
 from json import dump, load

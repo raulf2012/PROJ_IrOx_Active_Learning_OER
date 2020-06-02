@@ -7,9 +7,9 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # # Parse extra data
@@ -104,6 +104,9 @@ parallel_exec = False
 #__|
 
 from job_dirs import dir_list
+# -
+
+os.environ
 
 # +
 dir_list_new = [

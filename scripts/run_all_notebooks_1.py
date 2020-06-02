@@ -8,9 +8,9 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_irox_2] *
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_irox_2-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # +
@@ -113,7 +113,6 @@ notebooks_that_take_stoich_args = [
     "parity_post_dft.ipynb",
     "parity_pre_dft.ipynb",
     ]
-
 
 
 data_dict_list = []
@@ -222,8 +221,8 @@ for file_i in notebooks_to_run_list:
 df = pd.DataFrame(data_dict_list)
 
 # df.iloc[4].full_path
-
 # df.sort_values("run_time_min")
+
 df
 # -
 
@@ -242,7 +241,7 @@ print(run_time, "min")
 #
 #
 
-# + jupyter={"source_hidden": true}
+# +
 
 # # #########################################################
 # #
@@ -305,22 +304,22 @@ print(run_time, "min")
 # # Change directory
 # os.chdir(orig_dir)
 
-# + jupyter={"source_hidden": true}
+# +
 # os.getcwd()
 
 # os.system("ls")
 
-# + jupyter={"source_hidden": true}
+# +
 # bash_comm = "run_jupy " + file_name
 
 # os.system(bash_comm)
 
-# + jupyter={"source_hidden": true}
+# +
 # bash_comm = "python " + file_name
 
 # # os.system(bash_comm)
 
-# + jupyter={"source_hidden": true}
+# +
 # import subprocess
 
 # correct = subprocess.run(
@@ -330,7 +329,7 @@ print(run_time, "min")
 #     shell=True
 #     )
 
-# + jupyter={"source_hidden": true}
+# +
 # file_path
 
 # # file_i
@@ -343,7 +342,7 @@ print(run_time, "min")
 # df.iloc[15].full_path
 
 
-# + jupyter={"source_hidden": true}
+# +
 # import subprocess
 
 # bash_comm = "python " + python_file_name
@@ -357,7 +356,7 @@ print(run_time, "min")
 #     )
 # output
 
-# + jupyter={"source_hidden": true}
+# +
 # type(str(output))
 # print(str(output))
 

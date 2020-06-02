@@ -70,7 +70,8 @@ export PROJ_DATA=$PROJ_DATA_path
 
 # ########################################################
 # Adding gdrive ENV variable
-# export gdrive=$gdrive_path
+gdrive_path=$PROJ_DATA/04_IrOx_surfaces_OER/gdrive
+export gdrive=$gdrive_path
 
 
 # ########################################################
