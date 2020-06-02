@@ -74,7 +74,7 @@ def clean_ipynb(ipynb_file_path, overwrite):
     #__|
 
 
-def get_ipynb_notebook_paths():
+def get_ipynb_notebook_paths(PROJ_irox_path=None):
     """
     """
     #| - get_ipynb_notebook_paths
@@ -86,10 +86,11 @@ def get_ipynb_notebook_paths():
         "__bkp__",
         ]
 
-    root_dir = os.path.join(
-        os.environ["PROJ_irox"],
-        # "workflow/tmp_sandbox",
-        )
+    if PROJ_irox_path is None:
+        root_dir = os.path.join(
+            os.environ["PROJ_irox"])
+    else:
+        root_dir = PROJ_irox_path
 
     # root_dir = "/mnt/f/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER_test_0"
 

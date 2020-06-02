@@ -7,9 +7,9 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_irox_2] *
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_irox_2-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # # Compute CCF for Each Structure

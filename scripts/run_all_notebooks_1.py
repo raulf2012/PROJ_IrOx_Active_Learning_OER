@@ -8,9 +8,9 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_irox_2] *
+#     display_name: Python [conda env:PROJ_irox] *
 #     language: python
-#     name: conda-env-PROJ_irox_2-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # +
@@ -68,19 +68,19 @@ notebooks_to_run_list = [
             "workflow/energy_treatment_deriv/calc_references/calc_O_Ir_refs__H_G.ipynb",
         "workflow/07_bulk_pourbaix/01_pourbaix_scripts/sc_create_all_entries.py",
     "workflow/07_bulk_pourbaix/01_pourbaix_scripts/an_pourbaix_plot.ipynb",
-    
+
     # #####################################################
     # Figure S5 (OER Scaling)
         "parse_dft_data/parse_all_data_new.ipynb",
     "workflow/02_oer_analysis/03_ads_e_scaling/an_irox_scaling__v2.ipynb",
-    
+
     # #####################################################
     # Figure 2 (IrO3 AL Figure)
     # Taken care of by previous run of IrO2
-    
+
     # #####################################################
     # Figure 3 (GP parity plot)
-        "workflow/ml_modelling/00_ml_workflow/parity_plots/parity_pre_dft.ipynb", 
+        "workflow/ml_modelling/00_ml_workflow/parity_plots/parity_pre_dft.ipynb",
         "workflow/ml_modelling/00_ml_workflow/parity_plots/parity_post_dft.ipynb",
     "workflow/ml_modelling/00_ml_workflow/parity_plots/plotting_results.ipynb",
 
@@ -105,15 +105,14 @@ notebooks_that_take_stoich_args = [
     # Bulk Pourbaix
     "sc_create_all_entries.py",
     "an_pourbaix_plot.ipynb",
-    
+
     # AL IrOx Plots
     "create_subplots__v5.ipynb",
-    
+
     # Parity Plot
     "parity_post_dft.ipynb",
     "parity_pre_dft.ipynb",
     ]
-
 
 
 data_dict_list = []
@@ -132,7 +131,7 @@ for file_i in notebooks_to_run_list:
 
     data_dict_i["full_path"] = file_i
     data_dict_i["notebook_name"] = file_name
-    
+
     # #########################################################
     file_path = "/".join(file_i.split("/")[0:-1])
 
@@ -170,7 +169,7 @@ for file_i in notebooks_to_run_list:
 
     # #########################################################
     # Run .py file ############################################
-    
+
     if file_name in notebooks_that_take_stoich_args:
         bash_comm = "python " + python_file_full_path + " AB2"
 
@@ -208,8 +207,8 @@ for file_i in notebooks_to_run_list:
     # #########################################################
     # Change directory
     os.chdir(orig_dir)
-    
-    
+
+
     tf_i = time.time()
     notebook_run_time = tf_i - t0_i
     data_dict_i["run_time_s"] = notebook_run_time
@@ -222,8 +221,8 @@ for file_i in notebooks_to_run_list:
 df = pd.DataFrame(data_dict_list)
 
 # df.iloc[4].full_path
-
 # df.sort_values("run_time_min")
+
 df
 # -
 
@@ -242,7 +241,7 @@ print(run_time, "min")
 #
 #
 
-# + jupyter={}
+# +
 
 # # #########################################################
 # #
@@ -298,29 +297,29 @@ print(run_time, "min")
 # print(output)
 
 # # #########################################################
-# # 
+# #
 
 
 # # #########################################################
 # # Change directory
 # os.chdir(orig_dir)
 
-# + jupyter={}
+# +
 # os.getcwd()
 
 # os.system("ls")
 
-# + jupyter={}
+# +
 # bash_comm = "run_jupy " + file_name
 
 # os.system(bash_comm)
 
-# + jupyter={}
+# +
 # bash_comm = "python " + file_name
 
 # # os.system(bash_comm)
 
-# + jupyter={}
+# +
 # import subprocess
 
 # correct = subprocess.run(
@@ -330,12 +329,12 @@ print(run_time, "min")
 #     shell=True
 #     )
 
-# + jupyter={}
+# +
 # file_path
 
 # # file_i
 
-# # file_path = 
+# # file_path =
 # # "/".join(file_i.split("/")[0:-1])
 # file_i
 
@@ -343,7 +342,7 @@ print(run_time, "min")
 # df.iloc[15].full_path
 
 
-# + jupyter={}
+# +
 # import subprocess
 
 # bash_comm = "python " + python_file_name
@@ -357,7 +356,7 @@ print(run_time, "min")
 #     )
 # output
 
-# + jupyter={}
+# +
 # type(str(output))
 # print(str(output))
 
