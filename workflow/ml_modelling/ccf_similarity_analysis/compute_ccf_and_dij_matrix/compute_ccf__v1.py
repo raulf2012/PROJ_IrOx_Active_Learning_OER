@@ -284,7 +284,7 @@ assert False
 #
 #
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # df_tmp.reindex(index_before_splitting)
 
 # len(index_before_splitting)

@@ -156,7 +156,7 @@ assert False
 #
 #
 
-# + {"Collapsed": "false", "jupyter": {"source_hidden": true}}
+# + {"Collapsed": "false", "jupyter": {}}
 # import copy
 # import pandas as pd
 

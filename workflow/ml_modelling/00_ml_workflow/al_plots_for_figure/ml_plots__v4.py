@@ -390,16 +390,16 @@ assert False
 #
 #
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # fig_al_series.data[0].name
 
 # for i in fig_al_series.data:
 #     print(i.name)
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # ALAnim.model__tracked
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # for gen_i in gens_to_plot:
 #     if gen_i < 0:
 #         al_gen_i = al_gen_dict[
@@ -439,12 +439,12 @@ assert False
 
 #     data.append(trace_i)
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # list(marker_color_dict.keys())
 
 # list(al_gen_dict.keys())
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 
     # path_i = os.path.join(
     #     os.environ["PROJ_irox"],
@@ -474,12 +474,12 @@ assert False
     #     ) 
 
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 # AL.duplicate_swap_dict
 
 # AL.dupl
 
-# + jupyter={"source_hidden": true}
+# + jupyter={}
 #| - Minor tick axis settings
 # minor_ticks_data = {
 
@@ -493,7 +493,7 @@ assert False
 
 #__|
 
-# + Collapsed="false" jupyter={"source_hidden": true}
+# + Collapsed="false" jupyter={}
 # from inputs import (
 #     stoich_i,
 #     lowest_N_sys_to_track,

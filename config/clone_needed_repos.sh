@@ -17,7 +17,7 @@ echo "****************************************"
 #| - CatLearn
 mkdir $root_folder/CatLearn
 
-git clone --branch 0.6.0 https://github.com/SUNCAT-Center/CatLearn.git $root_folder/CatLearn
+git clone --branch v0.6.2 https://github.com/SUNCAT-Center/CatLearn.git $root_folder/CatLearn
 #__|
 
 echo "****************************************"
@@ -64,7 +64,7 @@ conda install \
 -c conda-forge \
 -c anaconda \
 nodejs jupyterlab jupytext \
-scikit-learn matplotlib scipy pandas \
+scikit-learn matplotlib scipy pandas=0.25.3 \
 plotly chart-studio plotly-orca psutil colormap colorlover \
 ase=3.17.0 pymatgen gpflow \
 nodejs nb_conda_kernels tensorflow==1.15 \

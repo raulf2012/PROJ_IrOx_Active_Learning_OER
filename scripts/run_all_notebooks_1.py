@@ -68,19 +68,19 @@ notebooks_to_run_list = [
             "workflow/energy_treatment_deriv/calc_references/calc_O_Ir_refs__H_G.ipynb",
         "workflow/07_bulk_pourbaix/01_pourbaix_scripts/sc_create_all_entries.py",
     "workflow/07_bulk_pourbaix/01_pourbaix_scripts/an_pourbaix_plot.ipynb",
-    
+
     # #####################################################
     # Figure S5 (OER Scaling)
         "parse_dft_data/parse_all_data_new.ipynb",
     "workflow/02_oer_analysis/03_ads_e_scaling/an_irox_scaling__v2.ipynb",
-    
+
     # #####################################################
     # Figure 2 (IrO3 AL Figure)
     # Taken care of by previous run of IrO2
-    
+
     # #####################################################
     # Figure 3 (GP parity plot)
-        "workflow/ml_modelling/00_ml_workflow/parity_plots/parity_pre_dft.ipynb", 
+        "workflow/ml_modelling/00_ml_workflow/parity_plots/parity_pre_dft.ipynb",
         "workflow/ml_modelling/00_ml_workflow/parity_plots/parity_post_dft.ipynb",
     "workflow/ml_modelling/00_ml_workflow/parity_plots/plotting_results.ipynb",
 
@@ -105,10 +105,10 @@ notebooks_that_take_stoich_args = [
     # Bulk Pourbaix
     "sc_create_all_entries.py",
     "an_pourbaix_plot.ipynb",
-    
+
     # AL IrOx Plots
     "create_subplots__v5.ipynb",
-    
+
     # Parity Plot
     "parity_post_dft.ipynb",
     "parity_pre_dft.ipynb",
@@ -131,7 +131,7 @@ for file_i in notebooks_to_run_list:
 
     data_dict_i["full_path"] = file_i
     data_dict_i["notebook_name"] = file_name
-    
+
     # #########################################################
     file_path = "/".join(file_i.split("/")[0:-1])
 
@@ -169,7 +169,7 @@ for file_i in notebooks_to_run_list:
 
     # #########################################################
     # Run .py file ############################################
-    
+
     if file_name in notebooks_that_take_stoich_args:
         bash_comm = "python " + python_file_full_path + " AB2"
 
@@ -207,8 +207,8 @@ for file_i in notebooks_to_run_list:
     # #########################################################
     # Change directory
     os.chdir(orig_dir)
-    
-    
+
+
     tf_i = time.time()
     notebook_run_time = tf_i - t0_i
     data_dict_i["run_time_s"] = notebook_run_time
@@ -297,7 +297,7 @@ print(run_time, "min")
 # print(output)
 
 # # #########################################################
-# # 
+# #
 
 
 # # #########################################################
@@ -334,7 +334,7 @@ print(run_time, "min")
 
 # # file_i
 
-# # file_path = 
+# # file_path =
 # # "/".join(file_i.split("/")[0:-1])
 # file_i
 
