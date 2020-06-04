@@ -7,6 +7,8 @@ import sys
 
 from json import dump, load
 from shutil import copyfile
+
+import subprocess
 #__|
 
 
@@ -74,7 +76,10 @@ def clean_ipynb(ipynb_file_path, overwrite):
     #__|
 
 
-def get_ipynb_notebook_paths(PROJ_irox_path=None):
+def get_ipynb_notebook_paths(
+    PROJ_irox_path=None,
+    relative_path=False,
+    ):
     """
     """
     #| - get_ipynb_notebook_paths
@@ -92,7 +97,11 @@ def get_ipynb_notebook_paths(PROJ_irox_path=None):
     else:
         root_dir = PROJ_irox_path
 
-    # root_dir = "/mnt/f/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER_test_0"
+
+    res = subprocess.check_output(
+        "git rev-parse --show-toplevel".split(" ")
+        )
+    root_git_path = res.decode("UTF-8").strip()
 
     dirs_list = []
     for subdir, dirs, files in os.walk(root_dir):
@@ -117,10 +126,21 @@ def get_ipynb_notebook_paths(PROJ_irox_path=None):
                 file_path = os.path.join(subdir, file)
                 full_dir_i = os.path.join(subdir, file)
 
-                # print(file_path)
-                # print(os.path.join(subdir, file))
+                dir_i = full_dir_i
+                if relative_path:
+                    file_i = full_dir_i
+                    find_ind = file_i.find(root_git_path)
+                    if find_ind == 0:
+                        relative_path_i = file_i[len(root_git_path) + 1:]
+                    else:
+                        print("Problem!! sdijfs")
+                        relative_path_i = "Yikes!"
 
-                dirs_list.append(full_dir_i)
+                    dir_i = relative_path_i
+
+
+
+                dirs_list.append(dir_i)
 
     return(dirs_list)
     #__|
