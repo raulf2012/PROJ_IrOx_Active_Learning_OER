@@ -7,24 +7,6 @@
 
 root_folder=$HOME/PROJ_irox_repos
 
-#| - TEMP LINES REMOVE LATER
-# #########################################################
-# #########################################################
-
-# export sc=$norskov_research/04_comp_clusters/00_scripts
-# export PYTHONMODULES=$norskov_research/04_comp_clusters/00_PythonModules
-# export PYTHONPACKAGES=$norskov_research/04_comp_clusters/00_packages
-# source $sys_sett/functions.sh
-# source $sys_sett/aliases.sh
-# source $sys_sett/sys_settings.sh
-#
-# export PYTHONNOUSERSITE=True
-
-# #########################################################
-# #########################################################
-#__|
-
-
 
 # ########################################################
 # Activate the custom and local conda environment for repo

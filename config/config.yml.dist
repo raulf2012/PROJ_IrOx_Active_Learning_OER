@@ -1,9 +1,5 @@
-# app/config/credentials.yml
-credentials:
-    username: foo
-    password: bar
-
 mpcontrib:
-    api_key: TEMP
+    api_key: <Only needed for MPContrib data upload>
 materials_project:
-    api_key: TEMP
+    # API key is needed for code that generates bulk Pourbaix diagram
+    api_key: <INPUT HERE API KEY>
