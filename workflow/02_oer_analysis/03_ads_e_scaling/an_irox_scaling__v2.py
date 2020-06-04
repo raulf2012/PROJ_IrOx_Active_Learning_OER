@@ -429,11 +429,6 @@ SC_PLT.add_line(
 # # | - Create plot.ly figure
 
 # +
-# # | - TEMP NEW
-# -
-# df_m.columns
-
-# +
 SC_PLT.add_ideal_lines()
 
 SC_PLT.create_scaling_relations_plot(
@@ -525,17 +520,3 @@ assert False
 #
 #
 #
-# -
-
-df_m.head()
-
-# + jupyter={}
-# | - TEMP
-# exclude_dict = {
-#     'bulk_system': 'IrO2',
-#     'coverage_type': 'o_covered',
-# #     'dopant': 'Ni',
-# #     'facet': '110',
-# #     'site': 'ir_site',
-#     'site': 'ir_site',
-#     }

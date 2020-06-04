@@ -149,12 +149,6 @@ min_x = np.min([
     ])
 # -
 
-model_post_ab2
-
-# +
-# assert False
-# -
-
 # # TRACE | Parity Line
 
 # +
@@ -172,8 +166,6 @@ data.append(trace_xy)
 # -
 
 # # Plotting
-
-min_y
 
 de = 0.05
 

@@ -15,7 +15,7 @@
 
 # # Title HERE
 # ---
-# NEW DIJF
+#
 # # Notebook Setup
 #
 # ## Script Inputs
@@ -130,8 +130,6 @@ with open(path_i, "rb") as fle:
 pourb_trans
 # -
 
-# TEMP
-#
 # # Read Adsorbate and Gas Reference Data
 
 # + attributes={"classes": [], "id": "", "n": "6"}
@@ -170,59 +168,6 @@ surf_spec_corr_dict["*H"] = 0.1455
 #
 #
 #
-# -
-
-# # TEMP
-
-# +
-# row_i = df_m[
-#     (df_m.bulk_system == "IrO3_rutile-like") & \
-#     (df_m.facet == "001") & \
-#     (df_m.coverage_type == "h_covered")
-#     ].iloc[0]
-
-# bulk_e_per_atom = bulk_e_per_atom_dict[row_i["bulk_system"]]
-
-# SE = SurfaceEnergy(
-#     atoms=row_i["atoms_object"][-1],
-#     # bulk_atoms=bulk_data[row_i["bulk_system"]],
-#     bulk_atoms=bulk_data.loc[row_i["bulk_system"]].atoms,
-#     apply_special_species_corrections=True,
-#     bulk_electronic_energy_per_atom=bulk_e_per_atom,
-#     H_ref_electronic_energy=hyd_ref,
-#     O_ref_electronic_energy=oxy_ref,
-#     special_surface_species_corrections=surf_spec_corr_dict,
-#     verbose=verbose,
-#     )
-
-# +
-# # SE.surface_area
-# # {'O': 2.0, 'Ir': 0.0, 'H': 4.0}
-
-# surf_spec_corr_dict
-
-# SE.special_surface_species
-
-# # SE.special_surface_species_corrections
-# # SE.non_stoich_comp
-
-# SE.calc_surface_energy(0, 0, norm_type="area")
-
-# SE.std_surface_e_per_side
-# -
-
-# # TEMP
-
-# + active=""
-#
-#
-#
-#
-#
-#
-
-# +
-# assert False
 # -
 
 # # Instantiate SurfaceEnergy objects
@@ -421,7 +366,24 @@ print(20 * "# # ")
 print("All done!")
 assert False
 
-assert False
+# + active=""
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+# -
 
 # # 2x2 Surface Energy Pourbaix Plot
 
@@ -731,333 +693,3 @@ my_plotly_plot(
 # Image("out_plot/" + plot_name_i + ".png")
 
 fig.show()
-
-# + active=""
-#
-#
-#
-#
-
-# + jupyter={}
-# </b>
-
-# fig.layout
-
-
-# 'yaxis2': {'anchor': 'x2',
-#                'domain': [0.58, 0.9999999999999999],
-#                'linecolor': 'black',
-#                'mirror': True,
-#                'range': [2.0, 1.4],
-#                'showgrid': False,
-#                'showline': True,
-#                'tickcolor': 'black',
-#                'tickfont': {'color': 'black', 'size': 10.666666666666666},
-#                'ticks': 'outside',
-#                'title': {'font': {'color': 'black'}, 'text': 'U<sub>RHE</sub> (V)'},
-
-# fig.layout.yaxis2.title.text = "</b> U<sub>RHE</sub> (V) </b>"
-# fig.layout.yaxis2.title.text = "U<sub>RHE</sub> (V)"
-# fig.layout.yaxis2.title.text = "U<sub>RHE</sub> (V) <br>"
-# fig.layout.yaxis2.title.text = "<br> <br> U<sub>RHE</sub> (V) <br> <br>"
-
-# "U<sub>RHE</sub> (V)"
-
-# fig
-
-# fig.layout.yaxis2.title = None
-
-# + jupyter={}
-# import copy
-
-# layout_tmp = copy.deepcopy(fig.layout)
-
-# layout_tmp.annotations = None
-# layout_tmp.shapes = None
-
-# # layout_tmp
-
-# + jupyter={}
-# # Adding OER volcano plot to subplot
-
-# layout2 = go.Layout(
-#     # width=8.0 * 37.795275591,
-#     # width=18 * 37.795275591,
-#     # width=19 * 37.795275591,
-#     # width=16 * 37.795275591,
-#     # width=17.8 * 37.795275591,
-#     # width=18.4 * 37.795275591,
-#     # width=18.1 * 37.795275591,
-#     width=18.3 * 37.795275591,
-
-#     margin=go.layout.Margin({
-#         # 'b': 39,
-#         # 'b': 120,
-#         # 'b': 50,
-#         # 'b': 45,
-#         'b': 42,
-
-#         # 'l': 53,
-#         'r': 0.,
-#         # 't': 13,
-#         }),
-#     plot_bgcolor="white",
-#     )
-
-
-# fig.add_annotation(
-#     go.layout.Annotation(
-#         font={'color': 'black', 'size': 13.333333333333332},
-#         showarrow=False,
-#         text='U<sub>RHE</sub> (V)',
-#         # x=0.41,
-#         # x=0.38,
-#         x=0.36,
-
-#         xref='paper',
-#         y=0.85,
-#         yanchor='top',
-#         yref='paper',
-#         textangle=-90,
-#         # yshift=-21,
-#         )
-#     )
-
-
-
-# fig.add_annotation(
-#     go.layout.Annotation(
-#         font={'color': 'black', 'size': 13.333333333333332},
-#         showarrow=False,
-#         text="ΔG<sub>O</sub> - ΔG<sub>OH</sub> (eV)",
-
-#         # x=0.83,
-#         # x=0.81,
-#         # x=0.82,
-        
-#         # x=0.815,
-#         x=0.8,
-
-#         xref='paper',
-
-#         # y=0.58,
-#         # y=0.52,
-#         # y=0.54,
-
-#         # y=0.53,
-#         # y=0.54,
-#         # y=0.55,
-#         y=0.56,
-
-#         yanchor='top',
-#         yref='paper',
-#         # textangle=-90,
-#         # yshift=-21,
-#         )
-#     )
-
-# tmp = 42
-
-# path_i = os.path.join(
-#     os.environ["PROJ_irox"],
-#     "workflow/02_oer_analysis/02_oer_volc/out_data",
-#     "oer_volcano_trace.pickle")
-# with open(path_i, "rb") as fle:
-#     fig_oer = pickle.load(fle)
-
-# for trace in fig_oer.data:
-#     fig.add_scatter(
-#         **trace.to_plotly_json(),
-#         row=1,
-#         col=2,
-#         )
-
-# fig.layout.xaxis2.update(fig_oer.layout.xaxis)
-# fig.layout.yaxis2.update(fig_oer.layout.yaxis)
-
-# fig.layout.update(layout2)
-
-# for axis_num in axis_num_list:
-#     # fig.layout["xaxis" + str(axis_num)].domain = [0., 0.39]
-#     fig.layout["xaxis" + str(axis_num)].domain = [0.01, 0.33]
-
-
-
-# # fig.layout["xaxis" + str(2)].domain = [0.47, 1.]
-# fig.layout["xaxis" + str(2)].domain = [0.42, 1.]
-
-# # fig.layout["yaxis" + str(2)].domain = [0.58, 0.9999999999999999]
-# # fig.layout["yaxis" + str(2)].domain = [0.65, 0.9999999999999999]
-# # fig.layout["yaxis" + str(2)].domain = [0.62, 0.9999999999999999]
-# # fig.layout["yaxis" + str(2)].domain = [0.6, 0.9999999999999999]
-# fig.layout["yaxis" + str(2)].domain = [0.6, 0.9999999999999999]
-
-# fig.layout.yaxis2.title = None
-# fig.layout.xaxis2.title = None
-
-# # ooh_oh_scaling_univ
-# # ooh_oh_scaling_mine
-# # exp_lim_pot_SrIrO3
-# # exp_lim_pot_IrO2_110
-
-# oer_volc_annot = []
-# for annot_i in fig_oer.layout.annotations:
-#     # print(i.name)
-#     # print("")
-
-#     annot_i.xref = "x2"
-#     annot_i.yref = "y2"
-    
-#     oer_volc_annot.append(annot_i)
-
-# new_annotations = list(fig.layout.annotations) + oer_volc_annot
-
-# fig.layout.annotations = new_annotations
-
-# # assert False
-
-# # Move Surface pourbaix plot x-axis label to the left
-
-# for annot_i in fig.layout.annotations:
-#     if annot_i.name == "x_axis_title":
-#         annot_i.x = np.mean(np.array(fig.layout.xaxis1.domain))
-
-#         annot_i.y = -0.006
-
-#         annot_i.font.color = "black"
-#         annot_i.xanchor = "center"
-        
-# tmp = 42
-
-# fig.show()
-
-# # fig.layout
-
-# # assert False
-
-# # Add minor ticks to plots
-
-# from plotting.my_plotly import add_minor_ticks, add_duplicate_axes
-
-# shared_minor_axis = dict(ticklen=3, tickwidth=1, tickcolor="black")
-# # shared_minor_axis = dict(ticklen=10, tickwidth=1, tickcolor="red")
-
-# add_duplicate_axes(fig, axis_type="x",
-#     axis_data=dict(
-#         dtick=0.25,
-#         **shared_minor_axis),
-#     axis_num_list=axis_num_list)
-
-# add_duplicate_axes(fig, axis_type="y",
-#     axis_data=dict(
-#         dtick=0.05,
-#         **shared_minor_axis),
-#     axis_num_list=axis_num_list)
-
-
-
-
-# add_duplicate_axes(fig, axis_type="x",
-#     axis_data=dict(
-#         dtick=0.1,
-#         tick0=1.,
-#         **shared_minor_axis),
-#     tmp_define_both_axis_types=True,
-#     axis_num_list=[2])
-
-
-
-# add_duplicate_axes(fig, axis_type="y",
-#     axis_data=dict(
-#         dtick=0.05,
-#         tick0=1.,
-#         **shared_minor_axis),
-#     tmp_define_both_axis_types=True,
-#     axis_num_list=[2])
-
-
-# # # add_duplicate_axes?
-
-# # fig.layout.xaxis.zerolinecolor = "red"
-# # fig.layout.xaxis.zerolinewidth = 3.0
-
-# # fig.layout.xaxis2.zerolinecolor = "red"
-# # fig.layout.xaxis2.zerolinewidth = 3.0
-
-# # fig.layout.xaxis3.zerolinecolor = "red"
-# # fig.layout.xaxis3.zerolinewidth = 3.0
-
-# # fig.layout.xaxis4.zerolinecolor = "red"
-# # fig.layout.xaxis4.zerolinewidth = 3.0
-
-# # #############################################################################
-# # #############################################################################
-
-# # fig.layout.yaxis.zerolinecolor = "red"
-# # fig.layout.yaxis.zerolinewidth = 3.0
-
-# # fig.layout.xaxis9.anchor = "y9"
-
-# # fig.layout.plot_bgcolor = "rgba(255,255,140,0.1)"
-
-# # fig.layout.xaxis9 = {
-# #     # 'anchor': 'y9',
-# #     'anchor': 'y2',
-
-# #     'domain': [0.42, 1.0],
-# #     'dtick': 0.1,
-# #     # 'linecolor': 'black',
-# #     'linecolor': 'red',
-# #     'mirror': True,
-# #     'range': [1.0, 2.0],
-# #     'showgrid': False,
-# #     'showline': True,
-# #     'showticklabels': False,
-# #     'tick0': 1.0,
-# #     # 'tickcolor': 'black',
-# #     'tickcolor': 'red',
-# #     'tickfont': {'color': 'black', 'size': 10.666666666666666},
-# #     'ticks': 'outside',
-# #     'title': {'text': ''},
-# #     'zeroline': False,
-# #     }
-
-# # fig.add_scatter(**go.Scatter({
-# #     "xaxis": "x9",
-
-# #     # "yaxis": "y2",
-# #     "yaxis": "y9",
-# #     }).to_plotly_json())
-
-# plot_name_i = "combined__surf_pourb_oer"
-# my_plotly_plot(
-#     figure=fig,
-#     plot_name=plot_name_i,
-#     write_html=True,
-#     write_pdf=True,
-#     try_orca_write=True)
-
-# fig.show()
-
-# # import copy
-
-# # tmp = copy.deepcopy(fig.layout)
-
-# # tmp.annotations = None
-# # tmp.shapes = None
-
-# # tmp
-
-# # fig.layout.xaxis9 = {
-# #     'anchor': 'y9',
-# #     'domain': [0.42, 1.0],
-# #     'linecolor': 'red',
-# #     'mirror': True,
-# #     'range': [1.0, 2.0],
-# #     'showgrid': False,
-# #     'showline': True,
-# #     'tickcolor': 'black',
-# #     'tickfont': {'color': 'black', 'size': 10.666666666666666},
-# #     'ticks': 'outside',
-# #     'zeroline': False,
-# #     }

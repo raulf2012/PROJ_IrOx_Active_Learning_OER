@@ -7,7 +7,7 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_irox] *
+#     display_name: Python [conda env:PROJ_irox]
 #     language: python
 #     name: conda-env-PROJ_irox-py
 # ---
@@ -23,9 +23,6 @@
 #
 # PROJ_IrOx_Active_Learning_OER/workflow
 
-read_from_PROJ_DATA = False
-read_from_PROJ_DATA = True
-
 # +
 # | - Import Modules
 import os
@@ -33,6 +30,7 @@ print(os.getcwd())
 import sys
 
 sys.path.append(".")
+sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
 
 import numpy as np
 import pandas as pd
@@ -46,15 +44,8 @@ from dft_job_automat.job_types_classes.dft_methods import DFT_Methods
 #__|
 # -
 
-# #############################################################################
-# Project Data
-# from proj_data_irox import data_dir
-
-
-# + active=""
-#
-#
-#
+sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
+from proj_data_irox import read_from_PROJ_DATA
 
 # +
 # # #########################################################
@@ -70,27 +61,6 @@ from dft_job_automat.job_types_classes.dft_methods import DFT_Methods
 # # #########################################################
 
 # df_prev.columns.tolist()
-# -
-
-['Job',
- 'adsorbate',
- 'bulk_system',
- 'coverage',
- 'coverage_type',
- 'facet',
- 'job_type',
- 'layers',
- 'max_revision',
- 'ooh_direction',
- 'path',
- 'priority',
- 'revision_number',
- 'success',
- 'surface_type',
- 'elec_energy',
- 'init_atoms',
- 'atoms_object',
- 'incar']
 
 # +
 # | - Script Parameters
@@ -104,9 +74,6 @@ parallel_exec = False
 #__|
 
 from job_dirs import dir_list
-# -
-
-os.environ
 
 # +
 dir_list_new = [
@@ -133,10 +100,6 @@ if read_from_PROJ_DATA:
         "out_data/df_data_new.pickle")
     with open(path_i, "rb") as fle:
         df_m = pickle.load(fle)
-
-# +
-# assert False
-# -
 
 if parse_data and not read_from_PROJ_DATA:
     # | - Instantiate Classes

@@ -7,7 +7,7 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_irox] *
+#     display_name: Python [conda env:PROJ_irox]
 #     language: python
 #     name: conda-env-PROJ_irox-py
 # ---
@@ -19,9 +19,6 @@
 # Following system is failing with voro fingerprinting:
 # z39g648rnl
 # -
-
-read_from_PROJ_DATA = False
-read_from_PROJ_DATA = True
 
 # # Import Modules
 
@@ -58,6 +55,9 @@ from proj_data_irox import (
     df_features_post_opt_path,
     )
 # -
+
+sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
+from proj_data_irox import read_from_PROJ_DATA
 
 directory = "out_data"
 if not os.path.exists(directory):
@@ -167,9 +167,6 @@ with open(df_features_pre_opt_path, "wb") as fle:
 #
 #
 #
-
-# +
-# assert False
 # -
 
 # # Getting Features for Post-DFT Structures
@@ -204,11 +201,6 @@ else:
 
     except:
         df_features_post_opt = pd.DataFrame()
-
-# +
-# df_features_post_opt
-
-# df_bulk_dft.index
 
 # +
 ids_to_process = [i for i in df_bulk_dft.index if i not in df_features_post_opt.index]
@@ -274,64 +266,3 @@ with open(df_features_post_opt_path, "wb") as fle:
 print(20 * "# # ")
 print("All done!")
 assert False
-
-# + active=""
-#
-#
-#
-#
-#
-
-# + jupyter={}
-# df_bulk_dft[df_bulk_dft["stoich"] == "AB2"].sort_values("energy_pa")
-
-# # df_features_pre_opt
-
-# # df_features_pre_opt.shape
-
-# # df_features_pre_opt.loc["6dzhcimdxs"]
-
-# "6dzhcimdxs" in df_bulk_dft.index
-
-# assert False
-
-# df_struct.index.unique()
-
-
-# assert False
-
-# + jupyter={}
-# FP_struct = FingerPrint(**{
-#     "feature_methods": ["voronoi"],
-#     "input_data": df_struct_kirsten,
-# #     "input_data": df_combined,
-#     "input_index": ["atoms"]})
-
-# FP_struct.generate_fingerprints()
-# df_features_pre_opt = FP_struct.fingerprints
-
-# # #############################################################################
-# with open(df_features_pre_opt_kirsten_path, "wb") as fle:
-#     pickle.dump(df_features_pre_opt, fle)
-
-# with open(df_features_pre_opt_kirsten_path, "rb") as fle:
-#     df_features_pre_opt_kirsten = pickle.load(fle)
-
-# + jupyter={}
-# df_features_pre_opt
-
-# df_features_pre_opt__before.head()
-
-# + jupyter={}
-# sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "workflow/ml_modelling"))
-# from ml_methods import get_ml_dataframes
-# ml_data_dict = get_ml_dataframes(names=["df_features_pre_opt_path"])
-# df_features_pre_opt = ml_data_dict["df_features_pre_opt"]
-
-# + jupyter={}
-# TEMP
-# df_struct = df_struct.sample(n=23)
-
-# + jupyter={}
-# with open(df_features_pre_opt_path, "rb") as fle:
-#     df_features_pre_opt = pickle.load(fle)

@@ -246,46 +246,11 @@ for i_ind, (name, group) in enumerate(grouped):
     df_dict_i[name_i] = df_i
 
 # +
-# #########################################################
-#### name: IrO2_100_o_covered_NaN
-#### name: IrO2_100_h_covered_NaN
-#### name: IrO2_110_o_covered_NaN
-#### name: IrO2_110_h_covered_NaN
-
-# #########################################################
-#### name: IrO3_rutile-like_100_o_covered_NaN
-#### name: IrO3_rutile-like_100_o_covered_2_NaN
-#### name: IrO3_rutile-like_100_h_covered_NaN
-#### name: IrO3_rutile-like_110_o_covered_NaN
-#### name: IrO3_rutile-like_110_h_covered_NaN
-
-# #########################################################
-#### name: IrO3_battery_010_o_covered_a
-#### name: IrO3_battery_010_o_covered_b
-
-# #########################################################
-#### name: IrO3_100_o_covered_NaN
-#### name: IrO3_100_h_covered_NaN
-#### name: IrO3_110_o_covered_NaN
-#### name: IrO3_110_h_covered_NaN
-#### name: IrO3_111_o_covered_NaN
-#### name: IrO3_211_o_covered_NaN
-# name: IrO3_211_h_covered_NaN
-
-# +
 name_i = "IrO3_rutile-like_100_o_covered_2_NaN"
 # name_i = "IrO3_rutile-like_100_o_covered_NaN"
 df_i = df_dict_i[name_i]
 
 df_i[short_cols_list]
-
-# +
-# -435.89132622
-
-# *OOH -440.261249 here in the script but should be -440.49676138
-
-# +
-# assert False
 
 # + [markdown] toc-hr-collapsed=true
 # # Experimental IrOx Activity Traces
@@ -427,20 +392,6 @@ my_plotly_plot(
 # # TEMP | Changing line type of volcano
 
 # +
-# fig.show()
-# assert False
-# my_plotly_plot(
-#     figure=fig,
-#     plot_name="",
-#     write_html=True,
-#     write_png=False,
-#     png_scale=6.0,
-#     write_pdf=True,
-#     write_svg=False,
-#     try_orca_write=False,
-#     )
-
-# +
 shared_axis_props = dict(ticklen=3)
 
 ticks_props_new_x = dict(
@@ -476,9 +427,6 @@ try:
         )
 except:
     tmp = 42
-
-# +
-# fig.show()
 # -
 
 # # Adding Kinetic Volcano Traces
@@ -524,9 +472,6 @@ data_tmp = fig.data
 
 data = list(data_tmp)[-1:] + list(data_tmp)[0:-1]
 fig.data = data
-
-# +
-# assert False
 
 # + jupyter={"outputs_hidden": false}
 tmp = my_plotly_plot(
@@ -581,77 +526,34 @@ for i in ORR_PLT.series_list:
 # #         print(key)
 # #         print(val)
 
-# + active=""
-#
-#
-#
-#
-#
+# +
+# #########################################################
+#### name: IrO2_100_o_covered_NaN
+#### name: IrO2_100_h_covered_NaN
+#### name: IrO2_110_o_covered_NaN
+#### name: IrO2_110_h_covered_NaN
 
-# + jupyter={}
-# df_m.name_i_2.unique().tolist()
+# #########################################################
+#### name: IrO3_rutile-like_100_o_covered_NaN
+#### name: IrO3_rutile-like_100_o_covered_2_NaN
+#### name: IrO3_rutile-like_100_h_covered_NaN
+#### name: IrO3_rutile-like_110_o_covered_NaN
+#### name: IrO3_rutile-like_110_h_covered_NaN
 
-# df_m.head()
+# #########################################################
+#### name: IrO3_battery_010_o_covered_a
+#### name: IrO3_battery_010_o_covered_b
 
-# + jupyter={}
-## # df_m = pd.concat([
-# #     df_m[df_m.bulk_system != "IrO3"],
-# #     df_m[df_m.bulk_system == "IrO3"],
-# #     ])
+# #########################################################
+#### name: IrO3_100_o_covered_NaN
+#### name: IrO3_100_h_covered_NaN
+#### name: IrO3_110_o_covered_NaN
+#### name: IrO3_110_h_covered_NaN
+#### name: IrO3_111_o_covered_NaN
+#### name: IrO3_211_o_covered_NaN
+# name: IrO3_211_h_covered_NaN
 
+# +
+# -435.89132622
 
-# # #####################################
-# prop_name_list = [
-#     'bulk_system',
-#     # 'coverage',
-#     'coverage_type',
-#     'facet',
-#     'surface_type']
-# grouped = df_m.groupby(groupby_props, sort=False)
-# for i_ind, (name, group) in enumerate(grouped):
-#     df_i = group
-#     name_i = "_".join(list(name))
-#     print("name:", name_i)
-
-# + jupyter={}
-# for i_cnt, trace in enumerate(fig.data):
-#     tmp = 42
-#     print(trace.name)
-#     if trace.name == "temp_4348":
-#         print(trace)
-#         print("ISDFIJISDJFIJSDI")
-
-# fig.data[-1:]
-# print(len(fig.data))
-# print(len(fig.data))
-# data_0 = list(fig.data)
-# data_0.insert(0, trace_kin_10mA)
-# fig.data = data_0
-
-# data_tmp = fig.data
-
-# # print(len(fig.data))
-# # len(list(data_tmp)[0:-1])
-# # list(data_tmp)
-
-# for i_cnt, trace in enumerate(fig.data):
-#     tmp = 42
-#     print(trace.name)
-#     if trace.name == "temp_4348":
-#         print(trace)
-#         print("ISDFIJISDJFIJSDI")
-
-# for trace_i in data_kin_volc:
-#     data_dict = trace_i.to_plotly_json()
-#     fig.add_scatter(**data_dict)
-
-# + jupyter={}
-## for trace in fig.data:
-#     tmp = 42
-    
-# #     print(trace.name)
-    
-#     if trace.name == "activity volcano":
-#         trace_tmp = trace
-
-# trace_tmp.line.dash = "7px,2px,7px,2px"
+# *OOH -440.261249 here in the script but should be -440.49676138

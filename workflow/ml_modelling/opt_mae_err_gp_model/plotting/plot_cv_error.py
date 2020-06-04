@@ -97,38 +97,3 @@ print("All done!")
 assert False
 
 fig.show()
-
-# + active=""
-#
-#
-#
-#
-#
-
-# + jupyter={}
-# from plotting.my_plotly import add_duplicate_axes
-
-# shared_axis_props = dict(
-#     ticklen=3,
-#     tickcolor="red",
-#     )
-
-# ticks_props_new_x = dict(
-#     dtick=0.5, **shared_axis_props)
-# ticks_props_new_y = dict(
-#     dtick=0.1, **shared_axis_props)
-
-# add_duplicate_axes(
-#     fig,
-#     axis_type='x',
-#     axis_data=ticks_props_new_x,
-#     # axis_num_list=None,
-#     tmp_define_both_axis_types=True,
-#     )
-# add_duplicate_axes(
-#     fig,
-#     axis_type='y',
-#     axis_data=ticks_props_new_y,
-#     # axis_num_list=None,
-#     tmp_define_both_axis_types=False,
-#     )

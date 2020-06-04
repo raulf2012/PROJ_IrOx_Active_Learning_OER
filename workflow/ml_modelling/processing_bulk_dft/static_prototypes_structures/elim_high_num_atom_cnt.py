@@ -7,7 +7,7 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_irox] *
+#     display_name: Python [conda env:PROJ_irox]
 #     language: python
 #     name: conda-env-PROJ_irox-py
 # ---
@@ -70,8 +70,6 @@ print(
     df_discard[df_discard["stoich"] == "AB3"].shape[0],
     )
 
-698 - 131
-
 # # Saving data
 
 directory = "out_data"
@@ -82,32 +80,3 @@ with open(os.path.join(directory, "ids_to_discard__too_many_atoms.pickle"), "wb"
 print(20 * "# # ")
 print("All done!")
 assert False
-
-# + active=""
-#
-#
-#
-#
-
-# + jupyter={}
-# df_static_iro2 = df_static_irox[df_static_irox["stoich"] == "AB2"]
-
-# df_static_iro3 = df_static_irox[df_static_irox["stoich"] == "AB3"]
-
-# + jupyter={}
-# atom_cutoff = 100
-
-# print(df_static_iro3[df_static_iro3["num_atoms"] > atom_cutoff].shape)
-# print(df_static_iro2[df_static_iro2["num_atoms"] > atom_cutoff].shape)
-
-# df_iro3_discard = df_static_iro3[df_static_iro3["num_atoms"] > atom_cutoff]
-# df_iro2_discard = df_static_iro2[df_static_iro2["num_atoms"] > atom_cutoff]
-
-# df_iro2_discard
-
-# + jupyter={}
-# row_i = df_static_irox.iloc[0]
-
-# atoms_i = row_i["atoms"]
-
-# atoms_i.get_number_of_atoms()

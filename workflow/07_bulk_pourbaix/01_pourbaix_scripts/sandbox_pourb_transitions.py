@@ -12,10 +12,12 @@
 #     name: conda-env-PROJ_irox-py
 # ---
 
+# # Import Modules
+
 # + Collapsed="false" jupyter={}
 import sys
-import os
 print(os.getcwd())
+import os
 
 sys.path.insert(
     0,
@@ -150,9 +152,6 @@ PD = PourbaixDiagram([
 
 iro2_a_iro3_trans = find_pour_trans(PourbaixDiagram=PD, range=[1, 1.5], num=1000)
 print("iro2_a_iro3_trans:", iro2_a_iro3_trans)
-
-# +
-# assert False
 # -
 
 # # IrO2 --> rutile-IrO3 Transition
@@ -265,26 +264,3 @@ with open(os.path.join(directory, "bulk_pourb_transitions.pickle"), "wb") as fle
 print(20 * "# # ")
 print("All done!")
 assert False
-
-# +
-# # IrO2(s)
-# # Ir(s)
-
-# entries_sweep = []
-# for i_cnt, V_i in enumerate(np.linspace(0, 1, num=1000)):
-#     stable_entry = PD.get_stable_entry(0, V_i)
-#     entry_name = stable_entry.name
-
-#     if i_cnt != 0:
-#         prev_entry = entries_sweep[i_cnt - 1]
-
-#         if prev_entry != entry_name:
-#             print("V_i:", V_i)
-
-#     entries_sweep.append(entry_name)
-
-# # PD.get_stable_entry(0, i).name
-# # 0.7410741074107411
-# -
-
-

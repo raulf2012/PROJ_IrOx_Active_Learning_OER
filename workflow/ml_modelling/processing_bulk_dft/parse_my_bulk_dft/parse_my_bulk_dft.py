@@ -8,7 +8,7 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_irox] *
+#     display_name: Python [conda env:PROJ_irox]
 #     language: python
 #     name: conda-env-PROJ_irox-py
 # ---
@@ -23,6 +23,7 @@
 
 # +
 import os
+print(os.getcwd())
 import sys
 
 import pickle
@@ -35,7 +36,6 @@ from misc_modules.pandas_methods import drop_columns
 
 # # Notebook Prep
 
-# Creating 'out_data' dir
 directory = "out_data"
 if not os.path.exists(directory):
     os.makedirs(directory)
@@ -105,9 +105,9 @@ df_iro2_long = pd.concat([
 df_iro2_long["stoich"] = "AB2"
 
 # +
-# df_iro2_long.head()
+# # df_iro2_long.head()
 
-df_iro2_long[df_iro2_long["id"] == "338"]
+# df_iro2_long[df_iro2_long["id"] == "338"]
 
 # +
 data_list = []
@@ -128,12 +128,6 @@ df_iro2 = drop_columns(df=df_iro2, columns=["atoms", "path"], keep_or_drop="keep
 
 # Adding stoich column
 df_iro2["stoich"] = "AB2"
-
-# + {"active": ""}
-# # #############################################################################
-# # #############################################################################
-# # #############################################################################
-# # #############################################################################
 # -
 
 # # IrO3 Bulk Data
@@ -207,12 +201,6 @@ df_iro3 = drop_columns(df=df_iro3, columns=["atoms", "path"], keep_or_drop="keep
 
 # Adding stoich column
 df_iro3["stoich"] = "AB3"
-
-# + {"active": ""}
-# # #############################################################################
-# # #############################################################################
-# # #############################################################################
-# # #############################################################################
 # -
 
 # # Combining dataframes
@@ -286,143 +274,6 @@ print(20 * "# # ")
 print("All done!")
 assert False
 
-# + {"active": ""}
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-# -
-
-# # Keeping track of competed jobs (Manually)
-
-# + {"active": ""}
-# # IrO2
-# # ########################
-#
-# (368, 4)
-# (442, 4)
-# (445, 4)
-# (446, 4)
-# (448, 4)
-# (450, 4)
-# (454, 4)
-# (460, 4)
-# (463, 4)
-# (468, 4)
-# (470, 4)
-# (475, 4)
-# (478, 4)
-# (480, 4)
-# (482, 4)
-# (484, 4)
-# (485, 4)
-# (487, 4)
-
-# + {"active": ""}
-# # IrO3
-# # ########################
-#
-# (238, 4)
-# (241, 4)
-# (244, 4)
-# (245, 4)
-# (246, 4)
-# (248, 4)
-# (249, 4)
-
-# + {"active": ""}
-# # IrO2
-# # ########################
-#
-# (99, 4)
-# (100, 4)
-# (102, 4)
-# (106, 4)
-# (108, 4)
-# (131, 4)
-# (227, 4)
-# (230, 4)
-# (231, 4)
-# (233, 4)
-# (235, 4)
-# (236, 4)
-# (237, 4)
-# (239, 4)
-# (242, 4)
-# (244, 4)
-# (245, 4)
-# (247, 4)
-# (250, 4)
-# (253, 4)
-# (254, 4)
-# (256, 4)
-# (258, 4)
-# (266, 4)
-# (272, 4)
-# (273, 4)
-# (276, 4)
-# (279, 4)
-# (283, 4)
-# (285, 4)
-# (287, 4)
-# (289, 4)
-# (292, 4)
-# (295, 4)
-# (297, 4)
-# (305, 4)
-# (310, 4)
-# (313, 4)
-# (317, 4)
-# (322, 4)
-# (326, 4)
-# (330, 4)
-# (335, 4)
-# (340, 4)
-# (354, 4)
-# (357, 4)
-# (359, 4)
-# (367, 4)
-#
-# # IrO3
-# # ########################
-#
-# (37, 4)
-# (47, 4)
-# (55, 4)
-# (60, 4)
-# (62, 4)
-# (87, 4)
-# (116, 4)
-# (119, 4)
-# (120, 4)
-# (121, 4)
-# (123, 4)
-# (124, 4)
-# (127, 4)
-# (128, 4)
-# (132, 4)
-# (135, 4)
-# (146, 4)
-# (150, 4)
-# (155, 4)
-# (158, 4)
-# (161, 4)
-# (177, 4)
-# (188, 4)
-
-# + {"active": ""}
-#
-#
-#
-
 # +
 df_iro2_slac
 pd.set_option('display.max_rows', None)
@@ -439,19 +290,3 @@ display(df_tmp)
 print("All jobs:", df_new_jobs_slac_iro2.shape[0], "\n")
 print("Busy jobs:", df_new_jobs_slac_iro2[df_new_jobs_slac_iro2["action"] == "Job is busy, will skip"].shape[0])
 print("Finished jobs:", df_new_jobs_slac_iro2[df_new_jobs_slac_iro2["action"] == "ALL DONE! | ISIF 2"].shape[0])
-# -
-
-# df_iro2_slac
-#
-# df_new_jobs_slac_iro2[df_new_jobs_slac_iro2["id"] == "590"]
-
-# +
-[i for i in df_new_jobs_sher_iro2["pre_path"].tolist() if "iro3" in i]
-
-[i for i in df_iro2_sherlock["path"].tolist() if "iro3" in i]
-
-# +
-# df_m[df_m["stoich"] == "AB2"]
-# -
-
-df_m[df_m["id_old"] == 182]

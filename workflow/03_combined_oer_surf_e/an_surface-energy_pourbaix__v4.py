@@ -86,35 +86,6 @@ from IPython.display import Image
 # + attributes={"classes": [], "id": "", "n": "4"}
 dataframe_dir = data_dir
 
-# df_pourbaix, df_ads, df_surf = load_df(
-#     # from_file=True,
-#     from_file=False,
-#     root_dir=dataframe_dir,
-#     data_dir=dataframe_dir,
-#     file_name="df_master.pickle",
-#     process_df=True)
-# df_m = df_surf
-
-
-# # Filter the jobs that were unsuccessful
-# df_m = df_m[[not i for i in pd.isna(df_m["elec_energy"].tolist())]]
-# df_m = df_m[df_m["job_type"] == "surface_coverage_energy"]
-
-
-# cols_to_keep = [
-#     'facet',
-#     'job_type',
-#     'layers',
-#     'surface_type',
-#     'elec_energy',
-#     'atoms_object',
-#     'bulk_system',
-#     'coverage_type',
-#     ]
-
-# df_m = drop_columns(df=df_m, columns=cols_to_keep, keep_or_drop="keep")
-
-
 # #############################################################################
 # Read bulk data ##############################################################
 with open(oer_bulk_structures_path, "rb") as fle:
@@ -129,126 +100,6 @@ with open(path_i, "rb") as fle:
     pourb_trans = pickle.load(fle)
 
 pourb_trans
-# -
-
-# TEMP
-#
-# # Read Adsorbate and Gas Reference Data
-
-# + attributes={"classes": [], "id": "", "n": "6"}
-# # surf_spec_corr_dict = {"*OH": 0.2945, "*O": 0.044, "*OOH": 0.3765}
-
-# path_i = os.path.join(
-#     os.environ["PROJ_irox"],
-#     "workflow/energy_treatment_deriv/out_data",
-#     "data.pickle")
-# with open(path_i, "rb") as fle:
-#     data = pickle.load(fle)
-
-
-# surf_spec_corr_dict = {
-#     "*OH": data["D_phi_oh_ads"],
-#     "*O": data["D_phi_o_ads"],
-#     "*OOH": data["D_phi_ooh_ads"],
-#     }
-
-# hyd_ref = data["E_H_ref"]
-# oxy_ref = data["E_O_ref"]
-# -
-
-# # Instantiate SurfaceEnergy objects
-
-# + attributes={"classes": [], "id": "", "n": "7"}
-# # %%capture
-
-# def method(row_i):
-#     """
-#     """
-#     print(row_i["bulk_system"] + "_" + row_i["facet"] + "_" + row_i["coverage_type"])
-
-#     bulk_e_per_atom = bulk_e_per_atom_dict[row_i["bulk_system"]]
-
-#     SE = SurfaceEnergy(
-#         atoms=row_i["atoms_object"][-1],
-#         # bulk_atoms=bulk_data[row_i["bulk_system"]],
-
-#         bulk_atoms=bulk_data.loc[row_i["bulk_system"]].atoms,
-
-#         bulk_electronic_energy_per_atom=bulk_e_per_atom,
-#         H_ref_electronic_energy=hyd_ref,
-#         O_ref_electronic_energy=oxy_ref,
-#         special_surface_species_corrections=surf_spec_corr_dict,
-#         verbose=verbose,
-#         )
-
-#     print("index: ", row_i.name)
-#     print("")
-
-#     return(SE)
-
-# df_m["SurfaceEnergy"] = df_m.apply(
-#     method,
-#     axis=1,
-#     )
-# -
-
-# # Create plotly trace for all surfaces
-
-# + attributes={"classes": [], "id": "", "n": "8"}
-# def method(row_i):
-#     """
-#     """
-#     SE_i = row_i["SurfaceEnergy"]
-
-#     norm_type = "area"  # 'area', 'surface_atom'
-
-#     # #########################################################################
-#     # #########################################################################
-#     import numpy as np
-#     bias_list = np.arange(bias_range[0], bias_range[1], 0.1)
-
-#     surf_e_list = []
-#     for bias_i in bias_list:
-#         surf_e_i = SE_i.calc_surface_energy(bias_i, pH, norm_type="area")
-#         surf_e_list.append(surf_e_i)
-#     # #########################################################################
-#     # #########################################################################
-
-#     surf_e_left = SE_i.calc_surface_energy(bias_range[0], pH, norm_type="area")
-#     surf_e_right = SE_i.calc_surface_energy(bias_range[1], pH, norm_type="area")
-
-
-#     color_i = irox_surface_e_color_map.get(
-#         row_i["bulk_system"] + "_" + row_i["coverage_type"]
-#         )
-#     name_i = row_i["coverage_type"] + " " + row_i["facet"] 
-
-#     trace_i = go.Scatter(
-#         x=bias_list,
-#         y=surf_e_list,
-#         mode='lines',
-#         name=name_i,
-#         hoverinfo="name",
-#         marker=dict(
-#             symbol="square",
-#             size=10,
-#             color=color_i,
-#             line=dict(
-#                 width=1,
-#                 color='rgb(0, 0, 0)',
-#                 ),
-#             ),
-#         )
-#     return(trace_i)
-
-
-# df_m["plotly_trace"] = df_m.apply(
-#     method,
-#     axis=1)
-# -
-
-# /mnt/f/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER/workflow/01_surface_energies/02_surface_e_pourb_plot/out_data/df_SE_processed.pickle
-
 
 # +
 path_i = os.path.join(
@@ -699,9 +550,6 @@ for annot_i in fig_oer.layout.annotations:
 new_annotations = list(fig.layout.annotations) + oer_volc_annot
 
 fig.layout.annotations = new_annotations
-
-# +
-# assert False
 # -
 
 # # Move Surface pourbaix plot x-axis label to the left
@@ -717,15 +565,6 @@ for annot_i in fig.layout.annotations:
         annot_i.xanchor = "center"
         
 tmp = 42
-
-# +
-# fig.show()
-
-# +
-# fig.layout
-
-# +
-# assert False
 # -
 
 # # Add minor ticks to plots
@@ -787,6 +626,24 @@ assert False
 # -
 
 fig.show()
+
+# + active=""
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+# -
 
 # # Standard Surface Energy Bar Chart
 
@@ -863,92 +720,3 @@ fig = my_plotly_plot(
 # Image("out_plot/" + plot_name_i + ".png")
 
 # fig.show()
-
-# + active=""
-#
-#
-#
-#
-
-# + jupyter={}
-# fig.layout.xaxis9 = {
-#     'anchor': 'y9',
-#     'domain': [0.42, 1.0],
-#     'linecolor': 'red',
-#     'mirror': True,
-#     'range': [1.0, 2.0],
-#     'showgrid': False,
-#     'showline': True,
-#     'tickcolor': 'black',
-#     'tickfont': {'color': 'black', 'size': 10.666666666666666},
-#     'ticks': 'outside',
-#     'zeroline': False,
-#     }
-
-# + jupyter={}
-# import copy
-
-# tmp = copy.deepcopy(fig.layout)
-
-# tmp.annotations = None
-# tmp.shapes = None
-
-# tmp
-
-# + jupyter={}
-
-# # add_duplicate_axes?
-
-# + jupyter={}
-# fig.layout.xaxis.zerolinecolor = "red"
-# fig.layout.xaxis.zerolinewidth = 3.0
-
-# fig.layout.xaxis2.zerolinecolor = "red"
-# fig.layout.xaxis2.zerolinewidth = 3.0
-
-# fig.layout.xaxis3.zerolinecolor = "red"
-# fig.layout.xaxis3.zerolinewidth = 3.0
-
-# fig.layout.xaxis4.zerolinecolor = "red"
-# fig.layout.xaxis4.zerolinewidth = 3.0
-
-# #############################################################################
-# #############################################################################
-
-# fig.layout.yaxis.zerolinecolor = "red"
-# fig.layout.yaxis.zerolinewidth = 3.0
-
-# fig.layout.xaxis9.anchor = "y9"
-
-# + jupyter={}
-# fig.layout.plot_bgcolor = "rgba(255,255,140,0.1)"
-
-# + jupyter={}
-# fig.layout.xaxis9 = {
-#     # 'anchor': 'y9',
-#     'anchor': 'y2',
-
-#     'domain': [0.42, 1.0],
-#     'dtick': 0.1,
-#     # 'linecolor': 'black',
-#     'linecolor': 'red',
-#     'mirror': True,
-#     'range': [1.0, 2.0],
-#     'showgrid': False,
-#     'showline': True,
-#     'showticklabels': False,
-#     'tick0': 1.0,
-#     # 'tickcolor': 'black',
-#     'tickcolor': 'red',
-#     'tickfont': {'color': 'black', 'size': 10.666666666666666},
-#     'ticks': 'outside',
-#     'title': {'text': ''},
-#     'zeroline': False,
-#     }
-
-# fig.add_scatter(**go.Scatter({
-#     "xaxis": "x9",
-
-#     # "yaxis": "y2",
-#     "yaxis": "y9",
-#     }).to_plotly_json())

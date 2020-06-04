@@ -8,7 +8,7 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_irox] *
+#     display_name: Python [conda env:PROJ_irox]
 #     language: python
 #     name: conda-env-PROJ_irox-py
 # ---
@@ -872,6 +872,8 @@ minor_ticks_data = {
 
     }
 
+# Uncomment to add minor ticks
+
 # +
 # # from inputs import minor_ticks_data
 # from plotting.my_plotly import add_duplicate_axes
@@ -1016,17 +1018,3 @@ print("All done!")
 assert False
 
 fig.show()
-
-# + active=""
-#
-#
-#
-#
-#
-#
-
-# + jupyter={}
-# out_data/
-
-# AB2_False_figs_dict__v2.pickle
-# AB2_True_figs_dict__v2.pickle

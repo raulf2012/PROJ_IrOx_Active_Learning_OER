@@ -8,7 +8,7 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_irox] *
+#     display_name: Python [conda env:PROJ_irox]
 #     language: python
 #     name: conda-env-PROJ_irox-py
 # ---
@@ -27,22 +27,18 @@ import os
 print(os.getcwd())
 import sys
 
+import time
+
 import pickle
 
-
 import numpy as np
+import pandas as pd
 
 from ase import io
 from ase.visualize import view
-import pandas as pd
-
-
-import time
 
 from pymatgen.io.vasp.inputs import Poscar
 from pymatgen.io.ase import AseAtomsAdaptor
-
-# pd.set_option('display.max_rows', None)
 
 # #############################################################################
 from IPython.display import display
@@ -77,7 +73,6 @@ for root, dirs, files in os.walk(root_path):
         if ".POSCAR" in file_i or ".cif" in file_i:
             id_i = file_i.split("_")[0]
 
-            # path_i = root.replace("/mnt/c/Users/raulf/Dropbox/01_norskov/00_projects/", "")
             path_i = root
 
             atoms_i = io.read(
@@ -93,10 +88,6 @@ for root, dirs, files in os.walk(root_path):
             master_list.append(sys_i)
 
 df_struct = pd.DataFrame(master_list)
-# -
-
-root_path
-os.environ["PROJ_DATA"]
 
 # + [markdown] {"Collapsed": "false"}
 # # Setting Unique ID Tag
@@ -278,124 +269,3 @@ else:
 print(20 * "# # ")
 print("All done!")
 assert False
-
-# + [markdown] {"Collapsed": "false"}
-# # Checking that static structures are structurally unique
-
-# + {"Collapsed": "false"}
-print("df_proto.name_i.unique().shape:", df_proto.name_i.unique().shape)
-
-duplicates_list = []
-for proto_i in df_proto.name_i.unique():
-    df_i = df_proto[df_proto.name_i == proto_i]
-
-    if df_i.shape[0] > 1:
-        # display(df_i)
-        
-        df_tmp = df_i
-        
-        dupl_ids = df_tmp.index.tolist()
-        duplicates_list.append(dupl_ids)
-
-with open("out_data/duplicates_proto.pickle", "wb") as fle:
-    pickle.dump(duplicates_list, fle)
-
-# + {"Collapsed": "false"}
-# df_proto[df_proto["stoich"] == "AB3"]
-# df_struct[df_struct["stoich"] == "AB2"].index.shape
-# df_struct[df_struct["stoich"] == "AB2"].index.unique().shape
-
-ab3_indices = df_struct[df_struct["stoich"] == "AB3"].index.unique().tolist()
-ab2_indices = df_struct[df_struct["stoich"] == "AB2"].index.unique().tolist()
-
-print("df_proto.loc[ab3_indices].shape:", df_proto.loc[ab3_indices].shape)
-print("AB3:", df_proto.loc[ab3_indices].name_i.unique().shape)
-
-print("")
-
-print("df_proto.loc[ab2_indices].shape:", df_proto.loc[ab2_indices].shape)
-print("AB2:", df_proto.loc[ab2_indices].name_i.unique().shape)
-
-# + {"Collapsed": "false", "active": ""}
-#
-#
-#
-#
-
-# + [markdown] {"Collapsed": "false"}
-# # TEMP | Number of atoms in structures
-
-# + {"Collapsed": "false", "jupyter": {}}
-# def method(row_i, argument_0, optional_arg=None):
-#     new_column_values_dict = {"num_atoms": None}
-
-#     new_column_values_dict["num_atoms"] = row_i["atoms"].get_number_of_atoms()
-
-#     # #########################################################################
-#     for key, value in new_column_values_dict.items():
-#         row_i[key] = value
-#     return(row_i)
-
-# df_i = df_struct
-
-# arg1 = "TEMP_0"
-# df_i = df_i.apply(
-#     method,
-#     axis=1,
-#     args=(arg1, ),
-#     optional_arg="TEMP_1"
-#     )
-# df_struct = df_i
-
-# df_struct_ab3 = df_struct[df_struct["stoich"] == "AB3"]
-
-# df_struct_ab3
-
-# print(df_struct_ab3.shape)
-# print(df_struct_ab3[df_struct_ab3["num_atoms"] > 100].shape)
-
-# df_struct_ab3[df_struct_ab3["num_atoms"] > 100]
-
-# + {"Collapsed": "false", "jupyter": {}}
-# df_tmp = df_struct[df_struct.stoich == "AB2"]
-
-# # df_tmp.shape
-
-# df_tmp[df_tmp.num_atoms <= 75].shape
-
-# + {"Collapsed": "false", "jupyter": {}}
-# df_struct[df_struct["stoich"] == "AB3"].shape
-# df_struct[df_struct["stoich"] == "AB2"].shape
-
-# + {"Collapsed": "false", "jupyter": {}}
-# TEMP
-
-# ids_to_drop = [
-#  '826imfvjm5',
-#  'x5xfz16h95',
-#  'nl9gb2csx5',
-#  '65xlxp7o8i',
-#  'nu64ni7a6i',
-#  'z17s6dzu6r',
-#  '8ymh8qnl6o',
-#  'x4zsxdmanr',
-#  '6dzhcimdxs',
-#  'v1bebhmeny',
-#  'vjvfzpb48y',
-#  '6fcdbh9fz2',
-#  '6svsc4bqxh',
-#  '7qm56wxj8s',
-#  'mu6omk6k9l',
-#  'v4zonyzw7d',
-#  '8uxs7rmu7j',
-#  '6qmy8j7fz2',
-#  'vovgximhm2',
-#  'vhv39q6e9j',
-#  '8dce6kz2vf',
-#  '7s64xl8oca',
-#  '9s617rcd63',
-#  'c3mp6jmgzq',
-#  ]
-
-
-# df_proto = df_proto.drop(ids_to_drop)

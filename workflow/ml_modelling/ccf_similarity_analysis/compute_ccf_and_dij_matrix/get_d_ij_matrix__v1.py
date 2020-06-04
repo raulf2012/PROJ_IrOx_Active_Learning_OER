@@ -18,8 +18,9 @@
 #
 # All pair-wise similarities are computed d_ij
 
-read_from_PROJ_DATA = False
-read_from_PROJ_DATA = True
+# +
+# read_from_PROJ_DATA = False
+# read_from_PROJ_DATA = True
 
 # + [markdown] {"Collapsed": "false"}
 # # Import Modules
@@ -33,6 +34,10 @@ import pickle
 
 import numpy as np
 import pandas as pd
+# -
+
+sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
+from proj_data_irox import read_from_PROJ_DATA
 
 # + {"Collapsed": "false"}
 import time
@@ -80,7 +85,7 @@ print("df_d_comp_prev.shape:", df_d_comp_prev.shape)
 # + [markdown] {"Collapsed": "false"}
 # # Process data (Create D_ij matrix)
 
-# + {"Collapsed": "false"}
+# + {"Collapsed": "false", "jupyter": {"outputs_hidden": true}}
 df = df_ccf
 
 result = np.zeros((len(df), len(df)))
@@ -128,7 +133,6 @@ with open(os.path.join(directory, "df_d_ij_all.pickle"), "wb") as fle:
 # #####################################################################
 
 # + {"Collapsed": "false"}
-# path_i = os.path.join("out_data", "df_d_ij_all_temp.pickle")
 path_i = os.path.join("out_data", "df_d_ij_all.pickle")
 with open(path_i, "rb") as fle:
     df_d_comp = pickle.load(fle)
@@ -144,44 +148,3 @@ print(
 print(20 * "# # ")
 print("All done!")
 assert False
-
-# + {"Collapsed": "false", "active": ""}
-#
-#
-#
-#
-#
-#
-#
-#
-#
-
-# + {"Collapsed": "false", "jupyter": {}}
-# import copy
-# import pandas as pd
-
-# from ase.visualize import view
-
-# # Plotly
-# import chart_studio.plotly as py
-# import plotly.graph_objects as go
-
-# # from StructurePrototypeAnalysisPackage.ccf import (
-# from spap.ccf import (
-#     struc2ccf,
-#     cal_ccf_d,
-#     cal_inter_atomic_d,
-#     d2ccf,
-#     weight_f,
-#     pearson_cc,
-#     gaussian_f,
-#     element_tag,
-#     cell_range,
-#     count_atoms_dict,
-#     )
-
-# sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
-# from proj_data_irox import (
-#     static_irox_structures_path,
-#     bulk_dft_data_path,
-#     )

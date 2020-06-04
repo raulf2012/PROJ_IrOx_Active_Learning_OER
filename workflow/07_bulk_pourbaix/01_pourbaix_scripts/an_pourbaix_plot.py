@@ -123,15 +123,11 @@ entries_to_remove_list = [
 if run_create_entries_script:
     tmp = 42
 #     !python sc_create_all_entries.py
-
-# +
-print("123 SDKISJDIFJSIDPJF")
-print(sys.argv)
+# -
 
 stoich_i = "AB2"
 if sys.argv[-1] == "AB2" or sys.argv[-1] == "AB3":
     stoich_i = sys.argv[-1]
-# -
 
 # ## All Pourbaix entries
 
@@ -143,12 +139,6 @@ path_i = os.path.join(
 with open(path_i, "rb") as fle:
     all_entries = pickle.load(fle)
 # #############################################################################
-# -
-
-all_entries
-
-# +
-# assert False
 # -
 
 # ## Bulk Pourbaix transitions
@@ -165,11 +155,6 @@ all_entries
 
 # + [markdown] Collapsed="false"
 # # Process Data for Plotting
-# -
-
-all_entries
-
-entries_to_remove_list
 
 # + Collapsed="false"
 # %%capture

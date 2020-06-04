@@ -7,7 +7,7 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_irox] *
+#     display_name: Python [conda env:PROJ_irox]
 #     language: python
 #     name: conda-env-PROJ_irox-py
 # ---
@@ -16,12 +16,12 @@
 
 # +
 import os
+print(os.getcwd())
+import sys
 
 import pandas as pd
 
 from ase import io
-
-os.getcwd()
 # -
 
 # # Read Atoms Objects

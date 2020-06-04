@@ -178,22 +178,6 @@ def rate_eqn(
     return(r_out)
 
 
-# +
-
-# U_SHE = 2.4483
-
-# rate_eqn(
-#     xi=xi,
-#     alpha=alpha,
-#     beta=beta,
-#     gamma=gamma,
-#     kb=kb,
-#     T=T,
-#     h=h,
-#     G__O_OH=G__O_OH,
-#     U_SHE=U_SHE,
-#     verbose=True,
-#     )
 # -
 
 def test_meth(

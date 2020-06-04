@@ -8,7 +8,7 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_irox] *
+#     display_name: Python [conda env:PROJ_irox]
 #     language: python
 #     name: conda-env-PROJ_irox-py
 # ---
@@ -17,6 +17,7 @@
 
 # +
 import os
+print(os.getcwd())
 import sys
 
 import pickle
@@ -33,13 +34,6 @@ from proj_data_irox import (
     prototypes_data_path,
     static_irox_structures_path)
 
-print(os.getcwd())
-
-# +
-import ase
-
-print(ase)
-print(ase.__version__)
 # -
 
 # # Read Data
@@ -238,10 +232,6 @@ def method(row_i):
 df_m["volume"] = df_m.apply(
     method,
     axis=1)
-
-# row_i = df_m.iloc[0]
-# atoms = row_i.atoms
-# atoms.get_volume()
 # -
 
 df_m["volume_pa"] = df_m.volume / df_m.num_atoms
@@ -259,74 +249,3 @@ with open(os.path.join(directory, "df_bulk_dft.pickle"), "wb") as fle:
 print(20 * "# # ")
 print("All done!")
 assert False
-
-# +
-from ase_modules.ase_methods import view_in_vesta
-
-df_tmp = df_m[
-    (df_m.source == "chris") & \
-    (df_m.stoich == "AB2")
-    ].sort_values("dH")
-
-df_tmp2 = df_tmp[
-    (df_tmp.dH < -0.75 + 0.2) & \
-    (df_tmp.dH > -0.75 - 0.1)
-    ]
-
-df_tmp2
-# df_tmp.shape
-
-# view_in_vesta(df_tmp2.atoms.tolist(), name_list=df_tmp2.index.tolist())
-
-# # view_in_vesta?
-
-# + active=""
-#
-#
-#
-#
-#
-
-
-# + jupyter={}
-# df_tmp.path.tolist()
-
-# + jupyter={}
-# for i in df_m.index.tolist():
-#     if "m16" in i:
-#         print(i)
-
-# + jupyter={}
-# df_m.loc["m16tvk8h7g"]
-
-# df_m[df_m.stoich == "AB2"].sort_values("dH").iloc[0:10]
-
-# + jupyter={}
-# os.path.join(directory, "df_bulk_dft.pickle")
-
-# df_m.loc["cubqbpzd7k"]
-
-# # 3 * -7.049 - (2 * -4.657947279999998 + -9.304929736367313)
-
-# # -7.04
-
-# df_m[
-#     (df_m["stoich"] == "AB2") & \
-# #     (df_m["stoich"] == "AB2")
-#     (df_m["source"] == "raul")
-#     ].sort_values("energy_pa")
-
-# + jupyter={}
-# def method(row_i, argument_0, optional_arg=None):
-#     """
-#     """
-#     return(argument_0)
-
-# arg1 = "TEMP_0"
-# df_i = model_i
-# df_i["column_name"] = df_i.apply(
-#     method,
-#     axis=1,
-#     args=(arg1, ),
-#     optional_arg="TEMP_1"
-#     )

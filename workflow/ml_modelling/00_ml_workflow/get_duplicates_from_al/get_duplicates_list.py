@@ -322,26 +322,6 @@ ids_to_drop__duplicates = list(set(ids_to_drop__duplicates))
 # return(ids_to_drop__duplicates)
 
 # %%
-len(ids_to_drop__duplicates)
-
-df_dft
-df_dij.index
-
-# ids_to_drop__duplicates
-
-# df_dft.stoich.unique()
-
-# %%
-df_dft.sort_values("dH")
-
-# %%
-# df_i.sort_values("dH")
-
-"64cg6j9any" in ids_to_drop__duplicates
-
-# # CCF_i.i_all_similar("64cg6j9any")
-
-# %%
 assert False
 
 # %% [markdown]
@@ -371,49 +351,3 @@ duplicates_dict_new["AB2"] == duplicates_dict_old["AB2"]
 
 print(len(duplicates_dict_new["AB2"]))
 print(len(duplicates_dict_old["AB2"]))
-
-# %% [raw]
-#
-#
-#
-#
-
-# %%
-# for id in duplicates_dict_old["AB2"]:
-#     if id not in duplicates_dict_new["AB2"]:
-#         print(id)
-
-# DF_dict = get_ml_dataframes()
-
-# df_dft = DF_dict.get("bulk_dft_data")
-# df_dij = DF_dict.get("df_dij")
-
-# # #########################################################
-# df_dft = df_dft[df_dft.source == "raul"]
-# df_dft = df_dft[df_dft.stoich == "AB3"]
-
-# df_dij = df_dij.loc[df_dft.index, df_dft.index]
-
-# df_bulk_dft.index
-
-# df_i
-
-# df_bulk_dft.loc["pudomile_09"]
-
-# sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
-# from proj_data_irox import unique_ids_path
-
-# stoich_i = "AB3"
-# stoich_i = "AB2"
-
-# drop_duplicates = False
-
-# df_ids = pd.read_csv(unique_ids_path)
-
-# al_data_files_dict["AB3"].keys()
-
-# main_AB3_run
-
-# "6fcdbh9fz2" in duplicates_ab3_manual
-
-# "6fcdbh9fz2" in duplicates_dict_manual["AB3"]

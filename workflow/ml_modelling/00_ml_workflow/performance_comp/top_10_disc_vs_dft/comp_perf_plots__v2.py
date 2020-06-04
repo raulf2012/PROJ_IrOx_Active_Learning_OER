@@ -7,9 +7,9 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_IrOx_Active_Learning_OER]
+#     display_name: Python [conda env:PROJ_irox]
 #     language: python
-#     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
+#     name: conda-env-PROJ_irox-py
 # ---
 
 # + [markdown] Collapsed="false"
@@ -53,9 +53,6 @@ if last_arg == "AB2" or last_arg == "AB3":
 print("stoich_i:", stoich_i)
 
 # +
-# assert False
-
-# +
 sys.path.insert(0, os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling/00_ml_workflow/191102_new_workflow"))
@@ -71,9 +68,6 @@ files_list_random = al_data_files_dict[stoich_i]["files_list_random"]
 # elif stoich_i == "AB3":
 #     files_list_gp_ucb = al_data_files_dict[stoich_i]["files_list_ab3_gp_ucb"]
 #     files_list_random = al_data_files_dict[stoich_i]["files_list_ab3_random"]
-# -
-
-files_list_random[0]
 
 # + [markdown] Collapsed="false"
 # # Script Inputs
@@ -366,9 +360,6 @@ x_interc0 = np.interp(
     df_ave.index.tolist(),
     )
 
-# +
-# assert False
-
 # + [markdown] Collapsed="false"
 # # Random | w/o Duplicates
 
@@ -554,18 +545,6 @@ fig.layout.update(paper_bgcolor="white")
 
 tmp = 42
 
-# +
-# fig.show()
-
-# +
-# fig.layout.update(dict(
-#     height=500,
-#     width=600,
-#     showlegend=True,
-#     ))
-
-# fig.show()
-
 # + Collapsed="false" jupyter={"outputs_hidden": false}
 # Pickling data ######################################################
 import os; import pickle
@@ -590,264 +569,4 @@ print(20 * "# # ")
 print("All done!")
 assert False
 
-# +
-# df_perf_random
-
-# + Collapsed="false" active=""
-#
-#
-#
-#
-#
-
-# + jupyter={}
-# data_i = []
-# df_i = df_perf_gpucb
-# for i_cnt, col_i in enumerate(df_i.columns):
-#     trace_i = go.Scatter(
-#         x=df_i[col_i].index,
-#         y=df_i[col_i].values,
-#         # name=names_list[i_cnt],
-#         name=col_i[0],
-#         )
-#     data_i.append(trace_i)
-    
-# fig = go.Figure(data=data_i)
-# # fig.show()
-
-# + jupyter={}
-# data_i = []
-# df_i = df_perf_random
-# for i_cnt, col_i in enumerate(df_i.columns):
-#     name_i = col_i[0]
-
-#     trace_i = go.Scatter(
-#         x=df_i[col_i].index,
-#         y=df_i[col_i].values,
-#         # name=col_i[0],
-#         name=name_i,
-#         )
-#     data_i.append(trace_i)
-
-# fig = go.Figure(data=data_i)
-# # fig.show()
-
-# + jupyter={}
-# # df_ave
-
-# df_ave.loc[0] = [0, 0]
-# df_ave = df_ave.sort_index()
-
-# df_ave
-
-
-# df_perf
-# pifehohu
-# geheneva
-# nisoponi
-
-# if stoich_i == "AB3":
-#     path_i = os.path.join(
-#         os.environ["PROJ_irox"],
-#         "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs/out_data/AB3/gp_ucb_True",
-
-#         # "01_attempt/AL_geheneva.pickle",
-#         # "01_attempt/AL_pifehohu.pickle",
-        
-#         # NEW RUNS
-#         # "TEST_AL_2_fugunefo.pickle",
-#         "TEST_AL_2_seruladi.pickle",
-#         )
-
-# pre_path = os.path.join(
-#     os.environ["PROJ_irox"],
-#     "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs/out_data/AB3/gp_ucb_True",
-#     )
-
-# files_list = [
-#     pre_path + "/01_attempt/AL_geheneva.pickle",
-#     pre_path + "/01_attempt/AL_nisoponi.pickle",
-#     pre_path + "/01_attempt/AL_pifehohu.pickle",
-#     pre_path + "/01_attempt/AL_suturomo.pickle",
-#     pre_path + "/01_attempt/AL_vobifoko.pickle",
-#     pre_path + "/TEST_AL_masahiti.pickle",
-
-#     # pre_path + "/TEST_AL_2_devehowo.pickle",  # Not a good run for some reason
-#     pre_path + "/TEST_AL_2_fugunefo.pickle",
-#     pre_path + "/TEST_AL_2_hilerika.pickle",
-#     pre_path + "/TEST_AL_2_pomogobu.pickle",
-#     pre_path + "/TEST_AL_2_seruladi.pickle",
-
-    
-#     pre_path + "/TEST_AL_3_bikufupi.pickle",
-#     pre_path + "/TEST_AL_3_dakubiku.pickle",
-#     pre_path + "/TEST_AL_3_duloputo.pickle",
-#     pre_path + "/TEST_AL_3_fahovara.pickle",
-#     pre_path + "/TEST_AL_3_fulomoto.pickle",
-#     pre_path + "/TEST_AL_3_laburike.pickle",
-#     pre_path + "/TEST_AL_3_libapidi.pickle",
-#     pre_path + "/TEST_AL_3_nikimido.pickle",
-#     pre_path + "/TEST_AL_3_raluduhu.pickle",
-#     pre_path + "/TEST_AL_3_supemono.pickle",
-
-#     pre_path + "/TEST_AL_4beradeka.pickle",
-#     pre_path + "/TEST_AL_4buruduwe.pickle",
-#     pre_path + "/TEST_AL_4degekoku.pickle",
-#     pre_path + "/TEST_AL_4deromeru.pickle",
-#     pre_path + "/TEST_AL_4forafago.pickle",
-#     pre_path + "/TEST_AL_4hefehepa.pickle",
-#     pre_path + "/TEST_AL_4kaveboma.pickle",
-#     pre_path + "/TEST_AL_4kihalage.pickle",
-#     pre_path + "/TEST_AL_4lidirope.pickle",
-#     pre_path + "/TEST_AL_4mebetige.pickle",
-#     pre_path + "/TEST_AL_4megimodi.pickle",
-#     pre_path + "/TEST_AL_4mohomato.pickle",
-#     pre_path + "/TEST_AL_4moponuso.pickle",
-#     pre_path + "/TEST_AL_4mukigapa.pickle",
-#     pre_path + "/TEST_AL_4nekumuno.pickle",
-#     pre_path + "/TEST_AL_4nipagula.pickle",
-#     pre_path + "/TEST_AL_4nupetofi.pickle",
-#     pre_path + "/TEST_AL_4rifibume.pickle",
-#     pre_path + "/TEST_AL_4somageho.pickle",
-#     pre_path + "/TEST_AL_4wolewoba.pickle",
-
-#     pre_path + "/TEST_AL_5bofufada.pickle",
-#     pre_path + "/TEST_AL_5delepaku.pickle",
-#     pre_path + "/TEST_AL_5derohebi.pickle",
-#     pre_path + "/TEST_AL_5dotesiga.pickle",
-#     pre_path + "/TEST_AL_5dumokeru.pickle",
-#     pre_path + "/TEST_AL_5fapehudo.pickle",
-#     pre_path + "/TEST_AL_5fenumanu.pickle",
-#     pre_path + "/TEST_AL_5gomememu.pickle",
-#     pre_path + "/TEST_AL_5gulumobu.pickle",
-#     pre_path + "/TEST_AL_5huwihime.pickle",
-#     pre_path + "/TEST_AL_5kanototo.pickle",
-#     pre_path + "/TEST_AL_5kibapeto.pickle",
-#     pre_path + "/TEST_AL_5kifomimi.pickle",
-#     pre_path + "/TEST_AL_5rukeraku.pickle",
-#     pre_path + "/TEST_AL_5sipeteni.pickle",
-#     pre_path + "/TEST_AL_5sokepefo.pickle",
-#     pre_path + "/TEST_AL_5vikowagu.pickle",
-#     pre_path + "/TEST_AL_5volibavo.pickle",
-#     pre_path + "/TEST_AL_5wigidipu.pickle",
-#     pre_path + "/TEST_AL_5wolowewu.pickle",
-    
-#     pre_path + "/TEST_AL_6_dodemuho.pickle",
-#     pre_path + "/TEST_AL_6_fisopova.pickle",
-#     pre_path + "/TEST_AL_6_gelabere.pickle",
-#     pre_path + "/TEST_AL_6_gelenuni.pickle",
-#     pre_path + "/TEST_AL_6_haligagu.pickle",
-#     pre_path + "/TEST_AL_6_higusare.pickle",
-#     pre_path + "/TEST_AL_6_kagesinu.pickle",
-#     pre_path + "/TEST_AL_6_liwuderu.pickle",
-#     pre_path + "/TEST_AL_6_lopukipu.pickle",
-#     pre_path + "/TEST_AL_6_nubinada.pickle",
-#     pre_path + "/TEST_AL_6_pitumimi.pickle",
-#     pre_path + "/TEST_AL_6_pudapepi.pickle",
-#     pre_path + "/TEST_AL_6_rividisi.pickle",
-#     pre_path + "/TEST_AL_6_rovomama.pickle",
-#     pre_path + "/TEST_AL_6_sovawafo.pickle",
-#     pre_path + "/TEST_AL_6_takoliwo.pickle",
-#     pre_path + "/TEST_AL_6_tehileme.pickle",
-#     pre_path + "/TEST_AL_6_tibuduka.pickle",
-#     pre_path + "/TEST_AL_6_warusiha.pickle",
-#     pre_path + "/TEST_AL_6_wevuwofu.pickle",
-
-#     ]
-
-# pre_path = os.path.join(
-#     os.environ["PROJ_irox"],
-#     "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs/out_data/AB3/random_True",
-#     # "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/00_abx_al_runs/out_data/AB3/gp_ucb_True",
-#     )
-
-# files_list = [
-#     pre_path + "/AL_duhakiro.pickle",
-#     pre_path + "/AL_firegohi.pickle",
-#     pre_path + "/AL_givohegu.pickle",
-#     pre_path + "/AL_tiweluku.pickle",
-#     pre_path + "/AL_vevenuwa.pickle",
-#     pre_path + "/TEST_AL_2_fibataha.pickle",
-#     pre_path + "/TEST_AL_2_kitagego.pickle",
-#     pre_path + "/TEST_AL_3_bafigika.pickle",
-#     pre_path + "/TEST_AL_3_bafomepo.pickle",
-#     pre_path + "/TEST_AL_3_besurogi.pickle",
-#     pre_path + "/TEST_AL_3_dotupibu.pickle",
-#     pre_path + "/TEST_AL_3_fuliguso.pickle",
-#     pre_path + "/TEST_AL_3_gosirinu.pickle",
-#     pre_path + "/TEST_AL_3_gowutoga.pickle",
-#     pre_path + "/TEST_AL_3_hiroguwe.pickle",
-#     pre_path + "/TEST_AL_3_kavasaki.pickle",
-#     pre_path + "/TEST_AL_3_mutefoti.pickle",
-#     pre_path + "/TEST_AL_3_nivalula.pickle",
-#     pre_path + "/TEST_AL_3_pasimuha.pickle",
-#     pre_path + "/TEST_AL_3_sukiwalo.pickle",
-#     pre_path + "/TEST_AL_3_temonofo.pickle",
-#     pre_path + "/TEST_AL_3_vesudewa.pickle",
-#     pre_path + "/TEST_AL_3_vuwugupi.pickle",
-#     pre_path + "/TEST_AL_3_walipebi.pickle",
-#     pre_path + "/TEST_AL_3_wetipotu.pickle",
-#     pre_path + "/TEST_AL_3_wusabupa.pickle",
-#     pre_path + "/TEST_AL_3_wutonovi.pickle",
-
-#     pre_path + "/TEST_AL_4_benegeka.pickle",
-#     pre_path + "/TEST_AL_4_dehebiko.pickle",
-#     pre_path + "/TEST_AL_4_dinisefa.pickle",
-#     pre_path + "/TEST_AL_4_fefefigi.pickle",
-#     pre_path + "/TEST_AL_4_fefesama.pickle",
-#     pre_path + "/TEST_AL_4_fivokito.pickle",
-#     pre_path + "/TEST_AL_4_fuwasufi.pickle",
-#     pre_path + "/TEST_AL_4_gekuporu.pickle",
-#     pre_path + "/TEST_AL_4_gepapeba.pickle",
-#     pre_path + "/TEST_AL_4_gerisiwe.pickle",
-#     pre_path + "/TEST_AL_4_goderiwo.pickle",
-#     pre_path + "/TEST_AL_4_hofavasi.pickle",
-#     pre_path + "/TEST_AL_4_kavadosu.pickle",
-#     pre_path + "/TEST_AL_4_kudadega.pickle",
-#     pre_path + "/TEST_AL_4_masufika.pickle",
-#     pre_path + "/TEST_AL_4_menireve.pickle",
-#     pre_path + "/TEST_AL_4_metekovo.pickle",
-#     pre_path + "/TEST_AL_4_mibunova.pickle",
-#     pre_path + "/TEST_AL_4_milesumi.pickle",
-#     pre_path + "/TEST_AL_4_nepubene.pickle",
-#     pre_path + "/TEST_AL_4_nuvopeki.pickle",
-#     pre_path + "/TEST_AL_4_petosuso.pickle",
-#     pre_path + "/TEST_AL_4_pokikugi.pickle",
-#     pre_path + "/TEST_AL_4_ragifipa.pickle",
-#     pre_path + "/TEST_AL_4_rodadibi.pickle",
-#     pre_path + "/TEST_AL_4_rovukuma.pickle",
-#     pre_path + "/TEST_AL_4_sanaruri.pickle",
-#     pre_path + "/TEST_AL_4_sapaveme.pickle",
-#     pre_path + "/TEST_AL_4_sawuhewe.pickle",
-#     pre_path + "/TEST_AL_4_sifisulu.pickle",
-#     pre_path + "/TEST_AL_4_sifobuwe.pickle",
-#     pre_path + "/TEST_AL_4_suhegope.pickle",
-#     pre_path + "/TEST_AL_4_teruwufo.pickle",
-#     pre_path + "/TEST_AL_4_tikeluvi.pickle",
-#     pre_path + "/TEST_AL_4_vabesipo.pickle",
-#     pre_path + "/TEST_AL_4_visisese.pickle",
-#     pre_path + "/TEST_AL_4_wemawumu.pickle",
-#     pre_path + "/TEST_AL_4_wibemafu.pickle",
-#     pre_path + "/TEST_AL_4_wobumone.pickle",
-#     pre_path + "/TEST_AL_4_wohaguha.pickle",
-
-#     ]
-
-# + jupyter={}
-# df_perf_random
-
-
-# # Simple Plotly Plot
-# import plotly.graph_objs as go
-# trace = go.Scatter(
-#     x=df_ave.index.values,
-#     y=df_ave.y_mean)
-# data = [trace]
-# fig = go.Figure(data=data)
-# fig.show()
-
-# + jupyter={}
-# df_ave[
-#     (df_ave.index.values < 300) & \
-#     (df_ave.index.values > 200)
-#     ]
+fig.show()

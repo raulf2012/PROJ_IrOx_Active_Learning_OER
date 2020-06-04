@@ -7,7 +7,7 @@
 #       format_version: '1.5'
 #       jupytext_version: 1.4.2
 #   kernelspec:
-#     display_name: Python [conda env:PROJ_irox] *
+#     display_name: Python [conda env:PROJ_irox]
 #     language: python
 #     name: conda-env-PROJ_irox-py
 # ---
@@ -20,8 +20,10 @@
 #
 # NOTE: This notebook can be set to read df_ccf from PROJ_DATA directory instead of actually running this script fully/correctly. This is becauses it takes almost an hour to run this notebook. To activate this mode set the `read_from_PROJ_DATA` to `True`
 
-read_from_PROJ_DATA = False
-read_from_PROJ_DATA = True
+# +
+# read_from_PROJ_DATA = False
+# read_from_PROJ_DATA = True
+# -
 
 # # Import Modules
 
@@ -46,6 +48,9 @@ from proj_data_irox import (
 # from StructurePrototypeAnalysisPackage.ccf import struc2ccf
 from spap.ccf import struc2ccf
 # -
+
+sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
+from proj_data_irox import read_from_PROJ_DATA
 
 # # Script Inputs
 
@@ -88,12 +93,6 @@ else:
 # except:
 #     # df_ccf_prev
 #     df_ccf_prev = pd.DataFrame()
-
-# +
-# df_ccf_prev.shape
-
-# +
-# assert False
 # -
 
 # # Filtering df_bulk_dft
@@ -171,32 +170,9 @@ df_bulk_dft_scaled = pd.concat([df_scaled_atoms, df_bulk_dft_scaled], axis=1)
 num_unique_ids = df_bulk_dft_scaled.index.unique().shape[0]
 num_ids = df_bulk_dft_scaled.index.shape[0]
 assert num_unique_ids == num_ids, "JISFIDSIFJ"
-
-# +
-# df_scaled_atoms.head()
-
-# df_bulk_dft_scaled.head()
-
-# + active=""
-#
-#
-#
-#
-#
-#
-#
-#
-#
 # -
 
 # # Calculate CCF for DFT Calculated IrO2 and IrO3 Systems
-
-# +
-# df_ccf.index
-
-"bsv4nex29l" in df_bulk_dft.index
-
-# df_bulk_dft
 
 # +
 indices_to_process = [i for i in df_bulk_dft_scaled.index if i not in df_ccf_prev.index]
@@ -226,13 +202,6 @@ def method(row_i, argument_0, atoms_key="atoms"):
     ccf_i = struc2ccf(atoms_i, r_cut_off, r_vector)
     return(ccf_i)
 
-
-# +
-# assert False
-
-# +
-# TEMP
-# df_not_proc = df_not_proc.iloc[0:10]
 
 # +
 df_i = df_not_proc
@@ -276,145 +245,3 @@ print("df_ccf_new.shape:", df_ccf_new.shape)
 print(20 * "# # ")
 print("All done!")
 assert False
-
-# + active=""
-#
-#
-#
-#
-#
-
-# + jupyter={}
-# df_tmp.reindex(index_before_splitting)
-
-# len(index_before_splitting)
-
-# df_ccf_tmp.shape
-
-# print(df_ccf_prev.index.unique().shape)
-
-
-# assert df_bulk_dft_scaled.index.unique().shape[0] == df_bulk_dft_scaled.index.shape[0]
-
-# indices_to_process = [i for i in df_bulk_dft_scaled.index if i not in df_ccf_prev.index]
-
-# df_bulk_dft_scaled_not_processed = df_bulk_dft_scaled.loc[indices_to_process]
-# df_not_proc = df_bulk_dft_scaled_not_processed
-
-# df_i = df_bulk_dft_scaled
-# df_i["ccf"] = df_i.apply(
-#     method,
-#     axis=1,
-#     args=("TEMP", ),
-#     atoms_key="atoms_scaled"
-#     )
-# df_bulk_dft_scaled = df_i
-
-# df_ccf = df_bulk_dft_scaled["ccf"]
-# df_ccf = pd.DataFrame(df_ccf)
-
-# with open("out_data/df_ccf_test.pickle", "wb") as fle:
-#     pickle.dump(df_ccf, fle)
-
-# # TEMP | Reducing datasize for testing
-
-# # TEMP
-# # df_static_irox = df_static_irox.iloc[0:10]
-# # df_bulk_dft = df_bulk_dft.iloc[0:10]
-
-
-# ids_to_keep = [
-# 'zy9dzknhnj',
-# '6r716sxr9t',
-# 'zlbp9jm19g',
-# 'm16tvk8h7g',
-# 'z39g648rnl',
-# 'x18q7u8s9q',
-# 'mp659s8i8q',
-# 'ck638t75z3',
-# '8u94muxqzw',
-# 'mkbrzh8kv5',
-# 'bwmrbuztvs',
-# '82mwbwbgbl',
-# '9knk63mjcw',
-# '8495vjvsc3',
-# 'xonhb1cgnq',
-# '8aza84xlvs',
-# '9wzqvtmw6a',
-# 'n4xq8uv1cu',
-# 'c48lx363be',
-# 'bovtbhmf6p',
-# 'vt658pbemi',
-# '8hzf7ecw84',
-# 'cf9lbhvjmq',
-# 'bdzo7ixszl',
-# 'brbizonjmy',
-# 'zhci7ans9k',
-# 'c3mp6jmgzq',
-# '6fzy7kcrxy',
-# 'cln3xecgbt',
-# 'ckbg7d9u6u',
-# 'mpbd6sz1z5',
-# 'cant6qca6o',
-# '6avov5cy64',
-# '946gc3z2n3',
-# '95zh7p8kno',
-# 'cdm48gxynp',
-# 'zunqxh6g9j',
-# '9y85x1cp6e',
-# 'xgmkzuxf8g',
-# 'zuzwxhvuxe',
-# 'cfcivdxrc2',
-# 'm29j648g6i',
-# '9g7f8evqzt',
-# 'vhck6u84bj',
-# 'mlva81bg7p',
-# 'vj8l8uba9y',
-# 'nt6wv1n27r',
-# 'm4cacfvjvh',
-# '9uxemw7rv2',
-# 'bt8rz3babw',
-       
-# 'IrO3_rutile-like',
-# 'IrO3',
-# 'IrO3_battery',
-# 'IrO2',
-#       ]
-
-# # df_bulk_dft[0:50].index.tolist()
-# df_bulk_dft[df_bulk_dft["source"] == "raul_oer"].index.tolist()
-# # df_bulk_dft = df_bulk_dft.loc[ids_to_keep]
-
-# df_bulk_dft[df_bulk_dft.stoich == "AB3"].sort_values("dH").iloc[0:120]
-# # ~0.3 eV/atom
-
-# df_bulk_dft[df_bulk_dft.stoich == "AB2"].sort_values("dH").iloc
-# # ~0.5 eV/atom
-
-# ab2_min = df_bulk_dft[df_bulk_dft.stoich == "AB2"].dH.min()
-# ab3_min = df_bulk_dft[df_bulk_dft.stoich == "AB3"].dH.min()
-
-# from proj_data_irox import calc_dH
-
-# print(calc_dH(-6.542, stoich="AB2"))
-
-# print(calc_dH(-6.163, stoich="AB3"))
-
-# ab3_min - -0.3438547784081729
-
-# ab2_min - -0.33285956787756277
-
-# -0.3068474600000002
-# -0.5070619763541669
-
-# with open(bulk_dft_data_path, "rb") as fle:
-#     df_bulk_dft = pickle.load(fle)
-
-# df_tmp = df_bulk_dft[df_bulk_dft.source == "chris"]
-
-# -0.838172  # From chris | 9yz2mt8hbh
-# -0.839922  # Mine | cubqbpzd7k
-
-# -0.838286  # Mine | 9yz2mt8hbh
-
-# df_tmp[df_tmp.stoich == "AB2"].sort_values("dH")

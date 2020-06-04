@@ -51,8 +51,6 @@ h2_ref = gas_dft_refs_i["h2"]
 
 # # Script Inputs
 
--7.047516 * 6
-
 # +
 T = 298.15
 
@@ -106,9 +104,6 @@ TS_o2_gas = 0.6340921386744053  # eV
 
 # # Gas Phase References
 
-print(h2o_ref)
-h2_ref
-
 # +
 # # %%capture
 
@@ -131,15 +126,6 @@ Elem_Refs = Element_Refs(
     hydrogen_ref="H2")
 
 oxy_ref, hyd_ref = Elem_Refs.calc_ref_energies()
-
-# +
-oxy_ref
-
-# e_h2o_r
-# h_h2o_r
-
-# +
-# assert False
 # -
 
 # # Fitting the Ir metal reference to the experimental formation energy of IrO2
@@ -165,19 +151,6 @@ PV_i = 0.
 h_iro3 = e_iro3 + PV_i
 
 dh_iro3 = h_iro3 - (3 * oxy_ref.enthalpy_e + h_ir_m_fit)
-
-# +
-h_iro3
-
-print(4 * dft_energy_dict["iro3"])
-
-# -6.442159*4
-
-# +
-print(dft_energy_dict["iro3"])
-# -0.650702238408173
-
--6.46984746
 # -
 
 # # Calculate Gibbs Free Energy
@@ -213,17 +186,6 @@ h_iro3 = e_iro3 + PV_i
 dh_iro3 = h_iro3 - (3 * oxy_ref.enthalpy_e + h_ir_m_fit)
 dg_iro3 = dh_iro3 - TdS_iro3
 
-# + active=""
-#
-#
-#
-#
-#
-#
-#
-#
-#
-
 # +
 print(40 * "-")
 print("O ref:", oxy_ref.enthalpy_e)
@@ -244,32 +206,9 @@ print("dh_iro2 - dh_iro3:", dh_iro2 - dh_iro3)
 print("dg_iro2 - dg_iro3:", dg_iro2 - dg_iro3)
 
 print(40 * "-")
-
-# + active=""
-#
-#
-#
-
-# +
-TdS_iro3
-
--1.8137510174978528 / 4
-# -2.6028071136326894 / 4
-
-# -2.6028071136326894 / 4
-
-(4 * -0.650702238408173) - TdS_iro3
-
--0.471408668408173 * 4 - TdS_iro3
 # -
 
 # # Collecting variables to save
-
-TdS_iro2
-# TdS_iro3
-
-# +
-# assert False
 
 # +
 out_dict = dict(
@@ -288,16 +227,6 @@ if not os.path.exists(directory): os.makedirs(directory)
 with open(os.path.join(directory, "data.json"), "w") as outfile:
     json.dump(out_dict, outfile, indent=2)
 # #######################################################################
-
-# +
-# /mnt/c/Users/raulf2012/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER
-# workflow/energy_treatment_deriv/calc_references
-
-os.path.join(
-    os.environ["PROJ_irox"],
-    "workflow/energy_treatment_deriv/calc_references",
-    "out_data/data.json"
-    )
 # -
 
 # #######################################################################
@@ -310,10 +239,6 @@ data_path = os.path.join(
 with open(data_path, "r") as fle:
     data = json.load(fle)
 # #######################################################################
-
-# +
-# data
-# -
 
 print(20 * "# # ")
 print("All done!")

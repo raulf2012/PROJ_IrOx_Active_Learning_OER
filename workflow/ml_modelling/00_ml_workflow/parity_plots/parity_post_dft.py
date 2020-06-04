@@ -12,6 +12,8 @@
 #     name: conda-env-PROJ_IrOx_Active_Learning_OER-py
 # ---
 
+# # Import Modules
+
 # +
 # # %%capture
 
@@ -115,13 +117,6 @@ df_features_post = df_features_post.loc[ids_w_dft]
 # --
 
 # +
-# df_bulk_dft.loc["8p8evt9pcg"]
-
-# df_bulk_dft.sort_values
-
-# df_bulk_dft.shape
-
-# +
 def chunks(l, n):
     """Yield successive n-sized chunks from l."""
     for i in range(0, len(l), n):
@@ -197,55 +192,10 @@ for i_cnt, i in enumerate(chunks(ids_w_dft, 40)):
 # +
 model_master = pd.concat(models_list, axis=0, sort=False)
 
-model_master
+model_master.head()
 # -
 
 # # Calculating Formation Energy
-
-model_i.sort_values("y_real")
-
-# +
-# sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
-# from proj_data_irox import calc_dH
-
-
-# model_i = model_master
-
-
-
-# def method(row_i, stoich_i=None):
-#     row_i = model_i.iloc[0]
-
-#     y_real = row_i["y_real"]
-#     y = row_i["y"]
-#     err = row_i["err"]
-
-
-
-#     y_real_new = calc_dH(
-#         y_real,
-#         stoich=stoich_i)
-
-#     y_new = calc_dH(
-#         y,
-#         stoich=stoich_i)
-
-#     row_i["y_real"] = y_real_new
-#     row_i["y"] = y_new
-
-#     return(row_i)
-
-# # arg1 = "TEMP_0"
-# df_i = model_i
-# # df_i["column_name"] = 
-
-# df_i.apply(
-#     method,
-#     axis=1,
-#     # args=(arg1, ),
-#     stoich_i=stoich_i,
-#     )
-# -
 
 # # Plotting
 
@@ -301,19 +251,9 @@ layout = go.Layout(
 
 fig = go.Figure(data=data, layout=layout)
 # fig.show()
-
-# +
-model_master["err_pred_real"] = np.abs(model_master["y_real"] - model_master["y"])
-model_master["err_pred_real"].mean()
-
-
-# model_master
-# -1.658857 - -1.784430	
-# 0.12557299999999993
-
-# + active=""
-# 0.20012585885222797
 # -
+
+model_master["err_pred_real"] = np.abs(model_master["y_real"] - model_master["y"])
 
 # Pickling data ######################################################
 import os; import pickle
@@ -326,72 +266,3 @@ with open(os.path.join(directory, stoich_i + "_" + "post_dft_cv_data.pickle"), "
 print(20 * "# # ")
 print("All done!")
 assert False
-
-# + active=""
-#
-#
-#
-#
-#
-
-# + jupyter={}
-# # # + {"jupyter": {"source_hidden": true}}
-# sys.path.insert(0, os.path.join(
-#     os.environ["PROJ_irox"],
-#     "python_classes"))
-# from ccf_similarity.ccf import CCF
-
-# d_thresh = 0.02
-# CCF = CCF(
-#     df_dij=df_dij,
-#     d_thresh=d_thresh)
-
-# # # + {"jupyter": {"source_hidden": true}}
-# RM = RegressionModel(
-#     opt_hyperparameters=True,
-#     gp_settings_dict=gp_settings,
-#     verbose=verbose,
-#     )
-
-# FP = FingerPrints(
-#     df_features_pre,
-#     df_features_post=df_features_post,
-#     pca_mode="num_comp",  # 'num_comp' or 'perc'
-#     pca_comp=10,
-#     pca_perc=None,
-#     verbose=verbose,
-#     )
-
-# CS = CandidateSpace(
-#     Y_data=df_bulk_dft,
-#     Y_key="y_real",
-#     FingerPrints=FP,
-#     )
-
-# # # +
-# AL = ALBulkOpt(
-#     CandidateSpace=CS,
-#     RegressionModel=RM,
-#     DuplicateFinder=CCF,  # Optional
-#     duplicate_analysis=duplicate_analysis,
-#     # num_seed_calcs=11,
-#     num_seed_calcs=5,
-#     acquisition_bin=5,
-#     # stop_mode="num_generations",
-#     stop_mode=None,
-#     stop_num_generations=3,
-#     name=name_i,
-#     save_dir_extra=save_dir_extra,
-#     verbose=verbose,
-#     # acquisition_method="gp_ucb",
-#     acquisition_method=acquisition_method,
-#     seed=seed,
-#     )
-
-# run_al = False
-# if run_al:
-#     AL.run_AL()
-#     AL.duplicate_system_history_analysis()
-#     AL.__save_state__()
-
-# #__|
