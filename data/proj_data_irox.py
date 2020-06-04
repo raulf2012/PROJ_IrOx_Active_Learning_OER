@@ -13,6 +13,10 @@ sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
 from proj_data_irox import calc_dH
 """
 
+# Read from PROJ_DATA when possible, otherwise construct all data manually (time-intensive)
+read_from_PROJ_DATA = True
+
+
 # | - Import Modules
 import os
 import sys
@@ -796,7 +800,6 @@ def get_relative_path_to_proj(path):
         relative_path_to_proj = relative_path_to_proj[1:]
 
     return(relative_path_to_proj)
-
 #__|
 
 
