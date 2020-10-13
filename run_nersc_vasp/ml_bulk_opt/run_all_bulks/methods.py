@@ -32,7 +32,7 @@ from dft_job_automat.compute_env import ComputerCluster
 #__|
 
 # | - Job parsing methods
-# #############################################################################
+# #########################################################
 def parse_job_err(path):
     status_dict = {
         "timed_out": None,
@@ -40,11 +40,11 @@ def parse_job_err(path):
         "error_type": None,
         }
 
-    print(2 * "")
-    print("methds | parse_job_err")
+    # print(2 * "")
+    # print("methds | parse_job_err")
 
     compenv = os.environ["COMPENV"]
-    print("compenv:", compenv)
+    # print("compenv:", compenv)
 
     # | - Parsing SLAC job
     if compenv == "slac":
@@ -102,11 +102,11 @@ def parse_job_err(path):
                     break
     #__|
 
-    print(2 * "")
+    # print(2 * "")
 
     return(status_dict)
 
-# #############################################################################
+# #########################################################
 def parse_finished_file(path):
     status_dict = {
         "completed": None,

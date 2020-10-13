@@ -18,7 +18,6 @@ sys.path.insert(0, os.path.join(os.environ["PROJ_irox"], "data"))
 from proj_data_irox import calc_dH
 #__|
 
-calc_dH(-6.389916089375, stoich="AB3")
 
 # #######################################################################
 energy_treatment_data_path = os.path.join(
@@ -29,51 +28,34 @@ with open(energy_treatment_data_path, "r") as fle:
     energy_treatment_data_dict = json.load(fle)
 
 TdS_iro3 = energy_treatment_data_dict["TdS_iro3"]
+TdS_irho3 = energy_treatment_data_dict["TdS_irho3"]
 # #######################################################################
 
 
 kJmol = 96.485
 kcalmol = 23.06035
 
-# | - Default Energetics
-ion_dict_solids_expt = {
-    "Ir": 0.,
-    # dG Thermochemical Data of Pure Substances good
-    "IrO2": -1.952490,
-    # calc by MB see IrOx_free_energy_calculator.py
-    "IrO3": -1.9039513,
-    "IrHO3": -3.1616628,
-    "Ir2O7": -1.1782971,
-    "IrO5H4": -5.998632,
-    }
-#__|
 
-# | - Chris's Version
-ion_dict_solids_expt = {
-    "Ir": 0.,
-    "IrO2": -1.952324,
-    "IrO3": -1.903951,
-    "IrHO3": -3.161663,
-    "Ir2O7": -1.178304,
-    "IrO6": -0.879916,
-    "IrO5H4": -5.960167,
-    }
-#__|
-
-
-#  tmp = calc_dH(-6.456962203125, stoich="AB3")
-#  print("ISFIIDIFJDISJFIDSF")
-#  print("R-IrO3", tmp)
-#  print("ISFIIDIFJDISJFIDSF")
-#  print("")
-#  tmp = calc_dH(-6.41597669640625, stoich="AB3")
-#  print("ISFIIDIFJDISJFIDSF")
-#  print("B-IrO3", tmp)
-#  print("ISFIIDIFJDISJFIDSF")
-
+# TdS_irho3 = -0.972
+# TdS_irho3 = -1.263
 
 # Newest effort, using energetics at 500eV (AL energies)
 ion_dict_solids_expt = {
+
+    # #########################################################################
+    # Uncomment to get Hydroxide phase in diagram
+    # "IrHO3_a-AlF3": (5 * calc_dH(-6.151177564999999, stoich="IrHO3")) - TdS_irho3,
+
+    # Raw DFT values:
+    # See following WF location:
+    #   https://beta.workflowy.com/#/de6d404eb1f5
+
+    # -6.125331012  # 03
+    # -6.134396575  # 11
+    # -6.156622886  # 20
+
+    # -6.151177564999999  # a-IrO3 hydrated (9lmkmh8s8r reduced cell)
+
 
     # #########################################################################
     "Ir": 0.0,
@@ -125,3 +107,48 @@ ion_dict_solids_expt = {
     "IrO3_TEMP21": (4 * -0.55375463)  - TdS_iro3,  # nrml6dms9l
 
     }
+
+
+#| - __old__
+
+# calc_dH(-6.389916089375, stoich="AB3")
+
+
+# | - Default Energetics
+# ion_dict_solids_expt = {
+#     "Ir": 0.,
+#     # dG Thermochemical Data of Pure Substances good
+#     "IrO2": -1.952490,
+#     # calc by MB see IrOx_free_energy_calculator.py
+#     "IrO3": -1.9039513,
+#     "IrHO3": -3.1616628,
+#     "Ir2O7": -1.1782971,
+#     "IrO5H4": -5.998632,
+#     }
+#__|
+
+# | - Chris's Version
+# ion_dict_solids_expt = {
+#     "Ir": 0.,
+#     "IrO2": -1.952324,
+#     "IrO3": -1.903951,
+#     "IrHO3": -3.161663,
+#     "Ir2O7": -1.178304,
+#     "IrO6": -0.879916,
+#     "IrO5H4": -5.960167,
+#     }
+#__|
+
+
+#  tmp = calc_dH(-6.456962203125, stoich="AB3")
+#  print("ISFIIDIFJDISJFIDSF")
+#  print("R-IrO3", tmp)
+#  print("ISFIIDIFJDISJFIDSF")
+#  print("")
+#  tmp = calc_dH(-6.41597669640625, stoich="AB3")
+#  print("ISFIIDIFJDISJFIDSF")
+#  print("B-IrO3", tmp)
+#  print("ISFIIDIFJDISJFIDSF")
+
+
+#__|

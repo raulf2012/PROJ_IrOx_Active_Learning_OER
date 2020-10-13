@@ -6,6 +6,9 @@ Author: Raul A. Flores
 """
 
 # | - Import Modules
+import os
+import sys
+
 import numpy as np
 
 import plotly.graph_objs as go
@@ -17,6 +20,10 @@ from pymatgen.analysis.pourbaix_diagram import (
     IonEntry,
     )
 
+sys.path.insert(0,
+    os.path.join(
+        os.environ["PROJ_irox"],
+        "data"))
 from proj_data_irox import (
     pymatgen_to_my_naming_convention,
     irox_bulk_color_map,
@@ -92,19 +99,14 @@ def process_sys(entry, vertices):
 
     # | - TMP
     name_i = get_entry_name(entry)
-
-    # random_color = list(np.random.choice(range(256), size=3))
-    # random_color = [str(i) for i in random_color]
-    # random_color_str = \
-    #     "rgb(" + random_color[0] + "," + \
-    #     random_color[1] + "," + random_color[2] + ")"
-
     random_color_str = random_color()
+
+
+    print("name_i:", name_i)
 
     color_i = irox_bulk_color_map.get(
         pymatgen_to_my_naming_convention.get(name_i, name_i),
         random_color_str,
-        # "black",
         )
     #__|
 
@@ -151,7 +153,7 @@ def process_sys(entry, vertices):
     return(trace_i, trace_center)
     #__|
 
-# #############################################################################
+# #########################################################
 
 def create_pourb_entry_outline(
     entries_to_remove_list=None,
@@ -327,7 +329,7 @@ def get_spec_entries(entries_list, all_entries):
     #__|
 
 
-# #############################################################################
+# #########################################################
 
 def create_oer_equil_line(axis_ranges=None):
     """Create plotly data trace for OER equilibrium line on Pourbaix plot.

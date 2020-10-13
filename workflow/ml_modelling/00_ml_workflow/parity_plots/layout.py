@@ -35,7 +35,7 @@ layout = go.Layout(
     extendsunburstcolors=None,
     font=go.layout.Font(
         color=None,
-        family=None,
+        family="Arial",
         size=None,
         ),
     funnelareacolorway=None,

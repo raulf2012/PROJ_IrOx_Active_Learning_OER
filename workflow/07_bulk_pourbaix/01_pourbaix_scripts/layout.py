@@ -141,7 +141,9 @@ layout = go.Layout(
     # height=10 * 37.795275591,
     height=7 * 37.795275591,
 
-    width=8.5 * 37.795275591,
+    # width=8.5 * 37.795275591,
+    # width=8.4 * 37.795275591,
+    width=8.2 * 37.795275591,
 
     # height=None,
     # width=None,
@@ -315,7 +317,7 @@ annotations = [
 
     # a-IrO3
     copy.deepcopy(shared_annot_props).update(
-        text="α-AlF<sub>3</sub> IrO<sub>3</sub> (s)",
+        text="α-IrO<sub>3</sub> (s)",
         font_color=irox_bulk_color_map["IrO3_a-AlF3"],
         x=0.02,
         y=0.98 + dy,

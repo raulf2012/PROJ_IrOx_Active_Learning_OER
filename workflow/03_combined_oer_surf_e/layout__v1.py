@@ -35,7 +35,8 @@ axis_num_list = [1, 3, 5, 7]
 layout = go.Layout(
 
     # | - height/width
-    width=8.0 * 37.795275591,
+    # width=8.0 * 37.795275591,
+    width=4 * 37.795275591,
 
     # height=15.0 * 37.795275591,
     # height=14.8 * 37.795275591,
@@ -101,7 +102,9 @@ layout = go.Layout(
     # paper_bgcolor="rgba(240,240,240,0.95)",
     #  paper_bgcolor="rgba(250,250,250,0.4)",
     # paper_bgcolor="rgba(200,200,200,0.4)",
+
     paper_bgcolor="white",
+    #  paper_bgcolor="grey",
 
     # plot_bgcolor="rgba(250,250,250,0.98)",
 

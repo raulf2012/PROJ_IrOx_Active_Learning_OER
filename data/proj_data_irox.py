@@ -20,9 +20,10 @@ read_from_PROJ_DATA = True
 # | - Import Modules
 import os
 import sys
-#__|
 
 tmp = 42
+#__|
+
 
 # | - VASP Gas-phase References
 # Exp. heat of formation of H2O
@@ -109,59 +110,6 @@ ads_fe_dict = {
         "ts": 0.096,
         },
     }
-
-# | - NEW | Attempt to automate the calculation of the adsorbate FE corr dict
-# 0.42611961567987805
-
-
-# def calc_ads_corr_i(
-#     ads_spec,
-#     ads_fe_dict,
-#     h2o_corr,
-#     h2_corr,
-#     ):
-#     """
-#     """
-#     # | - calc_ads_corr_i
-#     if ads_spec == "oh":
-#         num_H = 1
-#         num_O = 1
-#     elif ads_spec == "o":
-#         num_H = 0
-#         num_O = 1
-#     elif ads_spec == "ooh":
-#         num_H = 1
-#         num_O = 2
-#
-#     corr_i = (0. +
-#
-#         + ( 0. +
-#             + ads_fe_dict[ads_spec]["zpe"] +
-#             + ads_fe_dict[ads_spec]["cv"] +
-#             - ads_fe_dict[ads_spec]["ts"]
-#             ) +
-#
-#         - (0. +
-#             + (num_O) * h2o_corr +
-#             + ((num_H - num_O * 2.) / 2.) * h2_corr
-#             )
-#
-#         )
-#
-#     return(corr_i)
-#     #__|
-#
-# corr_oh = calc_ads_corr_i("oh", ads_fe_dict, h2o_corr, h2_corr)
-# corr_o = calc_ads_corr_i("o", ads_fe_dict, h2o_corr, h2_corr)
-# corr_ooh = calc_ads_corr_i("ooh", ads_fe_dict, h2o_corr, h2_corr)
-#
-# corrections_dict_tmp = {
-#     "ooh": corr_ooh,
-#     "o": corr_o,
-#     "oh": corr_oh,
-#     "bare": 0.,
-#     }
-#__|
 
 # My data
 corrections_dict = {
@@ -276,7 +224,8 @@ dg_iro2_exp = -1.9524900243561174
 # | - Computing dH and dG for IrO2 and IrO3
 def calc_dH(
     e_per_atom,
-    stoich=None
+    stoich=None,
+    num_H_atoms=0,
     ):
     """
     Based on a E_DFT/atom of -7.047516 for rutile-IrO2
@@ -287,6 +236,7 @@ def calc_dH(
     # | - calc_dH
     o_ref = -4.64915959
     ir_metal_fit = -9.32910211636731
+    h_ref = -3.20624595
 
     # o_ref = -4.657947279999998
     # ir_metal_fit = -9.316164736367316
@@ -301,6 +251,11 @@ def calc_dH(
     elif stoich == "AB3":
         dH = (3 + 1) * e_per_atom - 3 * o_ref - ir_metal_fit
         dH_per_atom = dH / 4.
+
+    elif stoich == "IrHO3" or stoich == "IrO3H" or stoich == "iro3h" or stoich == "iroh3":
+        dH = (3 + 1 + 1) * e_per_atom - 3 * o_ref - ir_metal_fit - h_ref
+        dH_per_atom = dH / 5.
+
 
     return(dH_per_atom)
     #__|
@@ -341,7 +296,10 @@ irox_bulk_color_map = {
     "Ir": "#6799A3",
     "IrO2": "#7FC97F",
     "IrO3": "#BEAED4",
+
     "IrO3_a-AlF3": "#BEAED4",
+    "IrHO3_a-AlF3": "#EB4545",
+
     "IrO3_rutile-like": "#FDC086",
     # "IrO3_battery": "#FFFF99",
     "IrO3_battery": "#ff9dcd",
@@ -644,59 +602,32 @@ unique_ids_path = os.path.join(
     "data/ml_irox_data",
     "unique_ids.csv")
 
-# /home/raulf2012/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER
-
 prototypes_data_path = os.path.join(
     os.environ["PROJ_irox"],
-
     "workflow/ml_modelling/processing_bulk_dft",
     "static_prototypes_structures/out_data",
+    "data_prototypes.pickle")
 
-    # "workflow/ml_modelling",
-    # "static_prototypes_structures/out_data",
-
-    "data_prototypes.pickle",
-
-    # "chris_prototypes_structures",
-    # "out_data",
-    # "data_prototypes.pickle",
-
-    )
-
-
-# $dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER/workflow/ml_modelling/static_prototypes_structures
-# workflow/ml_modelling/static_prototypes_structures
 static_irox_structures_path = os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling/processing_bulk_dft",
     "static_prototypes_structures/out_data",
-    "data_structures.pickle",
-
-    # "workflow/ml_modelling",
-    # "workflow/ml_modelling/processing_bulk_dft/static_prototypes_structures/out_data",
-    # "static_prototypes_structures/out_data",
-    )
+    "data_structures.pickle")
 
 static_irox_structures_kirsten_path = os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling/processing_bulk_dft",
     "static_prototypes_structures/out_data",
+    "data_structures_kirsten.pickle")
 
-    # "workflow/ml_modelling",
-    # "static_prototypes_structures/out_data",
-    "data_structures_kirsten.pickle",
-    )
 oqmd_irox_data_path = os.path.join(
     os.environ["PROJ_irox"],
-    # "workflow/ml_modelling/create_oqmd_data_df/out_data",
     "workflow/ml_modelling/processing_bulk_dft",
     "parse_oqmd_data/out_data",
     "df_oqmd_data.pickle")
 
 
 # Fingerprints ################################################################
-# TODO COMBAK
-# /home/raulf2012/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER
 
 fp_base_path = os.path.join(
     os.environ["PROJ_irox"],
@@ -715,8 +646,7 @@ oer_bulk_structures_path = os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling/processing_bulk_dft",
     "parse_my_oer_bulk_dft/out_data",
-    "df_oer_bulk.pickle",
-    )
+    "df_oer_bulk.pickle")
 
 
 # #############################################################################
@@ -732,25 +662,20 @@ df_dij_path = os.path.join(
     "workflow/ml_modelling/ccf_similarity_analysis/compute_ccf_and_dij_matrix",
     "out_data/df_d_ij_all.pickle")
 
-# /mnt/c/Users/raulf2012/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER
 
 ids_to_discard__too_many_atoms_path = os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling/processing_bulk_dft/static_prototypes_structures/out_data",
-    # "workflow/ml_modelling/static_prototypes_structures/out_data",
-    "ids_to_discard__too_many_atoms.pickle"
-    )
+    "ids_to_discard__too_many_atoms.pickle")
 
 
 ids_duplicates_path = os.path.join(
     os.environ["PROJ_irox"],
-    # "workflow/ml_modelling/00_ml_workflow/191102_new_workflow/get_duplicates_from_al",
     "workflow/ml_modelling/00_ml_workflow/get_duplicates_from_al",
     "out_data/duplicates.pickle")
 
 
 # Prototype Classification Analysis
-
 df_prototype_dft_path = os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling/processing_bulk_dft/symmetry_analysis_dft_static",
@@ -767,26 +692,6 @@ df_dft_final_final_path = os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling/processing_bulk_dft/creating_final_dataset_for_upload",
     "out_data/df_dft_final_no_dupl.pickle")
-
-#  /mnt/f/Dropbox/01_norskov/00_git_repos/PROJ_IrOx_Active_Learning_OER
-
-
-# | - __old__
-# voronoi_features_data_path = os.path.join(
-#     os.environ["PROJ_irox"],
-#     "workflow/ml_modelling/00_ml_workflow",
-#     "190611_new_workflow/01_data_coll_feat/out_data",
-#     "df_features_pca.pickle",
-#     )
-#
-# voronoi_features_all_data_path = os.path.join(
-#     os.environ["PROJ_irox"],
-#     "workflow/ml_modelling/00_ml_workflow",
-#     "190611_new_workflow/01_data_coll_feat/out_data",
-#     "df_features.pickle",
-#     )
-#__|
-
 #__|
 
 
@@ -807,4 +712,63 @@ def get_relative_path_to_proj(path):
 sys.path.insert(0, os.path.join(
     os.environ["PROJ_irox"],
     "workflow/ml_modelling/00_ml_workflow/191102_new_workflow"))
+#__|
+
+
+#| - __old__
+
+
+# | - NEW | Attempt to automate the calculation of the adsorbate FE corr dict
+# 0.42611961567987805
+
+
+# def calc_ads_corr_i(
+#     ads_spec,
+#     ads_fe_dict,
+#     h2o_corr,
+#     h2_corr,
+#     ):
+#     """
+#     """
+#     # | - calc_ads_corr_i
+#     if ads_spec == "oh":
+#         num_H = 1
+#         num_O = 1
+#     elif ads_spec == "o":
+#         num_H = 0
+#         num_O = 1
+#     elif ads_spec == "ooh":
+#         num_H = 1
+#         num_O = 2
+#
+#     corr_i = (0. +
+#
+#         + ( 0. +
+#             + ads_fe_dict[ads_spec]["zpe"] +
+#             + ads_fe_dict[ads_spec]["cv"] +
+#             - ads_fe_dict[ads_spec]["ts"]
+#             ) +
+#
+#         - (0. +
+#             + (num_O) * h2o_corr +
+#             + ((num_H - num_O * 2.) / 2.) * h2_corr
+#             )
+#
+#         )
+#
+#     return(corr_i)
+#     #__|
+#
+# corr_oh = calc_ads_corr_i("oh", ads_fe_dict, h2o_corr, h2_corr)
+# corr_o = calc_ads_corr_i("o", ads_fe_dict, h2o_corr, h2_corr)
+# corr_ooh = calc_ads_corr_i("ooh", ads_fe_dict, h2o_corr, h2_corr)
+#
+# corrections_dict_tmp = {
+#     "ooh": corr_ooh,
+#     "o": corr_o,
+#     "oh": corr_oh,
+#     "bare": 0.,
+#     }
+#__|
+
 #__|
